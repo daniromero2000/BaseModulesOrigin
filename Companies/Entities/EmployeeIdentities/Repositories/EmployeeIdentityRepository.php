@@ -1,0 +1,52 @@
+<?php
+
+namespace Modules\Companies\Entities\EmployeeIdentities\Repositories;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Modules\Companies\Entities\EmployeeIdentities\EmployeeIdentity;
+use Modules\Companies\Entities\EmployeeIdentities\Repositories\Interfaces\EmployeeIdentityRepositoryInterface;
+use Illuminate\Database\QueryException;
+
+
+class EmployeeIdentityRepository implements EmployeeIdentityRepositoryInterface
+{
+    protected $model;
+    private $columns = ['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'status', 'created_at'];
+
+    public function __construct(
+        EmployeeIdentity $employeeIdentity
+    ) {
+        $this->model = $employeeIdentity;
+    }
+
+    public function createEmployeeIdentity(array $data)
+    {
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function checkIfExists($request)
+    {
+        if ($employeeIdentity = $this->findEmployeeIdentity($request, $this->columns)) {
+            return $employeeIdentity;
+        } else {
+            return;
+        }
+    }
+
+    private function findEmployeeIdentity($data)
+    {
+        try {
+            if (!empty($employeeIdentity = $this->model->where('identity_number', $data)->first())) {
+                return  $employeeIdentity;
+            } else {
+                return;
+            }
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+}
