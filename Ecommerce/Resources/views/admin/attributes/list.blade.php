@@ -29,7 +29,7 @@
                                 <input type="hidden" name="_method" value="delete">
                                 <div class="btn-group">
                                     <a href="{{ route('admin.attributes.values.create', $attribute->id) }}"
-                                        class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Add values</a>
+                                        class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Agregar Valor</a>
                                     <a href="{{ route('admin.attributes.edit', $attribute->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
                                     <button onclick="return confirm('Are you sure?')" type="submit"
