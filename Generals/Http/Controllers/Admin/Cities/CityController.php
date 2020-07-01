@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Cities;
+namespace Modules\Generals\Http\Controllers\Admin\Cities;
 
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use App\Http\Controllers\Controller;

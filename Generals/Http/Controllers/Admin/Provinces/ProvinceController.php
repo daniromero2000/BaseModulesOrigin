@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Provinces;
+namespace Modules\Generals\Http\Controllers\Admin\Provinces;
 
 use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -17,7 +17,7 @@ class ProvinceController extends Controller
 
     public function show(int $countryId, int $provinceId)
     {
-        return view('admin.provinces.show', [
+        return view('generals::admin.provinces.show', [
             'province'  => $this->provinceInterface->findProvinceById($provinceId),
             'countryId' => $countryId,
             'cities'    => $this->provinceInterface->listCities($provinceId)->toArray()

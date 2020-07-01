@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Countries;
+namespace Modules\Generals\Http\Controllers\Admin\Countries;
 
 use Modules\Generals\Entities\Countries\Repositories\CountryRepository;
 use Modules\Generals\Entities\Countries\Repositories\Interfaces\CountryRepositoryInterface;
@@ -18,7 +18,7 @@ class CountryController extends Controller
 
     public function index()
     {
-        return view('admin.countries.list', [
+        return view('generals::admin.countries.list', [
             'countries' =>  $this->countryInterface->listCountries()
         ]);
     }
@@ -28,7 +28,7 @@ class CountryController extends Controller
         $country     = $this->countryInterface->findCountryById($id);
         $countryRepo = new CountryRepository($country);
 
-        return view('admin.countries.show', [
+        return view('generals::admin.countries.show', [
             'country'   => $country,
             'provinces' => $countryRepo->findProvinces()->toArray()
         ]);
