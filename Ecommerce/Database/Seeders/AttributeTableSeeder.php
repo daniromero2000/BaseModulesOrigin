@@ -13,7 +13,7 @@ class AttributeTableSeeder extends Seeder
         $sizeAttr = factory(Attribute::class)->create(['name' => 'Tamaño']);
         factory(AttributeValue::class)->create([
             'value' => 'Pequeño',
-            'attribute_id' => $sizeAttr->id
+            'attribute_id' => $sizeAttr->id,
         ]);
 
         factory(AttributeValue::class)->create([
@@ -39,11 +39,6 @@ class AttributeTableSeeder extends Seeder
 
         factory(AttributeValue::class)->create([
             'value' => 21,
-            'attribute_id' => $tallaAttr->id
-        ]);
-
-        factory(AttributeValue::class)->create([
-            'value' => 22,
             'attribute_id' => $tallaAttr->id
         ]);
 

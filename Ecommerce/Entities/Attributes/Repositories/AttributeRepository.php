@@ -58,7 +58,11 @@ class AttributeRepository implements AttributeRepositoryInterface
 
     public function listAttributes(string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
-        return $this->model->all($this->columns, $orderBy, $sortBy);
+        try {
+            return $this->model->where('is_active', 1)->get($this->columns, $orderBy, $sortBy);
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 
     public function listAttributeValues(): Collection
