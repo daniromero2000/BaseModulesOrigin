@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app')
+@extends('layouts.front.app')
 @section('og')
 <meta property="og:type" content="category" />
 <meta property="og:title" content="{{ $category->name }}" />

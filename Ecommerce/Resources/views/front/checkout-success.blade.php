@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app')
+@extends('layouts.front.app')
 
 @section('content')
 <div class="container product-in-cart-list">

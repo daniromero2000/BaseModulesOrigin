@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app')
+@extends('layouts.front.app')
 @section('content')
 <section class="container content">
     @include('generals::layouts.errors-and-messages')

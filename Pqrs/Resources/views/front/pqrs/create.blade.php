@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app') @section('content') <section class="container-fluid register-page">
+@extends('layouts.front.app') @section('content') <section class="container-fluid register-page">
     @include('generals::layouts.errors-and-messages')<div class="row d-flex justify-content-center d-flex align-items-center">
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="row top-buffer">

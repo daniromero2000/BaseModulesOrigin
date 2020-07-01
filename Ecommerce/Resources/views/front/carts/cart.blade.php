@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app')
+@extends('layouts.front.app')
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/front/cart/app.css')}}">
 @endsection

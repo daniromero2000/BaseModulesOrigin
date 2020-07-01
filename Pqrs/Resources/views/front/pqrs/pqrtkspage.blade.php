@@ -1,4 +1,4 @@
-@extends('generals::layouts.front.app') @section('title', 'Gracias') @section('content') <script async
+@extends('layouts.front.app') @section('title', 'Gracias') @section('content') <script async
     src="https://www.googletagmanager.com/gtag/js?id=UA-126114100-2"></script>
 <script>
     window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date());gtag('config','UA-126114100-2',{'page_title':'Item Thank You Page','page_path':'/itemtkspage'});
