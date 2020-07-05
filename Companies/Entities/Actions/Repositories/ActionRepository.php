@@ -7,6 +7,9 @@ use Modules\Companies\Entities\Actions\Repositories\Interfaces\ActionRepositoryI
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Modules\Companies\Entities\Actions\Exceptions\UpdateActionErrorException;
+use Modules\Companies\Entities\Actions\Exceptions\ActionNotFoundException;
+use Modules\Companies\Entities\Actions\Exceptions\CreateActionErrorException;
 
 class ActionRepository implements ActionRepositoryInterface
 {
@@ -23,7 +26,7 @@ class ActionRepository implements ActionRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateActionErrorException($e);
         }
     }
 
@@ -32,7 +35,7 @@ class ActionRepository implements ActionRepositoryInterface
         try {
             return $this->model->with('role:id,name')->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new ActionNotFoundException($e);
         }
     }
 
@@ -41,7 +44,7 @@ class ActionRepository implements ActionRepositoryInterface
         try {
             return $this->model->update($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new UpdateActionErrorException($e);
         }
     }
 
@@ -86,7 +89,7 @@ class ActionRepository implements ActionRepositoryInterface
         try {
             return $this->model->withTrashed()->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new ActionNotFoundException($e);
         }
     }
 

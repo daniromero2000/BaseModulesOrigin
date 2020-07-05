@@ -5,6 +5,7 @@ namespace Modules\Companies\Entities\EmployeePositions\Repositories;
 use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeePositions\Repositories\Interfaces\EmployeePositionRepositoryInterface;
 use Illuminate\Database\QueryException;
+use Modules\Companies\Entities\EmployeePositions\Exceptions\CreateEmployeePositionErrorException;
 
 class EmployeePositionRepository implements EmployeePositionRepositoryInterface
 {
@@ -22,7 +23,7 @@ class EmployeePositionRepository implements EmployeePositionRepositoryInterface
     try {
       return $this->model->get($this->columns);
     } catch (QueryException $e) {
-      abort(503, $e->getMessage());
+      throw new CreateEmployeePositionErrorException($e);
     }
   }
 }

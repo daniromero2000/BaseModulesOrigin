@@ -5,6 +5,7 @@ namespace Modules\Companies\Entities\EmployeeAddresses\Repositories;
 use Modules\Companies\Entities\EmployeeAddresses\EmployeeAddress;
 use Modules\Companies\Entities\EmployeeAddresses\Repositories\Interfaces\EmployeeAddressRepositoryInterface;
 use Illuminate\Database\QueryException;
+use Modules\Companies\Entities\EmployeeAddresses\Exceptions\CreateEmployeeAddressErrorException;
 
 class EmployeeAddressRepository implements EmployeeAddressRepositoryInterface
 {
@@ -20,7 +21,7 @@ class EmployeeAddressRepository implements EmployeeAddressRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeAddressErrorException($e);
         }
     }
 }

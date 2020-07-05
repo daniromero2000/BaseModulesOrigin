@@ -9,6 +9,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\Companies\Entities\Employees\Exceptions\CreateEmployeeErrorException;
+use Modules\Companies\Entities\Employees\Exceptions\EmployeeNotFoundException;
+use Modules\Companies\Entities\Employees\Exceptions\UpdateEmployeeErrorException;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -54,7 +57,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             $data['password'] = Hash::make($data['password']);
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeErrorException($e);
         }
     }
 
@@ -74,7 +77,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeProfessions:professions_list_id,employee_id,status,created_at'
             ])->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new EmployeeNotFoundException($e);
         }
     }
 
@@ -83,7 +86,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         try {
             return $this->model->withTrashed()->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new EmployeeNotFoundException($e);
         }
     }
 
@@ -96,7 +99,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
             return $this->model->update($params);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new UpdateEmployeeErrorException($e);
         }
     }
 

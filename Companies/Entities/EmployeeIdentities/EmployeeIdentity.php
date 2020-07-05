@@ -11,6 +11,7 @@ use Modules\Generals\Entities\IdentityTypes\IdentityType;
 class EmployeeIdentity extends Model
 {
     use SoftDeletes;
+    protected $table = 'employee_identities';
     public $fillable = [
         'identity_type_id',
         'identity_number',

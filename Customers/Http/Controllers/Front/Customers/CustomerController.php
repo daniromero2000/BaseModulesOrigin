@@ -39,14 +39,14 @@ class CustomerController extends Controller
             return $this->transformCustomer($customer);
         })->all();
 
-        return view('admin.customers.list', [
+        return view('customers::admin.customers.list', [
             'customers' => $this->customerRepoInterface->paginateArrayResults($customers),
         ]);
     }
 
     public function create()
     {
-        return view('admin.customers.create', [
+        return view('customers::admin.customers.create', [
             'statuses' => $this->customerStatusRepo->listCustomerStatuses(),
         ]);
     }
@@ -61,7 +61,7 @@ class CustomerController extends Controller
     public function show(int $id)
     {
         $customer = $this->customerRepoInterface->findCustomerById($id);
-        return view('admin.customers.show', [
+        return view('customers::admin.customers.show', [
             'user'          => auth()->guard('employee')->user(),
             'customer'      => $this->customerRepoInterface->findCustomerById($id),
             'addresses'     => $customer->addresses,

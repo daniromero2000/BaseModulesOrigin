@@ -1,5 +1,7 @@
 <?php
 
+namespace Modules\Generals\Database\factories;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -13,6 +15,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use Illuminate\Database\Eloquent\Factory;
 use Modules\Generals\Entities\Genres\Genre;
 
 $factory->define(Genre::class, function () {

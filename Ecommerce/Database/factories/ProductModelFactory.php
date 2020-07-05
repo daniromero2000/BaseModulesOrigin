@@ -28,7 +28,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
         'description' => $this->faker->paragraph,
         'cover' => $file->store('products', ['disk' => 'public']),
         'quantity' => 10,
-        'price' => 5.00,
+        'price' => 20000.00,
         'is_active' => 1,
         'weight' => 5,
         'mass_unit' => config('shop.weight', 'gms'),

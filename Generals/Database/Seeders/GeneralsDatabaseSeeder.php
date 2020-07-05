@@ -15,7 +15,7 @@ class GeneralsDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(GenreTableSeeder::class);
+        $this->call(GenresTableSeeder::class);
         $this->call(CivilStatusTableSeeder::class);
         $this->call(EconomicActivityTypesTableSeeder::class);
         $this->call(IdentityTypeTableSeeder::class);

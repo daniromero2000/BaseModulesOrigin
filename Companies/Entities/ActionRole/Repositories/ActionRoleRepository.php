@@ -2,9 +2,11 @@
 
 namespace Modules\Companies\Entities\Actions\Repositories;
 
+use Illuminate\Database\QueryException;
 use Modules\Companies\Entities\ActionRole\ActionRole;
 use Modules\Companies\Entities\ActionRole\Repositories\Interfaces\ActionRoleRepositoryInterface;
 use Illuminate\Support\Collection;
+use Modules\Companies\Entities\ActionRole\Exceptions\CreateActionRoleErrorException;
 
 class ActionRoleRepository implements ActionRoleRepositoryInterface
 {
@@ -18,7 +20,11 @@ class ActionRoleRepository implements ActionRoleRepositoryInterface
 
     public function createActionRole(array $data): ActionRole
     {
-        return $this->model->create($data);
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            throw new CreateActionRoleErrorException($e);
+        }
     }
 
     public function listActionRole(): Collection

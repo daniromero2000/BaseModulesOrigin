@@ -5,7 +5,7 @@ namespace Modules\Companies\Entities\EmployeeEmails\Repositories;
 use Modules\Companies\Entities\EmployeeEmails\EmployeeEmail;
 use Modules\Companies\Entities\EmployeeEmails\Repositories\Interfaces\EmployeeEmailRepositoryInterface;
 use Illuminate\Database\QueryException;
-
+use Modules\Companies\Entities\EmployeeEmails\Exceptions\CreateEmployeeEmailErrorException;
 
 class EmployeeEmailRepository implements EmployeeEmailRepositoryInterface
 {
@@ -20,7 +20,7 @@ class EmployeeEmailRepository implements EmployeeEmailRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeEmailErrorException($e);
         }
     }
 }

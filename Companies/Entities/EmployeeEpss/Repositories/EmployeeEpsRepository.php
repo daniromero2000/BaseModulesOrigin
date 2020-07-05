@@ -5,6 +5,7 @@ namespace Modules\Companies\Entities\EmployeeEpss\Repositories;
 use Modules\Companies\Entities\EmployeeEpss\EmployeeEps;
 use Modules\Companies\Entities\EmployeeEpss\Repositories\Interfaces\EmployeeEpsRepositoryInterface;
 use Illuminate\Database\QueryException;
+use Modules\Companies\Entities\EmployeeEpss\Exceptions\CreateEmployeeEpsErrorException;
 
 class EmployeeEpsRepository implements EmployeeEpsRepositoryInterface
 {
@@ -20,7 +21,7 @@ class EmployeeEpsRepository implements EmployeeEpsRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeEpsErrorException($e);
         }
     }
 }

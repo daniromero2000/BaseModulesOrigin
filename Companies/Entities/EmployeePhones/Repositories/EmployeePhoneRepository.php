@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Companies\Entities\EmployeePhones\EmployeePhone;
 use Modules\Companies\Entities\EmployeePhones\Repositories\Interfaces\EmployeePhoneRepositoryInterface;
 use Illuminate\Database\QueryException;
-
+use Modules\Companies\Entities\EmployeePhones\Exceptions\CreateEmployeePhoneErrorException;
+use Modules\Companies\Entities\EmployeePhones\Exceptions\EmployeePhoneNotFoundException;
 
 class EmployeePhoneRepository implements EmployeePhoneRepositoryInterface
 {
@@ -24,7 +25,7 @@ class EmployeePhoneRepository implements EmployeePhoneRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeePhoneErrorException($e);
         }
     }
 
@@ -46,7 +47,7 @@ class EmployeePhoneRepository implements EmployeePhoneRepositoryInterface
                 return;
             }
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new EmployeePhoneNotFoundException($e);
         }
     }
 }

@@ -5,11 +5,11 @@ namespace Modules\Generals\Database\Seeders;
 use Modules\Generals\Entities\Genres\Genre;
 use Illuminate\Database\Seeder;
 
-class GenreTableSeeder extends Seeder
+class GenresTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Genre::class)->create([
+        factory(genre::class)->create([
             'genre'  => 'Hombre',
         ]);
 

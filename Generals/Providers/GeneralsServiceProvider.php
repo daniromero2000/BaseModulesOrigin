@@ -5,6 +5,7 @@ namespace Modules\Generals\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Routing\Router;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
 class GeneralsServiceProvider extends ServiceProvider
 {
@@ -21,11 +22,9 @@ class GeneralsServiceProvider extends ServiceProvider
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
-
         $router->aliasMiddleware('employee', \Modules\Generals\Http\Middleware\RedirectIfNotEmployee::class);
-
-
     }
+
 
     /**
      * Register the service provider.
@@ -91,7 +90,7 @@ class GeneralsServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (!app()->environment('production') && $this->app->runningInConsole()) {
+        if (app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }

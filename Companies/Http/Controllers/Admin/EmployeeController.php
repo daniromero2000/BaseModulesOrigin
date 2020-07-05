@@ -19,6 +19,7 @@ use Modules\Companies\Entities\Roles\Repositories\Interfaces\RoleRepositoryInter
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Modules\Companies\Entities\EmployeePositions\Repositories\Interfaces\EmployeePositionRepositoryInterface;
 use Modules\Companies\Entities\EmployeeCommentaries\Repositories\Interfaces\EmployeeCommentaryRepositoryInterface;
+use Modules\Companies\Entities\Employees\Exceptions\EmployeeNotFoundException;
 use Modules\Companies\Entities\EmployeeStatusesLogs\Repositories\Interfaces\EmployeeStatusesLogRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
@@ -118,6 +119,7 @@ class EmployeeController extends Controller
 
     public function show(int $id)
     {
+        try {
         return view('companies::admin.employees.show', [
             'employee'               => $this->employeeInterface->findEmployeeById($id),
             'cities'                 => $this->cityInterface->listCities(),
@@ -127,6 +129,11 @@ class EmployeeController extends Controller
             'epss'                   => $this->epsInterface->getAllEpsNames(),
             'professions_lists'      => $this->professionsListInterface->getAllProfessionsNames(),
         ]);
+        } catch (EmployeeNotFoundException $e) {
+            request()->session()->flash('error', 'El Empleado que estás buscando no se encuentra');
+
+            return redirect()->route('admin.employees.index');
+        }
     }
 
     public function edit(int $id)

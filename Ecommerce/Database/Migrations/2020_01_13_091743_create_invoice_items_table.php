@@ -36,7 +36,6 @@ class CreateInvoiceItemsTable extends Migration
             $table->decimal('discount_percent', 12, 2)->default(0)->nullable();
             $table->decimal('discount_amount', 12, 2)->default(0)->nullable();
             $table->decimal('base_discount_amount', 12, 2)->default(0)->nullable();
-            $table->json('additional')->nullable();
             $table->timestamps();
         });
     }

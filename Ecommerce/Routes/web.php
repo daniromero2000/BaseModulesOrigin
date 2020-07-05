@@ -14,12 +14,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
-Route::prefix('ecommerce')->group(function () {
-    Route::get('/', 'EcommerceController@index');
-});
-
-
 /**
  * Admin routes
  */
@@ -58,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 Route::namespace('Auth')->group(function () {
     Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
+    Route::resource('auth', 'RegisterController');
 });
 
 Route::namespace('Front')->group(function () {

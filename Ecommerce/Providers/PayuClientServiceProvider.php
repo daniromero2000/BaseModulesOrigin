@@ -42,7 +42,7 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function registerPublishConfig()
     {
-        $publishPath = $this->app['path.config'].DIRECTORY_SEPARATOR.static::CONFIG_FILE_NAME_PAYU.'.php';
+        $publishPath = $this->app['path.config'] . DIRECTORY_SEPARATOR . static::CONFIG_FILE_NAME_PAYU . '.php';
         $this->publishes([$this->getConfigPath() => $publishPath]);
     }
 
@@ -63,9 +63,8 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function getCreatePayuClientClosure()
     {
-            $settings = $this->getSettings();
-            return new PayuClient($settings);
-
+        $settings = $this->getSettings();
+        return new PayuClient($settings);
     }
 
     /**
@@ -73,8 +72,8 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function getConfigPath()
     {
-        $root = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
-        $path = $root.'config'.DIRECTORY_SEPARATOR.static::CONFIG_FILE_NAME_PAYU.'.php';
+        $root = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+        $path = $root . 'config' . DIRECTORY_SEPARATOR . static::CONFIG_FILE_NAME_PAYU . '.php';
 
         return $path;
     }
@@ -107,10 +106,10 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function getBaseConfig()
     {
+
         $path = $this->getConfigPath();
         /** @noinspection PhpIncludeInspection */
         $base = require $path;
-
         return $base;
     }
 }

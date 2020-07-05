@@ -61,9 +61,9 @@ class AttributeController extends Controller
 
     public function edit($id)
     {
-        $attribute = $this->attributeRepo->findAttributeById($id);
-
-        return view('ecommerce::admin.attributes.edit', compact('attribute'));
+        return view('ecommerce::admin.attributes.edit', [
+            'attribute' =>  $this->attributeRepo->findAttributeById($id)
+            ]);
     }
 
     public function update(UpdateAttributeRequest $request, $id)
@@ -85,7 +85,6 @@ class AttributeController extends Controller
     public function destroy($id)
     {
         $this->attributeRepo->findAttributeById($id)->delete();
-
         request()->session()->flash('message', config('messaging.delete'));
 
         return redirect()->route('admin.attributes.index');

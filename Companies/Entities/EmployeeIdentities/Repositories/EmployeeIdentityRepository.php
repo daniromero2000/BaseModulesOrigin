@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Companies\Entities\EmployeeIdentities\EmployeeIdentity;
 use Modules\Companies\Entities\EmployeeIdentities\Repositories\Interfaces\EmployeeIdentityRepositoryInterface;
 use Illuminate\Database\QueryException;
-
+use Modules\Companies\Entities\EmployeeIdentities\Exceptions\CreateEmployeeIdentityErrorException;
+use Modules\Companies\Entities\EmployeeIdentities\Exceptions\EmployeeIdentityNotFoundException;
 
 class EmployeeIdentityRepository implements EmployeeIdentityRepositoryInterface
 {
@@ -24,7 +25,7 @@ class EmployeeIdentityRepository implements EmployeeIdentityRepositoryInterface
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeIdentityErrorException($e);
         }
     }
 
@@ -46,7 +47,7 @@ class EmployeeIdentityRepository implements EmployeeIdentityRepositoryInterface
                 return;
             }
         } catch (ModelNotFoundException $e) {
-            abort(503, $e->getMessage());
+            throw new EmployeeIdentityNotFoundException($e);
         }
     }
 }

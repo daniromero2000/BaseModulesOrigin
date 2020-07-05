@@ -47,14 +47,13 @@ class EcommerceServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        $config = __DIR__ . '/../Config/cart.php';
+        $config = __DIR__ . '/../config/cart.php';
         $this->mergeConfigFrom($config, 'cart');
 
-        $this->publishes([__DIR__ . '/../Config/payees.php' => config_path('payees.php')], 'config');
-        $this->publishes([__DIR__ . '/../Config/bank-transfer.php' => config_path('bank-transfer.php')], 'config');
-        $this->publishes([__DIR__ . '/../Config/cart.php' => config_path('cart.php')], 'config');
-        $this->publishes([__DIR__ . '/../Config/payu.php' => config_path('payu.php')], 'config');
-
+        $this->publishes([__DIR__ . '/../config/payees.php' => config_path('payees.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/bank-transfer.php' => config_path('bank-transfer.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/cart.php' => config_path('cart.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/payu.php' => config_path('payu.php')], 'config');
     }
 
     /**
@@ -99,7 +98,7 @@ class EcommerceServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (!app()->environment('production') && $this->app->runningInConsole()) {
+        if (app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }

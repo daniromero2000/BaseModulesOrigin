@@ -41,9 +41,6 @@ class CreateRefundItemsTable extends Migration
 
             $table->integer('refund_id')->unsigned()->nullable();
             $table->foreign('refund_id')->references('id')->on('refunds')->onDelete('cascade');
-
-
-            $table->json('additional')->nullable();
             $table->timestamps();
         });
     }

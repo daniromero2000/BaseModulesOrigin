@@ -5,7 +5,6 @@ namespace Modules\Companies\Entities\EmployeeCommentaries\Repositories;
 use Modules\Companies\Entities\EmployeeCommentaries\EmployeeCommentary;
 use Modules\Companies\Entities\EmployeeCommentaries\Exceptions\CreateEmployeeCommentaryErrorException;
 use Modules\Companies\Entities\EmployeeCommentaries\Repositories\Interfaces\EmployeeCommentaryRepositoryInterface;
-use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\QueryException;
 
 class EmployeeCommentaryRepository implements EmployeeCommentaryRepositoryInterface
@@ -22,7 +21,7 @@ class EmployeeCommentaryRepository implements EmployeeCommentaryRepositoryInterf
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeCommentaryErrorException($e);
         }
     }
 }

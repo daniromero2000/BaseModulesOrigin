@@ -5,6 +5,7 @@ namespace Modules\Companies\Entities\EmployeeProfessions\Repositories;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeProfessions\Repositories\Interfaces\EmployeeProfessionRepositoryInterface;
 use Illuminate\Database\QueryException;
+use Modules\Companies\Entities\EmployeeProfessions\Exceptions\CreateEmployeeProfessionErrorException;
 
 class EmployeeProfessionRepository implements EmployeeProfessionRepositoryInterface
 {
@@ -18,7 +19,7 @@ class EmployeeProfessionRepository implements EmployeeProfessionRepositoryInterf
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            throw new CreateEmployeeProfessionErrorException($e);
         }
     }
 }
