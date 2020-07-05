@@ -23,6 +23,7 @@ use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use PayPal\Exception\PayPalConnectionException;
 
 class CheckoutController extends Controller
@@ -89,7 +90,7 @@ class CheckoutController extends Controller
             'payments' => $paymentGateways,
             'cartItems' => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
-            'rates' => $rates
+            'rates' => $rates,
         ]);
     }
 
@@ -142,11 +143,11 @@ class CheckoutController extends Controller
                 Cart::tax()
             );
             return redirect()->route('checkout.success')
-            ->with('message', 'Stripe payment successful!');
+                ->with('message', 'Stripe payment successful!');
         } catch (StripeChargingErrorException $e) {
             Log::info($e->getMessage());
             return redirect()->route('checkout.index')
-            ->with('error', 'There is a problem processing your request.');
+                ->with('error', 'There is a problem processing your request.');
         }
     }
 

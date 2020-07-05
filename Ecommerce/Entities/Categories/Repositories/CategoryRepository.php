@@ -33,13 +33,13 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->model = $category;
     }
 
-    public function listCategories(string $order = 'id', string $sort = 'desc', $except = []): Collection
+    public function listCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->orderBy($order, $sort)
             ->get($this->columns)->except($except);
     }
 
-    public function rootCategories(string $order = 'id', string $sort = 'desc', $except = []): Collection
+    public function rootCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->whereIsRoot()
             ->orderBy($order, $sort)

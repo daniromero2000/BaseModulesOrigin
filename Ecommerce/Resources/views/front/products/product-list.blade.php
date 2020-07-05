@@ -2,7 +2,7 @@
 
 <div class="row mx-0 text-center">
     @foreach($products as $product)
-    <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+    <div class="col-xl-4 col-sm-6 col-xs-12 mb-4">
         <div class="single-product">
             <div class="product">
                 @if(isset($product->cover))
@@ -13,23 +13,12 @@
                     </div>
                     <div class="card-body pt-3 pb-0 pr-3 pl-3">
                         <p class="title-product">{{$product->name}}</p>
-                        <p class="mb-1 price-product">${{ number_format($product->price, 2)}}</p>
+                        <p class="mb-1 price-product">${{ number_format($product->price, 0)}}</p>
                     </div>
                     <div class="row justify-content-center">
-                        <form action="{{ route('cart.store') }}" class="form-inline" method="post">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="quantity" value="1" />
-                            <input type="hidden" name="product" value="{{ $product->id }}">
-                            <button class="text-dark btn-reset" id="add-to-cart-btn" type="submit">
-                                <div class="icons-options">
-                                    <i class="fas fa-shopping-cart"></i>
-
-                                </div>
-                            </button>
-                        </form>
-                        <a class="text-dark" data-toggle="modal" data-target="#productModal_{{ $product->id }}">
+                        <a class="text-dark" data-toggle="modal" data-target="#productModal{{ $product->id }}">
                             <div class="icons-options">
-                                <i class="fas fa-eye"></i>
+                                <i class="fas fa-shopping-cart"></i>
                             </div>
                         </a>
                         <a class="text-dark" href="">
@@ -50,12 +39,10 @@
                 @endif
 
             </div>
-            <div class="modal fade" id="productModal_{{ $product->id }}" data-backdrop="static" data-keyboard="false"
-                tabindex="-1" role="dialog" aria-labelledby="productModal_{{ $product->id }}Label" aria-hidden="true">
+            <div class="modal fade" id="productModal{{ $product->id }}" data-backdrop="static" data-keyboard="false"
+                tabindex="-1" role="dialog" aria-labelledby="productModal{{ $product->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-
-
                         <div class="modal-content">
                             <div class="row mx-0 justify-content-end">
                                 <button type="button" class="close mr-2 mt-1" data-dismiss="modal" aria-label="Close">

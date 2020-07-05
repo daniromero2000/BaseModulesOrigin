@@ -37,33 +37,39 @@
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
-                        <div class="form-group">
-                            <label for="productAttribute">Elige Combinación</label> <br />
-                            <select name="productAttribute" id="productAttribute" class="form-control select2">
-                                @foreach($productAttributes as $productAttribute)
-                                <option value="{{ $productAttribute->id }}">
-                                    @foreach($productAttribute->attributesValues as $value)
-                                    {{ $value->attribute->name }} : {{ ucwords($value->value) }}
+                        <div class="w-100">
+                            <div class="form-group  mb-2">
+                                <label class=" mb-2" for="productAttribute"><span class="mr-auto">Elige
+                                        Combinación</span></label> <br />
+                                <select name="productAttribute" id="productAttribute{{$product->id}}"
+                                    class="form-control " style=" display: block; width: 100%; ">
+                                    @foreach($productAttributes as $productAttribute)
+                                    <option value="{{ $productAttribute->id }}">
+                                        @foreach($productAttribute->attributesValues as $value)
+                                        {{ $value->attribute->name }} : {{ ucwords($value->value) }}
+                                        @endforeach
+                                        @if(!is_null($productAttribute->price))
+                                        ( {{ config('cart.currency_symbol') }} {{ $productAttribute->price }})
+                                        @endif
+                                    </option>
                                     @endforeach
-                                    @if(!is_null($productAttribute->price))
-                                    ( {{ config('cart.currency_symbol') }} {{ $productAttribute->price }})
-                                    @endif
-                                </option>
-                                @endforeach
-                            </select>
+                                </select>
+                            </div>
                         </div>
                         <hr>
                         @endif
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control mx-auto" name="quantity" id="quantity"
-                                        placeholder="Cantidad" value="{{ old('quantity') }}" />
+                                    <input type="text" class="form-control mx-auto" name="quantity"
+                                        id="quantity{{$product->id}}" placeholder="Cantidad"
+                                        value="{{ old('quantity') }}" />
                                     <input type="hidden" name="product" value="{{ $product->id }}" />
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
-                                <button type="submit" class="btn button-reset"><i class="fa fa-cart-plus"></i> Agregar
+                                <button type="button" onclick="addCart({{$product->id}},'2')"
+                                    class="btn button-reset"><i class="fa fa-cart-plus"></i> Agregar
                                     al Carrito
                                 </button>
                             </div>

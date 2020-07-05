@@ -49,4 +49,5 @@
 <script src="{{asset('argonTemplate/resources/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('argonTemplate/resources/chart.js/dist/Chart.extension.js')}}"></script>
 <!-- Argon JS -->
+
 <script src="{{asset('argonTemplate/js/argon.js?v=1.1.0')}}"></script>

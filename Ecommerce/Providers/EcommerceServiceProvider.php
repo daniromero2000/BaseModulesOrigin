@@ -4,6 +4,7 @@ namespace Modules\Ecommerce\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Ecommerce\Entities\Categories\Category;
 
 class EcommerceServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,8 @@ class EcommerceServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get();
+        view()->share('categories', $categories);
     }
 
     /**

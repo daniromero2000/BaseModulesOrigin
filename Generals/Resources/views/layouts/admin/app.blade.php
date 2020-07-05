@@ -42,6 +42,7 @@
 
     @include('generals::layouts.admin.scriptInclude')
     @yield('scripts')
+
 </body>
 
 </html>

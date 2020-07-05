@@ -1,4 +1,4 @@
-@extends('customers::Admin.customers.indexCustomers')
+@extends('customers::admin.customers.indexCustomers')
 @section('headerCustomer')
 <div class="header pb-2">
     <div class="container-fluid">

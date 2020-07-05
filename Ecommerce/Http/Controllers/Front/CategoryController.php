@@ -39,7 +39,8 @@ class CategoryController extends Controller
         return view('ecommerce::front.categories.category', [
             'category'  => $category,
             'products'  => $products,
-            'atributes' => $this->attributeInterface->listAttributes()
+            'atributes' => $this->attributeInterface->listAttributes(),
+            'categories' => $this->categoryInterface->listCategories(),
         ]);
     }
 }

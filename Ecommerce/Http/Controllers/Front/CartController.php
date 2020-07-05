@@ -11,6 +11,7 @@ use Modules\Ecommerce\Entities\Products\Product;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
+use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use Modules\Ecommerce\Entities\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,11 +39,11 @@ class CartController extends Controller
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('ecommerce::front.carts.cart', [
-            'cartItems' => $this->cartRepo->getCartItemsTransformed(),
-            'subtotal' => $this->cartRepo->getSubTotal(),
-            'tax' => $this->cartRepo->getTax(),
-            'shippingFee' => $shippingFee,
-            'total' => $this->cartRepo->getTotal(2, $shippingFee)
+            'cartItems'     => $this->cartRepo->getCartItemsTransformed(),
+            'subtotal'      => $this->cartRepo->getSubTotal(),
+            'tax'           => $this->cartRepo->getTax(),
+            'shippingFee'   => $shippingFee,
+            'total'         => $this->cartRepo->getTotal(2, $shippingFee)
         ]);
     }
 
@@ -92,5 +93,23 @@ class CartController extends Controller
 
         request()->session()->flash('message', config('messaging.delete'));
         return redirect()->route('cart.index');
+    }
+
+    public function getCart()
+    {
+        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $data = [];
+        $cartItems = $this->cartRepo->getCartItemsTransformed();
+        foreach ($cartItems as $key => $value) {
+            $data[] = $cartItems[$key];
+        }
+        return  [
+            'cartItems'     => $data,
+            'subtotal'      => $this->cartRepo->getSubTotal(),
+            'tax'           => $this->cartRepo->getTax(),
+            'shippingFee'   => $shippingFee,
+            'total'         => $this->cartRepo->getTotal(2, $shippingFee)
+        ];
     }
 }

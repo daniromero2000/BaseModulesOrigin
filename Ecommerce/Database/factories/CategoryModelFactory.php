@@ -17,13 +17,9 @@ use Illuminate\Http\UploadedFile;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([
-        'Gear',
-        'Ropa',
-        'Zapatos',
-        'Diapering',
-        'Feeding',
-        'Bath',
-        'Juguetes',
+        'Niños',
+        'Niñas',
+        'Fisiológico'
     ]);
 
     $file = UploadedFile::fake()->image('category.png', 600, 600);

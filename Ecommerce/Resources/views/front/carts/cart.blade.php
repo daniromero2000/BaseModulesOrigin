@@ -8,7 +8,6 @@
         Tu compra es <strong>100% segura</strong>
     </div>
     @if(!$cartItems->isEmpty())
-
     <div class="row mx-0 mt-3">
         <div class="col-md-12 px-2">
             <div class="row mx-0 header">
@@ -72,10 +71,10 @@
                     <p>
                         <b class="hidden">Precio:</b>
                         <span><small> DE </span>
-                        <del>{{ number_format($cartItem->price, 2) }} </del> </small>
+                        <del>${{ number_format($cartItem->price, 0) }} </del> </small>
 
                         <span><small> POR </span>
-                        {{ number_format($cartItem->price, 2) }} </small>
+                        ${{ number_format($cartItem->price, 0) }} </small>
                     </p>
 
                 </div>
@@ -84,7 +83,7 @@
                     <p class="small-reset">
                         <b class="hidden">Total:</b>
                         {{config('cart.currency')}}
-                        {{ number_format(($cartItem->qty*$cartItem->price), 2) }}</small>
+                        ${{ number_format(($cartItem->qty*$cartItem->price), 0) }}</small>
                     </p>
                 </div>
                 <div class="col-xl-1 col-md-1 col-sm-2 col-1 text-center px-0 options">
@@ -136,18 +135,15 @@
                 <div class="mx-auto" style=" max-width: 325px; ">
                     <div class="row py-2 px-5 ">
                         <div class="col-12 mt-2 justify-content-between d-flex">SUBTOTAL
-                            <b>{{ number_format($subtotal, 0) }}</b></div>
+                            <b>${{ number_format($subtotal, 0) }}</b></div>
                         @if(isset($shippingFee) && $shippingFee != 0)
                         <div class="col-12 mt-2 justify-content-between d-flex">ENVIÓ <b>{{ $shippingFee }}</b></div>
                         @endif
-                        <div class="col-12 mt-2 justify-content-between d-flex">DESCUENTOS
-                            <b>0</b>
-                        </div>
-                        <div class="col-12 mt-2 justify-content-between d-flex">IVA
-                            <b>{{ $tax, 0 }}</b>
+                        <div class="col-12 mt-2 justify-content-between d-flex">IMPUESTOS
+                            <b>${{ number_format($tax, 0) }}</b>
                         </div>
                         <div class="col-12 mt-2 justify-content-between d-flex">TOTAL
-                            <b>{{ number_format($total, 0) }}</b></div>
+                            <b>${{ number_format($total, 0) }}</b></div>
                         <div class="mt-4 d-flex mx-auto">
                             <a href="{{ route('checkout.index') }}"
                                 class="btn bg-blue-page text-white mx-auto"><b>FINALIZAR
@@ -183,27 +179,4 @@
 </div>
 @endsection
 @section('scripts')
-<script>
-    $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-<script>
-    function minus(dataId) {
-        $('#qty_input'+ dataId).val(parseInt($('#qty_input'+dataId).val()) - 1 );
-        if ($('#qty_input' + dataId).val() == 0) {
-        $('#qty_input' + dataId).val(1);
-         }
-
-         $('#qty_input_real'+ dataId).val(parseInt($('#qty_input_real'+dataId).val()) - 1 );
-        if ($('#qty_input_real' + dataId).val() == 0) {
-        $('#qty_input_real' + dataId).val(1);
-        }
-    }
-
-    function max(dataId) {
-    $('#qty_input'+ dataId).val(parseInt($('#qty_input'+dataId).val()) + 1 );
-    $('#qty_input_real'+ dataId).val(parseInt($('#qty_input_real'+dataId).val()) + 1 );
-    }
-</script>
 @endsection
