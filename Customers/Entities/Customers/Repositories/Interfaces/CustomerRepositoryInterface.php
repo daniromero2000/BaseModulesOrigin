@@ -30,5 +30,7 @@ interface CustomerRepositoryInterface
 
     public function sendEmailNotificationToAdmin($customer);
 
+    public function checkForLogin($email);
+
     public function findOrders($columns = ['*'], string $orderBy = 'id'): Collection;
 }

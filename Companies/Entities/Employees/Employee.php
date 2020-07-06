@@ -36,7 +36,7 @@ class Employee extends Authenticatable
         'email',
         'password',
         'phone',
-        'status',
+        'is_active',
         'company_id',
         'employee_position_id'
     ];
@@ -46,9 +46,9 @@ class Employee extends Authenticatable
         'remember_token',
         'created_at',
         'deleted_at',
-        'status',
         'updated_at',
         'relevance',
+        'is_active',
         'employee_position_id',
     ];
 

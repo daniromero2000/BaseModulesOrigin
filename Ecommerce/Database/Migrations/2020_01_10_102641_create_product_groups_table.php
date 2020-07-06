@@ -16,6 +16,7 @@ class CreateProductGroupsTable extends Migration
         Schema::create('product_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->boolean('is_visible_on_front')->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

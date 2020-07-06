@@ -112,9 +112,9 @@ class PqrRepository implements PqrRepositoryInterface
     public function searchTrashedPqr(string $text = null): Collection
     {
         if (is_null($text)) {
-            return $this->model->onlyTrashed($text)->get();
+            return $this->model->onlyTrashed($text)->get($this->columns);
         }
-        return $this->model->onlyTrashed()->get();
+        return $this->model->onlyTrashed()->get($this->columns);
     }
 
     public function recoverTrashedPqr(): bool

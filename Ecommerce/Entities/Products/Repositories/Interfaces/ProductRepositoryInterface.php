@@ -51,6 +51,8 @@ interface ProductRepositoryInterface
 
     public function listProductAttributes(): Collection;
 
+    public function listProductGroups($group): Collection;
+
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool;
 
     public function saveCombination(ProductAttribute $productAttribute, AttributeValue ...$attributeValues): Collection;

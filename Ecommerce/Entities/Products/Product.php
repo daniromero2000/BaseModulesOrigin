@@ -19,18 +19,18 @@ class Product extends Model implements Buyable
     protected $table = 'products';
 
     public const MASS_UNIT = [
-        'OUNCES' => 'oz',
-        'GRAMS' => 'gms',
-        'POUNDS' => 'lbs'
+        'ONZAS' => 'oz',
+        'GRAMOS' => 'gms',
+        'LIBRAS' => 'lbs'
     ];
 
     public const DISTANCE_UNIT = [
-        'CENTIMETER' => 'cm',
-        'METER' => 'mtr',
-        'INCH' => 'in',
-        'MILIMETER' => 'mm',
-        'FOOT' => 'ft',
-        'YARD' => 'yd'
+        'CENTIMETROS' => 'cm',
+        'METROS' => 'mtr',
+        'PULGADAS' => 'in',
+        'MILIMETROS' => 'mm',
+        'PIES' => 'ft',
+        'YARDAS' => 'yd'
     ];
 
     protected $searchable = [

@@ -73,7 +73,7 @@ class ActionRepository implements ActionRepositoryInterface
         if (is_null($text)) {
             return $this->model->get($this->columns);
         }
-        return $this->model->searchAction($text)->get();
+        return $this->model->searchAction($text)->get($this->columns);
     }
 
     public function searchTrashedAction(string $text = null): Collection

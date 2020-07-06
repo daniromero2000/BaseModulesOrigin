@@ -10,6 +10,8 @@ interface CategoryRepositoryInterface
 {
     public function listCategories(string $order = 'id', string $sort = 'desc', $except = []): Collection;
 
+    public function listFrontCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection;
+
     public function createCategory(array $params): Category;
 
     public function updateCategory(array $params): Category;

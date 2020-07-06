@@ -2,7 +2,7 @@
 
 <div class="row mx-0 text-center">
     @foreach($products as $product)
-    <div class="col-xl-4 col-sm-6 col-xs-12 mb-4">
+    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-xs-12 mb-4">
         <div class="single-product">
             <div class="product">
                 @if(isset($product->cover))
@@ -18,7 +18,7 @@
                     <div class="row justify-content-center">
                         <a class="text-dark" data-toggle="modal" data-target="#productModal{{ $product->id }}">
                             <div class="icons-options">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fas fa-eye"></i>
                             </div>
                         </a>
                         <a class="text-dark" href="">

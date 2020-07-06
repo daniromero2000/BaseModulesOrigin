@@ -120,15 +120,15 @@ class EmployeeController extends Controller
     public function show(int $id)
     {
         try {
-        return view('companies::admin.employees.show', [
-            'employee'               => $this->employeeInterface->findEmployeeById($id),
-            'cities'                 => $this->cityInterface->listCities(),
-            'identity_types'         => $this->identityTypeInterface->getAllIdentityTypesNames(),
-            'stratums'               => $this->stratumInterface->getAllStratumsNames(),
-            'housings'               => $this->housingInterface->getAllHousingsNames(),
-            'epss'                   => $this->epsInterface->getAllEpsNames(),
-            'professions_lists'      => $this->professionsListInterface->getAllProfessionsNames(),
-        ]);
+            return view('companies::admin.employees.show', [
+                'employee'               => $this->employeeInterface->findEmployeeById($id),
+                'cities'                 => $this->cityInterface->listCities(),
+                'identity_types'         => $this->identityTypeInterface->getAllIdentityTypesNames(),
+                'stratums'               => $this->stratumInterface->getAllStratumsNames(),
+                'housings'               => $this->housingInterface->getAllHousingsNames(),
+                'epss'                   => $this->epsInterface->getAllEpsNames(),
+                'professions_lists'      => $this->professionsListInterface->getAllProfessionsNames(),
+            ]);
         } catch (EmployeeNotFoundException $e) {
             request()->session()->flash('error', 'El Empleado que estás buscando no se encuentra');
 

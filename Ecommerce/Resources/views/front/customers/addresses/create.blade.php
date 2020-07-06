@@ -10,12 +10,12 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="alias">Alias <span class="text-danger">*</span></label>
-                    <input type="text" name="alias" id="alias" placeholder="Home or Office" class="form-control"
+                    <input type="text" name="alias" id="alias" placeholder="Casa u Oficina" class="form-control"
                         value="{{ old('alias') }}">
                 </div>
                 <div class="form-group">
                     <label for="customer_address">Dirección <span class="text-danger">*</span></label>
-                    <input type="text" name="customer_address" id="customer_address" placeholder="customer_address 1"
+                    <input type="text" name="customer_address" id="customer_address" placeholder="Dirección"
                         class="form-control" value="{{ old('customer_address') }}">
                 </div>
                 <div class="form-group">
@@ -29,11 +29,6 @@
                 </div>
                 <div id="provinces" class="form-group" style="display: none;"></div>
                 <div id="cities" class="form-group" style="display: none;"></div>
-                <div class="form-group">
-                    <label for="zip">Zip Code </label>
-                    <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control"
-                        value="{{ old('zip') }}">
-                </div>
                 <div class="form-group">
                     <label for="phone">Tu Teléfono </label>
                     <input type="text" name="phone" id="phone" placeholder="Phone number" class="form-control"

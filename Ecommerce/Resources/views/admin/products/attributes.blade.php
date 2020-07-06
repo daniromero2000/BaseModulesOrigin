@@ -37,7 +37,7 @@
                             @endif
                         </td>
                         <td class="table-actions">
-                            <a onclick="return confirm('Are you sure?')"
+                            <a onclick="return confirm('¿Estás Seguro?')"
                                 href="{{ route('admin.products.edit', [$product->id, 'combination' => 1, 'delete' => 1, 'pa' => $pa->id]) }}"
                                 class="table-action table-action-delete button-reset" data-toggle="tooltip"
                                 data-original-title="Borrar">

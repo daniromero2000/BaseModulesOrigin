@@ -17,6 +17,7 @@ class AttributeRepository implements AttributeRepositoryInterface
     private $columns = [
         'id',
         'name',
+        'is_active'
     ];
 
     public function __construct(Attribute $attribute)
@@ -61,7 +62,7 @@ class AttributeRepository implements AttributeRepositoryInterface
         try {
             return $this->model->where('is_active', 1)->get($this->columns, $orderBy, $sortBy);
         } catch (QueryException $e) {
-            dd($e);
+            abort(503, $e->getMessage());
         }
     }
 

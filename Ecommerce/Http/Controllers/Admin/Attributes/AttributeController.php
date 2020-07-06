@@ -63,7 +63,7 @@ class AttributeController extends Controller
     {
         return view('ecommerce::admin.attributes.edit', [
             'attribute' =>  $this->attributeRepo->findAttributeById($id)
-            ]);
+        ]);
     }
 
     public function update(UpdateAttributeRequest $request, $id)

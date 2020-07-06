@@ -28,7 +28,7 @@
                                 <div class="btn-group">
                                     <a href="{{ route('admin.order-statuses.edit', $status->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
-                                    <button onclick="return confirm('Are you sure?')" type="submit"
+                                    <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                                         class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Borrar</button>
                                 </div>
                             </form>

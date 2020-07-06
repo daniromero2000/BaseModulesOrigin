@@ -174,7 +174,7 @@
                                                 {{ csrf_field() }}
                                                 <a href="{{ route('customer.address.edit', [auth()->user()->id, $address->id]) }}"
                                                     class="btn btn-primary"> <i class="fa fa-pencil"></i> Editar</a>
-                                                <button onclick="return confirm('Are you sure?')" type="submit"
+                                                <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                                                     class="btn btn-danger"> <i class="fa fa-trash"></i> Borrar</button>
                                             </div>
                                         </form>

@@ -1,4 +1,22 @@
 @extends('generals::layouts.admin.app')
+@section('header')
+<div class="header pb-2">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" active aria-current="page">Editar Categoría</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
@@ -31,7 +49,7 @@
                 @if(isset($category->cover))
                 <div class="form-group">
                     <img src="{{ asset("storage/$category->cover") }}" alt="" class="img-responsive"> <br />
-                    <a onclick="return confirm('Are you sure?')"
+                    <a onclick="return confirm('¿Estás Seguro?')"
                         href="{{ route('admin.category.remove.image', ['category' => $category->id]) }}"
                         class="btn btn-danger">Remover imagen?</a>
                 </div>
@@ -40,12 +58,11 @@
                     <label for="cover">Cover </label>
                     <input type="file" name="cover" id="cover" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="status">Estado </label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="0" @if($category->status == 0) selected="selected" @endif>Deshabilitado</option>
-                        <option value="1" @if($category->status == 1) selected="selected" @endif>Habilitado</option>
-                    </select>
+               <div class="col-sm  -6">
+                    <div class="form-group">
+                        @include('ecommerce::admin.shared.status-select', ['status' =>
+                        $category->is_active])
+                    </div>
                 </div>
             </div>
             <div class="box-footer">

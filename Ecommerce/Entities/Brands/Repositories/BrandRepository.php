@@ -18,8 +18,9 @@ class BrandRepository implements BrandRepositoryInterface
     private $columns = [
         'id',
         'name',
-        'Slug',
-        'logo'
+        'slug',
+        'logo',
+        'is_active'
     ];
 
     public function __construct(Brand $brand)

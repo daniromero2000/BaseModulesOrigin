@@ -42,11 +42,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="zip">Zip Code </label>
-                    <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control"
-                        value="{{ old('zip') }}">
-                </div>
-                <div class="form-group">
                     <label for="status">Estado </label>
                     <select name="status" id="status" class="form-control">
                         <option value="0">Deshabilitada</option>

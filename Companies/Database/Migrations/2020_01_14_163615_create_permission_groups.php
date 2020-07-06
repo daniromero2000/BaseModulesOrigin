@@ -16,6 +16,8 @@ class CreatePermissionGroups extends Migration
         Schema::create('permission_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->tinyInteger('group_order')->unsigned()->default(1);
+            $table->tinyInteger('status')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

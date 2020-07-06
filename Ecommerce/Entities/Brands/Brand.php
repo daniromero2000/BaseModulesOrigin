@@ -12,7 +12,8 @@ class Brand extends Model
     protected $table = 'brands';
 
     protected $fillable = [
-        'name'
+        'name',
+        'is_active'
     ];
 
     protected $hidden = [

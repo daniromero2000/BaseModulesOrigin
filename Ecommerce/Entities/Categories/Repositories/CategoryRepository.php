@@ -39,6 +39,12 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->get($this->columns)->except($except);
     }
 
+    public function listFrontCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
+    {
+        return $this->model->where('is_active', 1)->orderBy($order, $sort)
+            ->get($this->columns)->except($except);
+    }
+
     public function rootCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->whereIsRoot()

@@ -19,11 +19,8 @@ use Modules\Companies\Entities\Employees\Employee;
 
 $factory->define(DepartmentEmployee::class, function () {
 
-    $department = factory(Department::class)->create();
-    $employee = factory(Employee::class)->create();
-
     return [
-        'department_id' => $department->id,
-        'employee_id' =>  $employee->id,
+        'department_id' => 1,
+        'employee_id' =>  1
     ];
 });

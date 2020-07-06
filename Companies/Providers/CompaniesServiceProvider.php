@@ -94,6 +94,8 @@ class CompaniesServiceProvider extends ServiceProvider
     {
         if (app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(__DIR__ . '/../Database/factories');
+        } else {
+            app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }
 

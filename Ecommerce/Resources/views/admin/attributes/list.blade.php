@@ -1,5 +1,22 @@
 @extends('generals::layouts.admin.app')
-
+@section('header')
+<div class="header pb-2">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" active aria-current="page">Atributos</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 
 <section class="content">
@@ -11,7 +28,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>Nombre del Atributo/td>
+                        <td>Nombre del Atributo</td>
                         <td></td>
                     </tr>
                 </thead>
@@ -32,7 +49,7 @@
                                         class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Agregar Valor</a>
                                     <a href="{{ route('admin.attributes.edit', $attribute->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
-                                    <button onclick="return confirm('Are you sure?')" type="submit"
+                                    <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                                         class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Borrar</button>
                                 </div>
                             </form>

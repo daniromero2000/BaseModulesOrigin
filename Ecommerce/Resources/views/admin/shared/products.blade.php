@@ -30,7 +30,7 @@
                             data-toggle="tooltip" data-original-title="Editar">
                             <i class="fas fa-user-edit"></i>
                         </a>
-                        <button onclick="return confirm('Are you sure?')" type="submit"
+                        <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                             class="table-action table-action-delete button-reset" data-toggle="tooltip"
                             data-original-title="Borrar">
                             <i class="fas fa-trash"></i>

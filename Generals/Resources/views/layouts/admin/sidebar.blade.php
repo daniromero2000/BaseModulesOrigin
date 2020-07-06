@@ -27,7 +27,6 @@ $permissions = session('permission');
         </div>
         @endforeach
         @endforeach
-
     </li>
     @endforeach
     @endif

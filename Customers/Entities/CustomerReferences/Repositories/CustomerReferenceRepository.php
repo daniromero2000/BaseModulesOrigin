@@ -22,7 +22,6 @@ class CustomerReferenceRepository implements CustomerReferenceRepositoryInterfac
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            dd($e);
             abort(503, $e->getMessage());
         }
     }

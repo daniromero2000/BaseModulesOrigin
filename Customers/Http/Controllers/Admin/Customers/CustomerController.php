@@ -80,17 +80,18 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        return view('customers::admin.customers.list');
+
+        return view('customers::Admin.customers.index');
     }
 
     public function create()
     {
         return view('customers::admin.customers.create', [
-            'genres'         => $this->genreInterface->getAllGenresNames(),
+            'genres'            => $this->genreInterface->getAllGenresNames(),
             'customer_channels' => $this->customerChannelInterface->getAllCustomerChannelNames(),
-            'scholarities'   => $this->scholarityInterface->getAllScholaritiesNames(),
-            'civil_statuses' => $this->civilStatusInterface->getAllCivilStatusesNames(),
-            'cities'         => $this->cityInterface->listCities()
+            'scholarities'      => $this->scholarityInterface->getAllScholaritiesNames(),
+            'civil_statuses'    => $this->civilStatusInterface->getAllCivilStatusesNames(),
+            'cities'            => $this->cityInterface->listCities()
         ]);
     }
 

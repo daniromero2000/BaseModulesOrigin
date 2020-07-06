@@ -23,6 +23,6 @@ $factory->define(Department::class, function () {
     return [
         'name'          => 'Gestión Humana',
         'phone'         => 3183643,
-        'subsidiary_id' => $subsidiary->id
+        'subsidiary_id' => 1
     ];
 });

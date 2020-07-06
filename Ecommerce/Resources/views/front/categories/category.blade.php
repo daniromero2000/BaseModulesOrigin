@@ -12,7 +12,6 @@
 @endsection
 @section('content')
 <div class="wrapper">
-    <!-- Sidebar  -->
     <nav id="sidebar">
         <div id="dismiss">
             <i class="fas fa-arrow-left"></i>
@@ -32,9 +31,9 @@
         <div class="container-reset">
             <div class="row mx-auto">
                 <div class="col-lg-3">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="container-fluid">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="sidebarCollapse">
+                        <div class="container-fluid mb-3">
+                            <button type="button" class="btn btn-info">
                                 <i class="fas fa-align-left"></i>
                                 Categorias
                             </button>
@@ -44,16 +43,22 @@
                         @include('ecommerce::front.categories.sidebar-category')
                     </div>
                 </div>
-                <div class="col-md-9 pr-1">
+                <div class="col-lg-9 pr-1">
                     @include('ecommerce::front.products.product-list', ['products' => $products])
                 </div>
+            </div>
+        </div>
+        <div class="w-100 background-color-blue">
+            <div class="container-lg py-5 px-2">
+                <a href="">
+                    <img src="{{ asset('img/FVN/footerCategory.png')}}" class="d-block w-100" alt="...">
+                </a>
             </div>
         </div>
     </div>
 </div>
 <div class="overlay"></div>
 @endsection
-
 @section('scripts')
 <script src="{{ asset('js/front/sidebar/sidebar.js') }}"></script>
 

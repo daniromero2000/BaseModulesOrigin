@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 class PermissionGroupRepository implements PermissionGroupRepositoryInterface
 {
     protected $model;
-    private $columns = ['id', 'name'];
+    private $columns = ['id', 'name', 'group_order'];
 
     public function __construct(PermissionGroup $permissionGroup)
     {

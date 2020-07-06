@@ -16,8 +16,6 @@
 use Modules\Companies\Entities\Companies\Company;
 
 $factory->define(Company::class, function () {
-
-
     return [
         'name'          => 'FVN',
         'city_id'         => 1,

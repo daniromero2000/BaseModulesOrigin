@@ -261,7 +261,7 @@
                                                             <img src="{{ asset("storage/$image->src") }}"
                                                                 alt="{{ $image->src }}"
                                                                 style="border-radius: 15px;max-height: 220px;">
-                                                            <a onclick="return confirm('Are you sure?')"
+                                                            <a onclick="return confirm('¿Estás Seguro?')"
                                                                 href="{{ route('admin.product.remove.thumb', ['src' => $image->src]) }}"
                                                                 class="btn btn-danger remove-img btn-sm btn-block">X</a>
                                                         </div>

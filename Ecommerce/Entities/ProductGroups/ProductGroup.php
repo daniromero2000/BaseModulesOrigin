@@ -4,6 +4,7 @@ namespace Modules\Ecommerce\Entities\ProductGroups;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Ecommerce\Entities\Products\Product;
 
 class ProductGroup extends Model
 {
@@ -33,6 +34,6 @@ class ProductGroup extends Model
 
     public function productGroups()
     {
-        return $this->belongsToMany(ProductGroup::class);
+        return $this->belongsToMany(Product::class);
     }
 }

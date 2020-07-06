@@ -4,9 +4,6 @@ namespace Modules\Ecommerce\Entities\Checkout;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
-use Kalnoy\Nestedset\QueryBuilder;
-use Modules\Ecommerce\Entities\Carts\Repositories\CartRepository;
-use Modules\Ecommerce\Entities\Carts\ShoppingCart;
 use Modules\Ecommerce\Entities\Checkout\Checkout;
 use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
 use Modules\Ecommerce\Entities\Products\Product;
@@ -44,14 +41,14 @@ class CheckoutRepository
                 'product_attribute_id' => isset($data['product_attribute_id']) ? $data['product_attribute_id'] : null,
             ]);
         } catch (QueryException $e) {
-            dd($e);
+            abort(503, $e->getMessage());
         }
     }
 
     public function getLastCheckout(): Checkout
     {
         try {
-           return  $this->model->get()->last();
+            return  $this->model->get()->last();
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -63,7 +60,7 @@ class CheckoutRepository
             $this->model->products()->detach();
             return $this->model->where('id', $this->model->id)->delete();
         } catch (QueryException $e) {
-            dd($e);
+            abort(503, $e->getMessage());
         }
         return true;
     }
@@ -74,9 +71,8 @@ class CheckoutRepository
             $this->model->products()->detach();
             return $this->model->where('id', $checkout->id)->forceDelete();
         } catch (QueryException $e) {
-            dd($e);
+            abort(503, $e->getMessage());
         }
-
     }
 
     public function buildCheckoutDetails(Collection $items)

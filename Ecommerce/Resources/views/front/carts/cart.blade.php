@@ -58,6 +58,9 @@
                                 <button type="button" class="btn btn-sm plus-btn" onclick="max({{$cartItem->id}})"
                                     id="plus-btn{{$cartItem->id}}"><i class="fa fa-plus"></i></button>
                             </div>
+                            <input type="hidden" id="row{{$cartItem->id}}" value="{{$cartItem->rowId}}">
+                            <input type="hidden" id="qty_input_real{{$cartItem->id}}" name="quantity" class=""
+                                value="{{ $cartItem->qty }}" min="1">
                         </div>
                     </div>
                 </div>
@@ -94,14 +97,6 @@
                             <button data-toggle="tooltip" data-placement="top" title="Remover"
                                 onclick="return confirm('Estas seguro?')" class="btn btn-sm"><i
                                     class="fa fa-times"></i></button>
-                        </form>
-                        <form action=" {{ route('cart.update', $cartItem->rowId) }}" class="form-inline" method="post">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="_method" value="put">
-                            <input type="hidden" id="qty_input_real{{$cartItem->id}}" name="quantity" class=""
-                                value="{{ $cartItem->qty }}" min="1">
-                            <button data-toggle="tooltip" data-placement="top" title="Actualizar" class="btn btn-sm"><i
-                                    class="fas fa-check"></i></button>
                         </form>
                     </div>
                 </div>

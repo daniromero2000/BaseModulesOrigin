@@ -30,7 +30,6 @@ class CustomerRepository implements CustomerRepositoryInterface
         'civil_status_id',
         'genre_id',
         'customer_status_id',
-        'is_active',
         'created_at'
     ];
 
@@ -149,9 +148,9 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function searchTrashedCustomer(string $text = null): Collection
     {
         if (is_null($text)) {
-            return $this->model->onlyTrashed($text)->get();
+            return $this->model->onlyTrashed($text)->get($this->columns);
         }
-        return $this->model->onlyTrashed()->get();
+        return $this->model->onlyTrashed()->get($this->columns);
     }
 
     public function recoverTrashedCustomer(): bool
@@ -183,6 +182,14 @@ class CustomerRepository implements CustomerRepositoryInterface
         }
     }
 
+    public function checkForLogin($email)
+    {
+        try {
+            return $this->model->where('email', $email)->first(['id', 'email', 'password']);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
 
     public function findOrders($columns = ['*'], string $orderBy = 'id'): Collection
     {

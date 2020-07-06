@@ -40,10 +40,11 @@ class PqrsServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('pqrs.php'),
+            __DIR__ . '/../Config/config.php' => config_path('pqrs.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'pqrs'
+            __DIR__ . '/../Config/config.php',
+            'pqrs'
         );
     }
 
@@ -55,11 +56,11 @@ class PqrsServiceProvider extends ServiceProvider
     public function registerViews()
     {
         $viewPath   = resource_path('views/modules/pqrs');
-        $sourcePath = __DIR__.'/../Resources/views';
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
-        ],'views');
+        ], 'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path . '/modules/pqrs';
@@ -78,7 +79,7 @@ class PqrsServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'pqrs');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'pqrs');
+            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'pqrs');
         }
     }
 
@@ -89,7 +90,9 @@ class PqrsServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (app()->environment('production') && $this->app->runningInConsole()) {
+            app(Factory::class)->load(__DIR__ . '/../Database/factories');
+        } else {
             app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }

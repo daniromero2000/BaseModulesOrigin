@@ -39,6 +39,7 @@ class CreateProductsTable extends Migration
             $table->string('mass_unit')->nullable();
             $table->integer('tax_id')->unsigned()->index();
             $table->foreign('tax_id')->references('id')->on('taxes');
+            $table->boolean('is_visible_on_front')->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

@@ -106,7 +106,6 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function getBaseConfig()
     {
-
         $path = $this->getConfigPath();
         /** @noinspection PhpIncludeInspection */
         $base = require $path;

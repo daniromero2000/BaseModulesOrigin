@@ -20,7 +20,7 @@
                 <td class="text-center">@if($department->name != ''){{ $department->name }}@else NA @endif</td>
                 @endforeach
                 <td class="text-center">
-                    @include('generals::layouts.status', ['status' => $data->status])</td>
+                    @include('generals::layouts.status', ['status' => $data->is_active])</td>
                 <td class="text-center">
                     @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])
                 </td>

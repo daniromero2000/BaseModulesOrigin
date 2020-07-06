@@ -16,18 +16,22 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         $permissionGroupAdmon = factory(PermissionGroup::class)->create([
-            'name' => 'Administrativos'
+            'name' => 'Administrativos',
+            'group_order' => 4
         ]);
 
         $permissionGroupCatalog = factory(PermissionGroup::class)->create([
-            'name' => 'Ecommerce'
+            'name' => 'Ecommerce',
+            'group_order' => 2
         ]);
         $permissionGroupPqrs = factory(PermissionGroup::class)->create([
-            'name' => 'Pqrs'
+            'name' => 'Pqrs',
+            'group_order' => 3
         ]);
 
         $permissionGroupCustomers = factory(PermissionGroup::class)->create([
-            'name' => 'Clientes'
+            'name' => 'Clientes',
+            'group_order' =>  1
         ]);
 
 

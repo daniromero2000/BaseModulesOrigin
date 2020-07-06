@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUParameters;
 use Ramsey\Uuid\Uuid;
 use Shippo_Shipment;
 use Shippo_Transaction;
@@ -64,7 +65,8 @@ class PaymentsController extends Controller
         $settings = config('payu');
         $payuClient = new PayuClient($settings);
 
-        $this->doPing($payuClient);
+
+        $this->pay($payuClient);
         return view('ecommerce::front.payu-redirect', [
             'subtotal'       => $this->cartRepo->getSubTotal(),
             'shipping'       => $this->shippingFee,
@@ -135,31 +137,47 @@ class PaymentsController extends Controller
     }
 
 
-public function pay(PayuClientInterface $payuClient)
+    public function pay(PayuClientInterface $payuClient)
     {
         // Estos datos son de prueba, estos deben ser asignados según tus requerimientos
         $data = [
-            PayUParameters::VALUE => request()->input('amount'),
+            PayUParameters::VALUE => 30000,
             PayUParameters::DESCRIPTION => 'Payment cc test',
             PayUParameters::REFERENCE_CODE => uniqid(time()),
-            PayUParameters::CURRENCY => 'PEN',
-            PayUParameters::PAYMENT_METHOD => request()->input('card_type'), // VISA, MASTERCARD, ...
-            PayUParameters::CREDIT_CARD_NUMBER => request()->input('card_number'), // '4907840000000005',
+            PayUParameters::CURRENCY => 'COP',
+            PayUParameters::PAYMENT_METHOD => 'VISA', // VISA, MASTERCARD, ...
+            PayUParameters::CREDIT_CARD_NUMBER => 4907840000000005, // '4907840000000005',
             PayUParameters::CREDIT_CARD_EXPIRATION_DATE => request()->input('card_expiration_date'),
-            PayUParameters::CREDIT_CARD_SECURITY_CODE => request()->input('card_security_code'),
+            PayUParameters::CREDIT_CARD_SECURITY_CODE => 769,
             PayUParameters::INSTALLMENTS_NUMBER => 1,
             PayUParameters::PAYER_NAME => 'APPROVED',
             PayUParameters::PAYER_DNI => '458784778',
             PayUParameters::IP_ADDRESS => '127.0.0.1',
         ];
 
-        $payuClient->pay($data, function($response) {
+
+        // $data = [
+        //     PayUParameters::VALUE => request()->input('amount'),
+        //     PayUParameters::DESCRIPTION => 'Payment cc test',
+        //     PayUParameters::REFERENCE_CODE => uniqid(time()),
+        //     PayUParameters::CURRENCY => 'PEN',
+        //     PayUParameters::PAYMENT_METHOD => request()->input('card_type'), // VISA, MASTERCARD, ...
+        //     PayUParameters::CREDIT_CARD_NUMBER => request()->input('card_number'), // '4907840000000005',
+        //     PayUParameters::CREDIT_CARD_EXPIRATION_DATE => request()->input('card_expiration_date'),
+        //     PayUParameters::CREDIT_CARD_SECURITY_CODE => request()->input('card_security_code'),
+        //     PayUParameters::INSTALLMENTS_NUMBER => 1,
+        //     PayUParameters::PAYER_NAME => 'APPROVED',
+        //     PayUParameters::PAYER_DNI => '458784778',
+        //     PayUParameters::IP_ADDRESS => '127.0.0.1',
+        // ];
+
+        $payuClient->pay($data, function ($response) {
             if ($response->code == 'SUCCESS') {
                 // ... El código para el caso de éxito
             } else {
-            //... El código de respuesta no fue exitoso
+                //... El código de respuesta no fue exitoso
             }
-        }, function($error) {
+        }, function ($error) {
             // ... Manejo de errores PayUException, InvalidArgument
         });
     }
@@ -168,10 +186,8 @@ public function pay(PayuClientInterface $payuClient)
     {
         $payuClient->doPing(function ($response) {
             $code = $response->code;
-           dd($code);
         }, function ($error) {
             // ... Manejo de errores PayUException
         });
     }
-
 }

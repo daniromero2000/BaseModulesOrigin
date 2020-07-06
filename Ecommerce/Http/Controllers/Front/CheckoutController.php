@@ -3,28 +3,19 @@
 namespace Modules\Ecommerce\Http\Controllers\Front;
 
 use Modules\Customers\Entities\CustomerAddresses\Repositories\Interfaces\CustomerAddressRepositoryInterface;
-use Modules\Ecommerce\Entities\Cart\Requests\CartCheckoutRequest;
 use Modules\Ecommerce\Entities\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use Modules\Ecommerce\Entities\Requests\PayPalCheckoutExecutionRequest;
-use Modules\Ecommerce\Entities\Carts\Requests\StripeExecutionRequest;
 use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use Modules\Customers\Entities\Customers\Customer;
 use Modules\Customers\Entities\Customers\Repositories\CustomerRepository;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use Modules\Ecommerce\Entities\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use Modules\Ecommerce\Entities\PaymentMethods\Stripe\Exceptions\StripeChargingErrorException;
-use Modules\Ecommerce\Entities\PaymentMethods\Stripe\StripeRepository;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
 use Modules\Ecommerce\Entities\Checkout\CheckoutRepository;
-use Exception;
 use App\Http\Controllers\Controller;
-use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use PayPal\Exception\PayPalConnectionException;
+
 
 class CheckoutController extends Controller
 {
@@ -92,63 +83,6 @@ class CheckoutController extends Controller
             'shipment_object_id' => $shipment_object_id,
             'rates' => $rates,
         ]);
-    }
-
-    public function store(CartCheckoutRequest $request)
-    {
-        $shippingFee = 0;
-
-        switch ($request->input('payment')) {
-            case 'paypal':
-                return $this->payPal->process($shippingFee, $request);
-                break;
-            case 'stripe':
-
-                $details = [
-                    'description' => 'Stripe payment',
-                    'metadata' => $this->cartRepo->getCartItems()->all()
-                ];
-
-                $customer = $this->customerRepo->findCustomerById(auth()->id());
-                $customerRepo = new CustomerRepository($customer);
-                $customerRepo->charge($this->cartRepo->getTotal(2, $shippingFee), $details);
-                break;
-            default:
-        }
-    }
-
-    public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
-    {
-        try {
-            $this->payPal->execute($request);
-            $this->cartRepo->clearCart();
-
-            return redirect()->route('checkout.success');
-        } catch (PayPalConnectionException $e) {
-            throw new PaypalRequestError($e->getData());
-        } catch (Exception $e) {
-            throw new PaypalRequestError($e->getMessage());
-        }
-    }
-
-    public function charge(StripeExecutionRequest $request)
-    {
-        try {
-            $customer = $this->customerRepo->findCustomerById(auth()->id());
-            $stripeRepo = new StripeRepository($customer);
-
-            $stripeRepo->execute(
-                $request->all(),
-                Cart::total(),
-                Cart::tax()
-            );
-            return redirect()->route('checkout.success')
-                ->with('message', 'Stripe payment successful!');
-        } catch (StripeChargingErrorException $e) {
-            Log::info($e->getMessage());
-            return redirect()->route('checkout.index')
-                ->with('error', 'There is a problem processing your request.');
-        }
     }
 
     public function cancel(Request $request)

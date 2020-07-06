@@ -19,7 +19,8 @@ use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU;
  * @version 1.0
  *
  */
-class PayUApiServiceUtil{
+class PayUApiServiceUtil
+{
 
 
 	/**
@@ -31,58 +32,56 @@ class PayUApiServiceUtil{
 	 * @return string response
 	 * @throws RuntimeException
 	 */
-	public static function sendRequest($request, PayUHttpRequestInfo $payUHttpRequestInfo, $removeNullValues = NULL){
-		if(!isset($removeNullValues)){
+	public static function sendRequest($request, PayUHttpRequestInfo $payUHttpRequestInfo, $removeNullValues = NULL)
+	{
+		if (!isset($removeNullValues)) {
 			$removeNullValues = PayUConfig::REMOVE_NULL_OVER_REQUEST;
 		}
 
-		if($removeNullValues && $request != null){
+		if ($removeNullValues && $request != null) {
 			$request = PayURequestObjectUtil::removeNullValues($request);
 		}
 
-		if($request != NULL){
+		if ($request != NULL) {
 			$request = PayURequestObjectUtil::encodeStringUtf8($request);
 		}
 
- 		if(isset($request->transaction->order->signature)){
- 			$request->transaction->order->signature =
- 			SignatureUtil::buildSignature($request->transaction->order, PayU::$merchantId, PayU::$apiKey, SignatureUtil::MD5_ALGORITHM);
- 		}
+		if (isset($request->transaction->order->signature)) {
+			$request->transaction->order->signature =
+				SignatureUtil::buildSignature($request->transaction->order, PayU::$merchantId, PayU::$apiKey, SignatureUtil::MD5_ALGORITHM);
+		}
 
 		$requestJson = json_encode($request);
 		$responseJson = HttpClientUtil::sendRequest($requestJson, $payUHttpRequestInfo);
 
-		if( $responseJson == 200 || $responseJson == 204){
+		if ($responseJson == 200 || $responseJson == 204) {
 			return true;
-		}else{
+		} else {
 			$response = json_decode($responseJson);
-			if(!isset($response)){
-				throw new PayUException(PayUErrorCodes::JSON_DESERIALIZATION_ERROR,sprintf(' Error decoding json. Please verify the json structure received. the json isn\'t added in this message '.
-						' for security reasons please verify the variable $responseJson on class PayUApiServiceUtil'));
+			if (!isset($response)) {
+				throw new PayUException(PayUErrorCodes::JSON_DESERIALIZATION_ERROR, sprintf(' Error decoding json. Please verify the json structure received. the json isn\'t added in this message ' .
+					' for security reasons please verify the variable $responseJson on class PayUApiServiceUtil'));
 			}
 
-
-			if($removeNullValues){
+			if ($removeNullValues) {
 				$response = PayURequestObjectUtil::removeNullValues($response);
 			}
 
 			$response = PayURequestObjectUtil::formatDates($response);
 
-			if($payUHttpRequestInfo->environment === Environment::PAYMENTS_API || $payUHttpRequestInfo->environment === Environment::REPORTS_API){
-				if(PayUResponseCode::SUCCESS == $response->code){
+			if ($payUHttpRequestInfo->environment === Environment::PAYMENTS_API || $payUHttpRequestInfo->environment === Environment::REPORTS_API) {
+				if (PayUResponseCode::SUCCESS == $response->code) {
 					return $response;
-				}else{
+				} else {
 					throw new PayUException(PayUErrorCodes::API_ERROR, $response->error);
 				}
-			}else if($payUHttpRequestInfo->environment === Environment::SUBSCRIPTIONS_API){
-				if(!isset($response->type) || ($response->type != 'BAD_REQUEST' && $response->type != 'NOT_FOUND' && $response->type != 'MALFORMED_REQUEST')){
+			} else if ($payUHttpRequestInfo->environment === Environment::SUBSCRIPTIONS_API) {
+				if (!isset($response->type) || ($response->type != 'BAD_REQUEST' && $response->type != 'NOT_FOUND' && $response->type != 'MALFORMED_REQUEST')) {
 					return $response;
-				}else{
+				} else {
 					throw new PayUException(PayUErrorCodes::API_ERROR, $response->description);
 				}
 			}
-
 		}
 	}
 }
-

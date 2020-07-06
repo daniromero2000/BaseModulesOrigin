@@ -20,8 +20,20 @@ class EcommerceServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get();
-        view()->share('categories', $categories);
+
+        try {
+            $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get([
+                'id',
+                'name',
+                'slug',
+                'description',
+                'cover',
+                'is_active',
+            ]);
+            view()->share('categories', $categories);
+        } catch (\Exception $e) {
+            //throw $th;
+        }
     }
 
     /**
@@ -102,6 +114,8 @@ class EcommerceServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (app()->environment('production') && $this->app->runningInConsole()) {
+            app(Factory::class)->load(__DIR__ . '/../Database/factories');
+        } else {
             app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }

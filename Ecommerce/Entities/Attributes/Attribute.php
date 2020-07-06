@@ -12,7 +12,8 @@ class Attribute extends Model
     protected $table = 'attributes';
 
     protected $fillable = [
-        'name'
+        'name',
+        'is_active'
     ];
 
     protected $hidden = [

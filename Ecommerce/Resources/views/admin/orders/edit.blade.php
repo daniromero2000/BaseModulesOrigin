@@ -51,7 +51,7 @@
                                             value="{{ $status->id }}">{{ $status->name }}</option>
                                         @endforeach
                                     </select>
-                                    <span class="input-group-btn"><button onclick="return confirm('Are you sure?')"
+                                    <span class="input-group-btn"><button onclick="return confirm('¿Estás Seguro?')"
                                             type="submit" class="btn btn-primary">Actualizar</button></span>
                                 </div>
                             </form>

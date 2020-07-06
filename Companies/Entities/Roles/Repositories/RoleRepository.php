@@ -114,7 +114,7 @@ class RoleRepository implements RoleRepositoryInterface
     public function listPermissions(): Collection
     {
         try {
-            return $this->model->permissions()->get();
+            return $this->model->permissions()->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -124,9 +124,9 @@ class RoleRepository implements RoleRepositoryInterface
     {
         try {
             if (is_null($text)) {
-                return $this->model->onlyTrashed($text)->get();
+                return $this->model->onlyTrashed($text)->get($this->columns);
             }
-            return $this->model->onlyTrashed()->get();
+            return $this->model->onlyTrashed()->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

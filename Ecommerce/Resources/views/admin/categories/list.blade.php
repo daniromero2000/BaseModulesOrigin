@@ -45,7 +45,7 @@
                             <a class="text-primary" data-toggle="modal" data-target="#cover{{$category->id}}"> Ver
                                 cover</a>
                         </td>
-                        <td>@include('generals::layouts.status', ['status' => $category->status])</td>
+                        <td>@include('generals::layouts.status', ['status' => $category->is_active])</td>
                         <td>
                             <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post"
                                 class="form-horizontal">
@@ -54,7 +54,7 @@
                                 <div class="btn-group">
                                     <a href="{{ route('admin.categories.edit', $category->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
-                                    <button onclick="return confirm('Are you sure?')" type="submit"
+                                    <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                                         class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Borrar</button>
                                 </div>
                             </form>
