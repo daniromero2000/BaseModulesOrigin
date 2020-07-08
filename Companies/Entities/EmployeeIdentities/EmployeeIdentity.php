@@ -45,16 +45,19 @@ class EmployeeIdentity extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class)
+            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'company_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)
+        ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 
     public function identityType()
     {
-        return $this->belongsTo(IdentityType::class);
+        return $this->belongsTo(IdentityType::class)
+        ->select(['id', 'identity_type']);
     }
 }

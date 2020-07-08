@@ -71,7 +71,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductById(int $id): Product
     {
         try {
-            return $this->transformProduct($this->model->findOrFail($id));
+            return $this->transformProduct($this->model->findOrFail($id, $this->columns));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -179,8 +179,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function listProductGroups($group): Collection
     {
         return $this->model->whereHas('productGroups', function (Builder $query) use ($group) {
-            $query->where('product_group_id', $group);
-        })->get();;
+            $query->where('name', $group);
+        })->get($this->columns);;
     }
 
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool

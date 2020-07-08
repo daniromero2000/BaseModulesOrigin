@@ -68,12 +68,12 @@ class CheckoutController extends Controller
             return config($name);
         })->all();
 
-        $billingAddress = $customer->customerAddresses()->first();
+        $billingAddress = $customer->frontCustomerAddresses()->first();
 
         return view('ecommerce::front.checkout', [
             'customer' => $customer,
             'billingAddress' => $billingAddress,
-            'addresses' => $customer->customerAddresses()->get(),
+            'addresses' => $customer->frontCustomerAddresses()->get(),
             'products' => $this->cartRepo->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),

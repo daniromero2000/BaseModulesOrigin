@@ -145,26 +145,15 @@
                             <thead>
                                 <th>Dirección</th>
                                 <th>Ciudad</th>
-                                @if(isset($address->province))
-                                <th>Departamento</th>
-                                @endif
-                                <th>State</th>
-                                <th>Country</th>
                                 <th>Zip</th>
-                                <th>Phone</th>
                                 <th>Actions</th>
                             </thead>
                             <tbody>
                                 @foreach($addresses as $address)
                                 <tr>
                                     <td>{{$address->customer_address}}</td>
-                                    <td>{{$address->city}}</td>
-                                    @if(isset($address->province))
-                                    <td>{{$address->province->name}}</td>
-                                    @endif
-                                    <td>{{$address->state_code}}</td>
+                                    <td>{{$address->city->city}}</td>
                                     <td>{{$address->zip}}</td>
-                                    <td>{{$address->phone}}</td>
                                     <td>
                                         <form method="post"
                                             action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}"

@@ -45,11 +45,13 @@ class EmployeeEps extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class)
+            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'company_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
     }
 
     public function eps()
     {
-        return $this->belongsTo(Eps::class);
+        return $this->belongsTo(Eps::class)
+            ->select(['id', 'eps', 'is_active']);
     }
 }

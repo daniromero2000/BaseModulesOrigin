@@ -37,7 +37,8 @@ class AttributeValue extends Model
 
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->belongsTo(Attribute::class)
+            ->select(['id', 'name', 'is_visible_on_front', 'is_active']);
     }
 
     public function productAttributes()

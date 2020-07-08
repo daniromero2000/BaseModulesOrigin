@@ -39,12 +39,11 @@ class OrderController extends Controller
 
     public function index()
     {
-        $list = $this->orderRepo->listOrders('created_at', 'desc');
-
         if (request()->has('q')) {
             $list = $this->orderRepo->searchOrder(request()->input('q') ?? '');
+        } else {
+            $list = $this->orderRepo->listOrders('created_at', 'desc');
         }
-
 
         return view('ecommerce::admin.orders.list', [
             'orders' => $list
@@ -54,7 +53,6 @@ class OrderController extends Controller
     public function show($orderId)
     {
         $order = $this->orderRepo->findOrderById($orderId);
-
         $orderRepo = new OrderRepository($order);
         $order->courier = $orderRepo->getCouriers()->first();
         $order->address = $orderRepo->getAddresses()->first();

@@ -5,7 +5,6 @@ namespace Modules\Companies\Entities\Employees;
 use Modules\Generals\Entities\CivilStatuses\CivilStatus;
 use Modules\Generals\Entities\Epss\Eps;
 use Modules\Generals\Entities\Genres\Genre;
-use Modules\Development\Entities\Projects\Project;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,7 +21,6 @@ use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
-use Modules\CallCenter\Entities\Assignments\CallCenterAssignment;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Employee extends Authenticatable
@@ -89,7 +87,8 @@ class Employee extends Authenticatable
 
     public function employeePosition()
     {
-        return $this->belongsTo(EmployeePosition::class);
+        return $this->belongsTo(EmployeePosition::class)
+            ->select(['id', 'position', 'is_active']);
     }
 
     public function department()
@@ -104,61 +103,73 @@ class Employee extends Authenticatable
 
     public function customerStatusesLogs()
     {
-        return $this->hasMany(CustomerStatusesLog::class);
+        return $this->hasMany(CustomerStatusesLog::class)
+            ->select(['id', 'customer_id', 'status', 'employee_id', 'time_passed', 'created_at']);
     }
 
     public function civilStatus()
     {
-        return $this->belongsTo(CivilStatus::class);
+        return $this->belongsTo(CivilStatus::class)
+            ->select(['id', 'civil_status']);
     }
 
     public function eps()
     {
-        return $this->belongsTo(Eps::class);
+        return $this->belongsTo(Eps::class)
+            ->select(['id', 'eps', 'is_active']);
     }
 
     public function genre()
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsTo(Genre::class)
+            ->select(['id', 'genre']);
     }
 
     public function employeeCommentaries()
     {
-        return $this->hasMany(EmployeeCommentary::class);
+        return $this->hasMany(EmployeeCommentary::class)
+            ->select(['id', 'commentary', 'user', 'employee_id', 'created_at']);
     }
 
     public function employeeStatusesLogs()
     {
-        return $this->hasMany(EmployeeStatusesLog::class);
+        return $this->hasMany(EmployeeStatusesLog::class)
+            ->select(['id', 'employee_id', 'status', 'user_id', 'time_passed', 'created_at']);
     }
 
     public function employeeEmails()
     {
-        return $this->hasMany(EmployeeEmail::class);
+        return $this->hasMany(EmployeeEmail::class)
+            ->select(['id', 'email', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeePhones()
     {
-        return $this->hasMany(EmployeePhone::class);
+        return $this->hasMany(EmployeePhone::class)
+            ->select(['id', 'phone_type', 'phone', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeeIdentities()
     {
-        return $this->hasMany(EmployeeIdentity::class);
+        return $this->hasMany(EmployeeIdentity::class)
+            ->select(['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeeAddresses()
     {
-        return $this->hasMany(EmployeeAddress::class);
+        return $this->hasMany(EmployeeAddress::class)
+            ->select(['id', 'housing_id', 'address', 'time_living', 'stratum_id', 'city_id', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeeEpss()
     {
-        return $this->hasMany(EmployeeEps::class);
+        return $this->hasMany(EmployeeEps::class)
+            ->select(['id', 'eps_id', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeeProfessions()
     {
-        return $this->hasMany(EmployeeProfession::class);
+        return $this->hasMany(EmployeeProfession::class)
+            ->select(['id', 'professions_list_id', 'employee_id', 'status', 'created_at']);
     }
 }

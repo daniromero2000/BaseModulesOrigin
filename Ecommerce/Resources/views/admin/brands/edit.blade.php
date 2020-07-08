@@ -21,30 +21,34 @@
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="box">
-        <form action="{{ route('admin.brands.update', $brand->id) }}" method="post" class="form"
-            enctype="multipart/form-data">
-            <div class="box-body">
-                {{ csrf_field() }}
-                <input type="hidden" name="_method" value="put">
-                <div class="form-group">
-                    <label for="name">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="name" placeholder="Name" class="form-control"
-                        value="{{ $brand->name }}">
-                </div>
-                <div class="col-sm  -6">
-                    <div class="form-group">
-                        @include('ecommerce::admin.shared.status-select', ['status' =>
-                        $brand->is_active])
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('admin.brands.update', $brand->id) }}" method="post" class="form"
+                    enctype="multipart/form-data">
+                    <div class="box-body">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="put">
+                        <div class="form-group">
+                            <label for="name">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                                value="{{ $brand->name }}">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                @include('ecommerce::admin.shared.status-select', ['status' =>
+                                $brand->is_active])
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="box-footer">
+                        <div class="btn-group">
+                            <a href="{{ route('admin.brands.index') }}" class="btn btn-default">Regresar</a>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="box-footer">
-                <div class="btn-group">
-                    <a href="{{ route('admin.brands.index') }}" class="btn btn-default">Regresar</a>
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </section>
 @endsection

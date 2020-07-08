@@ -129,7 +129,7 @@
                             <label for="image" class="form-control-label">Imagenes</label>
                             <input type="file" name="image[]" id="image" class="form-control" multiple>
                             <a class="text-center info-tooltip" data-toggle="tooltip"
-                                data-original-title="Puedes usar (cmd) para seleccionar multiples imagenes">
+                                data-original-title="Puedes usar (cmd o ctrl) para seleccionar multiples imagenes">
                                 ! </a>
                         </div>
                         <div class="form-group">
@@ -138,11 +138,8 @@
                         <div class="form-group relative">
                             @include('ecommerce::admin.shared.attribute-select', [compact('default_weight')])
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
             <div class="card-footer text-right">
                 <a href="{{ route('admin.products.index') }}" class="btn btn-default btn-sm">Regresar</a>

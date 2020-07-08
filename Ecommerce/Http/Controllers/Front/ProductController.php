@@ -38,13 +38,24 @@ class ProductController extends Controller
     public function show(string $slug)
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
-        $productAttributes = $product->attributes;
 
         return view('ecommerce::front.products.product', [
             'product' => $product,
             'images' => $product->images()->get(),
-            'productAttributes' => $productAttributes,
+            'productAttributes' => $product->attributes,
             'category' => $product->categories()->first()
         ]);
+    }
+
+    public function outlet()
+    {
+        $products = $this->productRepo->listProductGroups('Outlet');
+        // dd($products);
+        return view(
+            'ecommerce::front.products.outlet',
+            [
+                'products' => $products
+            ]
+        );
     }
 }

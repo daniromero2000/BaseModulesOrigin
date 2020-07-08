@@ -20,8 +20,8 @@ class CreateOrderCommentariesTable extends Migration
             $table->boolean('customer_notified')->default(0);
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -37,6 +37,7 @@ class Relationship extends Model
 
     public function referenceType()
     {
-        return $this->belongsTo(ReferenceType::class);
+        return $this->belongsTo(ReferenceType::class)
+            ->select(['id', 'reference_type']);
     }
 }

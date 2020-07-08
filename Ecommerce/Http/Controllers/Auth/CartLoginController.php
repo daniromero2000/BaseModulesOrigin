@@ -62,6 +62,7 @@ class CartLoginController extends Controller
             Auth::login($user);
             return redirect()->intended('checkout');
         } else {
+            session(['email' => $request['email']]);
             return redirect('register');
         }
     }

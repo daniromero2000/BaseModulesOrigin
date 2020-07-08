@@ -1,22 +1,35 @@
 @extends('generals::layouts.admin.app')
+@section('header')
+<div class="header pb-2">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" active aria-current="page">Países</li>
+                            <li class="breadactive">{{ $country->name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="row">
-        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <ol class="breadcrumb">
-                <li><a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Dashboard</a><span
-                        class="divider"></span>
-                </li>
-                <li><a href="{{ route('admin.countries.index') }}">Países</a><span class="divider"></span>
-                <li class="breadactive">{{ $country->name }}</li>
-            </ol>
-        </div>
-    </div>
     <div class="box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
         <div class="box-body">
             <h2>{{ $country->name }}</h2>
+            <div class="box-footer">
+                <div class="btn-group">
+                    <a href="{{ route('admin.countries.index') }}" class="btn btn-default btn-sm">Regresar</a>
+                </div>
+            </div>
             <table class="table">
                 <tbody>
                     <tr>
@@ -43,11 +56,7 @@
             @include('generals::admin.shared.provinces', ['country' => $country->id])
         </div>
 
-        <div class="box-footer">
-            <div class="btn-group">
-                <a href="{{ route('admin.countries.index') }}" class="btn btn-default btn-sm">Regresar</a>
-            </div>
-        </div>
+
     </div>
 
 </section>

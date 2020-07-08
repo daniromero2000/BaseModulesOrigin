@@ -31,6 +31,7 @@ class IdentityType extends Model
 
     public function customerIdentities()
     {
-        return $this->hasMany(CustomerIdentity::class);
+        return $this->hasMany(CustomerIdentity::class)
+            ->select(['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'customer_id', 'status', 'created_at']);
     }
 }

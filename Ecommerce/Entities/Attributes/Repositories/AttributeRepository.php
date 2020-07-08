@@ -60,7 +60,9 @@ class AttributeRepository implements AttributeRepositoryInterface
     public function listAttributes(string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
         try {
-            return $this->model->where('is_active', 1)->get($this->columns, $orderBy, $sortBy);
+            return $this->model
+                ->where('is_active', 1)
+                ->get($this->columns, $orderBy, $sortBy);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

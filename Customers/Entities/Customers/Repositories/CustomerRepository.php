@@ -101,7 +101,25 @@ class CustomerRepository implements CustomerRepositoryInterface
                 'customerReferences',
                 'customerEpss',
                 'customerEconomicActivities'
-            ])->findOrFail($id);
+            ])->findOrFail($id, $this->columns);
+
+            $customer->age =  $this->getCustomerAge($customer->birthday);
+
+            return $customer;
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function findFrontCustomerById(int $id): Customer
+    {
+        try {
+            $customer = $this->model->with([
+                'customerPhones',
+                'customerAddresses',
+                'customerEmails',
+                'city',
+            ])->findOrFail($id, $this->columns);
 
             $customer->age =  $this->getCustomerAge($customer->birthday);
 
@@ -185,7 +203,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function checkForLogin($email)
     {
         try {
-            return $this->model->where('email', $email)->first(['id', 'email', 'password']);
+            return $this->model->where('email', $email)
+                ->first(['id', 'email', 'password']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -203,6 +222,6 @@ class CustomerRepository implements CustomerRepositoryInterface
      */
     public function findAddresses(): Support
     {
-        return $this->model->customerAddresses;
+        return $this->model->frontCustomerAddresses;
     }
 }

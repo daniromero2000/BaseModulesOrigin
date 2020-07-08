@@ -2,6 +2,7 @@
 
 namespace Modules\Ecommerce\Entities\Products;
 
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Ecommerce\Entities\Brands\Brand;
 use Modules\Ecommerce\Entities\Categories\Category;
 use Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute;
@@ -125,7 +126,8 @@ class Product extends Model implements Buyable
 
     public function images()
     {
-        return $this->hasMany(ProductImage::class);
+        return $this->hasMany(ProductImage::class)
+            ->select(['id', 'product_id', 'src']);
     }
 
     public function searchProduct(string $term): Collection
@@ -135,11 +137,14 @@ class Product extends Model implements Buyable
 
     public function attributes()
     {
-        return $this->hasMany(ProductAttribute::class)->with('attributesValues');
+        return $this->hasMany(ProductAttribute::class)
+            ->with('attributesValues')
+            ->select(['id', 'quantity', 'price', 'sale_price', 'default', 'product_id']);
     }
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class)
+            ->select(['id', 'name', 'slug', 'logo', 'is_visible_on_front', 'is_active']);
     }
 }

@@ -40,11 +40,13 @@ class OrderStatusesLog extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class)
+            ->select(['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'sub_total', 'tax_amount', 'grand_total', 'created_at']);
     }
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class)
+            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'company_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
     }
 }

@@ -39,8 +39,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('brands', 'BrandController');
         });
 
+        Route::namespace('Attributes')->group(function () {
+            Route::resource('attributes', 'AttributeController');
+        });
+
         Route::resource('couriers', 'Couriers\CourierController');
-        Route::resource('attributes', 'Attributes\AttributeController');
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
     });
 });
@@ -76,6 +79,7 @@ Route::namespace('Front')->group(function () {
     Route::resource('cart', 'CartController');
     Route::get("api/getCart/", 'CartController@getCart')->name('front.get.cart');
     Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
+    Route::get('outlet', 'ProductController@outlet')->name('outlet');
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
 });

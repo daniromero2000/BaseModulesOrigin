@@ -20,10 +20,8 @@ class BrandController extends Controller
 
     public function index()
     {
-        $data = $this->brandRepo->listBrands(['*'], 'name', 'asc')->all();
-
         return view('ecommerce::admin.brands.list', [
-            'brands' => $data
+            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc')->all()
         ]);
     }
 
@@ -37,7 +35,7 @@ class BrandController extends Controller
         $this->brandRepo->createBrand($request->all());
 
         return redirect()->route('admin.brands.index')
-        ->with('message', config('messaging.create'));
+            ->with('message', config('messaging.create'));
     }
 
     public function edit($id)
@@ -66,6 +64,6 @@ class BrandController extends Controller
         $brandRepo->deleteBrand();
 
         return redirect()->route('admin.brands.index')
-        ->with('message', config('messaging.delete'));
+            ->with('message', config('messaging.delete'));
     }
 }

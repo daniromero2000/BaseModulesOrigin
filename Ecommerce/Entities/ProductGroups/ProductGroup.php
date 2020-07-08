@@ -32,7 +32,7 @@ class ProductGroup extends Model
         'updated_at'
     ];
 
-    public function productGroups()
+    public function product()
     {
         return $this->belongsToMany(Product::class);
     }

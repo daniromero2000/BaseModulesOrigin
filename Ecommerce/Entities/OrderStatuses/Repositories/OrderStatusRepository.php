@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 class OrderStatusRepository implements OrderStatusRepositoryInterface
 {
     protected $model;
-    private $columns = [];
+    private $columns = ['id', 'name', 'color', 'is_active'];
 
     public function __construct(OrderStatus $orderStatus)
     {
@@ -41,7 +41,7 @@ class OrderStatusRepository implements OrderStatusRepositoryInterface
     public function findOrderStatusById(int $id): OrderStatus
     {
         try {
-            return $this->model->findOrFail($id);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new OrderStatusNotFoundException('Order status not found.');
         }
@@ -49,7 +49,7 @@ class OrderStatusRepository implements OrderStatusRepositoryInterface
 
     public function listOrderStatuses()
     {
-        return $this->model->all();
+        return $this->model->all($this->columns);
     }
 
     public function deleteOrderStatus(): bool

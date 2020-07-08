@@ -37,6 +37,7 @@ class Eps extends Model
 
     public function customersEpss()
     {
-        return $this->hasMany(CustomerEps::class);
+        return $this->hasMany(CustomerEps::class)
+            ->select(['id', 'eps_id', 'customer_id', 'default_eps', 'created_at']);
     }
 }

@@ -35,11 +35,14 @@ class Province extends Model
 
     public function country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class)
+            ->select(['id', 'name', 'iso', 'iso3', 'numcode', 'phonecode', 'is_active']);
     }
 
     public function cities()
     {
-        return $this->hasMany(City::class)->orderBy('city', 'asc');
+        return $this->hasMany(City::class)
+            ->orderBy('city', 'asc')
+            ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 }

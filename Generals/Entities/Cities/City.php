@@ -39,31 +39,40 @@ class City extends Model
 
     public function province()
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class)
+            ->select(['id', 'dane', 'province', 'country_id', 'is_active']);
     }
 
     public function subsidiaries()
     {
-        return $this->hasMany(Subsidiary::class);
+        return $this->hasMany(Subsidiary::class)
+            ->select(['id', 'name', 'address', 'phone', 'opening_hours', 'city_id', 'company_id', 'is_active']);;
     }
 
     public function customers()
     {
-        return $this->hasMany(Customer::class);
+        return $this->hasMany(Customer::class)
+            ->select([
+                'id', 'customer_group_id', 'name', 'last_name', 'birthday', 'scholarity_id', 'status', 'customer_status_id', 'customer_channel_id', 'city_id',
+                'data_politics', 'genre_id', 'customer_channel_id', 'civil_status_id', 'scholarity_id', 'email', 'created_at'
+            ]);
     }
 
     public function customerAddresses()
     {
-        return $this->hasMany(CustomerAddress::class);
+        return $this->hasMany(CustomerAddress::class)
+            ->select(['id', 'housing_id', 'customer_address', 'time_living', 'stratum_id', 'city_id', 'customer_id', 'postal_code', 'comment', 'default_address']);
     }
 
     public function customerEconomicActivities()
     {
-        return $this->hasMany(CustomerEconomicActivity::class);
+        return $this->hasMany(CustomerEconomicActivity::class)
+            ->select(['economicActivityType', 'professionsList', 'city']);
     }
 
     public function customerIdentities()
     {
-        return $this->hasMany(CustomerIdentity::class);
+        return $this->hasMany(CustomerIdentity::class)
+            ->select(['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'customer_id', 'status', 'created_at']);
     }
 }

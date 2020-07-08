@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class ProductAttributeRepository implements ProductAttributeRepositoryInterface
 {
     protected $model;
-    private $columns = [];
+    private $columns = ['id', 'quantity', 'price', 'sale_price', 'default', 'product_id'];
 
     public function __construct(ProductAttribute $productAttribute)
     {
@@ -19,7 +19,7 @@ class ProductAttributeRepository implements ProductAttributeRepositoryInterface
     public function findProductAttributeById(int $id)
     {
         try {
-            return $this->model->findOrFail($id);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new ProductAttributeNotFoundException($e);
         }

@@ -57,13 +57,8 @@
         </div>
     </div>
 </div>
-
-
-
-
 <div class="box-footer">
     <button type="button" class="btn btn-sm btn-default" onclick="backToInfoTab()">Regresar</button>
     <button id="createCombinationBtn" type="submit" class="btn btn-sm btn-primary" disabled="disabled">Crear
         combinación</button>
-
 </div>

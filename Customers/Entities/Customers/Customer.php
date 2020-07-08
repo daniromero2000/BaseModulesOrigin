@@ -45,7 +45,6 @@ class Customer extends Authenticatable
         'customer_channel_id',
         'civil_status_id',
         'scholarity_id',
-        'channel_id',
         'email'
     ];
 
@@ -94,91 +93,132 @@ class Customer extends Authenticatable
 
     public function customerAddresses()
     {
-        return $this->hasMany(CustomerAddress::class)->whereDefaultAddress(true)->with(['housing', 'stratum', 'city']);
+        return $this->hasMany(CustomerAddress::class)->whereDefaultAddress(true)
+            ->with(['housing', 'stratum', 'city'])
+            ->select(['id', 'housing_id', 'customer_address', 'time_living', 'stratum_id', 'city_id', 'customer_id', 'postal_code', 'comment', 'default_address']);
+    }
+
+    public function frontCustomerAddresses()
+    {
+        return $this->hasMany(CustomerAddress::class)->whereDefaultAddress(true)
+            ->with(['city'])
+            ->select(['id', 'housing_id', 'customer_address', 'time_living', 'stratum_id', 'city_id', 'customer_id', 'postal_code', 'comment', 'default_address']);
     }
 
     public function customerProfessions()
     {
-        return $this->hasMany(CustomerProfession::class)->whereStatus(true)->with(['professionsList']);
+        return $this->hasMany(CustomerProfession::class)
+            ->whereStatus(true)
+            ->with(['professionsList'])
+            ->select(['id', 'professions_list_id', 'customer_id', 'status', 'created_at']);
     }
 
     public function customerIdentities()
     {
-        return $this->hasMany(CustomerIdentity::class)->whereStatus(true)->with(['identityType', 'city']);
+        return $this->hasMany(CustomerIdentity::class)
+            ->whereStatus(true)
+            ->with(['identityType', 'city'])
+            ->select(['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'customer_id', 'status', 'created_at']);
     }
 
     public function customerPhones()
     {
-        return $this->hasMany(CustomerPhone::class)->whereDefaultPhone(true);
+        return $this->hasMany(CustomerPhone::class)
+            ->whereDefaultPhone(true)
+            ->select(['id', 'phone_type', 'phone', 'customer_id', 'default_phone', 'phone_verified_at', 'created_at']);
     }
 
     public function customerEpss()
     {
-        return $this->hasMany(CustomerEps::class)->whereDefaultEps(true)->with('eps');
+        return $this->hasMany(CustomerEps::class)
+            ->whereDefaultEps(true)
+            ->with('eps')
+            ->select(['id', 'eps_id', 'customer_id', 'default_eps', 'created_at']);
     }
 
     public function customerReferences()
     {
-        return $this->hasMany(CustomerReference::class)->whereIsActive(true)->with(['customerPhone', 'relationship']);
+        return $this->hasMany(CustomerReference::class)
+            ->whereIsActive(true)
+            ->with(['customerPhone', 'relationship'])
+            ->select(['id', 'customer_id', 'customer_phone_id', 'relationship_id', 'is_active', 'created_at']);
     }
 
     public function customerEconomicActivities()
     {
-        return $this->hasMany(CustomerEconomicActivity::class)->whereIsActive(true)->with(['economicActivityType', 'professionsList', 'city']);
+        return $this->hasMany(CustomerEconomicActivity::class)
+            ->whereIsActive(true)
+            ->with(['economicActivityType', 'professionsList', 'city']);
     }
 
     public function customerEmails()
     {
-        return $this->hasMany(CustomerEmail::class)->whereDefaultEmail(true);
+        return $this->hasMany(CustomerEmail::class)
+            ->whereDefaultEmail(true)
+            ->select(['id', 'email', 'customer_id', 'default_email', 'email_verified_at', 'created_at']);
     }
 
     public function customerCommentaries()
     {
-        return $this->hasMany(CustomerCommentary::class)->with(['customer']);
+        return $this->hasMany(CustomerCommentary::class)
+            ->with(['customer'])
+            ->select(['id', 'commentary', 'user', 'customer_id', 'created_at']);
     }
 
     public function customerVehicles()
     {
-        return $this->hasMany(CustomerVehicle::class)->whereStatus(true)->with(['vehicleBrand', 'vehicleType']);
+        return $this->hasMany(CustomerVehicle::class)
+            ->whereStatus(true)
+            ->with(['vehicleBrand', 'vehicleType'])
+            ->select(['id', 'vehicle_type_id', 'vehicle_brand_id', 'customer_id', 'status', 'created_at']);
     }
 
     public function customerStatus()
     {
-        return $this->belongsTo(CustomerStatus::class);
+        return $this->belongsTo(CustomerStatus::class)
+            ->select(['id', 'name', 'color', 'is_active']);
     }
 
     public function customerStatusesLog()
     {
-        return $this->hasMany(CustomerStatusesLog::class)->with(['employee']);
+        return $this->hasMany(CustomerStatusesLog::class)
+            ->with(['employee'])
+            ->select(['id', 'customer_id', 'status', 'employee_id', 'time_passed', 'created_at']);
     }
 
     public function genre()
     {
-        return $this->belongsTo(Genre::class);
+        return $this->belongsTo(Genre::class)
+            ->select(['id', 'genre']);
     }
 
     public function customerChannel()
     {
-        return $this->belongsTo(CustomerChannel::class);
+        return $this->belongsTo(CustomerChannel::class)
+            ->select(['id', 'channel', 'is_active']);
     }
 
     public function civilStatus()
     {
-        return $this->belongsTo(CivilStatus::class);
+        return $this->belongsTo(CivilStatus::class)
+            ->select(['id', 'civil_status']);
     }
 
     public function scholarity()
     {
-        return $this->belongsTo(Scholarity::class);
+        return $this->belongsTo(Scholarity::class)
+            ->select(['id', 'scholarity']);
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)
+            ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)
+            ->select(['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'sub_total', 'tax_amount', 'grand_total', 'created_at']);
     }
 }

@@ -43,11 +43,16 @@ class CustomerProfession extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)
+            ->select([
+                'id', 'customer_group_id', 'name', 'last_name', 'birthday', 'scholarity_id', 'status', 'customer_status_id', 'customer_channel_id', 'city_id',
+                'data_politics', 'genre_id', 'customer_channel_id', 'civil_status_id', 'scholarity_id', 'email', 'created_at'
+            ]);
     }
 
     public function professionsList()
     {
-        return $this->belongsTo(ProfessionsList::class);
+        return $this->belongsTo(ProfessionsList::class)
+            ->select(['id', 'ciuo', 'profession']);
     }
 }

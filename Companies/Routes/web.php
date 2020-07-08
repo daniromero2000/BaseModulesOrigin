@@ -59,13 +59,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('employee-professions', 'EmployeeProfessionController');
         });
 
+        Route::resource('employees', 'EmployeeController');
+        Route::get('employees/{employee}/profile', 'EmployeeController@getProfile')->name('employee.profile');
+        Route::put('employees/{employee}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
+        Route::get('employees/{employee}/recover', 'EmployeeController@recoverTrashedEmployee')->name('employees.recover');
 
         Route::group(['middleware' => ['role:superadmin, guard:employee']], function () {
-            Route::resource('employees', 'EmployeeController');
-            Route::get('employees/{employee}/profile', 'EmployeeController@getProfile')->name('employee.profile');
-            Route::put('employees/{employee}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
-            Route::get('employees/{employee}/recover', 'EmployeeController@recoverTrashedEmployee')->name('employees.recover');
-
             Route::namespace('Roles')->group(function () {
                 Route::resource('roles', 'RoleController');
                 Route::get('roles/{role}/recover', 'RoleController@recoverTrashedRole')->name('roles.recover');
@@ -75,7 +74,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
                 Route::resource('permissions', 'PermissionController');
                 Route::get('permissions/{permission}/recover', 'PermissionController@recoverTrashedPermission')->name('permissions.recover');
             });
-
 
             Route::namespace('Actions')->group(function () {
                 Route::resource('actions', 'ActionController');

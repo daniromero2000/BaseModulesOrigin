@@ -61,6 +61,7 @@ class Permission extends LaratrustPermission
 
     public function permissionGroup()
     {
-        return $this->belongsTo(PermissionGroup::class);
+        return $this->belongsTo(PermissionGroup::class)
+            ->select(['id'], 'name', 'group_order', 'status');
     }
 }

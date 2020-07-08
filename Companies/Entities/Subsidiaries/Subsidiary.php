@@ -65,12 +65,14 @@ class Subsidiary extends Model
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)
+            ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 
     public function departments()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Department::class)
+            ->select(['id', 'name', 'phone', 'subsidiary_id', 'is_active']);
     }
 
     public function warranties()

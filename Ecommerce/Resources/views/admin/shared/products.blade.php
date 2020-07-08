@@ -20,7 +20,7 @@
                 </td>
                 <td>{{ $product->quantity }}</td>
                 <td>{{ config('cart.currency') }} {{ $product->price }}</td>
-                <td>@include('generals::layouts.status', ['status' => $product->status])</td>
+                <td>@include('generals::layouts.status', ['status' => $product->is_active])</td>
 
                 <td class="table-actions">
                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="post"

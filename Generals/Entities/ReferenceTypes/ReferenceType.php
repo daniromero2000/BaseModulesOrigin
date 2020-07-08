@@ -31,6 +31,7 @@ class ReferenceType extends Model
 
     public function relationships()
     {
-        return $this->hasMany(Relationship::class);
+        return $this->hasMany(Relationship::class)
+            ->select(['id', 'relationship', 'reference_type_id']);
     }
 }

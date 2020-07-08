@@ -20,6 +20,7 @@ class Attribute extends Model
         'deleted_at',
         'updated_at',
         'id',
+        'is_active'
     ];
 
     protected $guarded = [
@@ -37,11 +38,13 @@ class Attribute extends Model
 
     public function values()
     {
-        return $this->hasMany(AttributeValue::class);
+        return $this->hasMany(AttributeValue::class)
+            ->select(['id', 'value', 'attribute_id']);
     }
 
     public function attributeValue()
     {
-        return $this->hasMany(AttributeValue::class);
+        return $this->hasMany(AttributeValue::class)
+            ->select(['id', 'value', 'attribute_id']);
     }
 }

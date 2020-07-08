@@ -24,7 +24,7 @@ class AccountsController extends Controller
 
     public function index()
     {
-        $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
+        $customer = $this->customerRepo->findFrontCustomerById(auth()->user()->id);
         $customerRepo = new CustomerRepository($customer);
         $orders = $customerRepo->findOrders(['*'], 'created_at');
 
@@ -34,12 +34,10 @@ class AccountsController extends Controller
 
         $orders->load('products');
 
-        $addresses = $customerRepo->findAddresses();
-
         return view('ecommerce::front.accounts', [
             'customer'  => $customer,
             'orders'    => $orders,
-            'addresses' => $addresses
+            'addresses' => $customerRepo->findAddresses()
         ]);
     }
 }

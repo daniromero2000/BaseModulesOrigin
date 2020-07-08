@@ -62,7 +62,7 @@
     <div class="container-fluid">
         <div class="header-body">
             <div class="row align-items-center py-4">
-                <div class="col-lg-6 col-7">
+                <div class=" col-12">
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
@@ -281,7 +281,7 @@
                                                 <input type="file" name="image[]" id="image" class="form-control"
                                                     multiple>
                                                 <a class="text-center info-tooltip" data-toggle="tooltip"
-                                                    data-original-title="Puedes usar (cmd) para seleccionar
+                                                    data-original-title="Puedes usar (cmd o ctrl) para seleccionar
                                                     multiples
                                                     imagenes">
                                                     ! </a>
@@ -299,17 +299,46 @@
                             </div>
                             <div role="tabpanel" class="tab-pane @if(request()->has('combination')) active @endif"
                                 id="combinations">
-                                <div class="col pl-0 mb-3">
-                                    <h2>Crear combinaciones</h2>
+                                <div class="col pl-0 mb-3 d-flex">
+                                    <div>
+                                        <h2>Lista combinaciones</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#exampleModal">
+                                            Crear combinacion
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 order-md-last">
+                                    <div class="col-md-12">
                                         @include('ecommerce::admin.products.attributes',
                                         compact('productAttributes'))
+                                        <!-- Button trigger modal -->
+
                                     </div>
-                                    <div class="col-md-6">
-                                        @include('ecommerce::admin.products.create-attributes',
-                                        compact('attributes'))
+                                    <div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Crear
+                                                            combinaciones</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @include('ecommerce::admin.products.create-attributes',
+                                                        compact('attributes'))
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

@@ -23,6 +23,10 @@ class EmployeePositionsTableSeeder extends Seeder
     ]);
 
     factory(EmployeePosition::class)->create([
+      'position' => 'Gerente',
+    ]);
+
+    factory(EmployeePosition::class)->create([
       'position' => 'Otro',
     ]);
   }

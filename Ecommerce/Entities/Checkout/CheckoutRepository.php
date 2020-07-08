@@ -13,6 +13,8 @@ use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
 
 class CheckoutRepository
 {
+    protected $model;
+
     public function __construct(Checkout $checkout)
     {
         $this->model = $checkout;

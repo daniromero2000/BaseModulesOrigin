@@ -46,13 +46,12 @@ class Category extends Model
         return $this->belongsToMany(Product::class)->with('attributes:id,quantity,price,sale_price,default,product_id');
     }
 
-   public function productsFilter($select)
+    public function productsFilter($select)
     {
-        return $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use($select) {
-            $query->whereHas('attributesValues', function (Builder $query) use($select){
+        return $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use ($select) {
+            $query->whereHas('attributesValues', function (Builder $query) use ($select) {
                 $query->whereIn('value', $select);
             });
         })->get();
     }
 }
-

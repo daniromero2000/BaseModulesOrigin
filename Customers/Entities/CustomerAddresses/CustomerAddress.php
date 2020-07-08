@@ -49,21 +49,29 @@ class CustomerAddress extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)
+            ->select([
+                'id', 'customer_group_id', 'name', 'last_name', 'birthday', 'scholarity_id', 'status', 'customer_status_id', 'customer_channel_id', 'city_id',
+                'data_politics', 'genre_id', 'customer_channel_id', 'civil_status_id', 'scholarity_id', 'email', 'created_at'
+            ]);
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class)->with(['province']);
+        return $this->belongsTo(City::class)
+            ->with(['province'])
+            ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 
     public function housing()
     {
-        return $this->belongsTo(Housing::class);
+        return $this->belongsTo(Housing::class)
+            ->select(['id', 'housing']);
     }
 
     public function stratum()
     {
-        return $this->belongsTo(Stratum::class);
+        return $this->belongsTo(Stratum::class)
+            ->select(['id', 'stratum', 'description']);
     }
 }

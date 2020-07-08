@@ -28,7 +28,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     use OrderTransformable;
     protected $model;
-    private $columns = [];
+    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'sub_total', 'tax_amount', 'grand_total', 'created_at'];
 
     public function __construct(Order $order)
     {
@@ -61,7 +61,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function findOrderById(int $id): Order
     {
         try {
-            return $this->model->findOrFail($id);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new OrderNotFoundException($e);
         }
@@ -70,7 +70,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
     {
         return $this->model->with('orderStatus')
-            ->get();
+            ->get($this->columns);
     }
 
     public function findProducts(Order $order): Collection

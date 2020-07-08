@@ -79,6 +79,7 @@ class Pqr extends Authenticatable
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)
+            ->select(['id', 'dane', 'city', 'province_id', 'is_active']);
     }
 }

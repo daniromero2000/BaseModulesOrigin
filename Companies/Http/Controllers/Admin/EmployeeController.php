@@ -60,7 +60,7 @@ class EmployeeController extends Controller
         $this->housingInterface             = $housingRepositoryInterface;
         $this->epsInterface                 = $epsRepositoryInterface;
         $this->professionsListInterface     = $professionsListRepositoryInterface;
-        $this->middleware(['permission:employees, guard:employee']);
+        $this->middleware(['permission:create-employee, guard:employee'], ['only' => ['create', 'store']]);
     }
 
     public function index(Request $request)
@@ -80,7 +80,7 @@ class EmployeeController extends Controller
             'employees'          => $list,
             'optionsRoutes'      => 'admin.' . (request()->segment(2)),
             'skip'               => $skip,
-            'headers'            => ['Id', 'Nombre', 'Apellido', 'Departamento', 'Estado', 'Opciones'],
+            'headers'            => ['Id', 'Nombre', 'Apellido', 'Email', 'Departamento', 'Estado', 'Opciones'],
             'roles'              => $this->roleInterface->getAllRoleNames(),
             'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames()
@@ -175,7 +175,7 @@ class EmployeeController extends Controller
     public function getProfile($id)
     {
         return view('companies::admin.employees.profile', [
-            'employee' => $this->employeeInterface->findEmployeeById($id)
+            'employee' => auth()->guard('employee')->user()
         ]);
     }
 

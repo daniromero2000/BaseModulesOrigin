@@ -31,11 +31,11 @@
         <div class="container-reset">
             <div class="row mx-auto">
                 <div class="col-lg-3">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="sidebarCollapse">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2 btn-sm" id="sidebarCollapse">
                         <div class="container-fluid mb-3">
-                            <button type="button" class="btn btn-info">
+                            <button type="button" class="btn button-reset">
                                 <i class="fas fa-align-left"></i>
-                                Categorias
+                                Opciones
                             </button>
                         </div>
                     </nav>

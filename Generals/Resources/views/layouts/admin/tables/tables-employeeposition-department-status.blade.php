@@ -126,7 +126,7 @@
                             </div>
                           </div>
                           <div class="col-sm-6">
-                            @include('generals::admin.shared.status-select', ['status' => $data->status])
+                            @include('generals::admin.shared.status-select', ['status' => $data->is_active])
                           </div>
                           <div class="col-sm-6">
                             <label class="form-control-label" for="password">Rol</label>

@@ -36,16 +36,19 @@ class ProfessionsList extends Model
 
     public function professionGroup()
     {
-        return $this->belongsTo(ProfessionsGroup::class);
+        return $this->belongsTo(ProfessionsGroup::class)
+            ->select(['id', 'ciuo', 'professions_group']);
     }
 
     public function customerProfessions()
     {
-        return $this->hasMany(CustomerProfession::class);
+        return $this->hasMany(CustomerProfession::class)
+            ->select(['id', 'professions_list_id', 'customer_id', 'status', 'created_at']);
     }
 
     public function customerEconomicActivities()
     {
-        return $this->hasMany(CustomerEconomicActivity::class);
+        return $this->hasMany(CustomerEconomicActivity::class)
+            ->select(['economicActivityType', 'professionsList', 'city']);
     }
 }

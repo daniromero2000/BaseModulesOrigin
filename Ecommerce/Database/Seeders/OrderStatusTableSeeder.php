@@ -25,12 +25,12 @@ class OrderStatusTableSeeder extends Seeder
         ]);
 
         factory(OrderStatus::class)->create([
-            'name' => 'on-delivery',
+            'name' => 'En entrega',
             'color' => 'blue'
         ]);
 
         factory(OrderStatus::class)->create([
-            'name' => 'ordered',
+            'name' => 'Ordenado',
             'color' => 'violet'
         ]);
     }

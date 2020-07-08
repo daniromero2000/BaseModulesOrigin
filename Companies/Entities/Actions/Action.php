@@ -59,6 +59,6 @@ class Action extends Model
 
     public function role()
     {
-        return $this->belongsToMany(Action::class, 'action_role', 'action_id', 'role_id');
+        return $this->belongsToMany(Action::class, 'action_role', 'action_id', 'role_id')->select(['action_id', 'role_id', 'status']);
     }
 }

@@ -62,7 +62,7 @@ class BrandRepository implements BrandRepositoryInterface
 
     public function listBrands($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
-        return $this->model->all($columns, $orderBy, $sortBy);
+        return $this->model->all($this->columns, $orderBy, $sortBy);
     }
 
     public function listProducts(): Collection

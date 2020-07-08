@@ -44,11 +44,13 @@ class Department extends Model
 
     public function subsidiary()
     {
-        return $this->belongsTo(Subsidiary::class);
+        return $this->belongsTo(Subsidiary::class)
+            ->select(['id', 'name', 'address', 'phone', 'opening_hours', 'city_id', 'company_id', 'is_active']);
     }
 
     public function employees()
     {
-        return $this->belongsToMany(employee::class); //departments_employees
+        return $this->belongsToMany(employee::class)
+            ->select(['id', 'department_id', 'employee_id']);
     }
 }

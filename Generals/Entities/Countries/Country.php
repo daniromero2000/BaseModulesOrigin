@@ -38,6 +38,8 @@ class Country extends Model
 
     public function provinces()
     {
-        return $this->hasMany(Province::class)->orderBy('province', 'asc');
+        return $this->hasMany(Province::class)
+            ->orderBy('province', 'asc')
+            ->select(['id', 'dane', 'province', 'country_id', 'is_active']);
     }
 }

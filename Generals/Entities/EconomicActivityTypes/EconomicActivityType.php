@@ -35,6 +35,7 @@ class EconomicActivityType extends Model
 
     public function customerEconomicActivities()
     {
-        return $this->hasMany(CustomerEconomicActivity::class);
+        return $this->hasMany(CustomerEconomicActivity::class)
+            ->select(['economicActivityType', 'professionsList', 'city']);
     }
 }

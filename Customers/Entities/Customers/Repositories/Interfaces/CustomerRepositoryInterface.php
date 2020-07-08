@@ -16,6 +16,8 @@ interface CustomerRepositoryInterface
 
     public function findCustomerById(int $id): Customer;
 
+    public function findFrontCustomerById(int $id): Customer;
+
     public function findTrashedCustomerById(int $id): Customer;
 
     public function deleteCustomer(): bool;

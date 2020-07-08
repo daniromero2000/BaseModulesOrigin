@@ -21,7 +21,7 @@ class PermissionRepository implements PermissionRepositoryInterface
     public function getAllPermissionNames(): Collection
     {
         try {
-            return $this->model->orderBy('name', 'asc')->get(['id', 'name']);
+            return $this->model->orderBy('name', 'asc')->get(['id', 'name', 'display_name']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

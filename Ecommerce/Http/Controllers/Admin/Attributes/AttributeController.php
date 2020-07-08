@@ -25,7 +25,8 @@ class AttributeController extends Controller
     public function index()
     {
         return view('ecommerce::admin.attributes.list', [
-            'attributes' => $this->attributeRepo->listAttributes()
+            'attributes' => $this->attributeRepo->listAttributes(),
+            'optionsRoutes'   => 'admin.' . (request()->segment(2)),
         ]);
     }
 
