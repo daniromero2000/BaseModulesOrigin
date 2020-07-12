@@ -4,26 +4,28 @@ namespace Modules\Ecommerce\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Modules\Customers\Entities\CustomerAddresses\Repositories\Interfaces\CustomerAddressRepositoryInterface;
-use Modules\Customers\Entities\CustomerAddresses\Requests\CreateCustomerAddressRequest;
+use Modules\Customers\Entities\CustomerAddresses\Requests\CreateFrontCustomerAddressRequest;
+use Modules\Customers\Entities\CustomerPhones\Repositories\Interfaces\CustomerPhoneRepositoryInterface;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use Modules\Generals\Entities\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
-
 class CustomerAddressController extends Controller
 {
-    private $addressRepo, $countryRepo, $cityRepo, $provinceRepo;
+    private $addressRepo, $countryRepo, $cityRepo, $provinceRepo, $customerPhoneInterface;
 
     public function __construct(
         CustomerAddressRepositoryInterface $addressRepository,
         CityRepositoryInterface $cityRepository,
         CountryRepositoryInterface $countryRepository,
-        ProvinceRepositoryInterface $provinceRepository
+        ProvinceRepositoryInterface $provinceRepository,
+        CustomerPhoneRepositoryInterface $customerPhoneRepositoryInterface
     ) {
         $this->addressRepo = $addressRepository;
         $this->provinceRepo = $provinceRepository;
         $this->countryRepo = $countryRepository;
         $this->cityRepo = $cityRepository;
+        $this->customerPhoneInterface = $customerPhoneRepositoryInterface;
     }
 
     public function index()
@@ -41,16 +43,19 @@ class CustomerAddressController extends Controller
         ]);
     }
 
-    public function store(CreateCustomerAddressRequest $request)
+    public function store(CreateFrontCustomerAddressRequest $request)
     {
-        $request['customer_id'] = auth()->user()->id;
-        $request['housing_id'] = 1;
-        $request['stratum_id'] = 1;
-        $request['city_id'] = 1;
-        $request['time_living'] = 1;
+        $customerId = auth()->user()->id;
+        $addressData = $request->except('_token', '_method', 'phone');
+        $addressData['customer_id'] = $customerId;
+        $addressData['city_id'] = 1;
 
-        $this->addressRepo->createCustomerAddress($request->except('_token', '_method'));
+        $this->addressRepo->createCustomerAddress($addressData);
 
+        $phoneData = $request->except('_token', '_method', 'default_address', 'alias', 'customer_address', 'country_id');
+        $phoneData['customer_id'] = $customerId;
+
+        $this->customerPhoneInterface->createCustomerPhone($phoneData);
 
         return redirect()->route('checkout.index')
             ->with('message', config('messaging.create'));

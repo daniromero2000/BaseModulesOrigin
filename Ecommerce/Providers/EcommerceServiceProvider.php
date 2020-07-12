@@ -5,35 +5,48 @@ namespace Modules\Ecommerce\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Modules\Ecommerce\Entities\Categories\Category;
+use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 
 class EcommerceServiceProvider extends ServiceProvider
 {
+
+    private $categoryInterface;
     /**
      * Boot the application events.
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot(
+        CategoryRepositoryInterface $categoryRepositoryInterface
+    ) {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
+        $this->categoryInterface = $categoryRepositoryInterface;
+
         try {
-            $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get([
-                'id',
-                'name',
-                'slug',
-                'description',
-                'cover',
-                'is_active',
-            ]);
+            $categories = $this->categoryInterface->listFrontCategories();
             view()->share('categories', $categories);
         } catch (\Exception $e) {
             //throw $th;
         }
+
+        // try {
+        //     $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get([
+        //         'id',
+        //         'name',
+        //         'slug',
+        //         'description',
+        //         'cover',
+        //         'is_active',
+        //     ]);
+        //     view()->share('categories', $categories);
+        // } catch (\Exception $e) {
+        //     //throw $th;
+        // }
     }
 
     /**

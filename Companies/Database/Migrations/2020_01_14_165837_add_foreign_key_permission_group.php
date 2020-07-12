@@ -14,7 +14,7 @@ class AddForeignKeyPermissionGroup extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->unsignedInteger('permission_group_id');
+            $table->unsignedInteger('permission_group_id')->index();
             $table->foreign('permission_group_id')->references('id')->on('permission_groups')
                 ->onUpdate('cascade')->onDelete('cascade');
         });

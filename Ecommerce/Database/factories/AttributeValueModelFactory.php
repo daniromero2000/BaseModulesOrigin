@@ -16,6 +16,7 @@ use Modules\Ecommerce\Entities\AttributeValues\AttributeValue;
 
 $factory->define(AttributeValue::class, function (Faker\Generator $faker) {
     return [
-        'value' => $faker->unique()->word
+        'value' => $faker->unique()->word,
+        'sort_order' => 1
     ];
 });

@@ -18,6 +18,7 @@ class CreateCustomerGroupsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->boolean('is_user_defined')->default(1);
+            $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,9 +18,9 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('description')->nullable();
-            $table->unsignedInteger('city_id');
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->string('logo')->nullable();
+            $table->unsignedInteger('country_id')->index();
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->string('logo')->nullable()->default('Sin Logo');
             $table->string('timezone')->nullable();
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->integer('base_currency_id')->unsigned();

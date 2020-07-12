@@ -15,7 +15,7 @@ class CreateCustomerIdentitiesTable extends Migration
     {
         Schema::create('customer_identities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('identity_type_id')->unsigned()->index();
+            $table->integer('identity_type_id')->unsigned()->index()->default(1);
             $table->foreign('identity_type_id')->references('id')->on('identity_types');
             $table->string('identity_number')->unique();
             $table->date('expedition_date');

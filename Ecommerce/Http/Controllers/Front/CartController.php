@@ -7,13 +7,8 @@ use Modules\Ecommerce\Entities\Carts\Requests\UpdateCartRequest;
 use Modules\Ecommerce\Entities\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
-use Modules\Ecommerce\Entities\Products\Product;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
-use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use Modules\Ecommerce\Entities\Shoppingcart\CartItem;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller
@@ -35,8 +30,7 @@ class CartController extends Controller
 
     public function index()
     {
-        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $shippingFee = $this->cartRepo->getShippingFee($this->courierRepo->findCourierById(request()->session()->get('courierId', 1)));
 
         return view('ecommerce::front.carts.cart', [
             'cartItems'     => $this->cartRepo->getCartItemsTransformed(),
@@ -96,13 +90,15 @@ class CartController extends Controller
 
     public function getCart()
     {
-        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $courier     = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
         $shippingFee = $this->cartRepo->getShippingFee($courier);
-        $data = [];
-        $cartItems = $this->cartRepo->getCartItemsTransformed();
+        $cartItems   = $this->cartRepo->getCartItemsTransformed();
+        $data        = [];
+
         foreach ($cartItems as $key => $value) {
             $data[] = $cartItems[$key];
         }
+
         return  [
             'cartItems'     => $data,
             'subtotal'      => $this->cartRepo->getSubTotal(),

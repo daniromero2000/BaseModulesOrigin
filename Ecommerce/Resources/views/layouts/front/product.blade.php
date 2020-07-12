@@ -69,11 +69,13 @@
                     <div id="vertical-slider">
                         <ul>
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}" alt=""></li>
+                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
+                                    alt="{{$product->name}}" style=" border-radius: 6px; "></li>
                             @if(isset($images) && !$images->isEmpty())
                             @foreach($images as $image)
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$image->src") }}" alt=""></li>
+                                <img class="img-fluid" src="{{ asset("storage/$image->src") }}" alt="{{$image->src}}"
+                                    style=" border-radius: 6px; "></li>
                             @endforeach
                             @endif
                         </ul>
@@ -95,11 +97,13 @@
                     <div id="horizon-slider" class="zoomin zoomenable zoomed">
                         <ul>
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}" alt=""></li>
+                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
+                                    alt="{{$product->name}}" style=" border-radius: 15px; "></li>
                             @if(isset($images) && !$images->isEmpty())
                             @foreach($images as $image)
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled"> <img class="img-fluid"
-                                    src="{{ asset("storage/$image->src") }}" alt=""></li>
+                                    src="{{ asset("storage/$image->src") }}" alt="{{$product->name}}"
+                                    style=" border-radius: 15px; "></li>
                             @endforeach
                             @endif
                         </ul>

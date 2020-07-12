@@ -75,6 +75,8 @@ Route::namespace('Front')->group(function () {
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
         Route::resource('customer.address', 'CustomerAddressController');
+        Route::get('/api/getCountry/{id}/province', 'CheckoutController@getCountry')->name('checkout.getCountry');
+        Route::get('/api/getProvince/{id}/city', 'CheckoutController@getProvince')->name('checkout.getProvince');
     });
     Route::resource('cart', 'CartController');
     Route::get("api/getCart/", 'CartController@getCart')->name('front.get.cart');

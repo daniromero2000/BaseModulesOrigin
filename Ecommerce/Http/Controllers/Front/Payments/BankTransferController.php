@@ -74,7 +74,7 @@ class BankTransferController extends Controller
         $checkout = $this->checkoutInterface->getLastCheckout();
         $checkoutRepo = new CheckoutRepository($checkout);
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus);
-        $os = $orderStatusRepo->findByName('ordered');
+        $os = $orderStatusRepo->findByName('Ordenado');
 
         $order = $checkoutRepo->buildCheckoutItems([
             'reference'       => Uuid::uuid4()->toString(),

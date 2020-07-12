@@ -59,7 +59,8 @@ class Product extends Model implements Buyable
         'distance_unit',
         'slug',
         'company_id',
-        'brand_id'
+        'brand_id',
+        'tax_id'
     ];
 
     protected $hidden = [

@@ -12,10 +12,12 @@ use Modules\Ecommerce\Entities\Orders\Repositories\Interfaces\OrderRepositoryInt
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
 use Modules\Ecommerce\Entities\Checkout\CheckoutRepository;
+use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Modules\Generals\Entities\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
 
 class CheckoutController extends Controller
 {
@@ -23,6 +25,7 @@ class CheckoutController extends Controller
 
     private $cartRepo, $courierRepo, $addressRepo, $customerRepo, $productRepo;
     private $orderRepo, $payPal, $shippingRepo, $checkoutinterface;
+    private $countryRepo, $cityRepo, $provinceRepo;
 
     public function __construct(
         CartRepositoryInterface $cartRepository,
@@ -31,30 +34,29 @@ class CheckoutController extends Controller
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository,
+        CityRepositoryInterface $cityRepository,
+        CountryRepositoryInterface $countryRepository,
+        ProvinceRepositoryInterface $provinceRepository,
         CheckoutRepository $checkoutRepository
     ) {
-        $this->cartRepo     = $cartRepository;
-        $this->courierRepo  = $courierRepository;
-        $this->addressRepo  = $addressRepository;
-        $this->customerRepo = $customerRepository;
-        $this->productRepo  = $productRepository;
-        $this->orderRepo    = $orderRepository;
+        $this->cartRepo          = $cartRepository;
+        $this->courierRepo       = $courierRepository;
+        $this->addressRepo       = $addressRepository;
+        $this->customerRepo      = $customerRepository;
+        $this->productRepo       = $productRepository;
+        $this->orderRepo         = $orderRepository;
+        $this->provinceRepo      = $provinceRepository;
+        $this->countryRepo       = $countryRepository;
+        $this->cityRepo          = $cityRepository;
         $this->checkoutinterface = $checkoutRepository;
     }
 
     public function index(Request $request)
     {
-        $products = $this->cartRepo->getCartItems();
-        $customer = $request->user();
-        $rates = null;
+        $customer           = $request->user();
+        $rates              = null;
         $shipment_object_id = null;
-
-        $data = [
-            'customer_id' => $customer->id
-        ];
-
-        $this->checkoutinterface->createCheckout($data);
-
+        $products           = $this->cartRepo->getCartItems();
         if (env('ACTIVATE_SHIPPING') == 1) {
             $shipment = $this->createShippingProcess($customer, $products);
             if (!is_null($shipment)) {
@@ -68,26 +70,46 @@ class CheckoutController extends Controller
             return config($name);
         })->all();
 
-        $billingAddress = $customer->frontCustomerAddresses()->first();
+        $data = [
+            'customer_id' => $customer->id,
+        ];
+        $this->checkoutinterface->createCheckout($data);
 
         return view('ecommerce::front.checkout', [
-            'customer' => $customer,
-            'billingAddress' => $billingAddress,
-            'addresses' => $customer->frontCustomerAddresses()->get(),
-            'products' => $this->cartRepo->getCartItems(),
-            'subtotal' => $this->cartRepo->getSubTotal(),
-            'tax' => $this->cartRepo->getTax(),
-            'total' => $this->cartRepo->getTotal(2),
-            'payments' => $paymentGateways,
-            'cartItems' => $this->cartRepo->getCartItemsTransformed(),
+            'customer'           => $customer,
+            'countries'          => $this->countryRepo->listCountries(),
+            'cities'             => $this->cityRepo->listCities(),
+            'provinces'          => $this->provinceRepo->listProvinces(),
+            'billingAddress'     => $customer->frontCustomerAddresses()->first(),
+            'addresses'          => $customer->frontCustomerAddresses()->get(),
+            'products'           => $this->cartRepo->getCartItems(),
+            'subtotal'           => $this->cartRepo->getSubTotal(),
+            'tax'                => $this->cartRepo->getTax(),
+            'total'              => $this->cartRepo->getTotal(2),
+            'payments'           => $paymentGateways,
+            'cartItems'          => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
-            'rates' => $rates,
+            'rates'              => $rates,
         ]);
     }
 
     public function cancel(Request $request)
     {
         return view('ecommerce::front.checkout-cancel', ['data' => $request->all()]);
+    }
+
+    public function getCountry($id)
+    {
+        if ($id > 0) {
+            return $this->countryRepo->findCountryById($id)->provinces;
+        }
+    }
+
+    public function getProvince($id)
+    {
+        if ($id > 0) {
+            return $this->cityRepo->findCityByProvince($id);
+        }
     }
 
     public function success()

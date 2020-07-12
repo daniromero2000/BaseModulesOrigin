@@ -19,10 +19,10 @@ class CreateSubsidiariesTable extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->string('opening_hours');
-            $table->unsignedInteger('city_id');
+            $table->string('opening_hours')->nullable();
+            $table->unsignedInteger('city_id')->index();
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();

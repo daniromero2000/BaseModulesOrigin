@@ -46,6 +46,15 @@ class CityRepository implements CityRepositoryInterface
         }
     }
 
+    public function findCityByProvince(int $id)
+    {
+        try {
+            return $this->model->where('province_id', $id)->get($this->columns);
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function findCityByName(string $name): City
     {
         try {

@@ -156,12 +156,24 @@ class ProductRepository implements ProductRepositoryInterface
     public function saveProductImages(Collection $collection)
     {
         $collection->each(function (UploadedFile $file) {
-            $filename = $this->storeFile($file);
+            $filename = $this->storeFile($file, 'products');
             $productImage = new ProductImage([
                 'product_id' => $this->model->id,
                 'src' => $filename
             ]);
             $this->model->images()->save($productImage);
+        });
+    }
+
+    public function saveAttributeProductImages(Collection $collection, $productAttributeId)
+    {
+        $collection->each(function (UploadedFile $file) use ($productAttributeId) {
+            $filename = $this->storeFile($file, 'products');
+            $productImage = new ProductImage([
+                'product_attribute_id' => $productAttributeId,
+                'src' => $filename
+            ]);
+            $productImage->save();
         });
     }
 

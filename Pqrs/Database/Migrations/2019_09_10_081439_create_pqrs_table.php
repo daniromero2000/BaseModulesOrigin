@@ -25,7 +25,7 @@ class CreatePqrsTable extends Migration
             $table->string('mensaje');
             $table->integer('pqr_status_id')->unsigned();
             $table->foreign('pqr_status_id')->references('id')->on('pqr_statuses');
-            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('city_id')->index();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->boolean('data_politics')->nullable();
             $table->tinyInteger('lapsed')->unsigned()->default(0);

@@ -47,6 +47,8 @@ interface ProductRepositoryInterface
 
     public function saveProductImages(Collection $collection);
 
+    public function saveAttributeProductImages(Collection $collection, $productAttributeId);
+
     public function saveProductAttributes(ProductAttribute $productAttribute): ProductAttribute;
 
     public function listProductAttributes(): Collection;

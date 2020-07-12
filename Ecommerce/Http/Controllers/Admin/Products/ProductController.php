@@ -88,9 +88,10 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
 
-
         $data = $request->except('_token', '_method');
         $data['slug'] = str_slug($request->input('name'));
+        $data['company_id'] = auth()->guard('employee')->user()->company_id;
+        $data['tax_id'] = 1;
 
         if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
             $data['cover'] = $this->productRepo->saveCoverImage($request->file('cover'));
@@ -111,7 +112,7 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.products.edit', $product->id)
-        ->with('message', config('messaging.create'));
+            ->with('message', config('messaging.create'));
     }
 
     public function show(int $id)
@@ -223,7 +224,7 @@ class ProductController extends Controller
         $productRepo->removeProduct();
 
         return redirect()->route('admin.products.index')
-        ->with('message', config('messaging.delete'));
+            ->with('message', config('messaging.delete'));
     }
 
     public function removeImage(Request $request)
@@ -277,6 +278,10 @@ class ProductController extends Controller
         $productAttribute = $productRepo->saveProductAttributes(
             new ProductAttribute(compact('quantity', 'price', 'sale_price', 'default'))
         );
+
+        if ($request->hasFile('image')) {
+            $productRepo->saveAttributeProductImages(collect($request->file('image')), $productAttribute->id);
+        }
 
         // save the combinations
         return collect($attributeValues)->each(function ($attributeValueId) use ($productRepo, $productAttribute) {

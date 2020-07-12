@@ -18,7 +18,7 @@ use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUParameters;
 use Ramsey\Uuid\Uuid;
 use Shippo_Shipment;
 use Shippo_Transaction;
-
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\PayUPayments;
 
 class PaymentsController extends Controller
 {
@@ -62,11 +62,18 @@ class PaymentsController extends Controller
 
     public function index()
     {
-        $settings = config('payu');
-        $payuClient = new PayuClient($settings);
+        // $settings = config('payu');
+        // $payuClient = new PayuClient($settings);
 
 
-        $this->pay($payuClient);
+        // $array = PayUPayments::getPaymentMethods();
+        // $payment_methods = $array->paymentMethods;
+
+        // dd($payment_methods);
+
+
+
+        // $this->pay($payuClient);
         return view('ecommerce::front.payu-redirect', [
             'subtotal'       => $this->cartRepo->getSubTotal(),
             'shipping'       => $this->shippingFee,
@@ -147,7 +154,7 @@ class PaymentsController extends Controller
             PayUParameters::CURRENCY => 'COP',
             PayUParameters::PAYMENT_METHOD => 'VISA', // VISA, MASTERCARD, ...
             PayUParameters::CREDIT_CARD_NUMBER => 4907840000000005, // '4907840000000005',
-            PayUParameters::CREDIT_CARD_EXPIRATION_DATE => request()->input('card_expiration_date'),
+            PayUParameters::CREDIT_CARD_EXPIRATION_DATE => '2021/08',
             PayUParameters::CREDIT_CARD_SECURITY_CODE => 769,
             PayUParameters::INSTALLMENTS_NUMBER => 1,
             PayUParameters::PAYER_NAME => 'APPROVED',
@@ -173,12 +180,12 @@ class PaymentsController extends Controller
 
         $payuClient->pay($data, function ($response) {
             if ($response->code == 'SUCCESS') {
-                // ... El código para el caso de éxito
+                dd('Fue exitoso');
             } else {
-                //... El código de respuesta no fue exitoso
+                dd('no fue exitoso');
             }
         }, function ($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            dd($error);
         });
     }
 
@@ -186,8 +193,9 @@ class PaymentsController extends Controller
     {
         $payuClient->doPing(function ($response) {
             $code = $response->code;
+            dd($code);
         }, function ($error) {
-            // ... Manejo de errores PayUException
+            dd($error);
         });
     }
 }

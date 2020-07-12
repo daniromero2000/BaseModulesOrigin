@@ -11,6 +11,7 @@ class CompaniesDatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call(CompanyTableSeeder::class);
+        $this->call(SubsidiaryTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
         $this->call(EmployeePositionsTableSeeder::class);
         $this->call(EmployeesTableSeeder::class);

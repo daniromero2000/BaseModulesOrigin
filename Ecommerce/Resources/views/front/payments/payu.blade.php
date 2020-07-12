@@ -11,6 +11,7 @@
         {{ $payment['description'] }}
         @endif
     </td>
+    @if ($billingAddress)
     <td>
         <form action="{{ route('payu.index') }}">
             <input type="hidden" class="billing_address" name="billing_address" value=" {{$billingAddress->id}}">
@@ -20,6 +21,7 @@
                     class="fa fa-bank"></i></button>
         </form>
     </td>
+    @endif
 </tr>
 <script type="text/javascript">
     $(document).ready(function () {

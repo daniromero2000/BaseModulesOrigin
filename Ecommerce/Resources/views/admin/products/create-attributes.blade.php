@@ -47,12 +47,19 @@
             </div>
         </div>
     </div>
+    <div class="form-group relative">
+        <label for="image" class="form-control-label">Imagenes</label>
+        <input type="file" name="image[]" id="image" class="form-control" multiple>
+        <a class="text-center info-tooltip" data-toggle="tooltip"
+            data-original-title="Puedes usar (cmd o ctrl) para seleccionar multiples imagenes">
+            ! </a>
+    </div>
     <div class="col-sm-6">
         <div class="form-group">
             <label for="default" class="form-control-label">Mostrar como precio predeterminado?</label> <br />
             <select name="default" id="default" class="form-control select2">
                 <option value="0" selected="selected">No</option>
-                <option value="1">Yes</option>
+                <option value="1">Si</option>
             </select>
         </div>
     </div>

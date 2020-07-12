@@ -10,7 +10,8 @@ class RegisterCustomerRequest extends BaseFormRequest
     {
         return [
             'name'                 => 'required|string|max:255',
-            'password'             => 'required|string|min:8|confirmed'
+            'password'             => 'required|string|min:8|confirmed',
+            'email'             => 'required|string|unique:customers'
             // 'data_politics'        => ['required'],
         ];
     }

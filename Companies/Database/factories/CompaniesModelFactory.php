@@ -17,8 +17,8 @@ use Modules\Companies\Entities\Companies\Company;
 
 $factory->define(Company::class, function () {
     return [
-        'name'          => 'FVN',
-        'city_id'         => 1,
+        'name'             => 'FVN',
+        'country_id'       => 1,
         'base_currency_id' => 3
     ];
 });

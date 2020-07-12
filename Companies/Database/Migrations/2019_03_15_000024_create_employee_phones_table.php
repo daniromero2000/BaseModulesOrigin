@@ -15,7 +15,7 @@ class CreateEmployeePhonesTable extends Migration
     {
         Schema::create('employee_phones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('phone_type');
+            $table->string('phone_type')->default('Móvil');
             $table->string('phone')->unique();
             $table->integer('employee_id')->unsigned()->index();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');

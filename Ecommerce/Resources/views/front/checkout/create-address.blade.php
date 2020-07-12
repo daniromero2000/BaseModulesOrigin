@@ -2,10 +2,10 @@
 @section('content')
 <section class="container content">
     @include('generals::layouts.errors-and-messages')
-    <div class="box">
+    <div class="card">
         <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form"
             enctype="multipart/form-data">
-            <div class="box-body">
+            <div class="card-body">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="alias">Alias <span class="text-danger">*</span></label>
@@ -49,7 +49,7 @@
                     </select>
                 </div>
             </div>
-            <div class="box-footer">
+            <div class="card-footer">
                 <div class="btn-group">
                     <input type="hidden" name="page" value="checkout">
                     <a href="{{ route('customer.address.index', $customer->id) }}" class="btn btn-default">Regresar</a>

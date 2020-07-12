@@ -13,4 +13,6 @@ interface CityRepositoryInterface
     public function findCityById(int $id): City;
 
     public function findCityByName(string $name): City;
+
+    public function findCityByProvince(int $id);
 }

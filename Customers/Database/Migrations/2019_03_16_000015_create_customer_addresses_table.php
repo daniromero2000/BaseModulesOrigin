@@ -15,11 +15,11 @@ class CreateCustomerAddressesTable extends Migration
     {
         Schema::create('customer_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('housing_id')->unsigned()->index();
-            $table->foreign('housing_id')->references('id')->on('housings');
+            $table->integer('housing_id')->unsigned()->index()->default(4);
+            $table->foreign('housing_id')->references('id')->on('housings')->default(4);
             $table->string('customer_address');
-            $table->integer('time_living')->unsigned();
-            $table->integer('stratum_id')->unsigned()->index();
+            $table->integer('time_living')->unsigned()->default(0);
+            $table->integer('stratum_id')->unsigned()->index()->default(1);
             $table->foreign('stratum_id')->references('id')->on('stratums');
             $table->integer('city_id')->unsigned()->index();
             $table->foreign('city_id')->references('id')->on('cities');

@@ -17,7 +17,7 @@ class CreateCitiesTable extends Migration
             $table->increments('id');
             $table->string('dane');
             $table->string('city');
-            $table->unsignedInteger('province_id');
+            $table->unsignedInteger('province_id')->index();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();

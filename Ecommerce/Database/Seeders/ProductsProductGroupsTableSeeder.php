@@ -13,8 +13,6 @@ class ProductsProductGroupsTableSeeder extends Seeder
         factory(Product::class, 2)->create()->each(function (Product $product) {
             factory(ProductGroup::class, 6)->make()->each(function (Product $ProductGroup) use ($product) {
                 $product->productGroups()->save($ProductGroup);
-
-                dd($product);
             });
         });
     }

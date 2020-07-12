@@ -16,13 +16,13 @@
 use Modules\Companies\Entities\Departments\Department;
 use Modules\Companies\Entities\Subsidiaries\Subsidiary;
 
+
+
 $factory->define(Department::class, function () {
 
-    $subsidiary = factory(Subsidiary::class)->create();
-
     return [
-        'name'          => 'Gestión Humana',
-        'phone'         => 3183643,
-        'subsidiary_id' => 1
+        'name'       => 'Gestión Humana',
+        'phone'      => 3183643,
+        'company_id' => 1
     ];
 });

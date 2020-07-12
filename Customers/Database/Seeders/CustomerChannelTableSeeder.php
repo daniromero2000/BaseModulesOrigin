@@ -48,5 +48,9 @@ class CustomerChannelTableSeeder extends Seeder
         factory(CustomerChannel::class)->create([
             'channel'  => 'Ecommerce',
         ]);
+
+        factory(CustomerChannel::class)->create([
+            'channel'  => 'Otro',
+        ]);
     }
 }

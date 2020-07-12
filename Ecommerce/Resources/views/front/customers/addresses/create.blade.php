@@ -1,12 +1,12 @@
 @extends('layouts.front.app')
 @section('content')
 <section class="container content">
-    @include('generals::layouts.errors-and-messages')
-    <div class="box">
+
+    <div class="card">
         <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form"
             enctype="multipart/form-data">
             <input type="hidden" name="default_address" value="1">
-            <div class="box-body">
+            <div class="card-body">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="alias">Alias <span class="text-danger">*</span></label>
@@ -35,7 +35,7 @@
                         value="{{ old('phone') }}">
                 </div>
             </div>
-            <div class="box-footer">
+            <div class="card-footer">
                 <div class="btn-group">
                     <a href="{{ route('accounts', ['tab' => 'address']) }}" class="btn btn-default">Regresar</a>
                     <button type="submit" class="btn btn-primary">Crear</button>

@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-body pt-3 pb-0 pr-3 pl-3">
                         <p class="title-product">{{$product->name}}</p>
-                        <p class="mb-1 price-product">${{ number_format($product->price, 0)}}</p>
+                        {{-- <p class="mb-1 price-product">${{ number_format($product->price, 0)}}</p> --}}
                     </div>
                     <div class="row justify-content-center">
                         <a class="text-dark" data-toggle="modal" data-target="#productModal{{ $product->id }}">

@@ -20,14 +20,14 @@ class CreateEmployeesTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->date('birthday')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->nullable()->default('Sin Avatar');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->integer('employee_position_id')->unsigned()->index();
+            $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
-            $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->dateTime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
+            $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -12,15 +12,6 @@
 @endsection
 @section('content')
 <div class="wrapper">
-    <nav id="sidebar">
-        <div id="dismiss">
-            <i class="fas fa-arrow-left"></i>
-        </div>
-
-        <div class="sidebar-header p-4">
-        </div>
-        @include('ecommerce::front.categories.sidebar-category')
-    </nav>
     <div id="content">
         <div class="w-100">
             <img src="{{ asset('img/fvn/baner-category.png')}}" class="d-block w-100" alt="...">

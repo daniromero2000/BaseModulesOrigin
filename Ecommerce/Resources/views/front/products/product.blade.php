@@ -7,11 +7,12 @@
     <div class="row">
         <div class="col-md-12">
             <ol class="breadcrumb-reset">
-                <li><a href="{{ route('home') }}"> Home </a> </li>
+                <li><a href="{{ route('home') }}"> Home </a> <span> /</span></li>
                 @if(isset($category))
-                <li><a href="{{ route('front.category.slug', $category->slug) }}">{{ $category->name }}</a></li>
+                <li><a href="{{ route('front.category.slug', $category->slug) }}">{{ $category->name }}</a> <span>
+                        /</span> </li>
                 @endif
-                <li class="active"><span> /</span> {{ $product->name }}</li>
+                <li class="active"> {{ $product->name }}</li>
             </ol>
         </div>
     </div>
