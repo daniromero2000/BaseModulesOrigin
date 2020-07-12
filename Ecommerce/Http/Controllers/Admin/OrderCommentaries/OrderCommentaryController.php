@@ -18,7 +18,7 @@ class OrderCommentaryController extends Controller
     ) {
         $this->orderCommentaryInterface  = $orderCommentaryRepositoryInterface;
         $this->orderStatusesLogInterface = $orderStatusesLogRepositoryInterface;
-        $this->middleware(['permission:customers, guard:employee']);
+        $this->middleware(['permission:orders, guard:employee']);
     }
 
     public function store(CreateOrderCommentaryRequest $request)

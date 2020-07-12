@@ -45,6 +45,7 @@ class CreateInvoicesTable extends Migration
 
             $table->string('transaction_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

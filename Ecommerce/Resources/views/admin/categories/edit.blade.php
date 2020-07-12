@@ -27,7 +27,7 @@
                 <input type="hidden" name="_method" value="put">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="parent">Categoria Padre</label>
+                    <label for="parent">Categoría Padre</label>
                     <select name="parent" id="parent" class="form-control select2">
                         <option value="0">Sin padre</option>
                         @foreach($categories as $cat)
@@ -38,13 +38,13 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                         value="{!! $category->name ?: old('name')  !!}">
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción </label>
                     <textarea class="form-control ckeditor" name="description" id="description" rows="5"
-                        placeholder="Description">{!! $category->description ?: old('description')  !!}</textarea>
+                        placeholder="Descripción">{!! $category->description ?: old('description')  !!}</textarea>
                 </div>
                 @if(isset($category->cover))
                 <div class="form-group">

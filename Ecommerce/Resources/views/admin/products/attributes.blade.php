@@ -8,10 +8,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Sale Price</th>
+                        <th>Precio Normal</th>
+                        <th>Precio oferta</th>
                         <th>Atributos</th>
-                        <th>Is default?</th>
+                        <th>Por Defecto?</th>
                         <th>Remover</th>
                     </tr>
                 </thead>
@@ -52,5 +52,5 @@
     </li>
 </ul>
 @else
-<p class="alert alert-warning">No combination yet.</p>
+<p class="alert alert-warning">No hay combinaciones aún.</p>
 @endif

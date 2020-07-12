@@ -59,10 +59,8 @@ class CartController extends Controller
 
         $options = [];
         if ($request->has('productAttribute')) {
-
             $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
             $product->price = $attr->price;
-
             $options['product_attribute_id'] = $request->input('productAttribute');
             $options['combination'] = $attr->attributesValues->toArray();
         }
@@ -90,14 +88,15 @@ class CartController extends Controller
 
     public function getCart()
     {
-        $courier     = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
         $cartItems   = $this->cartRepo->getCartItemsTransformed();
         $data        = [];
 
         foreach ($cartItems as $key => $value) {
             $data[] = $cartItems[$key];
         }
+
+        $courier     = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return  [
             'cartItems'     => $data,

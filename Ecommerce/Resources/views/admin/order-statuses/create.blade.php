@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}"
-                        placeholder="Name">
+                        placeholder="Nombre">
                 </div>
                 <div class="form-group">
                     <label for="color">Color</label>

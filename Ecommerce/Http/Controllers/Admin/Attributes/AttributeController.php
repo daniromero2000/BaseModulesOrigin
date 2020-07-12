@@ -4,7 +4,6 @@ namespace Modules\Ecommerce\Http\Controllers\Admin\Attributes;
 
 use App\Http\Controllers\Controller;
 use Modules\Ecommerce\Entities\Attributes\Exceptions\AttributeNotFoundException;
-use Modules\Ecommerce\Entities\Attributes\Exceptions\CreateAttributeErrorException;
 use Modules\Ecommerce\Entities\Attributes\Exceptions\UpdateAttributeErrorException;
 use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepository;
 use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;

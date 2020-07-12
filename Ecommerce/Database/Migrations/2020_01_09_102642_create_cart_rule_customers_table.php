@@ -20,6 +20,7 @@ class CreateCartruleCustomersTable extends Migration
             $table->foreign('cart_rule_id')->references('id')->on('cart_rules')->onDelete('cascade');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

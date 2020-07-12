@@ -31,18 +31,18 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="productAttributePrice" class="form-control-label">Precio</label>
+            <label for="productAttributePrice" class="form-control-label">Precio Normal</label>
             <div class="input-group">
                 <input type="text" name="productAttributePrice" id="productAttributePrice" class="form-control"
-                    placeholder="Price" disabled>
+                    placeholder="Precio Normal" disabled>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="salePrice" class="form-control-label">Precio de venta</label>
+            <label for="salePrice" class="form-control-label">Precio Oferta</label>
             <div class="input-group">
-                <input type="text" name="salePrice" id="salePrice" class="form-control" placeholder="Sale Price"
+                <input type="text" name="salePrice" id="salePrice" class="form-control" placeholder="Precio Oferta"
                     disabled>
             </div>
         </div>

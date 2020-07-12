@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}"
-                        placeholder="Name" autofocus>
+                        placeholder="Nombre" autofocus>
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción</label>

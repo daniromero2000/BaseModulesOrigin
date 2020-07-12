@@ -18,6 +18,7 @@ use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceReposito
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\PayUPayments;
 
 class CheckoutController extends Controller
 {
@@ -66,13 +67,12 @@ class CheckoutController extends Controller
         }
 
         // Get payment gateways
+        $array = PayUPayments::getPaymentMethods();
         $paymentGateways = collect(explode(',', config('payees.name')))->transform(function ($name) {
             return config($name);
         })->all();
 
-        $data = [
-            'customer_id' => $customer->id,
-        ];
+        $data = ['customer_id' => $customer->id];
         $this->checkoutinterface->createCheckout($data);
 
         return view('ecommerce::front.checkout', [
@@ -90,12 +90,15 @@ class CheckoutController extends Controller
             'cartItems'          => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
             'rates'              => $rates,
+            'payu_payment_methods' => $array->paymentMethods
         ]);
     }
 
     public function cancel(Request $request)
     {
-        return view('ecommerce::front.checkout-cancel', ['data' => $request->all()]);
+        return view('ecommerce::front.checkout-cancel', [
+            'data' => $request->all()
+        ]);
     }
 
     public function getCountry($id)

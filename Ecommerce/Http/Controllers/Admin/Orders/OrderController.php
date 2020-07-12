@@ -2,8 +2,6 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Admin\Orders;
 
-use Modules\Customers\Entities\CustomerAddresses\Repositories\Interfaces\CustomerAddressRepositoryInterface;
-use Modules\Customers\Entities\CustomerAddresses\Transformations\AddressTransformable;
 use Modules\Ecommerce\Entities\Couriers\Courier;
 use Modules\Ecommerce\Entities\Couriers\Repositories\CourierRepository;
 use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
@@ -34,7 +32,7 @@ class OrderController extends Controller
         $this->courierRepo     = $courierRepository;
         $this->customerRepo    = $customerRepository;
         $this->orderStatusRepo = $orderStatusRepository;
-        // $this->middleware(['permission:update-order, guard:employee'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:orders, guard:employee']);
     }
 
     public function index()

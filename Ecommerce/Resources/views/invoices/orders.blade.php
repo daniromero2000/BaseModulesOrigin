@@ -18,8 +18,8 @@
             Factura a: {{$customer->name}} <br />
             Entregada a: <strong>{{ $address->alias }} <br /></strong>
             {{ $address->address }} <br />
-            {{ $address->city-city }} {{ $address->province->province }} <br />
-            {{ $address->country->country }} {{ $address->zip }}
+            {{ $address->city->city }} {{ $address->city->province->province }} <br />
+            {{ $address->city->province->country->name }} {{ $address->zip }}
         </div>
         <div class="pull-right">
             From: {{config('app.name')}}
@@ -58,7 +58,7 @@
                         <td></td>
                         <td></td>
                         <td>Subtotal:</td>
-                        <td>{{$order->total_products}}</td>
+                        <td>{{$order->sub_total}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -74,7 +74,7 @@
                         <td></td>
                         <td></td>
                         <td>Impuesto:</td>
-                        <td>{{$order->tax}}</td>
+                        <td>{{$order->tax_amount}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -82,7 +82,7 @@
                         <td></td>
                         <td></td>
                         <td><strong>Total:</strong></td>
-                        <td><strong>{{$order->total}}</strong></td>
+                        <td><strong>{{$order->grand_total}}</strong></td>
                     </tr>
                 </tfoot>
             </table>

@@ -15,7 +15,7 @@ class BrandController extends Controller
     public function __construct(BrandRepositoryInterface $brandRepository)
     {
         $this->brandRepo = $brandRepository;
-        $this->middleware(['permission:attributes, guard:employee']);
+        $this->middleware(['permission:brands, guard:employee']);
     }
 
     public function index()

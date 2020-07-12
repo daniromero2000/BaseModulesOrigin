@@ -19,6 +19,7 @@ class CreateCartRuleCustomerGroupsTable extends Migration
             $table->foreign('customer_group_id')->references('id')->on('customer_groups')->onDelete('cascade');
             $table->primary(['cart_rule_id', 'customer_group_id']);
             $table->foreign('cart_rule_id')->references('id')->on('cart_rules')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -28,7 +28,7 @@
                         enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="parent">Categoria Padre</label>
+                            <label for="parent">Categoría Padre</label>
                             <select name="parent" id="parent" class="form-control select2">
                                 <option value="">-- Seleccionar --</option>
                                 @foreach($categories as $category)
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="description">Descripción </label>
                             <textarea class="form-control ckeditor" name="description" id="descripción" rows="5"
-                                placeholder="Description">{{ old('description') }}</textarea>
+                                placeholder="Descripción">{{ old('description') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="cover">Cover </label>

@@ -48,7 +48,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="name">Nombre del Atributo<span class="text-danger">*</span></label>
-                                    <input type="text" name="name" id="name" placeholder="Attribute name"
+                                    <input type="text" name="name" id="name" placeholder="Nombre "
                                         class="form-control" value="{!! old('name')  !!}">
                                 </div>
                             </div>

@@ -25,6 +25,7 @@ class CreateProductCustomerGroupPricesTable extends Migration
             $table->integer('customer_group_id')->unsigned()->nullable();
             $table->foreign('customer_group_id')->references('id')->on('customer_groups')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

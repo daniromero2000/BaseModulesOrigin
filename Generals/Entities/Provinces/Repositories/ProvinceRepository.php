@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 class ProvinceRepository implements ProvinceRepositoryInterface
 {
     protected $model;
-    private $columns = [];
+    private $columns = ['id', 'dane', 'province', 'country_id', 'is_active'];
 
     public function __construct(Province $province)
     {
@@ -21,13 +21,13 @@ class ProvinceRepository implements ProvinceRepositoryInterface
 
     public function listProvinces(string $order = 'province', string $sort = 'desc', array $columns = ['*']): Collection
     {
-        return $this->model->all($columns, $order, $sort);
+        return $this->model->all($this->columns, $order, $sort);
     }
 
     public function findProvinceById(int $id): Province
     {
         try {
-            return $this->model->findOrFail($id);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());
         }

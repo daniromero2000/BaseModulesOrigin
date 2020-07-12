@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="quantity">Cantidad <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="quantity" id="quantity" placeholder="Quantity"
+                                    <input type="text" name="quantity" id="quantity" placeholder="Cantidad"
                                         class="form-control" value="{{ old('quantity') }}">
                                 </div>
                             </div>
@@ -74,16 +74,16 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="name">Nombre <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                                         value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="price">Precio <span
+                                    <label class="form-control-label" for="price">Precio Normal <span
                                             class="text-danger">*</span></label>
                                     <div class="input-group">
-                                        <input type="text" name="price" id="price" placeholder="Price"
+                                        <input type="text" name="price" id="price" placeholder="Precio Normal"
                                             class="form-control" value="{{ old('price') }}">
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="description">Descripción </label>
                                     <textarea class="form-control" name="description" id="description" rows="5"
-                                        placeholder="Description">{{ old('description') }}</textarea>
+                                        placeholder="Descripción">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                         </div>

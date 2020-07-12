@@ -15,6 +15,7 @@ class CourierController extends Controller
     public function __construct(CourierRepositoryInterface $courierRepository)
     {
         $this->courierRepo = $courierRepository;
+        $this->middleware(['permission:couriers, guard:employee']);
     }
 
     public function index()

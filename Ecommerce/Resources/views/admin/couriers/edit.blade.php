@@ -9,13 +9,13 @@
                 <input type="hidden" name="_method" value="put">
                 <div class="form-group">
                     <label for="name">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                         value="{{ $courier->name ?: old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción </label>
                     <textarea name="description" id="description" rows="5" class="form-control"
-                        placeholder="Description">{{ $courier->description ?: old('description') }}</textarea>
+                        placeholder="Descripción">{{ $courier->description ?: old('description') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="URL">URL</label>

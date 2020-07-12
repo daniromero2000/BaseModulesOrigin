@@ -17,6 +17,7 @@ class OrderStatusController extends Controller
     public function __construct(OrderStatusRepositoryInterface $orderStatusRepository)
     {
         $this->orderStatuses = $orderStatusRepository;
+        $this->middleware(['permission:orders, guard:employee']);
     }
 
     public function index()

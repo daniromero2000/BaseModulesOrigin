@@ -7,8 +7,6 @@ use Modules\Ecommerce\Entities\AttributeValues\Repositories\AttributeValueReposi
 use Modules\Ecommerce\Entities\Brands\Repositories\Interfaces\BrandRepositoryInterface;
 use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute;
-use Modules\Ecommerce\Entities\Products\Exceptions\ProductInvalidArgumentException;
-use Modules\Ecommerce\Entities\Products\Exceptions\ProductNotFoundException;
 use Modules\Ecommerce\Entities\Products\Product;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
@@ -20,14 +18,12 @@ use Modules\Generals\Entities\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
 
 class ProductController extends Controller
 {
     use ProductTransformable, UploadableTrait;
-
     private $productRepo, $categoryRepo, $attributeRepo, $attributeValueRepository;
     private $productAttribute, $brandRepo, $productGroupInterface;
 
@@ -47,19 +43,15 @@ class ProductController extends Controller
         $this->productAttribute         = $productAttribute;
         $this->brandRepo                = $brandRepository;
         $this->productGroupInterface = $productGroupRepositoryInterface;
-
-        // $this->middleware(['permission:create-product, guard:employee'], ['only' => ['create', 'store']]);
-        // $this->middleware(['permission:update-product, guard:employee'], ['only' => ['edit', 'update']]);
-        // $this->middleware(['permission:delete-product, guard:employee'], ['only' => ['destroy']]);
-        // $this->middleware(['permission:view-product, guard:employee'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:products, guard:employee']);
     }
 
     public function index()
     {
-        $list = $this->productRepo->listProducts('id');
-
         if (request()->has('q') && request()->input('q') != '') {
             $list = $this->productRepo->searchProduct(request()->input('q'));
+        } else {
+            $list = $this->productRepo->listProducts('id');
         }
 
         $products = $list->map(function (Product $item) {
@@ -73,11 +65,8 @@ class ProductController extends Controller
 
     public function create()
     {
-
-        $categories = $this->categoryRepo->listCategories('name', 'asc');
-
         return view('ecommerce::admin.products.create', [
-            'categories'     => $categories,
+            'categories'     => $this->categoryRepo->listCategories('name', 'asc'),
             'brands'         => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
             'default_weight' => env('SHOP_WEIGHT'),
             'weight_units'   => Product::MASS_UNIT,
@@ -87,7 +76,6 @@ class ProductController extends Controller
 
     public function store(CreateProductRequest $request)
     {
-
         $data = $request->except('_token', '_method');
         $data['slug'] = str_slug($request->input('name'));
         $data['company_id'] = auth()->guard('employee')->user()->company_id;
@@ -98,7 +86,6 @@ class ProductController extends Controller
         }
 
         $product = $this->productRepo->createProduct($data);
-
         $productRepo = new ProductRepository($product);
 
         if ($request->hasFile('image')) {
@@ -117,8 +104,9 @@ class ProductController extends Controller
 
     public function show(int $id)
     {
-        $product = $this->productRepo->findProductById($id);
-        return view('ecommerce::admin.products.show', compact('product'));
+        return view('ecommerce::admin.products.show', [
+            'product' =>  $this->productRepo->findProductById($id)
+        ]);
     }
 
     public function edit(int $id)

@@ -30,7 +30,7 @@
                         <input type="hidden" name="_method" value="put">
                         <div class="form-group">
                             <label for="name">Nombre <span class="text-danger">*</span></label>
-                            <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                            <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                                 value="{{ $brand->name }}">
                         </div>
                         <div class="col-sm-6">

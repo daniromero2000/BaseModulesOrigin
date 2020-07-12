@@ -130,7 +130,7 @@
                                                     <label class="form-control-label" for="quantity">Cantidad</label>
                                                     @if($productAttributes->isEmpty())
                                                     <input type="text" name="quantity" id="quantity"
-                                                        placeholder="Quantity" class="form-control"
+                                                        placeholder="Cantidad" class="form-control"
                                                         value="{!! $product->quantity  !!}">
                                                     @else
                                                     <input type="hidden" name="quantity" value="{{ $qty }}">
@@ -147,16 +147,16 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="form-control-label" for="name">Nombre</label>
-                                                    <input type="text" name="name" id="name" placeholder="Name"
+                                                    <input type="text" name="name" id="name" placeholder="Nombre"
                                                         class="form-control" value="{!! $product->name !!}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="price">Precio</label>
+                                                    <label class="form-control-label" for="price">Precio Normal</label>
                                                     @if($productAttributes->isEmpty())
                                                     <div class="input-group">
-                                                        <input type="text" name="price" id="price" placeholder="Price"
+                                                        <input type="text" name="price" id="price" placeholder="Precio Normal"
                                                             class="form-control" value="{!! $product->price !!}">
                                                     </div>
                                                     @else
@@ -179,18 +179,17 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="sale_price">Precio de
-                                                        oferta</label>
+                                                    <label class="form-control-label" for="sale_price">Precio Oferta</label>
                                                     <div class="input-group">
                                                         <input type="text" name="sale_price" id="sale_price"
-                                                            placeholder="Sale Price" class="form-control"
+                                                            placeholder="Precio Oferta" class="form-control"
                                                             value="{{ $product->sale_price }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label class="form-control-label">Categorias</label>
+                                                    <label class="form-control-label">Categorías</label>
                                                     @include('ecommerce::admin.shared.categories', ['categories' =>
                                                     $categories,
                                                     'ids' => $product])
@@ -236,7 +235,7 @@
                                                         for="description">Descripción</label>
                                                     <textarea class="form-control ckeditor" name="description"
                                                         id="description" rows="5"
-                                                        placeholder="Description">{!! $product->description  !!}</textarea>
+                                                        placeholder="Descripción">{!! $product->description  !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>

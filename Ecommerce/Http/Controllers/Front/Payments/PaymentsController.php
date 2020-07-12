@@ -66,10 +66,10 @@ class PaymentsController extends Controller
         // $payuClient = new PayuClient($settings);
 
 
-        // $array = PayUPayments::getPaymentMethods();
-        // $payment_methods = $array->paymentMethods;
+        $array = PayUPayments::getPaymentMethods();
+        $payment_methods = $array->paymentMethods;
 
-        // dd($payment_methods);
+        dd($payment_methods);
 
 
 

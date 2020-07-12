@@ -29,10 +29,10 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $list = $this->customerRepoInterface->listCustomers('created_at', 'desc');
-
         if (request()->has('q')) {
             $list = $this->customerRepoInterface->searchCustomer(request()->input('q'));
+        } else {
+            $list = $this->customerRepoInterface->listCustomers('created_at', 'desc');
         }
 
         $customers = $list->map(function (Customer $customer) {

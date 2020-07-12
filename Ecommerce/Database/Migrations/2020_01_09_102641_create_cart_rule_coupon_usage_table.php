@@ -20,6 +20,7 @@ class CreateCartRuleCouponUsageTable extends Migration
             $table->foreign('cart_rule_coupon_id')->references('id')->on('cart_rule_coupons')->onDelete('cascade');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

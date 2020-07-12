@@ -538,7 +538,7 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Módulo Categorias
+        // Módulo Categorías
         $moduleCategories = factory(Permission::class)->create([
             'name'         => 'categories',
             'display_name' => 'Categorías',
@@ -546,7 +546,7 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' =>  $permissionGroupCatalog->id
         ]);
 
-        // Acciones Módulo Categorias
+        // Acciones Módulo Categorías
         $actionCategoryViews = factory(Action::class)->create([
             'permission_id' => 12,
             'name'          => 'Ver Categorías',
@@ -1031,9 +1031,9 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
 
-        // Permiso Módulo Categorias
+        // Permiso Módulo Categorías
         $roleSuperRepo->attachToPermission($moduleCategories);
-        // Permisos Acciones Módulo Categorias
+        // Permisos Acciones Módulo Categorías
         $categoriesAction = factory(ActionRole::class)->create([
             'action_id' => 51,
             'role_id'   => 1
@@ -1312,9 +1312,9 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
 
-        // Permiso Módulo Categorias
+        // Permiso Módulo Categorías
         $roleAdminRepo->attachToPermission($moduleCategories);
-        // Permisos Acciones Módulo Categorias
+        // Permisos Acciones Módulo Categorías
         $categoriesAction = factory(ActionRole::class)->create([
             'action_id' => 51,
             'role_id'   => 2

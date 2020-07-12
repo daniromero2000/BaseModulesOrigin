@@ -17,6 +17,7 @@ class CategoryController extends Controller
         CategoryRepositoryInterface $categoryRepository
     ) {
         $this->categoryRepo = $categoryRepository;
+        $this->middleware(['permission:categories, guard:employee']);
     }
 
     public function index()
@@ -40,7 +41,7 @@ class CategoryController extends Controller
         $this->categoryRepo->createCategory($request->except('_token', '_method'));
 
         return redirect()->route('admin.categories.index')
-        ->with('message', config('messaging.create'));
+            ->with('message', config('messaging.create'));
     }
 
     public function show($id)

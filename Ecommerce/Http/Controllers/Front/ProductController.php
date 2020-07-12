@@ -49,13 +49,8 @@ class ProductController extends Controller
 
     public function outlet()
     {
-        $products = $this->productRepo->listProductGroups('Outlet');
-        // dd($products);
-        return view(
-            'ecommerce::front.products.outlet',
-            [
-                'products' => $products
-            ]
-        );
+        return view('ecommerce::front.products.outlet', [
+            'products' => $this->productRepo->listProductGroups('Outlet')
+        ]);
     }
 }

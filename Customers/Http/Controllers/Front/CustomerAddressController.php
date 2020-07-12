@@ -7,7 +7,6 @@ use Modules\Customers\Entities\CustomerAddresses\Requests\CreateCustomerAddressR
 use Modules\Customers\Entities\CustomerAddresses\Requests\UpdateCustomerAddressRequest;
 use Modules\Customers\Entities\CustomerAddresses\Repositories\CustomerAddressRepository;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use Modules\Customers\Entities\CustomerAddresses\Repositories\Interfaces\CustomerAddressRepositoryInterface;
 use Modules\Generals\Entities\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
