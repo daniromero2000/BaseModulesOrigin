@@ -11,6 +11,5 @@ class CityController extends Controller
         CityRepositoryInterface $cityRepositoryInterface
     ) {
         $this->cityInterface = $cityRepositoryInterface;
-        $this->middleware(['permission:countries, guard:employee']);
     }
 }

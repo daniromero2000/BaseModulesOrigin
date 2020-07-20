@@ -22,7 +22,7 @@
                 <thead>
                     <tr>
                         <th class="text-center" scope="col">Dirección</th>
-                        <th class="text-center" scope="col">Telefono</th>
+                        <th class="text-center" scope="col">Teléfono</th>
                         <th class="text-center" scope="col">Horario</th>
                     </tr>
                 </thead>

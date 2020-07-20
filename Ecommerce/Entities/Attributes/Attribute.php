@@ -13,7 +13,8 @@ class Attribute extends Model
 
     protected $fillable = [
         'name',
-        'is_active'
+        'is_active',
+        'sort_order'
     ];
 
     protected $hidden = [
@@ -45,6 +46,6 @@ class Attribute extends Model
     public function attributeValue()
     {
         return $this->hasMany(AttributeValue::class)
-            ->select(['id', 'value', 'attribute_id']);
+            ->select(['id', 'value', 'attribute_id'])->orderBy('value');
     }
 }

@@ -55,32 +55,38 @@
                                 <td></td>
                                 <td></td>
                                 <td>Subtotal</td>
-                                <td>{{ $order['sub_total'] }}</td>
+                                <td>${{ number_format($order['sub_total'], 0) }}</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td>Iva</td>
-                                <td>{{ $order['tax_amount'] }}</td>
+                                <td>Impuesto</td>
+                                <td>${{ number_format($order['tax_amount'], 0) }}</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td>{{ $order['discounts'] }}</td>
+                                <td>${{ number_format($order['discounts'],0) }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Envío</td>
+                                <td>${{ number_format($order['total_shipping'], 0) }}</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>Total de orden</td>
-                                <td>{{ $order['grand_total'] }}</td>
+                                <td>${{ number_format($order['grand_total'], 0) }}</td>
                             </tr>
                             @if($order['total_paid'] != $order['grand_total'])
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>Total Pagado</td>
-                                <td>{{ $order['total_paid'] }}</td>
+                                <td>${{ number_format($order['total_paid'], 0) }}</td>
                             </tr>
                             @endif
                         </tbody>
@@ -141,41 +147,18 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4> <i class="fa fa-map-marker"></i> Dirección</h4>
-                            <table class="table">
-                                <thead>
-                                    <th>Dirección</th>
-                                    <th>Ciudad</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $order->address->customer_address }}</td>
-                                        <td>{{ $order->address->city->city }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box-body">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
                             <h4> <i class="fa fa-truck"></i> Envío</h4>
                             <table class="table">
                                 <thead>
                                     <th class="col-md-3">Nombre</th>
                                     <th class="col-md-4">Descripción</th>
-                                    <th class="col-md-5">Link</th>
+
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ $order->courier->name }}</td>
                                         <td>{{ $order->courier->description }}</td>
-                                        <td>{{ $order->courier->url }}</td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -191,15 +174,15 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{{ $order->address->address_1 }}</td>
+                                        <td>{{ $order->address->customer_address }}</td>
                                         <td>
                                             @if(isset($order->address->city))
                                             {{ $order->address->city->city }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if(isset($order->address->province))
-                                            {{ $order->address->province }}
+                                            @if(isset($order->address->city))
+                                            {{ $order->address->city->province->province }}
                                             @endif
                                         </td>
                                         <td>{{ $order->address->zip }}</td>

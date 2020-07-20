@@ -48,7 +48,6 @@ class CustomerAddressController extends Controller
         $customerId = auth()->user()->id;
         $addressData = $request->except('_token', '_method', 'phone');
         $addressData['customer_id'] = $customerId;
-        $addressData['city_id'] = 1;
 
         $this->addressRepo->createCustomerAddress($addressData);
 

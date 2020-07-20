@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned()->index();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->integer('brand_id')->unsigned()->index();
+            $table->integer('brand_id')->unsigned()->nullable()->index();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->string('sku')->unique();
             $table->string('name');
@@ -40,6 +40,7 @@ class CreateProductsTable extends Migration
             $table->integer('tax_id')->unsigned()->index();
             $table->foreign('tax_id')->references('id')->on('taxes');
             $table->boolean('is_visible_on_front')->default(0);
+            $table->unsignedInteger('sort_order')->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

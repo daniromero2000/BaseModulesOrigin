@@ -4,11 +4,9 @@ namespace Modules\Companies\Entities\EmployeeCommentaries;
 
 use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmployeeCommentary extends Model
 {
-    use SoftDeletes;
     protected $table = 'employee_commentaries';
 
     public $fillable = [
@@ -30,13 +28,11 @@ class EmployeeCommentary extends Model
         'id',
         'created_at',
         'updated_at',
-        'deleted_at',
         'status',
         'user'
     ];
 
     protected $dates  = [
-        'deleted_at',
         'created_at',
         'updated_at'
     ];
@@ -44,6 +40,6 @@ class EmployeeCommentary extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class)
-            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'company_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
+            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'subsidiary_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
     }
 }

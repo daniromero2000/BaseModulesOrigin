@@ -29,7 +29,8 @@ class ActionController extends Controller
         } else if (request()->has('t')) {
             $list = $this->actionsInterface->searchTrashedAction(request()->input('t'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        } else {
+        }
+        else {
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->actionsInterface->listActions($skip * 30);
         }
@@ -38,7 +39,7 @@ class ActionController extends Controller
             'EmployeeActions' => $list,
             'skip'            => $skip,
             'optionsRoutes'   => 'admin.' . (request()->segment(2)),
-            'headers'         => ['ID',  'Modulo',  'Nombre',  'Icono',  'Ruta', 'Principal',  'Opciones',]
+            'headers'         => ['ID',  'Módulo',  'Nombre',  'Ícono',  'Ruta', 'Principal',  'Opciones',]
         ]);
     }
 

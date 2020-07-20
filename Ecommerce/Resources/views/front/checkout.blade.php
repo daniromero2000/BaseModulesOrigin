@@ -1,22 +1,77 @@
 @extends('layouts.front.app')
+@section('styles')
+<style>
+    .nav-link {
+        padding-left: 11px;
+    }
 
+    .paymentMethods {
+        background-color: #ffffff !important;
+        color: #3c3a3a !important;
+    }
+
+    .paymentMethods.active {
+        background-color: #f7f7f7 !important;
+        color: #2c2828 !important;
+    }
+
+    .paymentMethods:hover {
+        background-color: #f7f7f7 !important;
+        color: #2c2828 !important;
+    }
+
+    .bg-paymentMethods {
+        background: #f7f7f7;
+    }
+
+    .tab-pane {
+        background: #f7f7f7;
+    }
+
+    .container-card {
+        width: 60px;
+        padding: 0px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .breadcrumb {
+        display: flex;
+        margin-bottom: 1rem;
+        padding: .5rem 1rem;
+        list-style: none;
+        border-radius: .375rem;
+        background-color: #f6f9fc;
+        flex-wrap: wrap;
+    }
+
+    .breadcrumb-item {
+        font-size: .875rem;
+    }
+
+    .breadcrumb-item+.breadcrumb-item {
+        padding-left: .5rem;
+    }
+</style>
+@endsection
 @section('content')
 <div class="container-reset content-empty mb-2">
     @if(!$products->isEmpty())
     <div class="row mx-0">
-        <div class="col-12 mb-2">
-            <ol class="breadcrumb">
-                <li><a href="{{ route('home') }}"> <i class="fa fa-home"></i> Home</a></li>
-                <li class="active">Carrito de Compras</li>
+        <div class="col-12">
+            <ol class="breadcrumb-reset mb-0">
+                <li><a href="{{ route('home') }}"> Home </a> <span> /</span></li>
+                <li><a href="/cart">Carrito de Compras</a> <span>
+                        /</span> </li>
+                <li class="active"> Checkout</li>
             </ol>
         </div>
-        <div class="col-12 mb-2 content">
-            <div class="box-body">
+        <div class="col-12  content">
+            <div class="card-body">
                 @include('generals::layouts.errors-and-messages')
             </div>
         </div>
-
-        <div class="col-7 my-2 p-0 p-sm-3">
+        <div class="col-md-7 my-2 p-0 p-sm-3">
             @if(isset($addresses))
             <div class="w-100">
                 <div class="card">
@@ -30,67 +85,81 @@
                                     data-target="#exampleModal">Agregar</button>
                             </div>
                         </div>
-                        <table class="table table-striped mt-3">
-                            <thead>
-                                <th>Alias</th>
-                                <th>Dirección</th>
-                                <th>Dirección de facturación</th>
-                                <th>Dirección de entrega</th>
-                            </thead>
-                            <tbody>
-                                @foreach($addresses as $key => $address)
-                                <tr>
-                                    <td>{{ $address->alias }}</td>
-                                    <td>
-                                        {{ $address->customer_address }} <br />
-                                        @if(!is_null($address->province))
-                                        {{ $address->city->city }} {{ $address->province->name }} <br />
-                                        @endif
-                                        {{ $address->city->city }} {{ $address->state_code }} <br>
-                                        {{ $address->zip }}
-                                    </td>
-                                    <td>
-                                        <label class="col-md-6 col-md-offset-3">
-                                            <input type="radio" value="{{ $address->id }}" name="billing_address"
-                                                @if($billingAddress->id ==
-                                            $address->id) checked="checked" @endif>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        @if($billingAddress->id == $address->id)
-                                        <label for="sameDeliveryAddress">
-                                            <input type="checkbox" id="sameDeliveryAddress" checked="checked"> Same as
-                                            billing
-                                        </label>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tbody style="display: none" id="sameDeliveryAddressRow">
-                                @foreach($addresses as $key => $address)
-                                <tr>
-                                    <td>{{ $address->alias }}</td>
-                                    <td>
-                                        {{ $address->customer_address }} <br />
-                                        @if(!is_null($address->province))
-                                        {{ $address->city->city }} {{ $address->province->name }} <br />
-                                        @endif
-                                        {{ $address->city->city }} {{ $address->state_code }} <br>
-                                        {{ $address->zip }}
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <label class="col-md-6 col-md-offset-3">
-                                            <input type="radio" value="{{ $address->id }}" name="delivery_address"
-                                                @if(old('')==$address->id)
-                                            checked="checked" @endif>
-                                        </label>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @if(!empty($addresses->toArray()))
+                        <div class="table-responsive">
+                            <table class="table table-striped mt-3 text-center">
+                                <thead class="text-sm">
+                                    <th>Alias</th>
+                                    <th>Dirección</th>
+                                    <th>Dirección de facturación</th>
+                                    <th>Dirección de entrega</th>
+                                </thead>
+                                <tbody class="text-sm">
+                                    @foreach($addresses as $key => $address)
+                                    <tr>
+                                        <td>{{ $address->alias }}</td>
+                                        <td><span id="address{{$address->id}}">
+                                                {{ $address->customer_address }}
+                                            </span>
+                                            <br />
+                                            @if(!is_null($address->province))
+                                            {{ $address->city->city }} {{ $address->province->name }} <br />
+                                            @endif
+                                            <span id="city{{$address->id}}">{{ $address->city->city }}
+                                                {{ $address->state_code }}</span>
+                                            <br>
+                                            {{ $address->zip }}
+                                        </td>
+                                        <td>
+                                            <label class="col-md-6 col-md-offset-3">
+                                                <input type="radio" value="{{ $address->id }}" name="billing_address"
+                                                    @if($billingAddress->id ==
+                                                $address->id) checked="checked" @endif>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            @if($billingAddress->id == $address->id)
+                                            <label for="sameDeliveryAddress">
+                                                <input type="checkbox" id="sameDeliveryAddress" checked="checked"> Igual
+                                                que
+                                                la facturación
+                                            </label>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                <tbody style="display: none" id="sameDeliveryAddressRow">
+                                    @foreach($addresses as $key => $address)
+                                    <tr>
+                                        <td>{{ $address->alias }}</td>
+                                        <td>
+                                            {{ $address->customer_address }} <br />
+                                            @if(!is_null($address->province))
+                                            {{ $address->city->city }} {{ $address->province->name }} <br />
+                                            @endif
+                                            {{ $address->city->city }} {{ $address->state_code }} <br>
+                                            {{ $address->zip }}
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <label class="col-md-6 col-md-offset-3">
+                                                <input type="radio" value="{{ $address->id }}" name="delivery_address"
+                                                    @if(old('')==$address->id)
+                                                checked="checked" @endif>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        @else
+                        <div class="alert alert-info py-2 px-3 mt-2" role="alert">
+                            No tienes direcciones registradas
+                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -119,31 +188,152 @@
 
             </div>
             @endif
-            <div class="w-100">
+            @php
+            @endphp
+            @if(!empty($addresses->toArray()))
+            <div class="w-100 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <legend><i class="fa fa-credit-card"></i> Pago</legend>
-                        @if(isset($payments) && !empty($payments))
-                        <table class="table table-striped">
-                            <thead>
-                                <th class="col-md-4">Nombre</th>
-                                <th class="col-md-4">Descripción</th>
-                                <th class="col-md-4 text-right">Elige pago</th>
-                            </thead>
-                            <tbody>
-                                @foreach($payments as $payment)
-                                @include('ecommerce::layouts.front.payment-options', compact('payment', 'total',
-                                'shipment_object_id'))
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                        <p class="alert alert-danger">No se han configurado métodos de pago</p>
-                        @endif
+                        <div class="my-auto">
+                            <h6>Metodos de pago</h6>
+                        </div>
+
+                        <div class="row w-100">
+                            <div class="col-sm-4 mt-4 px-0">
+                                <div class="ml-2">
+                                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                        aria-orientation="vertical">
+                                        <a class="nav-link paymentMethods active" id="v-pills-creditCards"
+                                            data-toggle="pill" href="#creditCards" role="tab"
+                                            aria-controls="creditCards" aria-selected="true">Tarjeta de crédito</a>
+                                        <a class="nav-link paymentMethods" id="v-pills-profile-tab" data-toggle="pill"
+                                            href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                                            aria-selected="false">Baloto </a>
+                                        <a class="nav-link paymentMethods" id="v-pills-messages-tab" data-toggle="pill"
+                                            href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
+                                            aria-selected="false">Efecty o Gana</a>
+                                        <a class="nav-link paymentMethods" id="v-pills-settings-tab" data-toggle="pill"
+                                            href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
+                                            aria-selected="false">Bancolombia</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-8 px-0 bg-paymentMethods">
+                                <div class="mx-3">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="creditCards" role="tabpanel"
+                                            aria-labelledby="v-pills-creditCards">
+                                            @include('ecommerce::front.payments.payu')
+                                        </div>
+                                        <div class="tab-pane fade " id="v-pills-profile" role="tabpanel"
+                                            aria-labelledby="v-pills-profile-tab">
+                                            <div class="row mb-3 justify-content-center">
+                                                <div class="p-3 text-center">
+                                                    <div style="max-width: 135px;margin: auto;">
+                                                        <img src="{{asset('img/cards/baloto.png')}}" class="img-fluid"
+                                                            alt="baloto">
+                                                    </div>
+                                                    Consignación vía Baloto
+                                                    <br>
+                                                    <br>
+                                                    <form action="{{ route('baloto.store') }}" class="form-horizontal"
+                                                        method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="btn-group">
+                                                            <button onclick="return confirm('¿Estás Seguro?')"
+                                                                class="btn btn-primary btn-sm mx-auto">Continuar con
+                                                                este
+                                                                método de pago</button>
+                                                            <input type="hidden" id="billing_address"
+                                                                name="billing_address"
+                                                                value="{{ $billingAddress->id }}">
+                                                            @if(request()->has('courier'))
+                                                            <input type="hidden" name="courier"
+                                                                value="{{ request()->input('courier') }}">
+                                                            @endif
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                                            aria-labelledby="v-pills-messages-tab">
+                                            <div class="row mb-3 justify-content-center">
+                                                <div class="p-3 text-center">
+                                                    Giro a cuenta
+                                                    <br>
+                                                    <br>
+                                                    <div style="max-width: 135px;margin: auto;">
+                                                        <img src="{{asset('img/cards/efecty.png')}}" class="img-fluid"
+                                                            alt="logo-efecty">
+                                                        <img src="{{asset('img/cards/gana.png')}}" class="img-fluid"
+                                                            alt="logo-gana">
+                                                    </div>
+                                                    <br>
+                                                    <form action="{{ route('efecty.store') }}" class="form-horizontal"
+                                                        method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="btn-group">
+                                                            <button onclick="return confirm('¿Estás Seguro?')"
+                                                                class="btn btn-primary btn-sm mx-auto">Continuar con
+                                                                este
+                                                                método de pago</button>
+                                                            <input type="hidden" id="billing_address"
+                                                                name="billing_address"
+                                                                value="{{ $billingAddress->id }}">
+                                                            @if(request()->has('courier'))
+                                                            <input type="hidden" name="courier"
+                                                                value="{{ request()->input('courier') }}">
+                                                            @endif
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                                            aria-labelledby="v-pills-settings-tab">
+                                            <div class="row mb-3 justify-content-center">
+                                                <div class="p-3 text-center">
+                                                    <div style="max-width: 135px;margin: auto;">
+                                                        <img src="{{asset('img/cards/logo-bancolombia.png')}}"
+                                                            class="img-fluid" alt="logo-bancolombia">
+                                                    </div>
+                                                    Pago a través de transferencia electrónica a una cuenta de
+                                                    ahorros o a través de código QR
+                                                    <br>
+                                                    <br>
+                                                    <form action="{{ route('bank-transfer.store') }}"
+                                                        class="form-horizontal" method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="btn-group">
+                                                            <button onclick="return confirm('¿Estás Seguro?')"
+                                                                class="btn btn-primary btn-sm mx-auto">Continuar con
+                                                                este
+                                                                método de pago</button>
+                                                            <input type="hidden" id="billing_address"
+                                                                name="billing_address"
+                                                                value="{{ $billingAddress->id }}">
+                                                            @if(request()->has('courier'))
+                                                            <input type="hidden" name="courier"
+                                                                value="{{ request()->input('courier') }}">
+                                                            @endif
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
+            @endif
         </div>
         <div class="col-md-5 my-2 p-0 p-sm-3 order-md-last">
             <div class="card" id="register">
@@ -166,7 +356,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar direccion</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar dirección</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -218,27 +408,35 @@
 </div>
 @endsection
 @section('scripts')
+
+
 <script type="text/javascript">
     function cart() {
     $.get('/api/getCart/', function (data) {
-        var cart = '';
+        var cart = '<div class="px-4 pt-4">Resumen de la compra</div>';
         data.cartItems.forEach(e => {
-            cart += '<div class="px-4 pt-4">Resumen de la compra</div><div class="card-body"><a href="/cart" class="dropdown-item"> <div class="media"> <img src="' + e.cover + '" alt="' + e.slug + '" class="img-size-50 mr-3 img-circle"> <div class="media-body"> <h3 class="dropdown-item-title"> ' + e.name + ' </h3> <p class="text-sm"></p> <p class="text-sm text-muted"><i class="fas fa-dollar-sign"></i> ' + e.price + ' x ' + e.qty + '</p> </div> </div>  </a> <div class="dropdown-divider"></div></div>'
+            cart += '<div class="card-body"><a href="/cart" class="dropdown-item"> <div class="media"> <img src="' + e.cover + '" alt="' + e.slug + '" class="img-size-50 mr-3 img-circle"> <div class="media-body"> <h3 class="dropdown-item-title"> ' + e.name + ' </h3> <p class="text-sm"></p> <p class="text-sm text-muted"><i class="fas fa-dollar-sign"></i> ' + e.price + ' x ' + e.qty + '</p> </div> </div>  </a> <div class="dropdown-divider"></div></div>'
         });
-             
+             console.log(data)
         const formatter = new Intl.NumberFormat('es-CO', {
             style: 'currency',
             currency: 'COP',
             minimumFractionDigits: 0
         })
         data.subtotal = formatter.format(data.subtotal);
+        data.tax = formatter.format(data.tax);
+        data.shippingFee = formatter.format(data.shippingFee);
+        data.total = formatter.format(data.total);
+        $('#totalCart').html('Total - ' + data.total);
+        $('#totalEfecty').html('Total - ' + data.total);
+        $('.total').html(data.total + ' COP');
 
-        cart = cart != '' ? cart += '<div class=""> <div class="media"> <div class="media-body d-flex justify-content-between px-4 py-2"> <p class="text-sm subtotal">Subtotal</p> <p class="text-sm text-muted price">' + data.subtotal + '</p> </div> </div>  </div> <div class="dropdown-divider"></div>' : '<a href="#" class="dropdown-item dropdown-footer">Tu carrito esta vacío </a> <div class="dropdown-item dropdown-footer"> <div class="px-3"> <a href="/cart" class="btn button-reset d-block">Ir al carrito</a> </div> </div>';
+        cart = cart != '' ? cart += '<div class=""> <div class="media"> <div class="media-body d-flex justify-content-between px-5 my-1"> <p class="text-sm subtotal" style=" font-size: 15px !important; margin: auto 0; ">Subtotal</p> <p class="text-sm text-muted price">' + data.subtotal + '</p> </div> </div>  <div class="media"> <div class="media-body d-flex justify-content-between px-5 my-1"> <p class="text-sm subtotal" style=" font-size: 15px !important; margin: auto 0; ">Impuestos</p> <p class="text-sm text-muted price">' + data.tax + '</p> </div> </div>  </div> <div class="media"> <div class="media-body d-flex justify-content-between px-5 my-1"> <p class="text-sm subtotal" style=" font-size: 15px !important; margin: auto 0; ">Envío</p> <p class="text-sm text-muted price">' + data.shippingFee + '</p> </div> </div>  <div class="media"> <div class="media-body d-flex justify-content-between px-5 my-1"> <p class="text-sm subtotal" style=" font-size: 15px !important; margin: auto 0; ">Total</p> <p class="text-sm text-muted price">' + data.total + '</p> </div> </div> </div><div class="dropdown-divider"></div>' : '<a href="#" class="dropdown-item dropdown-footer">Tu carrito está vacío </a> <div class="dropdown-item dropdown-footer"> <div class="px-3"> <a href="/cart" class="btn button-reset d-block">Ir al carrito</a> </div> </div>';
 
         $('#register').html(cart);
     });
- }
- cart();
+    }
+    cart();
     function setTotal(total, shippingCost) {
             let computed = +shippingCost + parseFloat(total);
             $('#total').html(computed.toFixed(2));
@@ -268,10 +466,13 @@
             });
 
             let billingAddress = 'input[name="billing_address"]';
+
             $(billingAddress).on('change', function () {
                 let chosenAddressId = $(this).val();
+                console.log(chosenAddressId)
                 $('.address_id').val(chosenAddressId);
                 $('.delivery_address_id').val(chosenAddressId);
+                $('input[name="billingAddress"]').val(chosenAddressId);
             });
 
             let deliveryAddress = 'input[name="delivery_address"]';
@@ -305,10 +506,11 @@
     function findProvinceOrState(countryId) {
             $.ajax({
                 url : '/api/v1/country/' + countryId + '/province',
+                contentType: 'json',
                 success: function (res) {
                     if (res.data.length > 0) {
                         let html = '<label for="province_id">Provinces </label>';
-                        html += '<select name="province_id" id="province_id"  class="form-control select2">';
+                        html += '<select name="province_id" id="province_id" class="form-control select2">';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.id+'">'+ v.name +'</option>';
                         });
@@ -330,14 +532,13 @@
                 }
             });
         }
-
         function findCity(countryId, provinceOrStateId) {
             $.ajax({
                 url: '/api/v1/country/' + countryId + '/province/' + provinceOrStateId + '/city',
                 contentType: 'json',
                 success: function (data) {
                     let html = '<label for="city_id">City </label>';
-                    html += '<select name="city_id" id="city_id"  class="form-control select2">';
+                    html += '<select name="city_id" id="city_id" class="form-control select2">';
                     $(data.data).each(function (idx, v) {
                         html += '<option value="'+ v.id+'">'+ v.name +'</option>';
                     });
@@ -407,12 +608,12 @@
                 }
             });
         }
-   
-</script>
+        let countryId = +"{{ env('SHOP_COUNTRY_ID') }}";
 
+</script>
 <script>
     $( document ).ready(function() {
-        
+
         $('#country_id').change(function () {
             var city = $('#country_id').val();
             getCity(city);
@@ -421,13 +622,13 @@
             $.get('/api/getCountry/'+ city + '/province/', function (data) {
                 if (data ) {
                     let html = '<label for="province_id">Departamento </label>';
-                    html += '<select name="province_id" id="province_id" onchange="getProvince()" class="form-control select2">';
+                    html += '<select  id="province_id" onchange="getProvince()" class="form-control select2">';
                         $(data).each(function (idx, v) {
                             console.log(v)
                         html += '<option value="'+ v.id+'">'+ v.province +'</option>';
                         });
                         html += '</select>';
-                    
+
                     $('#provinces').html(html).show();
                 }
             });
@@ -436,8 +637,8 @@
         $('#province_id').change(function () {
             getProvince(province);
         });
-        
-       
+
+
     });
     function getProvince() {
     var province = $('#province_id').val();
@@ -445,16 +646,16 @@
     $.get('/api/getProvince/'+ province + '/city/', function (data) {
     if (data) {
     let html = '<label for="city">Ciudad </label>';
-    html += '<select name="city" id="city" class="form-control select2">';
+    html += '<select name="city_id" id="city_id" class="form-control select2">';
         $(data).each(function (idx, v) {
         html += '<option value="'+ v.id+'">'+ v.city +'</option>';
         });
         html += '</select>';
-    
+
     $('#cities').html(html).show();
     }
-    
-    
+
+
     });
     }
 </script>

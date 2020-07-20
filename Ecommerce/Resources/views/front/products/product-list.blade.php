@@ -7,13 +7,44 @@
             <div class="product">
                 @if(isset($product->cover))
                 <div class="card border-0 text-center card-products">
-                    <div class="height-container-img-product">
+                    <div class="height-container-img-product relative container-img-product">
+                        @if ($product->sale_price > 0)
+                        @php
+                        $discount = round((($product->price - $product->sale_price) / $product->price) * 100);
+                        @endphp
+                        <div class="ribbon-wrapper ribbon-lg">
+                            <div class="ribbon bg-danger p-0">
+                                <p style="color:white; margin-bottom: 0px; font-size: 15px; font-weight: bold; ">
+                                    - {{$discount}}%</p>
+                            </div>
+                        </div>
+                        @endif
                         <img src="{{ asset("storage/$product->cover") }}" class="card-products-img"
                             alt="{{ asset("storage/$product->cover") }}">
                     </div>
-                    <div class="card-body pt-3 pb-0 pr-3 pl-3">
-                        <p class="title-product">{{$product->name}}</p>
-                        {{-- <p class="mb-1 price-product">${{ number_format($product->price, 0)}}</p> --}}
+                    <div class="w-100 p-2 text-center">
+                        <div class="w-100">
+                            <p class="title-product">{{$product->name}}</p>
+                        </div>
+                        @if ($product->sale_price > 0)
+                        <p style="color:black; font-size: 18px;margin-bottom: 0px;">
+                            <small>
+                                <del>${{ number_format($product->price, 0) }} </del> </small>
+                        </p>
+                        <p style=" color:black; font-size: 30px;line-height: 18px; ">
+                            <small><b>
+                                    ${{ number_format($product->sale_price, 0) }}
+                                </b>
+                            </small><br>
+                        </p>
+                        @else
+                        <p class="mt-2" style="font-size: 30px;color: #002a53;line-height: 18px;">
+                            <small><b>
+                                    ${{ number_format($product->price, 0) }}
+                                </b>
+                            </small><br>
+                        </p>
+                        @endif
                     </div>
                     <div class="row justify-content-center">
                         <a class="text-dark" data-toggle="modal" data-target="#productModal{{ $product->id }}">

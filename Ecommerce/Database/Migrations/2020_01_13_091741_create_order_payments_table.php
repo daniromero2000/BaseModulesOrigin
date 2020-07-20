@@ -16,7 +16,10 @@ class CreateOrderPaymentsTable extends Migration
         Schema::create('order_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('method');
-            $table->string('method_title')->nullable();
+            $table->string('description');
+            $table->string('transaction_id')->nullable();
+            $table->string('transaction_order')->nullable();
+            $table->string('state')->nullable();
             $table->integer('order_id')->nullable()->unsigned();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();

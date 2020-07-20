@@ -80,6 +80,7 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
+
     <div class="nav-wrapper">
         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
             <li class="nav-item">
@@ -139,7 +140,7 @@
                                                     @endif
                                                     @if(!$productAttributes->isEmpty())<a
                                                         class="text-center info-tooltip" data-toggle="tooltip"
-                                                        data-original-title="La cantidad esta deshabilitada. La cantidad total es calculada por la suma de todas las combinaciones">
+                                                        data-original-title="La cantidad está deshabilitada. La cantidad total es calculada por la suma de todas las combinaciones">
                                                         ? </a> @endif
 
                                                 </div>
@@ -156,8 +157,9 @@
                                                     <label class="form-control-label" for="price">Precio Normal</label>
                                                     @if($productAttributes->isEmpty())
                                                     <div class="input-group">
-                                                        <input type="text" name="price" id="price" placeholder="Precio Normal"
-                                                            class="form-control" value="{!! $product->price !!}">
+                                                        <input type="text" name="price" id="price"
+                                                            placeholder="Precio Normal" class="form-control"
+                                                            value="{!! $product->price !!}">
                                                     </div>
                                                     @else
                                                     <input type="hidden" name="price" value="{!! $product->price !!}">
@@ -179,7 +181,8 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="sale_price">Precio Oferta</label>
+                                                    <label class="form-control-label" for="sale_price">Precio
+                                                        Oferta</label>
                                                     <div class="input-group">
                                                         <input type="text" name="sale_price" id="sale_price"
                                                             placeholder="Precio Oferta" class="form-control"
@@ -288,13 +291,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="card-footer ml-auto pb-0">
-                                        <a href="{{ route('admin.products.index') }}"
-                                            class="btn btn-default btn-sm">Regresar</a>
-                                        <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
-                                    </div>
-                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane @if(request()->has('combination')) active @endif"
                                 id="combinations">
@@ -314,7 +310,6 @@
                                         @include('ecommerce::admin.products.attributes',
                                         compact('productAttributes'))
                                         <!-- Button trigger modal -->
-
                                     </div>
                                     <div>
                                         <!-- Modal -->
@@ -345,12 +340,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class=" ml-auto pb-0">
+                    <a href="{{ route('admin.product.duplicate', ['id' => $product->id]) }}"
+                        class="btn btn-default btn-sm">Duplicar</a>
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-default btn-sm">Regresar</a>
+                    <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                </div>
+            </div>
         </form>
     </div>
 </section>
 @endsection
 @section('scripts')
-
 <script type="text/javascript">
     function backToInfoTab() {
             $('#tablist > li:first-child').addClass('active');

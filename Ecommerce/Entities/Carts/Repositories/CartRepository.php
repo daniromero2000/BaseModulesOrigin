@@ -72,7 +72,7 @@ class CartRepository implements CartRepositoryInterface
 
     public function getShippingFee(Courier $courier)
     {
-        return number_format($courier->cost, 2);
+        return $courier->cost;
     }
 
     public function clearCart()

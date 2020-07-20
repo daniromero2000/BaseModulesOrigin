@@ -11,12 +11,13 @@ class ProductAttributeRepository implements ProductAttributeRepositoryInterface
     protected $model;
     private $columns = ['id', 'quantity', 'price', 'sale_price', 'default', 'product_id'];
 
-    public function __construct(ProductAttribute $productAttribute)
-    {
+    public function __construct(
+        ProductAttribute $productAttribute
+    ) {
         $this->model = $productAttribute;
     }
 
-    public function findProductAttributeById(int $id)
+    public function findProductAttributeById(int $id): ProductAttribute
     {
         try {
             return $this->model->findOrFail($id, $this->columns);

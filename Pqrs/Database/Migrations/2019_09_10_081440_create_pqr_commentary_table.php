@@ -20,7 +20,6 @@ class CreatePqrCommentaryTable extends Migration
             $table->integer('pqr_id')->unsigned()->index();
             $table->foreign('pqr_id')->references('id')->on('pqrs')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

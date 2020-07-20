@@ -22,7 +22,7 @@ $factory->define(Employee::class, function (Faker\Generator $faker) {
         'name'                 => $faker->firstName,
         'last_name'            => $faker->lastName,
         'email'                => $faker->unique()->safeEmail,
-        'company_id'           => 1,
+        'subsidiary_id'        => 1,
         'employee_position_id' => 1,
         'password'             => $password ?: $password = bcrypt('secret'),
         'remember_token'       => str_random(10),

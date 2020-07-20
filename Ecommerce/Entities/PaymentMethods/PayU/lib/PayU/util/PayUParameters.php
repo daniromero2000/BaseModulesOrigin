@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util;
+
 /**
  *
  * Contains the parameters names
@@ -11,7 +12,8 @@ namespace Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util;
  * @version 1.0.0, 17/10/2013
  *
  */
-class PayUParameters {
+class PayUParameters
+{
 
 	/** The payment method's country. */
 	const COUNTRY = 'country';
@@ -211,11 +213,11 @@ class PayUParameters {
 	const PROCESS_WITHOUT_CVV2 = 'processWithoutCvv2';
 
 	/** PSE payer ISO document type */
-	const PAYER_DOCUMENT_TYPE='payerDocumentType';
+	const PAYER_DOCUMENT_TYPE = 'payerDocumentType';
 	/** PSE payer person type (N - Natural or J - Legal) */
-	const PAYER_PERSON_TYPE='payerPersonType';
+	const PAYER_PERSON_TYPE = 'payerPersonType';
 	/** PSE financial institution code (Bank code) */
-	const PSE_FINANCIAL_INSTITUTION_CODE='pseFinancialInstitutionCode';
+	const PSE_FINANCIAL_INSTITUTION_CODE = 'pseFinancialInstitutionCode';
 	/** PSE financial institution name (Bank Name) */
 	const PSE_FINANCIAL_INSTITUTION_NAME = "pseFinancialInstitutionName";
 
@@ -279,10 +281,4 @@ class PayUParameters {
 	 * The response page URL
 	 */
 	const RESPONSE_URL = "responseUrl";
-
 }
-
-
-
-
-

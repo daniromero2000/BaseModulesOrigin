@@ -23,15 +23,4 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/front/horizontalvertical.js') }}"></script>
-{{-- <script type="text/javascript">
-    $(document).ready(function () {
-            var productPane = document.querySelector('.product-cover');
-            var paneContainer = document.querySelector('.product-cover-wrap');
-
-            // new Drift(productPane, {
-            //     paneContainer: paneContainer,
-            //     inlinePane: false
-            // });
-        });
-</script> --}}
 @endsection

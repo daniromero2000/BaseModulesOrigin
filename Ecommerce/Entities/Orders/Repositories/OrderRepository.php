@@ -28,7 +28,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     use OrderTransformable;
     protected $model;
-    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'sub_total', 'tax_amount', 'grand_total', 'created_at'];
+    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'total_shipping', 'sub_total', 'tax_amount', 'grand_total', 'created_at'];
 
     public function __construct(Order $order)
     {
@@ -44,6 +44,15 @@ class OrderRepository implements OrderRepositoryInterface
             event(new OrderCreateEvent($order));
 
             return $order;
+        } catch (QueryException $e) {
+            throw new OrderInvalidArgumentException($e->getMessage(), 500, $e);
+        }
+    }
+
+    public function createPayUOrder(array $params): Order
+    {
+        try {
+            return  $this->model->create($params);
         } catch (QueryException $e) {
             throw new OrderInvalidArgumentException($e->getMessage(), 500, $e);
         }
@@ -157,5 +166,14 @@ class OrderRepository implements OrderRepositoryInterface
     public function getCouriers(): Collection
     {
         return $this->model->courier()->get();
+    }
+
+    public function removeOrder(): bool
+    {
+        try {
+            return $this->model->where('id', $this->model->id)->delete();
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 }

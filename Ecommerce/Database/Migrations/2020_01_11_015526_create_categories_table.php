@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string('cover')->nullable();
             $table->boolean('is_visible_on_front')->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
+            $table->unsignedInteger('sort_order')->default(0);
             NestedSet::columns($table);
             $table->integer('depth')->default('0');
             $table->timestamps();

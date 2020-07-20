@@ -23,8 +23,6 @@ class OrderStatusesLogRepository implements OrderStatusesLogRepositoryInterface
     {
         try {
             $orderStatusesLog = new OrderStatusesLog($attributes);
-            $orderCreatedAt    = $orderStatusesLog->customer->created_at;
-            $orderStatusesLog->time_passed = $this->customerStatusDaysPassed($orderCreatedAt);
             $orderStatusesLog->save();
 
             return $orderStatusesLog;

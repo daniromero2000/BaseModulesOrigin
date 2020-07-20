@@ -80,6 +80,8 @@ class EcommerceServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../config/payees.php' => config_path('payees.php')], 'config');
         $this->publishes([__DIR__ . '/../config/bank-transfer.php' => config_path('bank-transfer.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/efecty.php' => config_path('efecty.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/baloto.php' => config_path('baloto.php')], 'config');
         $this->publishes([__DIR__ . '/../config/cart.php' => config_path('cart.php')], 'config');
         $this->publishes([__DIR__ . '/../config/payu.php' => config_path('payu.php')], 'config');
     }

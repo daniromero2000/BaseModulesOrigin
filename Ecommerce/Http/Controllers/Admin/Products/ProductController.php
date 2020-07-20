@@ -20,12 +20,14 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
+use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
+use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
     use ProductTransformable, UploadableTrait;
     private $productRepo, $categoryRepo, $attributeRepo, $attributeValueRepository;
-    private $productAttribute, $brandRepo, $productGroupInterface;
+    private $productAttribute, $brandRepo, $productGroupInterface, $productAttributeInterface;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -34,7 +36,8 @@ class ProductController extends Controller
         AttributeValueRepositoryInterface $attributeValueRepository,
         ProductAttribute $productAttribute,
         BrandRepositoryInterface $brandRepository,
-        ProductGroupRepositoryInterface $productGroupRepositoryInterface
+        ProductGroupRepositoryInterface $productGroupRepositoryInterface,
+        ProductAttributeRepositoryInterface $productAttributeRepositoryInterface
     ) {
         $this->productRepo              = $productRepository;
         $this->categoryRepo             = $categoryRepository;
@@ -42,7 +45,8 @@ class ProductController extends Controller
         $this->attributeValueRepository = $attributeValueRepository;
         $this->productAttribute         = $productAttribute;
         $this->brandRepo                = $brandRepository;
-        $this->productGroupInterface = $productGroupRepositoryInterface;
+        $this->productGroupInterface    = $productGroupRepositoryInterface;
+        $this->productAttributeInterface         = $productAttributeRepositoryInterface;
         $this->middleware(['permission:products, guard:employee']);
     }
 
@@ -84,6 +88,7 @@ class ProductController extends Controller
         if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
             $data['cover'] = $this->productRepo->saveCoverImage($request->file('cover'));
         }
+        $data['company_id'] = 1;
 
         $product = $this->productRepo->createProduct($data);
         $productRepo = new ProductRepository($product);
@@ -155,6 +160,12 @@ class ProductController extends Controller
                 ->with('message', config('messaging.create'));
         }
 
+        if ($request->has('attributeId')) {
+            $this->updateProductCombinations($request, $product);
+            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+                ->with('message', config('messaging.update'));
+        }
+
         $data = $request->except(
             'categories',
             'product_groups',
@@ -179,8 +190,10 @@ class ProductController extends Controller
         }
 
         if ($request->has('categories')) {
+
             $productRepo->syncCategories($request->input('categories'));
         } else {
+
             $productRepo->detachCategories();
         }
 
@@ -278,6 +291,43 @@ class ProductController extends Controller
         })->count();
     }
 
+
+    private function updateProductCombinations(Request $request, Product $product): bool
+    {
+        $fields = $request->only(
+            'pAQuantity',
+            'pAPrice',
+            'pASalePrice',
+            'attributeId'
+        );
+
+        if ($errors = $this->validateUpdateFields($fields)) {
+            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
+                ->withErrors($errors);
+        }
+
+        $productAttribute = $this->productAttributeInterface->findProductAttributeById($fields['attributeId']);
+        $productAttribute->quantity = $fields['pAQuantity'];
+        $productAttribute->price = $fields['pAPrice'];
+        $productAttribute->sale_price = $fields['pASalePrice'];
+
+        $productAttribute->save();
+
+
+        return  true;
+    }
+
+    private function validateUpdateFields(array $data)
+    {
+        $validator = Validator::make($data, [
+            'pAQuantity' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator;
+        }
+    }
+
     private function validateFields(array $data)
     {
         $validator = Validator::make($data, [
@@ -287,5 +337,13 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return $validator;
         }
+    }
+
+    public function duplicateProduct(Request $request)
+    {
+        $newProduct = $this->productRepo->duplicateProduct($request->input('id'));
+
+        return redirect()->route('admin.products.edit', [$newProduct->id])
+            ->with('message', 'Producto Clonado Exitosamente');
     }
 }

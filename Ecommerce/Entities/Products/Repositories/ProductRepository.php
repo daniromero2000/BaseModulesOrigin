@@ -36,6 +36,8 @@ class ProductRepository implements ProductRepositoryInterface
         'brand_id',
         'sale_price',
         'slug',
+        'company_id',
+        'tax_id'
     ];
 
     public function __construct(Product $product)
@@ -95,7 +97,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function detachProductGroup()
     {
-        $this->model->categories()->detach();
+        $this->model->productGroups()->detach();
     }
 
     public function getCategories(): Collection
@@ -105,12 +107,20 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function syncCategories(array $params)
     {
-        $this->model->categories()->sync($params);
+        try {
+            $this->model->categories()->sync($params);
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 
     public function syncProducGroups(array $params)
     {
-        $this->model->productGroups()->sync($params);
+        try {
+            $this->model->productGroups()->sync($params);
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 
     public function deleteFile(array $file, $disk = null): bool
@@ -245,5 +255,15 @@ class ProductRepository implements ProductRepositoryInterface
     public function findOneByOrFail(array $data)
     {
         return $this->model->where($data)->firstOrFail($this->columns);
+    }
+
+    public function duplicateProduct(Int $id)
+    {
+        $product = $this->findProductById($id);
+        $newProduct = $product->replicate();
+        $newProduct->sku = '00000';
+        $newProduct->push();
+
+        return $newProduct;
     }
 }

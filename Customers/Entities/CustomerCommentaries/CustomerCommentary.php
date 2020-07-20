@@ -4,11 +4,9 @@ namespace Modules\Customers\Entities\CustomerCommentaries;
 
 use Modules\Customers\Entities\Customers\Customer;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomerCommentary extends Model
 {
-    use SoftDeletes;
     protected $table = 'customer_commentaries';
 
     public $fillable = [
@@ -18,7 +16,6 @@ class CustomerCommentary extends Model
     ];
 
     protected $hidden = [
-        'deleted_at',
         'updated_at',
         'relevance',
         'id',
@@ -30,13 +27,11 @@ class CustomerCommentary extends Model
         'id',
         'created_at',
         'updated_at',
-        'deleted_at',
         'status',
         'user'
     ];
 
     protected $dates  = [
-        'deleted_at',
         'created_at',
         'updated_at'
     ];

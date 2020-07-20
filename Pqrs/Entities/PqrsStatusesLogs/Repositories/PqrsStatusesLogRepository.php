@@ -23,8 +23,6 @@ class PqrsStatusesLogRepository implements PqrsStatusesLogRepositoryInterface
     {
         try {
             $pqrsStatusesLog = new PqrsStatusesLog($attributes);
-            $pqrCreatedAt    = $pqrsStatusesLog->pqr->created_at;
-            $pqrsStatusesLog->time_passed = $this->pqrStatusDaysPassed($pqrCreatedAt);
             $pqrsStatusesLog->save();
 
             return $pqrsStatusesLog;

@@ -20,7 +20,6 @@ class CreateEmployeeCommentariesTable extends Migration
             $table->integer('employee_id')->unsigned()->index();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

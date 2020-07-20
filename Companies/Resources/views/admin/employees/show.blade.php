@@ -29,20 +29,23 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
     @include('generals::layouts.errors-and-messages')
     <div class="card">
         <div class="card-body">
-            <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                        aria-controls="home" aria-selected="true">Empleado</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                        aria-controls="profile" aria-selected="false">Contacto</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                        aria-controls="contact" aria-selected="false">Seguimiento</a>
-                </li>
-            </ul>
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="home-tab" data-toggle="tab" href="#home"
+                            role="tab" aria-controls="home" aria-selected="true">Empleado</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="profile-tab" data-toggle="tab" href="#profile"
+                            role="tab" aria-controls="profile" aria-selected="false">Contacto</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="contact-tab" data-toggle="tab" href="#contact"
+                            role="tab" aria-controls="contact" aria-selected="false">Seguimiento</a>
+                    </li>
+                </ul>
+            </div>
+
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     @include('companies::layouts.generals')
@@ -71,7 +74,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
             </div>
         </div>
     </div>
-
+    @include('companies::layouts.edit_employee', ['data' => $employee])
     @include('companies::layouts.add_address_modal')
     @include('companies::layouts.add_email_modal')
     @include('companies::layouts.add_phone_modal')

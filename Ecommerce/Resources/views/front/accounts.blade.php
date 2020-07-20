@@ -2,11 +2,11 @@
 @section('content')
 <section class="container content">
     <div class="row">
-        <div class="box-body">
+        <div class="card-body">
             @include('generals::layouts.errors-and-messages')
         </div>
         <div class="col-md-12">
-            <h2> <i class="fa fa-home"></i>Mi Cuenta</h2>
+            <h4>Mi Cuenta</h4>
             <hr>
         </div>
     </div>

@@ -19,9 +19,7 @@ class CreatePqrsStatusesLogsTable extends Migration
             $table->foreign('pqr_id')->references('id')->on('pqrs')->onDelete('cascade');
             $table->string('status');
             $table->string('user');
-            $table->string('time_passed');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

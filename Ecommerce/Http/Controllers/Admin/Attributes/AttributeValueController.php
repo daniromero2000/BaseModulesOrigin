@@ -42,7 +42,7 @@ class AttributeValueController extends Controller
 
     public function destroy($attributeId, $attributeValueId)
     {
-        $attributeValue = $this->attributeValueRepo->findOrFail($attributeValueId);
+        $attributeValue = $this->attributeValueRepo->find($attributeValueId);
         $attributeValueRepo = new AttributeValueRepository($attributeValue);
         $attributeValueRepo->dissociateFromAttribute();
 

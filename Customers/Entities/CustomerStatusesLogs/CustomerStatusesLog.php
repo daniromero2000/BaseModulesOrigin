@@ -4,12 +4,10 @@ namespace Modules\Customers\Entities\CustomerStatusesLogs;
 
 use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Customers\Entities\Customers\Customer;
 
 class CustomerStatusesLog extends Model
 {
-    use SoftDeletes;
     protected $table = 'customer_statuses_logs';
     protected $fillable = [
         'customer_id',
@@ -32,7 +30,6 @@ class CustomerStatusesLog extends Model
     ];
 
     protected $dates  = [
-        'deleted_at',
         'created_at',
         'updated_at'
     ];
@@ -49,6 +46,6 @@ class CustomerStatusesLog extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class)
-            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'company_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
+            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'subsidiary_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
     }
 }

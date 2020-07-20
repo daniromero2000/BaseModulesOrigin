@@ -66,4 +66,6 @@ interface ProductRepositoryInterface
     public function saveBrand(Brand $brand);
 
     public function findBrand();
+
+    public function duplicateProduct(Int $id);
 }

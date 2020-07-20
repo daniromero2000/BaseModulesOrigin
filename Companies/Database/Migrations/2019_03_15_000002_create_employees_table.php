@@ -21,8 +21,8 @@ class CreateEmployeesTable extends Migration
             $table->string('password');
             $table->date('birthday')->nullable();
             $table->string('avatar')->nullable()->default('Sin Avatar');
-            $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('subsidiary_id')->unsigned();
+            $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->dateTime('last_login_at')->nullable();

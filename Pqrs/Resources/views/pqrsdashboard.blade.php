@@ -69,7 +69,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" scope="col">Fecha</th>
-                                        <th class="text-center" scope="col">Codigo</th>
+                                        <th class="text-center" scope="col">Código</th>
                                         <th class="text-center" scope="col">Pqrs</th>
                                         <th class="text-center" scope="col">Teléfono</th>
                                     </tr>

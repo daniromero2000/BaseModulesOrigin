@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <hr>
-            <p class="alert alert-success">Tu orden esta en camino! <a href="{{ route('home') }}">Mostrar más!</a></p>
+            <p class="alert alert-success">Tu orden está en camino! <a href="{{ route('home') }}">Mostrar más!</a></p>
         </div>
     </div>
 </div>

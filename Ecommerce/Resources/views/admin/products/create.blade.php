@@ -59,7 +59,7 @@
                                     <label class="form-control-label" for="sku">SKU <span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="sku" id="sku" placeholder="xxxxx" class="form-control"
-                                        value="{{ old('sku') }}">
+                                        value="{{ old('sku') }}" required>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -67,7 +67,7 @@
                                     <label class="form-control-label" for="quantity">Cantidad <span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="quantity" id="quantity" placeholder="Cantidad"
-                                        class="form-control" value="{{ old('quantity') }}">
+                                        class="form-control" value="{{ old('quantity') }}" required>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -75,7 +75,7 @@
                                     <label class="form-control-label" for="name">Nombre <span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
-                                        value="{{ old('name') }}">
+                                        value="{{ old('name') }}" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -84,37 +84,16 @@
                                             class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" name="price" id="price" placeholder="Precio Normal"
-                                            class="form-control" value="{{ old('price') }}">
+                                            class="form-control" value="{{ old('price') }}" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                @if(!$brands->isEmpty())
-                                <div class="form-group">
-                                    <label for="brand_id" class="form-control-label">Marca </label>
-                                    <select name="brand_id" id="brand_id" class="form-control select2">
-                                        <option value=""></option>
-                                        @foreach($brands as $brand)
-                                        <option @if(old('brand_id')==$brand->id) selected="selected" @endif
-                                            value="{{ $brand->id }}">{{ $brand->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @endif
-                            </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="" class="form-control-label">Categorías</label>
+                                    <label for="" class="form-control-label">Categorías <span class="text-danger">*</span></label></label>
                                     @include('ecommerce::admin.shared.categories', ['categories' => $categories,
                                     'selectedIds' =>
                                     []])
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="description">Descripción </label>
-                                    <textarea class="form-control" name="description" id="description" rows="5"
-                                        placeholder="Descripción">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -122,21 +101,15 @@
                     <div class="col-md-5 col-lg-6">
 
                         <div class="form-group">
-                            <label for="cover" class="form-control-label">Cover </label>
+                            <label for="cover" class="form-control-label">Cover <span class="text-danger">*</span></label></label>
                             <input type="file" name="cover" id="cover" class="form-control">
                         </div>
                         <div class="form-group relative">
-                            <label for="image" class="form-control-label">Imagenes</label>
+                            <label for="image" class="form-control-label">Imagenes <span class="text-danger">*</span></label></label>
                             <input type="file" name="image[]" id="image" class="form-control" multiple>
                             <a class="text-center info-tooltip" data-toggle="tooltip"
                                 data-original-title="Puedes usar (cmd o ctrl) para seleccionar multiples imagenes">
                                 ! </a>
-                        </div>
-                        <div class="form-group">
-                            @include('ecommerce::admin.shared.status-select', ['status' => 0])
-                        </div>
-                        <div class="form-group relative">
-                            @include('ecommerce::admin.shared.attribute-select', [compact('default_weight')])
                         </div>
                     </div>
                 </div>

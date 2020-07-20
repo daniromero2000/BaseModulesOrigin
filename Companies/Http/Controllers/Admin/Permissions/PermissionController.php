@@ -30,7 +30,8 @@ class PermissionController extends Controller
         } else if (request()->has('t')) {
             $list = $this->permissionInterface->searchTrashedPermission(request()->input('t'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        } else {
+        }
+        else {
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->permissionInterface->listPermissions($skip * 30);
         }
@@ -39,7 +40,7 @@ class PermissionController extends Controller
             'permissions'   => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip'          => $skip,
-            'headers'       => ['ID', 'Nombre', 'Nombre Display',  'Icono', 'Descripción', 'Opciones',]
+            'headers'       => ['ID', 'Nombre', 'Nombre Display',  'Ícono', 'Descripción', 'Opciones',]
         ]);
     }
 

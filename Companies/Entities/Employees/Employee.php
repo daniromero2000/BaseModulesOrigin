@@ -20,6 +20,7 @@ use Modules\Companies\Entities\EmployeePhones\EmployeePhone;
 use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
+use Modules\Companies\Entities\Subsidiaries\Subsidiary;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -36,6 +37,7 @@ class Employee extends Authenticatable
         'phone',
         'is_active',
         'company_id',
+        'subsidiary_id',
         'employee_position_id'
     ];
 
@@ -134,7 +136,7 @@ class Employee extends Authenticatable
     public function employeeStatusesLogs()
     {
         return $this->hasMany(EmployeeStatusesLog::class)
-            ->select(['id', 'employee_id', 'status', 'user_id', 'time_passed', 'created_at']);
+            ->select(['id', 'employee_id', 'status', 'user_id', 'created_at']);
     }
 
     public function employeeEmails()
@@ -171,5 +173,11 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(EmployeeProfession::class)
             ->select(['id', 'professions_list_id', 'employee_id', 'status', 'created_at']);
+    }
+
+    public function subsidiary()
+    {
+        return $this->belongsTo(Subsidiary::class)
+            ->select(['id', 'name', 'address', 'phone', 'city_id', 'company_id', 'is_active']);
     }
 }

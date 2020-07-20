@@ -46,6 +46,17 @@ class CourierRepository implements CourierRepositoryInterface
         }
     }
 
+    public function findCourierByProvince(int $province_id)
+    {
+        try {
+            return $this->model->whereHas('provinces', function ($q) use ($province_id) {
+                $q->where('province_id',  $province_id);
+            })->first();
+        } catch (ModelNotFoundException $e) {
+            throw new CourierNotFoundException('Courier not found.');
+        }
+    }
+
     public function findCourierById(int $id): Courier
     {
         try {
@@ -63,5 +74,24 @@ class CourierRepository implements CourierRepositoryInterface
     public function deleteCourier()
     {
         return $this->model->delete();
+    }
+
+    public function getCourier()
+    {
+        if (auth()->check()) {
+            $courier = "";
+            if (!empty(auth()->user()->customerAddresses->toArray())) {
+                $provinceId = auth()->user()->customerAddresses[0]->city->province->id;
+                $courier  =  $this->findCourierByProvince($provinceId);
+            }
+
+            if ($courier == null) {
+                $courier  = $this->findCourierById(request()->session()->get('courierId', 3));
+            }
+        } else {
+            $courier  = $this->findCourierById(request()->session()->get('courierId', 2));
+        }
+
+        return $courier;
     }
 }

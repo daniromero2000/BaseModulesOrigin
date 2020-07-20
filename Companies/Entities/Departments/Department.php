@@ -5,7 +5,8 @@ namespace Modules\Companies\Entities\Departments;
 use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Companies\Entities\Subsidiaries\Subsidiary;
+use Modules\Companies\Entities\Companies\Company;
+use Modules\Generals\Entities\Countries\Country;
 
 class Department extends Model
 {
@@ -42,10 +43,10 @@ class Department extends Model
         'updated_at'
     ];
 
-    public function subsidiary()
+    public function company()
     {
-        return $this->belongsTo(Subsidiary::class)
-            ->select(['id', 'name', 'address', 'phone', 'opening_hours', 'city_id', 'company_id', 'is_active']);
+        return $this->belongsTo(Company::class)
+            ->select(['id', 'name', 'description', 'country_id', 'logo', 'is_active', 'is_active']);
     }
 
     public function employees()

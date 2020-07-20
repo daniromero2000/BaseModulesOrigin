@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'Bank Transfer',
+    'name' => 'Transferencia Bancaria',
     'description' => 'Online / Offline Bank fund transfer',
     'bank_name' => env('BANK_TRANSFER_NAME', 'Bank of Mars'),
     'account_type' => env('BANK_TRANSFER_ACCOUNT_TYPE', 'Savings Account (SA)'),

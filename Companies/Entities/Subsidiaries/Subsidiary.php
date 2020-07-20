@@ -2,7 +2,6 @@
 
 namespace Modules\Companies\Entities\Subsidiaries;
 
-use Modules\Warranty\Entities\WarrantyCases\WarrantyCase;
 use Modules\Companies\Entities\Departments\Department;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -73,10 +72,5 @@ class Subsidiary extends Model
     {
         return $this->hasMany(Department::class)
             ->select(['id', 'name', 'phone', 'subsidiary_id', 'is_active']);
-    }
-
-    public function warranties()
-    {
-        return $this->hasMany(WarrantyCase::class);
     }
 }

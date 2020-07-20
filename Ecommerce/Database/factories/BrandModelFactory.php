@@ -20,7 +20,7 @@ $factory->define(Brand::class, function (Faker\Generator $faker) {
 
     $brand = $faker->company;
     return [
-        'name' => $brand,
+        'name' => 'FVN',
         'slug' => str_slug($brand),
     ];
 });

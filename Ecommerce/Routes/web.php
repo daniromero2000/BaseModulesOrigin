@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('products', 'ProductController');
             Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
             Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
+            Route::get('duplicate-product', 'ProductController@duplicateProduct')->name('product.duplicate');
         });
 
         Route::namespace('Categories')->group(function () {
@@ -35,12 +36,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
         });
 
+        Route::namespace('Checkouts')->group(function () {
+            Route::resource('checkouts', 'CheckoutController');
+        });
+
         Route::namespace('Brands')->group(function () {
             Route::resource('brands', 'BrandController');
         });
 
         Route::namespace('Attributes')->group(function () {
             Route::resource('attributes', 'AttributeController');
+        });
+
+        Route::namespace('ProductAttributes')->group(function () {
+            Route::resource('product-attributes', 'ProductAttributeontroller');
         });
 
         Route::resource('couriers', 'Couriers\CourierController');
@@ -57,17 +66,24 @@ Route::namespace('Auth')->group(function () {
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::resource('auth', 'RegisterController');
 });
-
+Route::get('thank-you-page', function () {
+    return view('layouts.front.thank_you_page');
+});
 Route::namespace('Front')->group(function () {
     Route::group(['middleware' => ['auth', 'web']], function () {
         Route::namespace('Payments')->group(function () {
-            Route::get('bank-transfer', 'BankTransferController@index')->name('bank-transfer.index');
             Route::post('bank-transfer', 'BankTransferController@store')->name('bank-transfer.store');
-            Route::get('payu', 'PaymentsController@index')->name('payu.index');
             Route::post('payu', 'PaymentsController@store')->name('payu.store');
+            Route::post('efecty', 'EfectyController@store')->name('efecty.store');
+            Route::post('baloto', 'BalotoController@store')->name('baloto.store');
         });
 
         Route::get('accounts', 'AccountsController@index')->name('accounts');
+        Route::get('thankupage_bancolombia', 'ThankUPageBancolombiaController@index')->name('thankupage_bancolombia');
+        Route::get('thankupage_payu', 'ThankUPagePayUController@index')->name('thankupage_payu');
+        Route::get('thankupage_efecty', 'ThankUPageEfectyController@index')->name('thankupage_efecty');
+        Route::get('thankupage_baloto', 'ThankUPageBalotoController@index')->name('thankupage_baloto');
+
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
         Route::get('checkout/execute', 'CheckoutController@executePayPalPayment')->name('checkout.execute');
@@ -84,4 +100,5 @@ Route::namespace('Front')->group(function () {
     Route::get('outlet', 'ProductController@outlet')->name('outlet');
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
+    Route::get("{product}/{combination}", 'ProductController@show')->name('front.get.product.combination');
 });

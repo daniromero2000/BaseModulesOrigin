@@ -13,7 +13,8 @@ use InvalidArgumentException;
  * @version 1.0.0, 17/10/2013
  *
  */
-class Environment {
+class Environment
+{
 
 	/** name for payments api*/
 	const PAYMENTS_API = "PAYMENTS_API";
@@ -63,8 +64,9 @@ class Environment {
 	 * @throws InvalidArgumentException if the api value doesn't have a valid value
 	 * @return string with the url
 	 */
-	static function getApiUrl($api){
-		switch ($api){
+	static function getApiUrl($api)
+	{
+		switch ($api) {
 			case Environment::PAYMENTS_API:
 				return Environment::getPaymentsUrl();
 			case Environment::REPORTS_API:
@@ -72,7 +74,7 @@ class Environment {
 			case Environment::SUBSCRIPTIONS_API:
 				return Environment::getSubscriptionUrl();
 			default:
-				throw new InvalidArgumentException(sprintf('the api argument [%s] is invalid please check the Environment class ' ,$api));
+				throw new InvalidArgumentException(sprintf('the api argument [%s] is invalid please check the Environment class ', $api));
 		}
 	}
 
@@ -80,14 +82,15 @@ class Environment {
 	 * Returns the payments url
 	 * @return  the paymets url configured
 	 */
-	static function getPaymentsUrl() {
-		if(isset(Environment::$paymentsCustomUrl)) {
+	static function getPaymentsUrl()
+	{
+		if (isset(Environment::$paymentsCustomUrl)) {
 			return Environment::$paymentsCustomUrl;
 		}
 
-		if(!Environment::$test) {
+		if (!Environment::$test) {
 			return Environment::$paymentsUrl;
-		}else {
+		} else {
 			return Environment::$paymentsTestUrl;
 		}
 	}
@@ -96,14 +99,15 @@ class Environment {
 	 * Returns the reports url
 	 * @return the reports url
 	 */
-	static function getReportsUrl() {
-		if(Environment::$reportsCustomUrl != null) {
+	static function getReportsUrl()
+	{
+		if (Environment::$reportsCustomUrl != null) {
 			return Environment::$reportsCustomUrl;
 		}
 
-		if(!Environment::$test) {
+		if (!Environment::$test) {
 			return Environment::$reportsUrl;
-		}else {
+		} else {
 			return Environment::$reportsTestUrl;
 		}
 	}
@@ -112,14 +116,15 @@ class Environment {
 	 * Returns the subscriptions url
 	 * @return the subscriptions url
 	 */
-	static function getSubscriptionUrl() {
-		if(Environment::$subscriptionsCustomUrl != null) {
+	static function getSubscriptionUrl()
+	{
+		if (Environment::$subscriptionsCustomUrl != null) {
 			return Environment::$subscriptionsCustomUrl;
 		}
 
-		if(!Environment::$test) {
+		if (!Environment::$test) {
 			return Environment::$subscriptionsTestUrl;
-		}else {
+		} else {
 			return Environment::$subscriptionsUrl;
 		}
 	}
@@ -129,7 +134,8 @@ class Environment {
 	 * Set a  custom payments url
 	 * @param string $paymentsCustomUrl
 	 */
-	static function setPaymentsCustomUrl($paymentsCustomUrl) {
+	static function setPaymentsCustomUrl($paymentsCustomUrl)
+	{
 		Environment::$paymentsCustomUrl = $paymentsCustomUrl;
 	}
 
@@ -137,7 +143,8 @@ class Environment {
 	 * Set a custom reports url
 	 * @param string $reportsCustomUrl
 	 */
-	static function setReportsCustomUrl($reportsCustomUrl) {
+	static function setReportsCustomUrl($reportsCustomUrl)
+	{
 		Environment::$reportsCustomUrl = $reportsCustomUrl;
 	}
 
@@ -145,7 +152,8 @@ class Environment {
 	 * Set a custom subscriptions url
 	 * @param string $subscriptionsCustomUrl
 	 */
-	static function setSubscriptionsCustomUrl($subscriptionsCustomUrl){
+	static function setSubscriptionsCustomUrl($subscriptionsCustomUrl)
+	{
 		Environment::$subscriptionsCustomUrl = $subscriptionsCustomUrl;
 	}
 
@@ -153,18 +161,18 @@ class Environment {
 	 * Validates the Environment before process any request
 	 * @throws ErrorException
 	 */
-	static function validate() {
-		if(version_compare(PHP_VERSION, '5.2.1', '<'))  {
+	static function validate()
+	{
+		if (version_compare(PHP_VERSION, '5.2.1', '<')) {
 			throw new ErrorException('PHP version >= 5.2.1 required');
 		}
 
 
-		$requiredExtensions = array('curl','xml','mbstring','json');
-		foreach ($requiredExtensions AS $ext)  {
-			if (!extension_loaded($ext))  {
+		$requiredExtensions = array('curl', 'xml', 'mbstring', 'json');
+		foreach ($requiredExtensions as $ext) {
+			if (!extension_loaded($ext)) {
 				throw new ErrorException('The Payu library requires the ' . $ext . ' extension.');
 			}
 		}
 	}
-
 }

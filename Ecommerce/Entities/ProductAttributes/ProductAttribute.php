@@ -46,6 +46,6 @@ class ProductAttribute extends Model
 
     public function attributesValues()
     {
-        return $this->belongsToMany(AttributeValue::class);
+        return $this->belongsToMany(AttributeValue::class)->orderBy('value');
     }
 }

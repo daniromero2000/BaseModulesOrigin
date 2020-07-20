@@ -16,7 +16,7 @@ class CreateWishlistsTable extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->date('moved_to_cart')->nullable();

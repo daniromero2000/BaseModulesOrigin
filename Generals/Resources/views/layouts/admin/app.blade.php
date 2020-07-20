@@ -11,7 +11,8 @@
         <div class="scrollbar-inner scroll-content scroll-scrollx_visible scroll-scrolly_visible">
             <div class="sidenav-header d-flex align-items-center">
                 <a class="navbar-brand" href="/admin">
-                    <img src="{{asset('argonTemplate/img/brand/logo_smart.png')}}" class="navbar-brand-img" alt="Logo SmartCommerce">
+                    <img src="{{asset('argonTemplate/img/brand/logo_smart.png')}}" class="navbar-brand-img"
+                        alt="Logo SmartCommerce">
                 </a>
                 <div class="ml-auto">
                     <div class="sidenav-toggler d-none d-xl-block" data-action="sidenav-unpin"

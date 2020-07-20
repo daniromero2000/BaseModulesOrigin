@@ -34,7 +34,8 @@ class SubsidiaryController extends Controller
         } else if (request()->has('t')) {
             $list = $this->subsidiaryInterface->searchTrashedSubsidiary(request()->input('t'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        } else {
+        }
+        else {
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list =  $this->subsidiaryInterface->listSubsidiaries($skip * 30);
         }
@@ -44,7 +45,7 @@ class SubsidiaryController extends Controller
             'skip'          => $skip,
             'cities'        => $this->cityInterface->listCities(),
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Telefono', 'Ciudad', 'Opciones']
+            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Teléfono', 'Ciudad', 'Opciones']
         ]);
     }
 

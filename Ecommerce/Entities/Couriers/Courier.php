@@ -4,6 +4,8 @@ namespace Modules\Ecommerce\Entities\Couriers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Ecommerce\Entities\CourierProvinces\CourierProvince;
+use Modules\Generals\Entities\Provinces\Province;
 
 class Courier extends Model
 {
@@ -37,4 +39,10 @@ class Courier extends Model
         'created_at',
         'updated_at'
     ];
+
+
+    public function provinces()
+    {
+        return $this->belongsToMany(Province::class, CourierProvince::class, 'courier_id', 'province_id');
+    }
 }

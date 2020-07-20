@@ -34,7 +34,7 @@
                     <li class="my-2"><i class="fas fa-list-ul mx-2"></i> <span>Guardar el historial de
                             compras</span> </li>
                     <li class="my-2"><i class="far fa-envelope mx-2"></i> <span>Ofrecerte los productos
-                            que mas te gustan</span> </li>
+                            que más te gustan</span> </li>
                 </ul> <i class="icon-lock"></i>
             </div>
         </div>

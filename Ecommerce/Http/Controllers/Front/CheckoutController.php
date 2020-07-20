@@ -73,7 +73,8 @@ class CheckoutController extends Controller
         })->all();
 
         $data = ['customer_id' => $customer->id];
-        $this->checkoutinterface->createCheckout($data);
+
+        $this->checkoutinterface->updateOrCreateCheckout($data);
 
         return view('ecommerce::front.checkout', [
             'customer'           => $customer,
@@ -90,7 +91,9 @@ class CheckoutController extends Controller
             'cartItems'          => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
             'rates'              => $rates,
-            'payu_payment_methods' => $array->paymentMethods
+            'creditCards'        => $this->checkoutinterface->getCreditCards($array->paymentMethods),
+            'pse'                => $this->checkoutinterface->getPse($array->paymentMethods),
+            'deviceSessionId'    => md5(session_id() . microtime())
         ]);
     }
 

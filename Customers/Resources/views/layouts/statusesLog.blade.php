@@ -7,7 +7,6 @@
             <!-- timeline icon -->
             <i class="fa fa-clock-o bg-blue"></i>
             <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> {{$data->time_passed}}</span>
                 <h3 class="timeline-header">{{ $data->status}}</h3>
                 <div class="timeline-body">
               <i class="fa fa-user"></i>      {{$data->employee->name}}

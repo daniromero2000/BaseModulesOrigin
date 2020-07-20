@@ -2,6 +2,7 @@
 
 namespace Modules\Ecommerce\Entities\Checkout;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Modules\Ecommerce\Entities\Checkout\Checkout;
@@ -14,21 +15,41 @@ use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
 class CheckoutRepository
 {
     protected $model;
+    protected $columns = ['id', 'customer_id', 'created_at'];
 
     public function __construct(Checkout $checkout)
     {
         $this->model = $checkout;
     }
 
-    public function createCheckout($data)
+    public function updateOrCreateCheckout($data)
     {
         try {
-            $checkout = $this->model->create($data);
-            $checkoutRepo = new CheckoutRepository($checkout);
-            $checkoutRepo->buildCheckoutDetails(Cart::content());
-            return $checkout;
-        } catch (\Throwable $th) {
-            //throw $th;
+            $checkout = $this->model->updateOrCreate(
+                ['customer_id' => $data['customer_id']],
+                [$data]
+            );
+        } catch (QueryException $e) {
+            dd($e);
+        }
+
+        $checkoutRepo = new CheckoutRepository($checkout);
+        $checkoutRepo->buildCheckoutDetails(Cart::content());
+        return true;
+    }
+
+    public function listCheckouts(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
+    {
+        return $this->model->with('products')
+            ->get($this->columns);
+    }
+
+    public function findCheckoutById(int $id): Checkout
+    {
+        try {
+            return $this->model->with(['products', 'customer'])->findOrFail($id, $this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new OrderNotFoundException($e);
         }
     }
 
@@ -51,20 +72,9 @@ class CheckoutRepository
     {
         try {
             return  $this->model->get()->last();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-    }
-
-    public function deleteCheckout(): bool
-    {
-        try {
-            $this->model->products()->detach();
-            return $this->model->where('id', $this->model->id)->delete();
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
-        return true;
     }
 
     public function removeCheckout($checkout): bool
@@ -111,5 +121,78 @@ class CheckoutRepository
         ]);
 
         return $order;
+    }
+
+    public function buildPayUCheckoutItems(array $data): Order
+    {
+        $orderRepo = new OrderRepository(new Order);
+        $order = $orderRepo->createPayUOrder([
+            'reference' => $data['reference'],
+            'courier_id' => $data['courier_id'],
+            'customer_id' => $data['customer_id'],
+            'address_id' => $data['address_id'],
+            'order_status_id' => $data['order_status_id'],
+            'payment' => $data['payment'],
+            'discounts' => $data['discounts'],
+            'sub_total' => $data['sub_total'],
+            'grand_total' => $data['grand_total'],
+            'total_paid' => $data['total_paid'],
+            'total_shipping' => isset($data['total_shipping']) ? $data['total_shipping'] : 0,
+            'tax_amount' => $data['tax']
+        ]);
+
+        return $order;
+    }
+
+    public function getCreditCards($array)
+    {
+        $cards = [];
+        $temp = [];
+        foreach ($array as $key => $value) {
+            if ($value->description == 'VISA' || $value->description == 'MASTERCARD' || $value->description == 'DINERS') {
+                if (!in_array($value->description, $temp)) {
+                    $temp[] = $value->description;
+                    if ($value->description == 'VISA') {
+                        $value->icon = 'img/cards/visa.png';
+                    }
+                    if ($value->description == 'MASTERCARD') {
+                        $value->icon = 'img/cards/mastercard.png';
+                    }
+                    if ($value->description == 'DINERS') {
+                        $value->icon = 'img/cards/diners.png';
+                    }
+                    array_push($cards, $value);
+                }
+            }
+        }
+
+        return $cards;
+    }
+
+    public function getBalotoEfecty($array)
+    {
+        $getBalotoEfecty = [];
+        foreach ($array as $key => $value) {
+            if ($value->description == 'BALOTO' || $value->description == 'EFECTY') {
+                if ($value->description == 'BALOTO') {
+                    $value->icon = 'img/cards/baloto.png';
+                }
+                if ($value->description == 'EFECTY') {
+                    $value->icon = 'img/cards/efecty.png';
+                }
+                array_push($getBalotoEfecty, $value);
+            }
+        }
+        return $getBalotoEfecty;
+    }
+
+    public function getPse($array)
+    {
+        foreach ($array as $key => $value) {
+            if (($value->description) == 'PSE') {
+                $array = $value;
+            }
+        }
+        return $array;
     }
 }

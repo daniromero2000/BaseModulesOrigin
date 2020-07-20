@@ -30,7 +30,8 @@ class CartController extends Controller
 
     public function index()
     {
-        $shippingFee = $this->cartRepo->getShippingFee($this->courierRepo->findCourierById(request()->session()->get('courierId', 1)));
+        $courier = $this->courierRepo->getCourier();
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('ecommerce::front.carts.cart', [
             'cartItems'     => $this->cartRepo->getCartItemsTransformed(),
@@ -44,10 +45,22 @@ class CartController extends Controller
     public function store(AddToCartRequest $request)
     {
         $product = $this->productRepo->findProductById($request->input('product'));
+        if (isset($product->sale_price)) {
+            $product->price = $product->sale_price;
+        }
 
-        if ($product->attributes()->count() > 0) {
+        $options = [];
+        if ($request->has('productAttribute')) {
+            $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
+            if (isset($attr->sale_price)) {
+                $product->price = $attr->sale_price;
+            } else {
+                $product->price = $attr->price;
+            }
+            $options['product_attribute_id'] = $request->input('productAttribute');
+            $options['combination'] = $attr->attributesValues->toArray();
+        } elseif ($product->attributes()->count() > 0) {
             $productAttr = $product->attributes()->where('default', 1)->first();
-
             if (isset($productAttr->sale_price)) {
                 $product->price = $productAttr->price;
 
@@ -55,14 +68,6 @@ class CartController extends Controller
                     $product->price = $productAttr->sale_price;
                 }
             }
-        }
-
-        $options = [];
-        if ($request->has('productAttribute')) {
-            $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
-            $product->price = $attr->price;
-            $options['product_attribute_id'] = $request->input('productAttribute');
-            $options['combination'] = $attr->attributesValues->toArray();
         }
 
         $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
@@ -95,7 +100,7 @@ class CartController extends Controller
             $data[] = $cartItems[$key];
         }
 
-        $courier     = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $courier = $this->courierRepo->getCourier();
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return  [

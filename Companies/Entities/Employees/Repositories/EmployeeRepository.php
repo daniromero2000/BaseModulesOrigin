@@ -67,7 +67,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             return $this->model->with([
                 'employeeCommentaries:commentary,user,employee_id,created_at',
                 'department',
-                'employeeStatusesLogs:employee_id,status,user_id,time_passed,created_at',
+                'subsidiary',
+                'employeeStatusesLogs:employee_id,status,user_id,created_at',
                 'employeePosition:id,position,is_active',
                 'employeeEmails:email,employee_id,status,created_at',
                 'employeePhones:phone_type,phone,employee_id,status,created_at',
@@ -75,7 +76,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
                 'employeeProfessions:professions_list_id,employee_id,status,created_at'
-            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'employee_position_id', 'is_active']);
+            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'subsidiary_id', 'employee_position_id', 'is_active']);
         } catch (ModelNotFoundException $e) {
             throw new EmployeeNotFoundException($e);
         }

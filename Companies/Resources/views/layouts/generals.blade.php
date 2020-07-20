@@ -5,7 +5,8 @@
         <h3 class="mb-0">{{ $employee->name }} {{ $employee->last_name }}</h3>
       </div>
       <div class="col text-right">
-        <a href="{{ route('admin.employees.edit', $employee['id']) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
+        <a data-toggle="modal" data-target="#modal{{ $employee->id }}" class="btn btn-primary text-white btn-sm"><i
+            class="fa fa-edit"></i> Editar</a>
       </div>
     </div>
     <div class="w-100">
@@ -16,6 +17,7 @@
             <tr>
               <th scope="col">Email Usuario</th>
               <th scope="col">Cargo</th>
+              <th scope="col">Área</th>
               <th scope="col">Sucursal</th>
               <th scope="col">Roles</th>
             </tr>
@@ -25,8 +27,9 @@
               <td>{{ $employee->email }}</td>
               <td>{{ $employee->employeePosition->position }}</td>
               @foreach ($employee->department as $department )
-              <td>{{ $department->subsidiary->name}}</td>
+              <td>{{ $department->name}}</td>
               @endforeach
+              <td>{{ $employee->subsidiary->name }}</td>
               <td>
                 {{ $employee->roles()->get()->implode('name', ', ') }}
               </td>
@@ -35,7 +38,8 @@
         </table>
         <div class="row mt-3 mx-0">
           <div class="col text-right">
-            <form action="{{ route('admin.employees.destroy', $employee['id']) }}" method="post" class="form-horizontal">
+            <form action="{{ route('admin.employees.destroy', $employee['id']) }}" method="post"
+              class="form-horizontal">
               @csrf
               <input type="hidden" name="_method" value="delete">
               <div class="btn-group">

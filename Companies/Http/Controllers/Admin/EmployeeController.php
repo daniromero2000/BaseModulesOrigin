@@ -60,7 +60,6 @@ class EmployeeController extends Controller
         $this->housingInterface             = $housingRepositoryInterface;
         $this->epsInterface                 = $epsRepositoryInterface;
         $this->professionsListInterface     = $professionsListRepositoryInterface;
-        $this->middleware(['permission:create-employee, guard:employee'], ['only' => ['create', 'store']]);
     }
 
     public function index(Request $request)
@@ -128,6 +127,9 @@ class EmployeeController extends Controller
                 'housings'               => $this->housingInterface->getAllHousingsNames(),
                 'epss'                   => $this->epsInterface->getAllEpsNames(),
                 'professions_lists'      => $this->professionsListInterface->getAllProfessionsNames(),
+                'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
+                'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
+                'roles'              => $this->roleInterface->getAllRoleNames()
             ]);
         } catch (EmployeeNotFoundException $e) {
             request()->session()->flash('error', 'El Empleado que estás buscando no se encuentra');

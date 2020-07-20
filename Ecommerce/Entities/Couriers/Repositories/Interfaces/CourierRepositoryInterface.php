@@ -13,7 +13,11 @@ interface CourierRepositoryInterface
 
     public function findCourierById(int $id): Courier;
 
+    public function findCourierByProvince(int $province_id);
+
     public function listCouriers(string $order = 'id', string $sort = 'desc'): Collection;
 
     public function deleteCourier();
+
+    public function getCourier();
 }

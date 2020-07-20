@@ -86,124 +86,7 @@
                         aria-expanded="false">
                         <i class="ni ni-bell-55"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
-                        <!-- Dropdown header -->
-                        <div class="px-3 py-3">
-                            <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong>
-                                notifications.
-                            </h6>
-                        </div>
-                        <!-- List group -->
-                        <div class="list-group list-group-flush">
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder"
-                                            src="{{asset('argonTemplate/img/theme/team-1.jpg')}}"
-                                            class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">John Snow</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>2 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder"
-                                            src="{{asset('argonTemplate/img/theme/team-2.jpg')}}"
-                                            class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">John Snow</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>3 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder"
-                                            src="{{asset('argonTemplate/img/theme/team-3.jpg')}}"
-                                            class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">John Snow</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>5 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder"
-                                            src="{{asset('argonTemplate/img/theme/team-4.jpg')}}"
-                                            class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">John Snow</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>2 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder"
-                                            src="{{asset('argonTemplate/img/theme/team-5.jpg')}}"
-                                            class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">John Snow</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>3 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- View all -->
-                        <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
-                    </div>
+
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -257,11 +140,12 @@
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <div class="media align-items-center">
-                            <span class="avatar avatar-sm rounded-circle" style=" background-color: white; "> 
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/user.png')}}" >
+                            <span class="avatar avatar-sm rounded-circle" style=" background-color: white; ">
+                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/user.png')}}">
                             </span>
                             <div class=" media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">{{auth()->guard('employee')->user()->name}}</span>
+                                <span
+                                    class="mb-0 text-sm  font-weight-bold">{{auth()->guard('employee')->user()->name}}</span>
                             </div>
                         </div>
                     </a>
@@ -269,7 +153,8 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Bienvenido!</h6>
                         </div>
-                        <a href="/admin/employees/{{auth()->guard('employee')->user()->id}}/profile" class="dropdown-item">
+                        <a href="/admin/employees/{{auth()->guard('employee')->user()->id}}/profile"
+                            class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>Mi perfil</span>
                         </a>

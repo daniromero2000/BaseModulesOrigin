@@ -12,7 +12,6 @@ class ProvinceController extends Controller
     public function __construct(ProvinceRepositoryInterface $provinceRepositoryInterface)
     {
         $this->provinceInterface = $provinceRepositoryInterface;
-        $this->middleware(['permission:countries, guard:employee']);
     }
 
     public function show(int $countryId, int $provinceId)

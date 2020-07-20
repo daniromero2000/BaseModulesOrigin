@@ -45,7 +45,7 @@ class DepartmentController extends Controller
             'departments'   => $list,
             'skip'          => $skip,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Telefono', 'Ciudad', 'Opciones']
+            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Teléfono', 'Ciudad', 'Opciones']
         ]);
     }
 

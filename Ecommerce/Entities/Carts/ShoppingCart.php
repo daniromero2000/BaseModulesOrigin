@@ -37,14 +37,14 @@ class ShoppingCart extends Cart
      * @param float $shipping
      * @return string
      */
-    public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null, $shipping = 0.00)
+    public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null, $shipping = 0.0)
     {
         $content = $this->getContent();
 
         $total = $content->reduce(function ($total, CartItem $cartItem) {
 
             return $total + ($cartItem->qty * $cartItem->priceTax);
-        }, 0);
+        },);
 
         $grandTotal = $total + $shipping;
 

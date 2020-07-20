@@ -23,8 +23,6 @@ class EmployeeStatusesLogRepository implements EmployeeStatusesLogRepositoryInte
     {
         try {
             $employeeStatusesLog = new EmployeeStatusesLog($attributes);
-            $employeeCreatedAt   = $employeeStatusesLog->employee->created_at;
-            $employeeStatusesLog->time_passed = $this->customerStatusDaysPassed($employeeCreatedAt);
             $employeeStatusesLog->save();
 
             return $employeeStatusesLog;

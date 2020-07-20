@@ -1,19 +1,43 @@
-<div class="row">
-    <div class="col-12">
-        <h4 class="pl-4" style="margin-top: 9px; ">{{ $product->name }}
-        </h4>
-    </div>
-</div>
-<div class="row mx-0 py-3" style="margin-bottom: 10%;">
-    <div class="col-lg-4 col-xl-4 d-flex">
-        <div class="product-description w-100 p-2 my-auto">
+<div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
+    <div class="col-lg-4 col-xl-4 d-flex col-md-6 col-sm-8">
+        <div class="product-description text-center w-100 p-2 my-auto">
             <div class="w-100">
-                <p style=" font-size: 22px;"><small>
-                        ${{ number_format($product->price, 0) }}</small></p>
+                <div class="w-100">
+                    <h4 class="">{{ $product->name }}
+                    </h4>
+                </div>
+                <div id="priceProduct pl-2" style=" position: relative; " style=" position: relative; ">
+                    @if ($product->sale_price > 0)
+                    <div class="card-products-discount text-center">
+                        @php
+                        $discount = round((($product->price - $product->sale_price) / $product->price) * 100);
+                        @endphp
+                        <p>{{$discount}}%</p>
+                        <p>Dcto</p>
+                    </div>
+                    @endif
+                    @if ($product->sale_price > 0)
+                    <p class="text-center" style=" font-size: 24px;margin-bottom: 0px;">
+                        <small>
+                            <del>${{ number_format($product->price, 0) }} </del> </small>
+                    </p>
+                    <p class="text-center" style=" font-size: 30px;line-height: 24px; ">
+                        <small><b>
+                                ${{ number_format($product->sale_price, 0) }}
+                            </b>
+                        </small><br>
+                    </p>
+                    @else
+                    <p class="text-center" style=" font-size: 30px;line-height: 24px;">
+                        <small>
+                            ${{ number_format($product->price, 0) }} </small>
+                        <br>
+                    </p>
+                    @endif
+                </div>
             </div>
-            <div class="description">{!! $product->description !!}</div>
-
-            <hr>
+            <div class="description text-center">{!! $product->description !!}</div>
+            <br>
             <div class="w-100">
                 <div class="w-100">
                     @include('generals::layouts.errors-and-messages')
@@ -22,39 +46,56 @@
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
                         <div class="w-100">
                             <div class="form-group  mb-2">
-                                <label class=" mb-2" for="productAttribute"><span class="mr-auto">Elige
-                                        Combinación</span></label> <br />
-                                <select name="productAttribute" id="productAttribute" class="form-control "
-                                    style=" display: block; width: 100%; ">
+                                <div class="w-100">
+                                    <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Elige tu
+                                                talla</b></span></label>
+                                </div>
+
+                                <div class="container-sizes w-100" id="sizes">
+                                    <input type="hidden" required name="productAttribute" id="productAttribute">
                                     @foreach($productAttributes as $productAttribute)
-                                    <option value="{{ $productAttribute->id }}">
-                                        @foreach($productAttribute->attributesValues as $value)
-                                        {{ $value->attribute->name }} : {{ ucwords($value->value) }}
-                                        @endforeach
-                                        @if(!is_null($productAttribute->price))
-                                        ( {{ config('cart.currency_symbol') }} {{ $productAttribute->price }})
-                                        @endif
-                                    </option>
+                                    @foreach($productAttribute->attributesValues as $key => $value)
+                                    @if ($value->attribute->name == 'Talla')
+                                    <div class="sizes" onclick="addValue({{$productAttribute->id}})">
+                                        <span class="m-auto" onclick="addValue({{$productAttribute->id}})">
+                                            <p class="m-auto">{{ ucwords($value->value) }}</p>
+                                        </span>
+                                    </div>
+                                    @endif
                                     @endforeach
-                                </select>
+                                    @endforeach
+                                </div>
+
                             </div>
                         </div>
                         <hr>
                         @endif
-                        <div class="row w-100">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control mx-auto" name="quantity" id="quantity"
-                                        placeholder="Cantidad" value="{{ old('quantity') }}" />
-                                    <input type="hidden" name="product" value="{{ $product->id }}" />
+                        <div class="row mx-0 w-100">
+                            <div class=" col-xl-12">
+                                <div class="input-group mx-auto">
+                                    <div class="input-group mb-3 container-quanty mx-auto">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-sm minus-btn" onclick="res()"
+                                                id="minus-btn"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                        <input type="text" id="qty_input" name="quantity"
+                                            class="form-control form-control-sm text-center" value="1" min="1">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-sm plus-btn" onclick="sum()"
+                                                id="plus-btn"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                        <input type="hidden" id="qty_input_real" class="" value="1" min="1">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 mt-3 d-flex">
+                            <div class="col-xl-12">
                                 <button type="button" onclick="addCart({{$product->id}},'1')"
-                                    class="btn button-reset mx-auto"><i class="fa fa-cart-plus"></i> Agregar al Carrito
+                                    class="btn button-reset btn-block mx-auto mt-2">
+                                    Agregar al Carrito
                                 </button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -67,7 +108,7 @@
                 <div class="close"></div>
                 <div class="vertical-wrapper">
                     <div id="vertical-slider">
-                        <ul>
+                        <ul id="productImages">
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
                                 <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
                                     alt="{{$product->name}}" style=" border-radius: 6px; "></li>
@@ -95,7 +136,7 @@
                         </div>
                     </div>
                     <div id="horizon-slider" class="zoomin zoomenable zoomed">
-                        <ul>
+                        <ul id="productImages">
                             <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
                                 <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
                                     alt="{{$product->name}}" style=" border-radius: 15px; "></li>

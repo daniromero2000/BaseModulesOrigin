@@ -70,7 +70,7 @@ class AttributeRepository implements AttributeRepositoryInterface
 
     public function listAttributeValues(): Collection
     {
-        return $this->model->values()->get();
+        return $this->model->values()->orderby('value')->get();
     }
 
     public function associateAttributeValue(AttributeValue $attributeValue): AttributeValue

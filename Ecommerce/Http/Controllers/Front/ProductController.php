@@ -37,8 +37,10 @@ class ProductController extends Controller
 
     public function show(string $slug)
     {
+        if (request()->has('item')) {
+            dd(request()->input());
+        }
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
-
         return view('ecommerce::front.products.product', [
             'product' => $product,
             'images' => $product->images()->get(),

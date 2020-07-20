@@ -27,12 +27,19 @@ use Modules\Ecommerce\Entities\Shipping\Repositories\Interfaces\ShippingReposito
 use Modules\Ecommerce\Entities\Shipping\Repositories\ShippoShipmentRepository;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\ProductGroupRepository;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
+use Modules\Ecommerce\Entities\OrderPayment\Repositories\OrderPaymentRepository;
+use Modules\Ecommerce\Entities\OrderCommentaries\Repositories\Interfaces\OrderCommentaryRepositoryInterface;
 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            OrderCommentaryRepositoryInterface::class,
+            OrderPaymentRepository::class
+        );
+
         $this->app->bind(
             ProductGroupRepositoryInterface::class,
             ProductGroupRepository::class

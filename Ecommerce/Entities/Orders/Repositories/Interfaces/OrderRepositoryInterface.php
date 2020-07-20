@@ -2,7 +2,6 @@
 
 namespace Modules\Ecommerce\Entities\Orders\Repositories\Interfaces;
 
-use Jsdecena\Baserepo\BaseRepositoryInterface;
 use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\Products\Product;
 use Illuminate\Support\Collection;
@@ -30,4 +29,6 @@ interface OrderRepositoryInterface
     public function getAddresses(): Collection;
 
     public function getCouriers(): Collection;
+
+    public function removeOrder(): bool;
 }

@@ -13,7 +13,7 @@
             <div class="row mx-0 header">
                 <div class="col-xl-5 col-md-5 offset-xl-1"><b class="pl-md-4 pl-lg-5">Producto</b></div>
                 <div class="col-xl-1 col-md-2 text-md-center"><b>Cantidad</b></div>
-                <div class="col-xl-1 col-md-1 text-md-center"><b>Envio</b></div>
+                <div class="col-xl-1 col-md-1 text-md-center"><b>Envío</b></div>
                 <div class="col-xl-1 col-md-2 text-md-center"><b>Precio</b></div>
                 <div class="col-xl-1 col-md-1 text-md-center"><b>Total</b></div>
             </div>
@@ -35,9 +35,11 @@
                                 <p class="title-product">{{ $cartItem->name }}</p>
                                 @if($cartItem->options->has('combination'))
                                 <div style="margin-bottom:5px;">
-                                    @foreach($cartItem->options->combination as $option)
-                                    <small class="label label-primary small-reset">{{$option['value']}}</small>
-                                    @endforeach
+                                    <small class="label label-primary small-reset">
+                                        @foreach($cartItem->options->combination as $option)
+                                        {{$option['value']}}
+                                        @endforeach
+                                    </small>
                                 </div>
                                 @endif
                             </div>
@@ -65,7 +67,7 @@
                     </div>
                 </div>
                 <div class="col-xl-1 col-md-1 col-sm-3 text-center">
-                    <b class="hidden">Envio:</b>
+                    <b class="hidden">Envío:</b>
                     <small>
                         <b class="small-reset">A CALCULAR</b>
                     </small>
@@ -73,11 +75,17 @@
                 <div class="col-xl-1 col-md-2 col-sm-2 text-center">
                     <p>
                         <b class="hidden">Precio:</b>
-                        <span><small> DE </span>
-                        <del>${{ number_format($cartItem->price, 0) }} </del> </small>
+                        @if ($cartItem->sale_price > 0)
+                        <small>
+                            <del>${{ number_format($cartItem->price, 0) }} </del> </small>
 
-                        <span><small> POR </span>
-                        ${{ number_format($cartItem->price, 0) }} </small>
+                        <small>
+                            ${{ number_format($cartItem->sale_price, 0) }} </small>
+                        @else
+                        <small>
+                            ${{ number_format($cartItem->price, 0) }} </small>
+                        @endif
+
                     </p>
 
                 </div>
@@ -86,7 +94,8 @@
                     <p class="small-reset">
                         <b class="hidden">Total:</b>
                         {{config('cart.currency')}}
-                        ${{ number_format(($cartItem->qty*$cartItem->price), 0) }}</small>
+                        <small id="{{$cartItem->id}}">
+                            ${{ number_format(($cartItem->qty*$cartItem->price), 0) }}</small>
                     </p>
                 </div>
                 <div class="col-xl-1 col-md-1 col-sm-2 col-1 text-center px-0 options">
@@ -114,10 +123,10 @@
                     <label for=""> <b>TU CUPÓN AQUI</b></label>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Ingresar" aria-label="Ingresar"
-                            aria-describedby="button-addon2">
+                            aria-describedby="button-addon2" disabled>
                         <div class="input-group-append">
-                            <button class="btn bg-blue-page text-white" type="button"
-                                id="button-addon2"><b>Agregar</b></button>
+                            <button class="btn bg-blue-page text-white" type="button" id="button-addon2"
+                                disabled><b>Agregar</b></button>
                         </div>
                     </div>
                 </div>
@@ -130,15 +139,16 @@
                 <div class="mx-auto" style=" max-width: 325px; ">
                     <div class="row py-2 px-5 ">
                         <div class="col-12 mt-2 justify-content-between d-flex">SUBTOTAL
-                            <b>${{ number_format($subtotal, 0) }}</b></div>
+                            <b id="subtotalCart">${{ number_format($subtotal, 0) }}</b></div>
                         @if(isset($shippingFee) && $shippingFee != 0)
-                        <div class="col-12 mt-2 justify-content-between d-flex">ENVIÓ <b>{{ $shippingFee }}</b></div>
+                        <div class="col-12 mt-2 justify-content-between d-flex">ENVÍO
+                            <b>${{ number_format($shippingFee, 0) }}</b></div>
                         @endif
                         <div class="col-12 mt-2 justify-content-between d-flex">IMPUESTOS
-                            <b>${{ number_format($tax, 0) }}</b>
+                            <b id="taxesCart">${{ number_format($tax, 0) }}</b>
                         </div>
                         <div class="col-12 mt-2 justify-content-between d-flex">TOTAL
-                            <b>${{ number_format($total, 0) }}</b></div>
+                            <b id="totalCart">${{ number_format($total, 0) }}</b></div>
                         <div class="mt-4 d-flex mx-auto">
                             <a href="{{ route('checkout.index') }}"
                                 class="btn bg-blue-page text-white mx-auto"><b>FINALIZAR
@@ -163,8 +173,8 @@
         <div class="col-md-12 ">
             <div class="text-center alert-shop p-5">
                 <img src="{{ asset('img/fvn/carrito.svg')}}" alt="carrito">
-                <h3>Tu carrito esta vacío</h3>
-                <p>En fvn tenemos una gran variedad de productos para que elijas los que mas gusten!</p>
+                <h3>Tu carrito está vacío</h3>
+                <p>En fvn tenemos una gran variedad de productos para que elijas los que más te gusten!</p>
                 <a href="{{ route('home') }}" class="btn">Sigue comprando</a>
             </div>
 

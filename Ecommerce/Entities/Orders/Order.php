@@ -10,6 +10,7 @@ use Modules\Ecommerce\Entities\Products\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Ecommerce\Entities\OrderCommentaries\OrderCommentary;
+use Modules\Ecommerce\Entities\OrderPayments\OrderPayment;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Order extends Model
@@ -118,5 +119,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderCommentary::class)
             ->select(['id', 'commentary', 'user', 'customer_notified', 'order_id', 'created_at']);
+    }
+
+    public function orderPayments()
+    {
+        return  $this->hasMany(OrderPayment::class);
     }
 }

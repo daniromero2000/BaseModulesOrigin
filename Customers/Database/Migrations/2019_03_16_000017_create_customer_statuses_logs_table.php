@@ -23,7 +23,6 @@ class CreateCustomerStatusesLogsTable extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('time_passed');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

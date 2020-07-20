@@ -17,7 +17,7 @@ class CreateAttributeValuesTable extends Migration
             $table->increments('id');
             $table->string('value');
             $table->string('description')->nullable();
-            $table->unsignedInteger('sort_order');
+            $table->unsignedInteger('sort_order')->default(0);
             $table->unsignedInteger('attribute_id')->index();
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();

@@ -21,9 +21,7 @@ class CreateOrderStatusesLogsTable extends Migration
             $table->string('status');
             $table->integer('employee_id')->unsigned()->index();
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->string('time_passed');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
