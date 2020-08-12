@@ -9,8 +9,9 @@ class ProvinceController extends Controller
 {
     protected $provinceInterface;
 
-    public function __construct(ProvinceRepositoryInterface $provinceRepositoryInterface)
-    {
+    public function __construct(
+        ProvinceRepositoryInterface $provinceRepositoryInterface
+    ) {
         $this->provinceInterface = $provinceRepositoryInterface;
     }
 

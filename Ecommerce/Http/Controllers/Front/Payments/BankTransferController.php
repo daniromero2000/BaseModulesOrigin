@@ -3,14 +3,12 @@
 namespace Modules\Ecommerce\Http\Controllers\Front\Payments;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 use Modules\Ecommerce\Entities\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use Modules\Ecommerce\Entities\Checkout\CheckoutRepository;
-use Modules\Ecommerce\Entities\OrderStatuses\OrderStatus;
-use Modules\Ecommerce\Entities\OrderStatuses\Repositories\OrderStatusRepository;
 use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
 use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use Ramsey\Uuid\Uuid;
 
 class BankTransferController extends Controller
 {
@@ -26,23 +24,18 @@ class BankTransferController extends Controller
         $this->checkoutInterface = $checkoutRepository;
     }
 
-    public function index()
-    {
-    }
-
     public function store(Request $request)
     {
         $checkout          = $this->checkoutInterface->getLastCheckout();
         $courier           = $this->courierInterface->getCourier();
         $checkoutRepo      = new CheckoutRepository($checkout);
-        $orderStatusRepo   = new OrderStatusRepository(new OrderStatus);
 
         $order = $checkoutRepo->buildCheckoutItems([
             'reference'       => Uuid::uuid4()->toString(),
             'courier_id'      => $courier->id, // @deprecated
             'customer_id'     => $request->user()->id,
             'address_id'      => $request->input('billing_address'),
-            'order_status_id' => $orderStatusRepo->findByName('Ordenado')->id,
+            'order_status_id' => 5,
             'payment'         => strtolower(config('bank-transfer.name')),
             'discounts'       => 0,
             'sub_total'       => $this->cartRepo->getSubTotal(),

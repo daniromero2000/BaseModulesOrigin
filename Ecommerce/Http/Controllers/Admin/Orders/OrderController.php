@@ -14,24 +14,27 @@ use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
 use Modules\Ecommerce\Entities\OrderStatuses\OrderStatus;
 use Modules\Ecommerce\Entities\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use Modules\Ecommerce\Entities\OrderStatuses\Repositories\OrderStatusRepository;
+use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShippingInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
-    private $orderRepo, $courierRepo, $customerRepo, $orderStatusRepo;
+    private $orderRepo, $courierRepo, $customerRepo, $orderStatusRepo, $orderShippingRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository,
-        OrderStatusRepositoryInterface $orderStatusRepository
+        OrderStatusRepositoryInterface $orderStatusRepository,
+        OrderShippingInterface $orderShippingRepoInterfe
     ) {
         $this->orderRepo       = $orderRepository;
         $this->courierRepo     = $courierRepository;
         $this->customerRepo    = $customerRepository;
         $this->orderStatusRepo = $orderStatusRepository;
+        $this->orderShippingRepo = $orderShippingRepoInterfe;
         $this->middleware(['permission:orders, guard:employee']);
     }
 
@@ -55,34 +58,35 @@ class OrderController extends Controller
         $order->courier = $orderRepo->getCouriers()->first();
         $order->address = $orderRepo->getAddresses()->first();
         $items = $orderRepo->listOrderedProducts();
+        $couriers = $this->courierRepo->listCouriers()->pluck('name', 'id');
+        $orderShipment = $this->orderShippingRepo->findOrderShipment($orderId);
+        //dd($orderShipment);
+        $count = count($items);
 
+        $cant = 0;
+        $weight = 0.00;
+
+        //dd($items);
+
+        foreach ($items as $item) {
+            //dd($item->quantity);
+            $cant += $item->quantity;
+
+            $weight += $item->weight * number_format($item->quantity, 2);
+            //dd($weight);
+        }
+        //dd($weight);
         return view('ecommerce::admin.orders.show', [
-            'order'         => $order,
-            'items'         => $items,
-            'customer'      => $this->customerRepo->findCustomerById($order->customer_id),
-            'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
-            'payment'       => $order->payment,
-            'user'          => auth()->guard('employee')->user()
-        ]);
-    }
-
-    public function edit($orderId)
-    {
-        $order = $this->orderRepo->findOrderById($orderId);
-
-        $orderRepo = new OrderRepository($order);
-        $order->courier = $orderRepo->getCouriers()->first();
-        $order->address = $orderRepo->getAddresses()->first();
-        $items = $orderRepo->listOrderedProducts();
-
-        return view('ecommerce::admin.orders.edit', [
-            'statuses' => $this->orderStatusRepo->listOrderStatuses(),
-            'order' => $order,
-            'items' => $items,
-            'customer' => $this->customerRepo->findCustomerById($order->customer_id),
-            'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
-            'payment' => $order->payment,
-            'user' => auth()->guard('employee')->user()
+            'order'         =>  $order,
+            'items'         =>  $items,
+            'customer'      =>  $this->customerRepo->findCustomerById($order->customer_id),
+            'currentStatus' =>  $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
+            'payment'       =>  $order->payment,
+            'user'          =>  auth()->guard('employee')->user(),
+            'couriers'      =>  $couriers,
+            'cant'          =>  $cant,
+            'weight'        =>  $weight,
+            'orderShipment'   =>  $orderShipment,
         ]);
     }
 

@@ -16,7 +16,11 @@ interface AttributeRepositoryInterface
 
     public function deleteAttribute(): ?bool;
 
+    public function list(string $orderBy = 'id', string $sortBy = 'asc'): Collection;
+
     public function listAttributes(string $orderBy = 'id', string $sortBy = 'asc'): Collection;
+
+    public function listCategoryAttributes($select): Collection;
 
     public function listAttributeValues(): Collection;
 

@@ -1,6 +1,6 @@
 @extends('layouts.front.app')
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/front/cart/app.css')}}">
+<link rel="stylesheet" href="{{ asset('css/front/cart/app.min.css')}}">
 @endsection
 @section('content')
 <div class="container-reset product-in-cart-list content-empty">
@@ -142,10 +142,10 @@
                             <b id="subtotalCart">${{ number_format($subtotal, 0) }}</b></div>
                         @if(isset($shippingFee) && $shippingFee != 0)
                         <div class="col-12 mt-2 justify-content-between d-flex">ENVÍO
-                            <b>${{ number_format($shippingFee, 0) }}</b></div>
+                            <span class="small"> <b> A CALCULAR </b></span></div>
                         @endif
                         <div class="col-12 mt-2 justify-content-between d-flex">IMPUESTOS
-                            <b id="taxesCart">${{ number_format($tax, 0) }}</b>
+                            <b>${{ number_format($tax, 0) }}</b>
                         </div>
                         <div class="col-12 mt-2 justify-content-between d-flex">TOTAL
                             <b id="totalCart">${{ number_format($total, 0) }}</b></div>
@@ -171,7 +171,7 @@
     @else
     <div class="row mx-0 ">
         <div class="col-md-12 ">
-            <div class="text-center alert-shop p-5">
+            <div class="text-center alert-shop p-sm-5">
                 <img src="{{ asset('img/fvn/carrito.svg')}}" alt="carrito">
                 <h3>Tu carrito está vacío</h3>
                 <p>En fvn tenemos una gran variedad de productos para que elijas los que más te gusten!</p>

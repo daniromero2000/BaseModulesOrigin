@@ -6,12 +6,25 @@
         <div class="box-body">
             <div class="box-header">
                 <div class="row">
-                    <div class="col-md-6">
-                        <h2>
-                            <a href="{{ route('admin.customers.show', $customer->id) }}">{{$customer->name}}</a> <br />
-                            <small>{{$customer->email}}</small> <br />
-                            <small>Referencia: <strong>{{$order->reference}}</strong></small>
-                        </h2>
+                    <div class="col-6">
+                        <span> Orden # <strong>{{$order->id}}</strong></span>
+                        <br>
+                        Referencia:<span> <b>{{ $order->reference}}</b></span>
+                        <br>
+                        <span> Cliente: <a href="{{ route('admin.customers.show', $customer->id) }}"><strong>{{ ucfirst($customer->name) }}
+                                    {{$customer->last_name}}</strong></span></a>
+                        <br>
+                        <span> Dirección: <strong>{{ $order->address->customer_address }}
+                                @if(isset($order->address->city))
+                                {{ $order->address->city->city }}
+                                @endif @if(isset($order->address->city))
+                                {{ $order->address->city->province->province }}
+                                @endif</strong></span>
+                        <br>
+                        Número Identificación: <span>
+                            <b>{{ $customer->customerIdentities[0]->identity_number}}</b></span>
+                        <br>
+                        Número Teléfono: <span> <b>{{ $customer->customerPhones[0]->phone}}</b></span>
                     </div>
                 </div>
             </div>
@@ -22,7 +35,6 @@
                         <thead>
                             <tr>
                                 <td class="col-md-3">Fecha</td>
-                                <td class="col-md-3">Cliente</td>
                                 <td class="col-md-3">Pago</td>
                                 <td class="col-md-3">Estado</td>
                             </tr>
@@ -30,9 +42,6 @@
                         <tbody>
                             <tr>
                                 <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
-                                <td><a
-                                        href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}</a>
-                                </td>
                                 <td><strong>{{ $order['payment'] }}</strong></td>
                                 <td>
                                     <form action="{{ route('admin.orders.update', $order->id) }}" method="post">

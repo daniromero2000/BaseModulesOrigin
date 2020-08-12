@@ -24,7 +24,7 @@ class AttributeController extends Controller
     public function index()
     {
         return view('ecommerce::admin.attributes.list', [
-            'attributes' => $this->attributeRepo->listAttributes(),
+            'attributes' => $this->attributeRepo->list(),
             'optionsRoutes'   => 'admin.' . (request()->segment(2)),
         ]);
     }
@@ -36,10 +36,9 @@ class AttributeController extends Controller
 
     public function store(CreateAttributeRequest $request)
     {
-        $attribute = $this->attributeRepo->createAttribute($request->except('_token'));
+        $this->attributeRepo->createAttribute($request->except('_token'));
         $request->session()->flash('message', config('messaging.create'));
-
-        return redirect()->route('admin.attributes.edit', $attribute->id);
+        return redirect()->back();
     }
 
     public function show($id)
@@ -74,11 +73,11 @@ class AttributeController extends Controller
             $attributeRepo->updateAttribute($request->except('_token'));
             $request->session()->flash('message', config('messaging.update'));
 
-            return redirect()->route('admin.attributes.edit', $attribute->id);
+            return redirect()->back();
         } catch (UpdateAttributeErrorException $e) {
             $request->session()->flash('error', $e->getMessage());
 
-            return redirect()->route('admin.attributes.edit', $id)->withInput();
+            return redirect()->back()->withInput();
         }
     }
 
@@ -87,6 +86,6 @@ class AttributeController extends Controller
         $this->attributeRepo->findAttributeById($id)->delete();
         request()->session()->flash('message', config('messaging.delete'));
 
-        return redirect()->route('admin.attributes.index');
+        return redirect()->back();
     }
 }

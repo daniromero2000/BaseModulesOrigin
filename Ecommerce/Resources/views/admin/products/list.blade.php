@@ -28,12 +28,12 @@
         </div>
         @include('ecommerce::admin.shared.products')
 
-        {{-- <div class="card-footer py-2">
+        <div class="card-footer py-2">
             @include('generals::layouts.admin.pagination.pagination', [$skip])
-        </div> --}}
+        </div>
     </div>
     @else
-    {{-- @include('generals::layouts.admin.pagination.pagination_null', [$skip]) --}}
+    @include('generals::layouts.admin.pagination.pagination_null', [$skip])
     @endif
 </section>
 @endsection

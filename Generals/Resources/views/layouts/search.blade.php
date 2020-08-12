@@ -56,9 +56,8 @@
                                         @if (request()->input() != null)
                                         <span class="input-group-btn">
 
-                                            <a title="Recuperar" href="{{ route ( $optionsRoutes.'.recover', 2)}}"
-                                                id="recover" class="btn btn-danger btn-sm"><i
-                                                    class="fa fa-clock"></i></a>
+                                            <a title="Recuperar" href="{{$route}}" id="recover"
+                                                class="btn btn-danger btn-sm">Restaurar</a>
                                         </span>
                                         @endif
                                     </form>

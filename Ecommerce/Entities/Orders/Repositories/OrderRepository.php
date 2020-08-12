@@ -28,7 +28,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     use OrderTransformable;
     protected $model;
-    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'total_shipping', 'sub_total', 'tax_amount', 'grand_total', 'created_at'];
+    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'total_shipping', 'sub_total', 'tax_amount', 'grand_total', 'created_at', 'total_paid'];
 
     public function __construct(Order $order)
     {
@@ -70,7 +70,8 @@ class OrderRepository implements OrderRepositoryInterface
     public function findOrderById(int $id): Order
     {
         try {
-            return $this->model->findOrFail($id, $this->columns);
+            return $this->model->with(['orderPayments'])
+                ->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new OrderNotFoundException($e);
         }
@@ -78,7 +79,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
     {
-        return $this->model->with('orderStatus')
+        return $this->model->with('orderStatus')->orderBy('id', 'desc')
             ->get($this->columns);
     }
 
@@ -101,20 +102,20 @@ class OrderRepository implements OrderRepositoryInterface
         $product->save();
     }
 
-    public function sendEmailToCustomer()
-    {
-        Mail::to($this->model->customer)
-            ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
-    }
+    // public function sendEmailToCustomer()
+    // {
+    //     Mail::to($this->model->customer)
+    //         ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
+    // }
 
-    public function sendEmailNotificationToAdmin()
-    {
-        $employeeRepo = new EmployeeRepository(new Employee);
-        $employee = $employeeRepo->findEmployeeById(1);
+    // public function sendEmailNotificationToAdmin()
+    // {
+    //     $employeeRepo = new EmployeeRepository(new Employee);
+    //     $employee = $employeeRepo->findEmployeeById(1);
 
-        Mail::to($employee)
-            ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
-    }
+    //     Mail::to($employee)
+    //         ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+    // }
 
     public function searchOrder(string $text): Collection
     {
@@ -138,6 +139,7 @@ class OrderRepository implements OrderRepositoryInterface
             $product->description = $product->pivot->product_description;
             $product->price = $product->pivot->product_price;
             $product->quantity = $product->pivot->quantity;
+            $product->weight = $product->weight;
             $product->product_attribute_id = $product->pivot->product_attribute_id;
             return $product;
         });
@@ -150,7 +152,7 @@ class OrderRepository implements OrderRepositoryInterface
             $product = $productRepo->find($item->id);
             if ($item->options->has('product_attribute_id')) {
                 $this->associateProduct($product, $item->qty, [
-                    'product_attribute_id' => $item->options->product_attribute_id
+                    'product_attribute_id' => $item->options->product_attribute_id,
                 ]);
             } else {
                 $this->associateProduct($product, $item->qty);
@@ -174,6 +176,16 @@ class OrderRepository implements OrderRepositoryInterface
             return $this->model->where('id', $this->model->id)->delete();
         } catch (QueryException $e) {
             dd($e);
+        }
+    }
+
+    public function findOrderShippings($id): Collection
+    {
+        try {
+            return $this->model->with(['order_id'])
+                ->findOrFail($id, $this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new OrderNotFoundException($e);
         }
     }
 }

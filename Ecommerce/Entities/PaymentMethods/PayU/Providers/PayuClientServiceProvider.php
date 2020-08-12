@@ -4,6 +4,7 @@ namespace Raulingg\LaravelPayU\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient as ClientPayuClient;
 use Raulingg\LaravelPayU\Client\PayuClient;
 use Raulingg\LaravelPayU\Contracts\PayuClientInterface;
 
@@ -42,7 +43,7 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function registerPublishConfig()
     {
-        $publishPath = $this->app['path.config'].DIRECTORY_SEPARATOR.static::CONFIG_FILE_NAME_PAYU.'.php';
+        $publishPath = $this->app['path.config'] . DIRECTORY_SEPARATOR . static::CONFIG_FILE_NAME_PAYU . '.php';
         $this->publishes([$this->getConfigPath() => $publishPath]);
     }
 
@@ -66,7 +67,7 @@ class PayuClientServiceProvider extends ServiceProvider
         return function () {
             $settings = $this->getSettings();
 
-            return new PayuClient($settings);
+            return new ClientPayuClient($settings);
         };
     }
 
@@ -75,8 +76,8 @@ class PayuClientServiceProvider extends ServiceProvider
      */
     protected function getConfigPath()
     {
-        $root = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
-        $path = $root.'config'.DIRECTORY_SEPARATOR.static::CONFIG_FILE_NAME_PAYU.'.php';
+        $root = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+        $path = $root . 'config' . DIRECTORY_SEPARATOR . static::CONFIG_FILE_NAME_PAYU . '.php';
 
         return $path;
     }

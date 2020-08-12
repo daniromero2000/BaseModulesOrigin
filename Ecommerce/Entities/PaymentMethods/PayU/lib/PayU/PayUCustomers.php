@@ -9,6 +9,7 @@ use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUApiServiceU
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\RequestPaymentsUtil;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\util\PayUParameters;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\CommonRequestUtil;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUParameters as UtilPayUParameters;
 use stdClass;
 
 /**
@@ -18,175 +19,189 @@ use stdClass;
  * @version 1.0.0, 22/12/2013
  *
  */
-class PayUCustomers{
+class PayUCustomers
+{
 
-	/**
-	 * Creates a customer
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function create($parameters, $lang = null){
+    /**
+     * Creates a customer
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function create($parameters, $lang = null)
+    {
 
-		PayUSubscriptionsRequestUtil::validateCustomer($parameters);
+        PayUSubscriptionsRequestUtil::validateCustomer($parameters);
 
-		$request = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
+        $request = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
 
-		return PayUApiServiceUtil::sendRequest($request, $payUHttpRequestInfo);
-	}
+        return PayUApiServiceUtil::sendRequest($request, $payUHttpRequestInfo);
+    }
 
-	/**
-	 * Creates a customer with bank account information
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function createCustomerWithBankAccount($parameters, $lang = null){
+    /**
+     * Creates a customer with bank account information
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function createCustomerWithBankAccount($parameters, $lang = null)
+    {
 
-		PayUSubscriptionsRequestUtil::validateCustomer($parameters);
+        PayUSubscriptionsRequestUtil::validateCustomer($parameters);
 
-		$customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
-		$bankAccount = RequestPaymentsUtil::buildBankAccountRequest($parameters);
+        $customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
+        $bankAccount = RequestPaymentsUtil::buildBankAccountRequest($parameters);
 
-		$customer->bankAccounts = array($bankAccount);
+        $customer->bankAccounts = array($bankAccount);
 
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
 
-		return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
-	}
-
-
-	/**
-	 * Creates a customer with credit card information
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function createCustomerWithCreditCard($parameters, $lang = null){
-
-		PayUSubscriptionsRequestUtil::validateCustomer($parameters);
-		PayUSubscriptionsRequestUtil::validateCreditCard($parameters);
-
-		$customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
-		$creditCard = PayUSubscriptionsRequestUtil::buildCreditCard($parameters);
-
-		$creditCards =  array($creditCard);
-		$customer->creditCards = $creditCards;
+        return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
+    }
 
 
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
+    /**
+     * Creates a customer with credit card information
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function createCustomerWithCreditCard($parameters, $lang = null)
+    {
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
+        PayUSubscriptionsRequestUtil::validateCustomer($parameters);
+        PayUSubscriptionsRequestUtil::validateCreditCard($parameters);
 
-		return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
-	}
+        $customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
+        $creditCard = PayUSubscriptionsRequestUtil::buildCreditCard($parameters);
 
-	/**
-	 * Finds a customer by id
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function find($parameters, $lang = null){
-
-		$required = array(PayUParameters::CUSTOMER_ID);
-		CommonRequestUtil::validateParameters($parameters, $required);
-		$customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
-																				PayUSubscriptionsUrlResolver::GET_OPERATION,
-																				array($customer->id));
-
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::GET);
-		return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
-	}
+        $creditCards =  array($creditCard);
+        $customer->creditCards = $creditCards;
 
 
-	/**
-	 * Updates a customer
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function update($parameters, $lang = null){
-		$required = array(PayUParameters::CUSTOMER_ID);
-		CommonRequestUtil::validateParameters($parameters, $required);
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY, PayUSubscriptionsUrlResolver::ADD_OPERATION);
 
-		PayUSubscriptionsRequestUtil::validateCustomer($parameters);
-		$customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::POST);
 
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
-																				PayUSubscriptionsUrlResolver::EDIT_OPERATION,
-																				array($customer->id));
+        return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
+    }
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::PUT);
+    /**
+     * Finds a customer by id
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function find($parameters, $lang = null)
+    {
 
-		return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
-	}
+        $required = array(UtilPayUParameters::CUSTOMER_ID);
+        CommonRequestUtil::validateParameters($parameters, $required);
+        $customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(
+            PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
+            PayUSubscriptionsUrlResolver::GET_OPERATION,
+            array($customer->id)
+        );
 
-	/**
-	 * Deletes a customer
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function delete($parameters, $lang = null){
-		$required = array(PayUParameters::CUSTOMER_ID);
-		CommonRequestUtil::validateParameters($parameters, $required);
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::GET);
+        return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
+    }
 
-		$customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
 
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
-				PayUSubscriptionsUrlResolver::DELETE_OPERATION,
-				array($customer->id));
+    /**
+     * Updates a customer
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function update($parameters, $lang = null)
+    {
+        $required = array(UtilPayUParameters::CUSTOMER_ID);
+        CommonRequestUtil::validateParameters($parameters, $required);
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::DELETE);
+        PayUSubscriptionsRequestUtil::validateCustomer($parameters);
+        $customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
 
-		return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
-	}
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(
+            PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
+            PayUSubscriptionsUrlResolver::EDIT_OPERATION,
+            array($customer->id)
+        );
 
-	/**
-	 * Finds the customers associated to a plan by plan id or by plan code
-	 *
-	 * @param parameters The parameters to be sent to the server
-	 * @param string $lang language of request see SupportedLanguages class
-	 * @return The response to the request sent
-	 *
-	 * @throws PayUException
-	 * @throws InvalidArgumentException
-	 */
-	public static function findCustomerListByPlanIdOrPlanCode($parameters, $lang = null){
-		$request = new stdClass();
-		$request->planId = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_ID);
-		$request->planCode = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_CODE);
-		$request->limit = CommonRequestUtil::getParameter($parameters, PayUParameters::LIMIT);
-		$request->offset = CommonRequestUtil::getParameter($parameters, PayUParameters::OFFSET);
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::PUT);
 
-		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
-				PayUSubscriptionsUrlResolver::CUSTOMERS_PARAM_SEARCH,
-				null);
+        return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
+    }
 
-		$urlSegment = CommonRequestUtil::addQueryParamsToUrl($urlSegment, $request);
+    /**
+     * Deletes a customer
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function delete($parameters, $lang = null)
+    {
+        $required = array(UtilPayUParameters::CUSTOMER_ID);
+        CommonRequestUtil::validateParameters($parameters, $required);
 
-		$payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::GET);
-		return PayUApiServiceUtil::sendRequest(null, $payUHttpRequestInfo);
+        $customer = PayUSubscriptionsRequestUtil::buildCustomer($parameters);
 
-	}
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(
+            PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
+            PayUSubscriptionsUrlResolver::DELETE_OPERATION,
+            array($customer->id)
+        );
 
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::DELETE);
+
+        return PayUApiServiceUtil::sendRequest($customer, $payUHttpRequestInfo);
+    }
+
+    /**
+     * Finds the customers associated to a plan by plan id or by plan code
+     *
+     * @param parameters The parameters to be sent to the server
+     * @param string $lang language of request see SupportedLanguages class
+     * @return The response to the request sent
+     *
+     * @throws PayUException
+     * @throws InvalidArgumentException
+     */
+    public static function findCustomerListByPlanIdOrPlanCode($parameters, $lang = null)
+    {
+        $request = new stdClass();
+        $request->planId = CommonRequestUtil::getParameter($parameters, UtilPayUParameters::PLAN_ID);
+        $request->planCode = CommonRequestUtil::getParameter($parameters, UtilPayUParameters::PLAN_CODE);
+        $request->limit = CommonRequestUtil::getParameter($parameters, UtilPayUParameters::LIMIT);
+        $request->offset = CommonRequestUtil::getParameter($parameters, UtilPayUParameters::OFFSET);
+
+        $urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(
+            PayUSubscriptionsUrlResolver::CUSTOMER_ENTITY,
+            PayUSubscriptionsUrlResolver::CUSTOMERS_PARAM_SEARCH,
+            null
+        );
+
+        $urlSegment = CommonRequestUtil::addQueryParamsToUrl($urlSegment, $request);
+
+        $payUHttpRequestInfo = PayUSubscriptionsRequestUtil::buildHttpRequestInfo($urlSegment, $lang, RequestMethod::GET);
+        return PayUApiServiceUtil::sendRequest(null, $payUHttpRequestInfo);
+    }
 }

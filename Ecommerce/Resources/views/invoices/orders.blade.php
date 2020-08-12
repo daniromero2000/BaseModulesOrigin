@@ -33,7 +33,6 @@
                     <tr>
                         <th>SKU</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
                         <th>Cantidad</th>
                         <th>Precio</th>
                         <th></th>
@@ -44,7 +43,6 @@
                     <tr>
                         <td>{{$product->sku}}</td>
                         <td>{{$product->name}}</td>
-                        <td>{{$product->description}}</td>
                         <td>{{$product->pivot->quantity}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{number_format($product->price * $product->pivot->quantity, 2)}}</td>

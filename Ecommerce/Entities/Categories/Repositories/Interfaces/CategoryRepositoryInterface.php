@@ -18,7 +18,13 @@ interface CategoryRepositoryInterface
 
     public function findCategoryById(int $id): Category;
 
+    public function rootCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection;
+
     public function deleteCategory(): bool;
+
+    public function findProductsOrder();
+
+    public function updateSortOrder(array $data);
 
     public function associateProduct(Product $product);
 
@@ -34,5 +40,5 @@ interface CategoryRepositoryInterface
 
     public function findCategoryBySlug(array $slug): Category;
 
-    public function rootCategories(string $string, string $string1);
+    public function getCategoryProductAttributes($products);
 }

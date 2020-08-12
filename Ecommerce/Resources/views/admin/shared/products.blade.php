@@ -1,10 +1,10 @@
 @if(Empty(!$products))
 <div class="table-responsive">
-    <table class="table align-items-center table-flush table-hover">
-        <thead class="thead-light">
+    <table class="table align-items-center table-flush table-hover text-center">
+        <thead class="thead-light ">
             <tr>
-                <td>ID</td>
-                <td>Nombre</td>
+                <td>Sku</td>
+                <td class="text-left">Nombre</td>
                 <td>Cantidad</td>
                 <td>Precio</td>
                 <td>Estado</td>
@@ -14,8 +14,8 @@
         <tbody>
             @foreach ($products as $product)
             <tr>
-                <td>{{ $product->id }}</td>
-                <td>
+                <td>{{ $product->sku }}</td>
+                <td class="text-left">
                     {{ $product->name }}
                 </td>
                 <td>{{ $product->quantity }}</td>

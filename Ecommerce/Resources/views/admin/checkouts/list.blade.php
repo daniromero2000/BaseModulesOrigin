@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Ordenes</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Checkouts</li>
                         </ol>
                     </nav>
                 </div>
@@ -25,7 +25,7 @@
         <div class="box-body">
             <div class="card">
                 <div class="card-body">
-                    <h2>Checkouts sin finalizar</h2>
+                    <h2>Checkouts Sin Finalizar</h2>
                     <table class="table">
                         <thead>
                             <tr>

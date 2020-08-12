@@ -2,7 +2,7 @@
 
 namespace Modules\Ecommerce\Listeners;
 
-use Modules\Customers\Events\OrderCreateEvent;
+use Modules\Ecommerce\Events\OrderCreateEvent;
 use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

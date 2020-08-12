@@ -60,6 +60,7 @@ class CompaniesServiceProvider extends ServiceProvider
 
         $sourcePath = __DIR__ . '/../Resources/views';
 
+
         // $this->publishes([
         //     $sourcePath => $viewPath
         // ], 'views');

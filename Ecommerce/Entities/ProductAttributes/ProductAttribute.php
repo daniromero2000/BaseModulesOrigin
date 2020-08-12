@@ -16,7 +16,8 @@ class ProductAttribute extends Model
         'quantity',
         'price',
         'sale_price',
-        'default'
+        'default',
+        'product_id'
     ];
 
     protected $hidden = [

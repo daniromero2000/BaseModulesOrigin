@@ -18,50 +18,49 @@
 </div>
 @endsection
 @section('content')
-<section class="content">
+<section class="content" id="app">
     @include('generals::layouts.errors-and-messages')
     @if($category)
-    <div class="box">
-        <div class="box-body">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Categoría</h2>
-                    <div class="box-footer">
-                        <div class="btn-group">
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-default btn-sm">Regresar</a>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td class="col-md-4">Nombre</td>
-                                <td class="col-md-4">Descripción</td>
-                                <td class="col-md-4">Cover</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>
-                                    @if(isset($category->cover))
-                                    <img src="{{asset("storage/$category->cover")}}" alt="category image"
-                                        class="img-thumbnail">
-                                    @endif
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <div class="card">
+        <div class="card-body">
+            <h2>Categoría</h2>
+            <div class="box-footer">
+                <div class="btn-group">
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-default btn-sm">Regresar</a>
                 </div>
             </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-md-4">Nombre</td>
+                            <td class="col-md-4">Descripción</td>
+                            <td class="col-md-4">Cover</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->description }}</td>
+                            <td>
+                                @if(isset($category->cover))
+                                <img src="{{asset("storage/$category->cover")}}" alt="category image"
+                                    class="img-thumbnail">
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-        @if(!$categories->isEmpty())
-        <hr>
-        <div class="card">
-            <div class="card-body">
-                <div class="box-body">
-                    <h2>Sub Categories</h2>
+    </div>
+    @if(!$categories->isEmpty())
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="box-body">
+                <h2>Sub Categories</h2>
+                <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -85,21 +84,23 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        @endif
-        @if(!$products->isEmpty())
-        <div class="box-body">
-            <div class="card-body">
-                <div class="box-body">
-                    <h2>Productos</h2>
-                    @include('ecommerce::admin.shared.products', ['products' => $products])
-                </div>
-            </div>
-        </div>
-        @endif
 
+            </div>
+        </div>
     </div>
+    @endif
+    @if(!$products->isEmpty())
+    <list-category :data="{{$products}}"></list-category>
+    {{-- <div class="box-body">
+        <div class="card-body">
+            <div class="box-body">
+                <h2>Productos</h2>
+                @include('ecommerce::admin.shared.products', ['products' => $products])
+            </div>
+        </div>
+    </div> --}}
+    @endif
+
     @endif
 </section>
 @endsection

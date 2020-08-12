@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
  */
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
-        Route::group([], function () {
-            Route::resource('countries', 'Countries\CountryController');
-            Route::resource('countries.provinces', 'Provinces\ProvinceController');
-            Route::resource('countries.provinces.cities', 'Cities\CityController');
+        Route::namespace('Countries')->group(function () {
+            Route::resource('countries', 'CountryController');
         });
+        Route::resource('countries.provinces', 'Provinces\ProvinceController');
+        Route::resource('countries.provinces.cities', 'Cities\CityController');
     });
 });

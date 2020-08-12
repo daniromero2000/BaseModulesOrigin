@@ -2,10 +2,12 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Front;
 
-use Modules\Ecommerce\Entities\Products\Product;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Http\Controllers\Controller;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Product;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -13,17 +15,20 @@ class ProductController extends Controller
     private $productRepo;
 
     public function __construct(
+        ToolRepositoryInterface $toolRepositoryInterface,
         ProductRepositoryInterface $productRepository
     ) {
+        $this->toolsInterface = $toolRepositoryInterface;
         $this->productRepo = $productRepository;
     }
 
-    public function search()
+    public function search(Request $request)
     {
         if (request()->has('q') && request()->input('q') != '') {
             $list = $this->productRepo->searchProduct(request()->input('q'));
         } else {
-            $list = $this->productRepo->listProducts();
+            $skip = $this->toolsInterface->getSkip($request->input('skip'));
+            $list = $this->productRepo->listProducts($skip * 30);
         }
 
         $products = $list->where('status', 1)->map(function (Product $item) {
@@ -44,6 +49,7 @@ class ProductController extends Controller
         return view('ecommerce::front.products.product', [
             'product' => $product,
             'images' => $product->images()->get(),
+            'bestSellers' => $this->productRepo->listProductGroups('Nuevos'),
             'productAttributes' => $product->attributes,
             'category' => $product->categories()->first()
         ]);
@@ -52,7 +58,8 @@ class ProductController extends Controller
     public function outlet()
     {
         return view('ecommerce::front.products.outlet', [
-            'products' => $this->productRepo->listProductGroups('Outlet')
+            'products' => $this->productRepo->listProductGroups('Outlet'),
+            'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
         ]);
     }
 }

@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $list = $this->categoryRepo->rootCategories('created_at', 'desc');
+        $list = $this->categoryRepo->rootCategories();
 
         return view('ecommerce::admin.categories.list', [
             'categories' => $list
@@ -53,7 +53,7 @@ class CategoryController extends Controller
         return view('ecommerce::admin.categories.show', [
             'category' => $category,
             'categories' => $category->children,
-            'products' => $cat->findProducts()
+            'products' => $cat->findProductsOrder()
         ]);
     }
 
@@ -91,5 +91,14 @@ class CategoryController extends Controller
         $this->categoryRepo->deleteFile($request->only('category'));
         request()->session()->flash('message', config('messaging.delete'));
         return redirect()->route('admin.categories.edit', $request->input('category'));
+    }
+
+    public function updateSortOrder(Request $request, int $id)
+    {
+        $data = $request->json();
+        foreach ($data as $key => $value) {
+            $res = $this->categoryRepo->updateSortOrder($value);
+        }
+        return $res;
     }
 }

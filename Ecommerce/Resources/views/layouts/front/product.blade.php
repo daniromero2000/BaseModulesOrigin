@@ -1,4 +1,59 @@
 <div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
+    <div class="col-lg-8 mb-3">
+        <div class="p-2 d-flex">
+            <div class="horVerSlider" data-desktop="600" data-tabportrait="600" data-tablandscape="600"
+                data-mobilelarge="375" data-mobilelandscape="500" data-mobileportrait="375">
+                <div class="close"></div>
+                <div class="vertical-wrapper">
+                    <div id="vertical-slider">
+                        <ul>
+                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
+                                <img class="img-fluid lazy" data-src="{{ asset("storage/$product->cover") }}"
+                                    alt="{{$product->slug}}" style=" border-radius: 6px; "></li>
+                            @if(isset($images) && !$images->isEmpty())
+                            @foreach($images as $image)
+                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
+                                <img class="img-fluid lazy" data-src="{{ asset("storage/$image->src") }}"
+                                    alt="{{$product->slug}}" style=" border-radius: 6px; "></li>
+                            @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+                <div class="horizon-wrapper ">
+                    <div class="horizone-nav">
+                        <div class="prev" style="display: none;">
+                            <div>
+                                <i class="fas fa-chevron-left"></i>
+                            </div>
+                        </div>
+                        <div class="next" style="display: block;">
+                            <div>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="horizon-slider">
+                        <ul>
+                            <li class="ui-draggable bg-white zoom-img">
+                                <img class="img-fluid zoom lazy" data-src="{{ asset("storage/$product->cover") }}"
+                                    alt="{{$product->slug}}" style=" border-radius: 15px; "></li>
+                            @if(isset($images) && !$images->isEmpty())
+                            @foreach($images as $image)
+                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled bg-white zoom-img"> <img
+                                    class="img-fluid zoom lazy" data-src="{{ asset("storage/$image->src") }}"
+                                    alt="{{$product->slug}}" style=" border-radius: 15px; "></li>
+                            @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                    <div class="dots">
+                        <div class="dotwrap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-4 col-xl-4 d-flex col-md-6 col-sm-8">
         <div class="product-description text-center w-100 p-2 my-auto">
             <div class="w-100">
@@ -6,7 +61,7 @@
                     <h4 class="">{{ $product->name }}
                     </h4>
                 </div>
-                <div id="priceProduct pl-2" style=" position: relative; " style=" position: relative; ">
+                <div id="priceProduct{{$product->id}} pl-2" style=" position: relative; ">
                     @if ($product->sale_price > 0)
                     <div class="card-products-discount text-center">
                         @php
@@ -46,17 +101,32 @@
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
                         <div class="w-100">
                             <div class="form-group  mb-2">
-                                <div class="w-100">
+                                <div class="w-100 justify-content-between d-flex">
                                     <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Elige tu
                                                 talla</b></span></label>
+
+                                    <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
+                                        <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Ver tabla
+                                                    de tallas</b></span></label></a>
                                 </div>
 
                                 <div class="container-sizes w-100" id="sizes">
                                     <input type="hidden" required name="productAttribute" id="productAttribute">
                                     @foreach($productAttributes as $productAttribute)
+                                    {{-- <input type="hidden" required value="{{$productAttribute->sale_price}}"
+                                    id="saleprice{{$productAttribute->id}}">sale
+
+                                    <input type="hidden" required value="{{$productAttribute->price}}"
+                                        id="price{{$productAttribute->id}}">price --}}
+
                                     @foreach($productAttribute->attributesValues as $key => $value)
                                     @if ($value->attribute->name == 'Talla')
-                                    <div class="sizes" onclick="addValue({{$productAttribute->id}})">
+
+                                    {{-- <input type="hidden" required value="{{$product->id}}"
+                                    id="productId{{$productAttribute->id}}">product --}}
+
+                                    <div class="sizes" id="sizes{{$productAttribute->id}}"
+                                        onclick="addValue({{$productAttribute->id}})">
                                         <span class="m-auto" onclick="addValue({{$productAttribute->id}})">
                                             <p class="m-auto">{{ ucwords($value->value) }}</p>
                                         </span>
@@ -101,59 +171,33 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8 order-lg-first">
-        <div class="p-2 d-flex">
-            <div class="horVerSlider" data-desktop="600" data-tabportrait="600" data-tablandscape="600"
-                data-mobilelarge="375" data-mobilelandscape="500" data-mobileportrait="375">
-                <div class="close"></div>
-                <div class="vertical-wrapper">
-                    <div id="vertical-slider">
-                        <ul id="productImages">
-                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
-                                    alt="{{$product->name}}" style=" border-radius: 6px; "></li>
-                            @if(isset($images) && !$images->isEmpty())
-                            @foreach($images as $image)
-                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$image->src") }}" alt="{{$image->src}}"
-                                    style=" border-radius: 6px; "></li>
-                            @endforeach
-                            @endif
-                        </ul>
+
+</div>
+
+@include('ecommerce::layouts.front.modal_size_guide')
+
+@if (!empty($bestSellers))
+<div class="container-reset my-4">
+    <div class="text-center content-title-banner-products">
+        <h4 class="title-interesing">
+            También te puede interesar
+        </h4>
+    </div>
+    <div class="px-4 pb-4 pt-2">
+        <div class="glider-contain">
+            <div class="glider">
+                @foreach ($bestSellers as $item)
+                <a href="{{ route('front.get.product', str_slug($item->slug)) }}">
+                    <div class="card-body p-2 d-flex">
+                        <img data-src="{{ asset('storage/'.$item->cover) }}" alt="{{ $item->slug }}"
+                            class="img-card-product m-auto lazy">
                     </div>
-                </div>
-                <div class="horizon-wrapper ">
-                    <div class="horizone-nav">
-                        <div class="prev" style="display: none;">
-                            <div>
-                                <i class="fas fa-chevron-left"></i>
-                            </div>
-                        </div>
-                        <div class="next" style="display: block;">
-                            <div>
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="horizon-slider" class="zoomin zoomenable zoomed">
-                        <ul id="productImages">
-                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled">
-                                <img class="img-fluid" src="{{ asset("storage/$product->cover") }}"
-                                    alt="{{$product->name}}" style=" border-radius: 15px; "></li>
-                            @if(isset($images) && !$images->isEmpty())
-                            @foreach($images as $image)
-                            <li class="ui-draggable ui-draggable-handle ui-draggable-disabled"> <img class="img-fluid"
-                                    src="{{ asset("storage/$image->src") }}" alt="{{$product->name}}"
-                                    style=" border-radius: 15px; "></li>
-                            @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <div class="dots">
-                        <div class="dotwrap"></div>
-                    </div>
-                </div>
+                </a>
+                @endforeach
             </div>
+            <button class="glider-prev glider-prev-one"><i class="fas fa-caret-left slider"></i></button>
+            <button class="glider-next glider-next-one"><i class="fas fa-caret-right slider"></i></button>
         </div>
     </div>
 </div>
+@endif

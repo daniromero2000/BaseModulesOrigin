@@ -2,6 +2,7 @@
 
 namespace Modules\Ecommerce\Entities\Products\Requests;
 
+use Illuminate\Validation\Rule;
 use Modules\Generals\Entities\Base\BaseFormRequest;
 
 class CreateProductRequest extends BaseFormRequest
@@ -15,7 +16,7 @@ class CreateProductRequest extends BaseFormRequest
     {
         return [
             'sku' => ['required'],
-            'name' => ['required', 'unique:products'],
+            'name' => ['required'],
             'quantity' => ['required', 'numeric'],
             'price' => ['required'],
             'cover' => ['required', 'file', 'image:png,jpeg,jpg,gif']

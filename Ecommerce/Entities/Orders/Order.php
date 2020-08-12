@@ -22,12 +22,11 @@ class Order extends Model
         'columns' => [
             'customers.name' => 10,
             'orders.reference' => 8,
-            'products.name' => 5
+            'orders.id' => 8,
         ],
         'joins' => [
             'customers' => ['customers.id', 'orders.customer_id'],
-            'order_product' => ['orders.id', 'order_product.order_id'],
-            'products' => ['products.id', 'order_product.product_id'],
+            'order_product' => ['orders.id', 'order_product.order_id']
         ],
         'groupBy' => ['orders.id']
     ];
@@ -112,7 +111,7 @@ class Order extends Model
 
     public function searchForOrder(string $term)
     {
-        return self::search($term);
+        return self::search($term)->with('courier');
     }
 
     public function commentaries()
@@ -123,6 +122,7 @@ class Order extends Model
 
     public function orderPayments()
     {
-        return  $this->hasMany(OrderPayment::class);
+        return  $this->hasMany(OrderPayment::class)
+            ->select(['id', 'method', 'description', 'transaction_id', 'transaction_order', 'state', 'order_id', 'created_at']);
     }
 }

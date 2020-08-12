@@ -13,7 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/**
+/*
  * Admin routes
  */
 Route::namespace('Admin')->group(function () {
@@ -59,6 +59,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('employee-professions', 'EmployeeProfessionController');
         });
 
+        Route::namespace('Companies')->group(function () {
+            Route::resource('companies', 'CompanyController');
+        });
+
         Route::resource('employees', 'EmployeeController');
         Route::get('employees/{employee}/profile', 'EmployeeController@getProfile')->name('employee.profile');
         Route::put('employees/{employee}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
@@ -84,7 +88,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
     });
 });
 
-
-/**
+/*
  * Frontend routes
  */

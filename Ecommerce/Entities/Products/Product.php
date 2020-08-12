@@ -37,11 +37,13 @@ class Product extends Model implements Buyable
     protected $searchable = [
         'columns' => [
             'products.name' => 10,
+            'products.sku' => 10,
             'products.description' => 5
         ]
     ];
 
     protected $fillable = [
+        'id',
         'sku',
         'name',
         'description',
@@ -60,13 +62,13 @@ class Product extends Model implements Buyable
         'slug',
         'company_id',
         'brand_id',
+        'sort_order',
         'tax_id'
     ];
 
     protected $hidden = [
         'deleted_at',
         'updated_at',
-        'id',
     ];
 
     protected $guarded = [

@@ -5,18 +5,21 @@ namespace Modules\Ecommerce\Http\Controllers\Front;
 use Modules\Ecommerce\Entities\Categories\Repositories\CategoryRepository;
 use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    private $categoryInterface, $attributeInterface;
+    private $categoryInterface, $attributeInterface, $productRepo;
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepositoryInterface,
-        AttributeRepositoryInterface $attributeRepositoryInterface
+        AttributeRepositoryInterface $attributeRepositoryInterface,
+        ProductRepositoryInterface $productRepository
     ) {
         $this->categoryInterface  = $categoryRepositoryInterface;
         $this->attributeInterface = $attributeRepositoryInterface;
+        $this->productRepo        = $productRepository;
     }
 
     public function getCategory(string $slug)
@@ -36,10 +39,13 @@ class CategoryController extends Controller
             $products = $CategoryRepository->findProducts()->where('is_active', 1)->all();
         }
 
+        $values = $this->categoryInterface->getCategoryProductAttributes($products);
+
         return view('ecommerce::front.categories.category', [
-            'category'  => $category,
-            'products'  => $products,
-            'atributes' => $this->attributeInterface->listAttributes()
+            'category'    => $category,
+            'products'    => $products,
+            'attributes'  => $this->attributeInterface->listCategoryAttributes($values),
+            'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
         ]);
     }
 }

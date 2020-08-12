@@ -33,8 +33,8 @@
                         <tbody>
                             <tr>
                                 <td>{{ date('M d, Y h:i a', strtotime($checkout['created_at'])) }}</td>
-                                <td><a
-                                        href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }} {{ $customer->last_name }}</a>
+                                <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}
+                                        {{ $customer->last_name }}</a>
                                 </td>
                                 <td><strong>{{ $checkout['payment'] }}</strong></td>
                             </tr>
@@ -44,7 +44,6 @@
             </div>
         </div>
     </div>
-
     <div class="box">
         @if(!$items->isEmpty())
         <div class="box-body">
@@ -55,7 +54,6 @@
                         <thead>
                             <th class="col-md-2">SKU</th>
                             <th class="col-md-2">Nombre</th>
-                            <th class="col-md-2">Descripción</th>
                             <th class="col-md-2">Cantidad</th>
                             <th class="col-md-2">Precio</th>
                         </thead>
@@ -64,16 +62,7 @@
                             <tr>
                                 <td>{{ $item->sku }}</td>
                                 <td>{{ $item->name }} </td>
-                                <td>
-                                    {!! $item->description !!}
-                                    @php($pattr =
-                                    \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($item->product_attribute_id))
-                                    @if(!is_null($pattr))<br>
-                                    @foreach($pattr->attributesValues as $it)
-                                    <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
-                                    @endforeach
-                                    @endif
-                                </td>
+
                                 <td>{{ $item->pivot->quantity }}</td>
                                 <td>{{ $item->price }}</td>
                             </tr>
@@ -85,6 +74,5 @@
         </div>
         @endif
     </div>
-
 </section>
 @endsection

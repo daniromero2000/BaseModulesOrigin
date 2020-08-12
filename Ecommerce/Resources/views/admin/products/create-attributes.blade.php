@@ -65,7 +65,7 @@
     </div>
 </div>
 <div class="box-footer">
-    <button type="button" class="btn btn-sm btn-default" onclick="backToInfoTab()">Regresar</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">Regresar</button>
     <button id="createCombinationBtn" type="submit" class="btn btn-sm btn-primary" disabled="disabled">Crear
         combinación</button>
 </div>

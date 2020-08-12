@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+  <!-- Event snippet for Website traffic conversion page -->
+  <script>
+    gtag('event', 'conversion', {'send_to': 'AW-604881959/T2tHCK7X6toBEKeIt6AC'}); 
+  </script>
 </head>
 
 <body>
@@ -27,22 +31,23 @@
             <div class="banner_text_iner">
               <h1>Gracias!</h1>
               <p><span>Tu solicitud de compra</span>
-                <span>por la orden {{$order}}</span>
+                <span>por la orden <b>{{$order}}</b></span>
                 <br>
                 <span>fue efectuada</span>
                 <br>
                 <br>
-                <b>Puedes hacer una transferencia a la cuenta No° 85200041360</b> a nombre de <b>Melba
-                  Herrera</b> por un valor de <span class="total">{{$total}}. No por
+                Puedes hacer una transferencia a la cuenta <b> No° 85200041360</b> a nombre de <b>Melba
+                  Herrera</b> por un valor de <span class="total"><b>{{$total}}</b>. No por
                   consignación ya que esta tiene costo.
                 </span>
                 <br>
                 <br>
-                O escanea un código QR por medio de la app de bancolombia
+                O escanea un código <b>QR</b> por medio de la app de bancolombia
                 <br>
                 <br>
+                <button class="ml-auto btn btn-sm btn-primary" data-toggle="modal" data-target="#imgQr">Ver
+                  código</button>
                 <br></p>
-              <button class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#imgQr">Ver código</button>
               <a href="{{route('home')}}" class="btn_2">Ver más productos</a>
             </div>
           </div>

@@ -2,47 +2,49 @@
 
 <div class="row mx-0 text-center">
     @foreach($products as $product)
-    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-xs-12 mb-4">
+    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4 col-products">
         <div class="single-product">
             <div class="product">
                 @if(isset($product->cover))
                 <div class="card border-0 text-center card-products">
-                    <div class="height-container-img-product relative container-img-product">
+                    <div class="height-container-img-product relative container-img-product shadow-reset">
                         @if ($product->sale_price > 0)
                         @php
                         $discount = round((($product->price - $product->sale_price) / $product->price) * 100);
                         @endphp
                         <div class="ribbon-wrapper ribbon-lg">
                             <div class="ribbon bg-danger p-0">
-                                <p style="color:white; margin-bottom: 0px; font-size: 15px; font-weight: bold; ">
-                                    - {{$discount}}%</p>
+                                <p class="ribbon-text"> - {{$discount}}%</p>
                             </div>
                         </div>
                         @endif
-                        <img src="{{ asset("storage/$product->cover") }}" class="card-products-img"
-                            alt="{{ asset("storage/$product->cover") }}">
+                        <a class="cursor" href="{{ route('front.get.product', str_slug($product->slug))}}">
+                            <img src="{{ asset('img/blank.jpg') }}" data-src="{{ asset("storage/$product->cover") }}"
+                                class="card-products-img lazy" alt="{{ $product->slug }}">
+                        </a>
+
                     </div>
-                    <div class="w-100 p-2 text-center">
+                    <div class="w-100 pt-2 px-2 text-center">
                         <div class="w-100">
-                            <p class="title-product">{{$product->name}}</p>
+                            <span class="title-products"> {{$product->name}} </span>
                         </div>
                         @if ($product->sale_price > 0)
-                        <p style="color:black; font-size: 18px;margin-bottom: 0px;">
+                        <p class="price-old">
                             <small>
                                 <del>${{ number_format($product->price, 0) }} </del> </small>
                         </p>
-                        <p style=" color:black; font-size: 30px;line-height: 18px; ">
+                        <p class="price-new">
                             <small><b>
                                     ${{ number_format($product->sale_price, 0) }}
                                 </b>
                             </small><br>
                         </p>
                         @else
-                        <p class="mt-2" style="font-size: 30px;color: #002a53;line-height: 18px;">
-                            <small><b>
+                        <p class="price-new">
+                            <small> <b>
                                     ${{ number_format($product->price, 0) }}
-                                </b>
-                            </small><br>
+                                </b></small>
+                            <br>
                         </p>
                         @endif
                     </div>
@@ -65,8 +67,8 @@
                     </div>
                 </div>
                 @else
-                <img src="https://placehold.it/263x330" alt="{{ $product->name }}"
-                    class="height-container-img-product" />
+                <img src="{{ asset('img/blank.jpg') }}" data-src="https://placehold.it/263x330"
+                    alt="{{ $product->name }}" class="height-container-img-product lazy" />
                 @endif
 
             </div>

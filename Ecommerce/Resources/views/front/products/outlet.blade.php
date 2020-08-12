@@ -1,14 +1,13 @@
 @extends('layouts.front.app')
 @section('og')
-<meta property="og:type" content="category" />
-{{-- <meta property="og:title" content="{{ $category->name }}" /> --}}
-{{-- <meta property="og:description" content="{{ $category->description }}" /> --}}
-{{-- @if(!is_null($category->cover)) --}}
-{{-- <meta property="og:image" content="{{ asset("storage/$category->cover") }}" /> --}}
-{{-- @endif --}}
+<meta property="og:type" content="outlet" />
+<meta property="og:title" content="outlet" />
+<meta property="og:description" content="Productos en descuento" />
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/front/categories/app.css')}}">
-@endsection
+<link rel="stylesheet" href="{{ asset('css/front/categories/app.min.css')}}">
+<link rel="stylesheet" href="{{ asset('css/front/carousel/glider.css')}}">
+<script src="{{ asset('js/front/carousel/glider.js')}}"></script>
+<script src="{{ asset('js/front/carousel/carousel.js')}}"></script>@endsection
 @endsection
 
 @section('content')
@@ -24,30 +23,68 @@
     </nav>
     <div id="content">
         <div class="w-100">
-            <img src="{{ asset('img/fvn/baner-category.png')}}" class="d-block w-100" alt="...">
+            <img src="{{ asset('img/FVN/baner-category.png')}}" class="d-block w-100 " alt="baner-category">
         </div>
         <div class="tips">
-            <img src="{{ asset('img/fvn/tips.png')}}" class="d-block w-100" alt="...">
+            <img data-src="{{ asset('img/fvn/tips.png')}}" class="d-block w-100 lazy" alt="tips">
         </div>
         <div class="container-reset">
             <div class="row mx-auto">
                 <div class="col-lg-12 pr-1">
                     @if(!empty($products) && !collect($products)->isEmpty())
 
-                    <div class="row mx-0 text-center justify-content-center">
+                    <div class="row mx-0 text-center">
                         @foreach($products as $product)
-                        <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-products mb-4">
                             <div class="single-product">
                                 <div class="product">
                                     @if(isset($product->cover))
                                     <div class="card border-0 text-center card-products">
-                                        <div class="height-container-img-product">
-                                            <img src="{{ asset("storage/$product->cover") }}" class="card-products-img"
-                                                alt="{{ asset("storage/$product->cover") }}">
+                                        <div
+                                            class="height-container-img-product relative container-img-product shadow-reset">
+                                            @if ($product->sale_price > 0)
+                                            @php
+                                            $discount = round((($product->price - $product->sale_price) /
+                                            $product->price) * 100);
+                                            @endphp
+                                            <div class="ribbon-wrapper ribbon-lg">
+                                                <div class="ribbon bg-danger p-0">
+                                                    <p class="ribbon-text">
+                                                        - {{$discount}}%</p>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            <a class="cursor"
+                                                href="{{ route('front.get.product', str_slug($product->slug))}}">
+                                                <img data-src="{{ asset("storage/$product->cover") }}"
+                                                    class="card-products-img lazy" alt="{{$product->slug}}">
+                                            </a>
+
                                         </div>
-                                        <div class="card-body pt-3 pb-0 pr-3 pl-3">
-                                            <p class="title-product">{{$product->name}}</p>
-                                            <p class="mb-1 price-product">${{ number_format($product->price, 0)}}</p>
+                                        <div class="w-100 pt-2 px-2 text-center">
+                                            <div class="w-100">
+                                                <span class="title-products"> {{$product->name}} </span>
+                                            </div>
+                                            @if ($product->sale_price > 0)
+                                            <p class="price-old">
+                                                <small>
+                                                    <del>${{ number_format($product->price, 0) }} </del> </small>
+                                            </p>
+                                            <p class="price-new">
+                                                <small><b>
+                                                        ${{ number_format($product->sale_price, 0) }}
+                                                    </b>
+                                                </small><br>
+                                            </p>
+                                            @else
+                                            <p class="price-new">
+                                                <small>
+                                                    <b>
+                                                        ${{ number_format($product->price, 0) }}
+                                                    </b></small>
+                                                <br>
+                                            </p>
+                                            @endif
                                         </div>
                                         <div class="row justify-content-center">
                                             <a class="text-dark" data-toggle="modal"
@@ -70,15 +107,15 @@
                                         </div>
                                     </div>
                                     @else
-                                    <img src="https://placehold.it/263x330" alt="{{ $product->name }}"
-                                        class="height-container-img-product" />
+                                    <img data-src="https://placehold.it/263x330" alt="{{ $product->name }}"
+                                        class="height-container-img-product lazy" />
                                     @endif
 
                                 </div>
                                 <div class="modal fade" id="productModal{{ $product->id }}" data-backdrop="static"
                                     data-keyboard="false" tabindex="-1" role="dialog"
                                     aria-labelledby="productModal{{ $product->id }}Label" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-content">
                                                 <div class="row mx-0 justify-content-end">
@@ -109,10 +146,37 @@
                 </div>
             </div>
         </div>
-        <div class="w-100 background-color-blue">
+        @if (!empty($bestSellers))
+        <div class="container-reset mt-4">
+            <div class="text-center content-title-banner-products">
+                <h4 style=" font-size: 50px; padding: 25px; ">
+                    También te puede interesar
+                </h4>
+            </div>
+            <div class="px-4 pb-4 pt-2">
+                <div class="glider-contain">
+                    <div class="glider">
+                        @foreach ($bestSellers as $item)
+                        <a href="{{ route('front.get.product', str_slug($item->slug)) }}">
+                            <div class="card-body p-2 d-flex">
+                                <img data-src="{{ asset('storage/'.$item->cover) }}" alt="{{ $item->slug }}"
+                                    class="img-card-product m-auto lazy">
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                    <button class="glider-prev glider-prev-one"><i class="fas fa-caret-left slider"></i></button>
+                    <button class="glider-next glider-next-one"><i class="fas fa-caret-right slider"></i></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <div class="w-100">
             <div class="container-lg py-5 px-2">
                 <a href="">
-                    <img src="{{ asset('img/FVN/footerCategory.png')}}" class="d-block w-100" alt="...">
+                    <img data-src="{{ asset('img/FVN/footerCategory.png')}}" class="d-block w-100 lazy"
+                        alt="footerCategory">
                 </a>
             </div>
         </div>

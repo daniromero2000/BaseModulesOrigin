@@ -20,51 +20,81 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="box">
-        <div class="box-body">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Atributo {{ $attribute->name }}</h2>
-                    <div class="box-footer">
-                        <div class="btn-group">
-                            <a href="{{ route('admin.attributes.values.create', $attribute->id) }}" class="btn btn-primary btn-sm"><i
-                                    class="fa fa-plus"></i> Agregar Valores</a>
-                            <a href="{{ route('admin.attributes.index') }}" class="btn btn-default btn-sm">Regresar</a>
-                        </div>
-                    </div>
-                    @if(Empty(!$values))
-                    <table class="table table-striped" style="margin-left: 35px">
-                        <thead>
-                            <tr>
-                                <td>Valores de Atributo</td>
-                                <td>Acciones</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($values as $item)
-                            <tr>
-                                <td>{{ $item->value }}</td>
-                                <td>
-                                    <form
-                                        action="{{ route('admin.attributes.values.destroy', [$attribute->id, $item->id]) }}"
-                                        class="form-horizontal" method="post">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="_method" value="delete">
-                                        <div class="btn-group">
-                                            <button onclick="return confirm('¿Estás Seguro?')" type="submit"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
-                                                Remover</button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h2>Atributo {{ $attribute->name }}</h2>
+            <div class=" text-right">
+                <div class="btn-group">
+                    <button data-toggle="modal" data-target="#create{{$attribute->id}}"
+                        class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Agregar Valores</button>
                 </div>
             </div>
         </div>
+        <div class="card-body">
+
+            @if(Empty(!$values))
+            <table class="table align-items-center table-flush table-hover text-center">
+                <thead class="thead-light ">
+                    <tr>
+                        <td>Valores de Atributo</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($values as $item)
+                    <tr>
+                        <td>{{ $item->value }}</td>
+                        <td>
+                            <form action="{{ route('admin.attributes.values.destroy', [$attribute->id, $item->id]) }}"
+                                class="form-horizontal" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="delete">
+                                <div class="btn-group">
+                                    <button onclick="return confirm('¿Estás Seguro?')" type="submit"
+                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+                                        Remover</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+        <div id="create{{$attribute->id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{ route('admin.attributes.values.store', $attribute->id) }}" method="post"
+                        class="form">
+                        <div class="modal-body">
+                            <div class="row">
+                                {{ csrf_field() }}
+                                <div class="col-md-12">
+                                    <h3>Configura un valor para: <strong>{{ $attribute->name }}</strong></h3>
+                                    <div>
+                                        <label class="form-control-label" for="value">Valor de Atributo<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="value" id="value" placeholder="Valor Atributo"
+                                            class="form-control" value="{!! old('value')  !!}">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer text-right">
+                            <button type="submit" class="btn btn-primary btn-sm">Crear</button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <a href="{{ route('admin.attributes.index') }}" class="btn btn-default btn-sm">Regresar</a>
+        </div>
     </div>
+
 </section>
 @endsection

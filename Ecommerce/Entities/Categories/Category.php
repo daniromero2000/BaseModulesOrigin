@@ -14,18 +14,19 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
+        'id',
         'name',
         'slug',
         'description',
         'cover',
         'is_active',
+        'sort_order',
         'parent_id'
     ];
 
     protected $hidden = [
         'deleted_at',
         'updated_at',
-        'id',
     ];
 
     protected $guarded = [
@@ -43,7 +44,15 @@ class Category extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->with('attributes:id,quantity,price,sale_price,default,product_id');
+        return $this->belongsToMany(Product::class)
+            ->with('attributes:id,quantity,price,sale_price,default,product_id')
+            ->orderBy('sort_order', 'asc');
+    }
+
+    public function productsOrder()
+    {
+        return $this->belongsToMany(Product::class)
+            ->orderBy('sort_order', 'asc');
     }
 
     public function productsFilter($select)

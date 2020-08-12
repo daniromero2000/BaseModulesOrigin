@@ -10,6 +10,17 @@
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+  <!-- Event snippet for Website traffic conversion page -->
+  <script>
+    gtag('event', 'conversion', {'send_to': 'AW-604881959/T2tHCK7X6toBEKeIt6AC'}); 
+  </script>
+  <style>
+    .alert-success {
+      color: #fff;
+      border-color: #4fd69c;
+      background-color: #4fd69c;
+    }
+  </style>
 </head>
 
 <body>
@@ -25,15 +36,13 @@
         <div class="col-lg-6">
           <div class="banner_text">
             <div class="banner_text_iner">
-              <hr>
               <p class="alert alert-success">Tu orden está en camino!</p>
-              <hr>
               <h1>Gracias!</h1>
               <p><span>Tu solicitud de compra</span>
-                <span>por la orden {{ $order }}</span>
+                <span>por la orden <b>{{ $order }}</b></span>
                 <br>
-                <span>fue efectuada</span>
-                por un valor de <span class="total">${{ number_format($total, 0) }}</span>
+                <span>fue efectuada con exito,</span>
+                por un valor de <span class="total"><b>${{ number_format($total, 0) }}</b></span>
                 <br>
                 <br>
                 @if(isset($transaction_id))

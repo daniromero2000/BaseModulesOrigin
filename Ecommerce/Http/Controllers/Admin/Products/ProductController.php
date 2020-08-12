@@ -13,6 +13,7 @@ use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
 use Modules\Ecommerce\Entities\Products\Requests\CreateProductRequest;
 use Modules\Ecommerce\Entities\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
 use Modules\Generals\Entities\Tools\UploadableTrait;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
-use Symfony\Component\Console\Input\Input;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -30,6 +31,7 @@ class ProductController extends Controller
     private $productAttribute, $brandRepo, $productGroupInterface, $productAttributeInterface;
 
     public function __construct(
+        ToolRepositoryInterface $toolRepositoryInterface,
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         AttributeRepositoryInterface $attributeRepository,
@@ -39,6 +41,7 @@ class ProductController extends Controller
         ProductGroupRepositoryInterface $productGroupRepositoryInterface,
         ProductAttributeRepositoryInterface $productAttributeRepositoryInterface
     ) {
+        $this->toolsInterface           = $toolRepositoryInterface;
         $this->productRepo              = $productRepository;
         $this->categoryRepo             = $categoryRepository;
         $this->attributeRepo            = $attributeRepository;
@@ -50,20 +53,23 @@ class ProductController extends Controller
         $this->middleware(['permission:products, guard:employee']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (request()->has('q') && request()->input('q') != '') {
+            $skip = 0;
             $list = $this->productRepo->searchProduct(request()->input('q'));
         } else {
-            $list = $this->productRepo->listProducts('id');
+            $skip = $this->toolsInterface->getSkip($request->input('skip'));
+            $list = $this->productRepo->listProducts($skip * 30);
         }
 
         $products = $list->map(function (Product $item) {
             return $this->transformProduct($item);
         })->all();
-
         return view('ecommerce::admin.products.list', [
-            'products' => $products
+            'products'       => $products,
+            'optionsRoutes'  => 'admin.' . (request()->segment(2)),
+            'skip'           => $skip
         ]);
     }
 
@@ -117,6 +123,7 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         $product = $this->productRepo->findProductById($id);
+
         $productAttributes = $product->attributes()->get();
 
         $qty = $productAttributes->map(function ($item) {
@@ -124,12 +131,15 @@ class ProductController extends Controller
         })->sum();
 
         if (request()->has('delete') && request()->has('pa')) {
+            // dd(request()->input('pa'));
+
             $pa = $productAttributes->where('id', request()->input('pa'))->first();
+            // dd($pa);
             $pa->attributesValues()->detach();
             $pa->delete();
 
             request()->session()->flash('message', 'Delete successful');
-            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1]);
+            return redirect()->route('admin.products.edit', [$product->id]);
         }
 
         return view('ecommerce::admin.products.edit', [
@@ -149,20 +159,20 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateProductRequest $request, int $id)
+    public function update(Request $request, int $id)
     {
         $product = $this->productRepo->findProductById($id);
         $productRepo = new ProductRepository($product);
 
         if ($request->has('attributeValue')) {
             $this->saveProductCombinations($request, $product);
-            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+            return redirect()->route('admin.products.edit', [$id])
                 ->with('message', config('messaging.create'));
         }
 
         if ($request->has('attributeId')) {
             $this->updateProductCombinations($request, $product);
-            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+            return redirect()->route('admin.products.edit', [$id])
                 ->with('message', config('messaging.update'));
         }
 
@@ -176,7 +186,13 @@ class ProductController extends Controller
             'productAttributeQuantity',
             'productAttributePrice',
             'attributeValue',
-            'combination'
+            'combination',
+            'pAQuantity',
+            'pAPrice',
+            'pASalePrice',
+            'attributeId',
+            'attribute',
+            'salePrice'
         );
 
         $data['slug'] = str_slug($request->input('name'));
@@ -245,12 +261,12 @@ class ProductController extends Controller
         $fields = $request->only(
             'productAttributeQuantity',
             'productAttributePrice',
-            'sale_price',
             'default'
         );
+        $fields += ['sale_price'  => $request['salePrice']];
 
         if ($errors = $this->validateFields($fields)) {
-            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
+            return redirect()->route('admin.products.edit', [$product->id])
                 ->withErrors($errors);
         }
 
@@ -294,25 +310,42 @@ class ProductController extends Controller
 
     private function updateProductCombinations(Request $request, Product $product): bool
     {
+
         $fields = $request->only(
             'pAQuantity',
             'pAPrice',
             'pASalePrice',
-            'attributeId'
+            'attributeId',
+            'pAattribute',
+            'pAattributeValue'
         );
 
+
+        $productAttribute = $this->productAttributeInterface->findProductAttributeById($fields['attributeId']);
+
+        if ($request->has('pAattribute')) {
+            $attributeValues = $fields['pAattributeValue'];
+            $productAttribute->attributesValues()->detach();
+            collect($attributeValues)->each(function ($attributeValueId) use ($productAttribute) {
+                $attribute = $this->attributeValueRepository->find($attributeValueId);
+                return $this->productRepo->saveCombination($productAttribute, $attribute);
+            })->count();
+        }
+
         if ($errors = $this->validateUpdateFields($fields)) {
-            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
+            return redirect()->route('admin.products.edit', [$product->id])
                 ->withErrors($errors);
         }
 
-        $productAttribute = $this->productAttributeInterface->findProductAttributeById($fields['attributeId']);
         $productAttribute->quantity = $fields['pAQuantity'];
         $productAttribute->price = $fields['pAPrice'];
         $productAttribute->sale_price = $fields['pASalePrice'];
 
-        $productAttribute->save();
-
+        try {
+            $productAttribute->update();
+        } catch (QueryException $th) {
+            dd($th);
+        }
 
         return  true;
     }
@@ -345,5 +378,14 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.edit', [$newProduct->id])
             ->with('message', 'Producto Clonado Exitosamente');
+    }
+
+    public function updateSortOrder(Request $request, int $id)
+    {
+        $data = $request->json();
+        foreach ($data as $key => $value) {
+            $res = $this->productRepo->updateSortOrder($value);
+        }
+        return $res;
     }
 }

@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+  <!-- Event snippet for Website traffic conversion page -->
+  <script>
+    gtag('event', 'conversion', {'send_to': 'AW-604881959/T2tHCK7X6toBEKeIt6AC'}); 
+  </script>
 </head>
 
 <body>
@@ -27,13 +31,13 @@
             <div class="banner_text_iner">
               <h1>Gracias!</h1>
               <p><span>Tu solicitud de compra</span>
-                <span>por la orden {{$order}}</span>
+                <span>por la orden <b>{{$order}}</b></span>
                 <br>
                 <span>fue efectuada</span>
                 <br>
                 <br>
-                <b>Puedes hacer un giro a la cuenta No° 42.138.544</b> a nombre de <b>Juliana Jaramillo</b> por un valor
-                de <span class="total">{{$total}}.
+                Puedes hacer un giro a la cuenta <b>No° 42.138.544</b> a nombre de <b>Juliana Jaramillo</b> por un valor
+                de <span class="total"><b>{{$total}}</b>.
                 </span>
                 <br>
                 <br>

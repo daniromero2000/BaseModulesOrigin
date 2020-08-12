@@ -33,19 +33,19 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->model = $category;
     }
 
-    public function listCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
+    public function listCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->orderBy($order, $sort)
             ->get($this->columns)->except($except);
     }
 
-    public function listFrontCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
+    public function listFrontCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->where('is_active', 1)->orderBy($order, $sort)
             ->get($this->columns)->except($except);
     }
 
-    public function rootCategories(string $order = 'name', string $sort = 'asc', $except = []): Collection
+    public function rootCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->whereIsRoot()
             ->orderBy($order, $sort)
@@ -135,6 +135,20 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $this->model->products;
     }
 
+    public function findProductsOrder()
+    {
+        return $this->model->productsOrder;
+    }
+
+    public function updateSortOrder(array $data)
+    {
+        try {
+            return $this->model->where('id', $data['id'])->update($data);
+        } catch (QueryException $e) {
+            throw new CategoryNotFoundException($e);
+        }
+    }
+
     public function findProductsFilter($select)
     {
         return $this->model->productsFilter($select);
@@ -172,5 +186,30 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function findChildren()
     {
         return $this->model->children;
+    }
+
+    public function getCategoryProductAttributes($products)
+    {
+        $productAttributes = new Collection();
+        foreach ($products as $productAttribute) {
+            foreach ($productAttribute->attributes as $attribute) {
+                $productAttributes->push($attribute);
+            }
+        }
+
+        $attributesValueses = new Collection();
+        foreach ($productAttributes as $productAttribute) {
+            foreach ($productAttribute->attributesValues as $attributesValues) {
+
+                $attributesValueses->push($attributesValues);
+            }
+        }
+
+        $values = new Collection;
+        foreach ($attributesValueses as $valueses) {
+            $values->push($valueses->id);
+        }
+
+        return $values->unique()->toArray();
     }
 }

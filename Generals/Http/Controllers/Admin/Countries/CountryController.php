@@ -13,14 +13,11 @@ class CountryController extends Controller
     public function __construct(
         CountryRepositoryInterface $countryRepositoryInterface
     ) {
-        dd('entre');
         $this->countryInterface = $countryRepositoryInterface;
     }
 
     public function index()
     {
-
-        dd('entre a index');
         return view('generals::admin.countries.list', [
             'countries' =>  $this->countryInterface->listCountries()
         ]);

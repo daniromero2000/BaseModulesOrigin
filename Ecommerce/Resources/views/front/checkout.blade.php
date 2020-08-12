@@ -66,11 +66,27 @@
                 <li class="active"> Checkout</li>
             </ol>
         </div>
+        <div class="col-12">
+            <nav class="nav justify-content-center">
+                <li class="nav-item">
+                    <div class="row justify-content-center">
+                        <div class="d-flex">
+                            <a class="my-auto text-secondary">Tu pago es seguro con </a>
+                        </div>
+                        <div style="max-width: 95px;margin: auto;">
+                            <img src="{{asset('img/cards/payu-logo.png')}}" class="img-fluid" alt="payu-logo">
+                        </div>
+                    </div>
+                </li>
+            </nav>
+        </div>
+        @if($errors->all() || session()->has('error') || session()->has('message'))
         <div class="col-12  content">
             <div class="card-body">
                 @include('generals::layouts.errors-and-messages')
             </div>
         </div>
+        @endif
         <div class="col-md-7 my-2 p-0 p-sm-3">
             @if(isset($addresses))
             <div class="w-100">
@@ -162,7 +178,6 @@
                         @endif
                     </div>
                 </div>
-
             </div>
             @endif
             @if(!is_null($rates))
@@ -185,7 +200,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
             @endif
             @php
@@ -206,6 +220,8 @@
                                         <a class="nav-link paymentMethods active" id="v-pills-creditCards"
                                             data-toggle="pill" href="#creditCards" role="tab"
                                             aria-controls="creditCards" aria-selected="true">Tarjeta de crédito</a>
+                                        <a class="nav-link paymentMethods" id="v-pills-pse" data-toggle="pill"
+                                            href="#pse" role="tab" aria-controls="pse" aria-selected="true">Pago PSE</a>
                                         <a class="nav-link paymentMethods" id="v-pills-profile-tab" data-toggle="pill"
                                             href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
                                             aria-selected="false">Baloto </a>
@@ -214,17 +230,20 @@
                                             aria-selected="false">Efecty o Gana</a>
                                         <a class="nav-link paymentMethods" id="v-pills-settings-tab" data-toggle="pill"
                                             href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
-                                            aria-selected="false">Bancolombia</a>
+                                            aria-selected="false">QR Bancolombia</a>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="col-sm-8 px-0 bg-paymentMethods">
                                 <div class="mx-3">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <div class="tab-pane fade show active" id="creditCards" role="tabpanel"
                                             aria-labelledby="v-pills-creditCards">
-                                            @include('ecommerce::front.payments.payu')
+                                            @include('ecommerce::front.payments.credit-card')
+                                        </div>
+                                        <div class="tab-pane fade" id="pse" role="tabpanel"
+                                            aria-labelledby="v-pills-pse">
+                                            @include('ecommerce::front.payments.pse')
                                         </div>
                                         <div class="tab-pane fade " id="v-pills-profile" role="tabpanel"
                                             aria-labelledby="v-pills-profile-tab">
@@ -290,7 +309,6 @@
                                                     </form>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                                             aria-labelledby="v-pills-settings-tab">
@@ -300,7 +318,7 @@
                                                         <img src="{{asset('img/cards/logo-bancolombia.png')}}"
                                                             class="img-fluid" alt="logo-bancolombia">
                                                     </div>
-                                                    Pago a través de transferencia electrónica a una cuenta de
+                                                    Pago a través de transferencia electrónica directa a una cuenta de
                                                     ahorros o a través de código QR
                                                     <br>
                                                     <br>
@@ -331,7 +349,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             @endif
         </div>
@@ -339,7 +356,6 @@
             <div class="card" id="register">
             </div>
         </div>
-
     </div>
     @else
     <div class="row">
@@ -350,7 +366,6 @@
     </div>
     @endif
 </div>
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -369,18 +384,13 @@
                     <div class="card-body p-2">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="alias">Alias <span class="text-danger">*</span></label>
-                            <input type="text" name="alias" id="alias" placeholder="Casa u Oficina" class="form-control"
-                                value="{{ old('alias') }}">
-                        </div>
-                        <div class="form-group">
                             <label for="customer_address">Dirección <span class="text-danger">*</span></label>
                             <input type="text" name="customer_address" id="customer_address" placeholder="Dirección"
                                 class="form-control" value="{{ old('customer_address') }}">
                         </div>
                         <div class="form-group">
                             <label for="country_id">País </label>
-                            <select name="country_id" id="country_id" class="form-control select2">
+                            <select name="country_id" id="country_id" required class="form-control select2">
                                 <option value="">Selecciona</option>
                                 @foreach($countries as $country)
                                 <option @if(env('SHOP_COUNTRY_ID')==$country->id) selected="selected" @endif
@@ -392,10 +402,9 @@
                         <div id="cities" class="form-group" style="display: none;"></div>
                         <div class="form-group">
                             <label for="phone">Tu Teléfono </label>
-                            <input type="text" name="phone" id="phone" placeholder="Phone number" class="form-control"
+                            <input type="text" name="phone" id="phone" placeholder="Teléfono" class="form-control"
                                 value="{{ old('phone') }}">
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -510,7 +519,7 @@
                 success: function (res) {
                     if (res.data.length > 0) {
                         let html = '<label for="province_id">Provinces </label>';
-                        html += '<select name="province_id" id="province_id" class="form-control select2">';
+                        html += '<select name="province_id" id="province_id" required class="form-control select2"> <option value="">Selecciona</option> ';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.id+'">'+ v.name +'</option>';
                         });
@@ -538,7 +547,7 @@
                 contentType: 'json',
                 success: function (data) {
                     let html = '<label for="city_id">City </label>';
-                    html += '<select name="city_id" id="city_id" class="form-control select2">';
+                    html += '<select name="city_id" id="city_id" required class="form-control select2">    <option value="">Selecciona</option>';
                     $(data.data).each(function (idx, v) {
                         html += '<option value="'+ v.id+'">'+ v.name +'</option>';
                     });
@@ -559,7 +568,7 @@
                 success: function (res) {
                     if (res.data.length > 0) {
                         let html = '<label for="state_code">States </label>';
-                        html += '<select name="state_code" id="state_code" class="form-control select2">';
+                        html += '<select name="state_code" id="state_code" required class="form-control select2">    <option value="">Selecciona</option>';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.state_code+'">'+ v.state +'</option>';
                         });
@@ -588,7 +597,7 @@
                 success: function (res) {
                     if (res.data.length > 0) {
                         let html = '<label for="city">City </label>';
-                        html += '<select name="city" id="city" class="form-control select2">';
+                        html += '<select name="city" id="city" required class="form-control select2"> <option value="">Selecciona</option>';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.name+'">'+ v.name +'</option>';
                         });
@@ -622,7 +631,7 @@
             $.get('/api/getCountry/'+ city + '/province/', function (data) {
                 if (data ) {
                     let html = '<label for="province_id">Departamento </label>';
-                    html += '<select  id="province_id" onchange="getProvince()" class="form-control select2">';
+                    html += '<select  id="province_id" onchange="getProvince()" required class="form-control select2"> <option value="">Selecciona</option>';
                         $(data).each(function (idx, v) {
                             console.log(v)
                         html += '<option value="'+ v.id+'">'+ v.province +'</option>';
@@ -646,7 +655,7 @@
     $.get('/api/getProvince/'+ province + '/city/', function (data) {
     if (data) {
     let html = '<label for="city">Ciudad </label>';
-    html += '<select name="city_id" id="city_id" class="form-control select2">';
+    html += '<select name="city_id" id="city_id" required class="form-control select2"> <option value="">Selecciona</option>';
         $(data).each(function (idx, v) {
         html += '<option value="'+ v.id+'">'+ v.city +'</option>';
         });
@@ -659,4 +668,11 @@
     });
     }
 </script>
+<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $('#creditcard').mask("9999 9999 9999 9999");
+    });
+</script>
+
 @endsection

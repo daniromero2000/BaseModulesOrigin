@@ -18,7 +18,9 @@ use Modules\Generals\Entities\Provinces\Repositories\Interfaces\ProvinceReposito
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\api\PayUCountries;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\PayUPayments;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUParameters;
 
 class CheckoutController extends Controller
 {
@@ -68,6 +70,16 @@ class CheckoutController extends Controller
 
         // Get payment gateways
         $array = PayUPayments::getPaymentMethods();
+
+        //Ingrese aquí el nombre del medio de pago
+        $parameters = array(
+            //Ingrese aquí el identificador de la cuenta.
+            PayUParameters::PAYMENT_METHOD => "PSE",
+            //Ingrese aquí el nombre del pais.
+            PayUParameters::COUNTRY => PayUCountries::CO,
+        );
+        $banksArray = PayUPayments::getPSEBanks($parameters);
+
         $paymentGateways = collect(explode(',', config('payees.name')))->transform(function ($name) {
             return config($name);
         })->all();
@@ -93,7 +105,8 @@ class CheckoutController extends Controller
             'rates'              => $rates,
             'creditCards'        => $this->checkoutinterface->getCreditCards($array->paymentMethods),
             'pse'                => $this->checkoutinterface->getPse($array->paymentMethods),
-            'deviceSessionId'    => md5(session_id() . microtime())
+            'deviceSessionId'    => md5(session_id() . microtime()),
+            'banks'              => $banksArray->banks
         ]);
     }
 

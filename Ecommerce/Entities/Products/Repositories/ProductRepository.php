@@ -19,6 +19,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Faker\Generator as Faker;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -45,9 +46,16 @@ class ProductRepository implements ProductRepositoryInterface
         $this->model = $product;
     }
 
-    public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
+    public function listProducts(int $totalView)
     {
-        return $this->model->all($this->columns, $order, $sort);
+        try {
+            return  $this->model
+                ->orderBy('id', 'desc')
+                ->skip($totalView)->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 
     public function createProduct(array $data): Product
@@ -70,10 +78,29 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
+    public function updateSortOrder(array $data)
+    {
+        try {
+            return $this->model->where('id', $data['id'])->update($data);
+        } catch (QueryException $e) {
+            throw new ProductUpdateErrorException($e);
+        }
+    }
+
     public function findProductById(int $id): Product
     {
         try {
+            $data = $this->model->findOrFail($id);
             return $this->transformProduct($this->model->findOrFail($id, $this->columns));
+        } catch (ModelNotFoundException $e) {
+            throw new ProductNotFoundException($e);
+        }
+    }
+
+    public function findProductByIdFull(int $id): Product
+    {
+        try {
+            return $this->model->with(['attributes'])->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -149,7 +176,7 @@ class ProductRepository implements ProductRepositoryInterface
         if (!empty($text)) {
             return $this->model->searchProduct($text);
         } else {
-            return $this->listProducts();
+            return $this->listProducts(0);
         }
     }
 
@@ -259,10 +286,19 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function duplicateProduct(Int $id)
     {
-        $product = $this->findProductById($id);
+        $product = $this->findProductByIdFull($id);
         $newProduct = $product->replicate();
-        $newProduct->sku = '00000';
+        $newProduct->sku = rand(0, 10000000);
         $newProduct->push();
+
+        //re-sync everything
+        foreach ($newProduct->attributes as $attributes => $values) {
+            try {
+                $newProduct->attributes()->save($values);
+            } catch (QueryException $th) {
+                dd($th);
+            }
+        }
 
         return $newProduct;
     }

@@ -29,12 +29,35 @@ use Modules\Ecommerce\Entities\ProductGroups\Repositories\ProductGroupRepository
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
 use Modules\Ecommerce\Entities\OrderPayment\Repositories\OrderPaymentRepository;
 use Modules\Ecommerce\Entities\OrderCommentaries\Repositories\Interfaces\OrderCommentaryRepositoryInterface;
+use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShippingInterface;
+use Modules\Ecommerce\Entities\OrderShippings\Repositories\OrderShippingRepository;
+use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
+use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\OrderShippingItemRepository;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+
+
+        $this->app->bind(
+            WishlistRepository::class,
+            WishlistRepositoryInterface::class
+        );
+
+        $this->app->bind(
+            OrderShippingItemInterface::class,
+            OrderShippingItemRepository::class
+        );
+
+        $this->app->bind(
+            OrderShippingInterface::class,
+            OrderShippingRepository::class
+        );
+
         $this->app->bind(
             OrderCommentaryRepositoryInterface::class,
             OrderPaymentRepository::class

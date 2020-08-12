@@ -32,6 +32,8 @@ use Modules\Companies\Entities\EmployeeEpss\Repositories\EmployeeEpsRepository;
 use Modules\Companies\Entities\EmployeeEpss\Repositories\Interfaces\EmployeeEpsRepositoryInterface;
 use Modules\Companies\Entities\EmployeeProfessions\Repositories\EmployeeProfessionRepository;
 use Modules\Companies\Entities\EmployeeProfessions\Repositories\Interfaces\EmployeeProfessionRepositoryInterface;
+use Modules\Companies\Entities\Companies\Repositories\CompanyRepository;
+use Modules\Companies\Entities\Companies\Repositories\Interfaces\CompanyRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -41,6 +43,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             EmployeeRepositoryInterface::class,
             EmployeeRepository::class
+        );
+
+        $this->app->bind(
+            CompanyRepositoryInterface::class,
+            CompanyRepository::class
         );
 
         $this->app->bind(
@@ -74,57 +81,57 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            VehicleBrandRepositoryInterface::Class,
+            VehicleBrandRepositoryInterface::class,
             VehicleBrandRepository::class
         );
 
         $this->app->bind(
-            VehicleTypeRepositoryInterface::Class,
+            VehicleTypeRepositoryInterface::class,
             VehicleTypeRepository::class
         );
 
         $this->app->bind(
-            EconomicActivityTypeRepositoryInterface::Class,
+            EconomicActivityTypeRepositoryInterface::class,
             EconomicActivityTypeRepository::class
         );
 
         $this->app->bind(
-            EmployeeCommentaryRepositoryInterface::Class,
+            EmployeeCommentaryRepositoryInterface::class,
             EmployeeCommentaryRepository::class
         );
 
         $this->app->bind(
-            EmployeeStatusesLogRepositoryInterface::Class,
+            EmployeeStatusesLogRepositoryInterface::class,
             EmployeeStatusesLogRepository::class
         );
 
         $this->app->bind(
-            EmployeeEmailRepositoryInterface::Class,
+            EmployeeEmailRepositoryInterface::class,
             EmployeeEmailRepository::class
         );
 
         $this->app->bind(
-            EmployeePhoneRepositoryInterface::Class,
+            EmployeePhoneRepositoryInterface::class,
             EmployeePhoneRepository::class
         );
 
         $this->app->bind(
-            EmployeeIdentityRepositoryInterface::Class,
+            EmployeeIdentityRepositoryInterface::class,
             EmployeeIdentityRepository::class
         );
 
         $this->app->bind(
-            EmployeeAddressRepositoryInterface::Class,
+            EmployeeAddressRepositoryInterface::class,
             EmployeeAddressRepository::class
         );
 
         $this->app->bind(
-            EmployeeEpsRepositoryInterface::Class,
+            EmployeeEpsRepositoryInterface::class,
             EmployeeEpsRepository::class
         );
 
         $this->app->bind(
-            EmployeeProfessionRepositoryInterface::Class,
+            EmployeeProfessionRepositoryInterface::class,
             EmployeeProfessionRepository::class
         );
     }

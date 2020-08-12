@@ -57,12 +57,33 @@ class AttributeRepository implements AttributeRepositoryInterface
         return $this->model->delete();
     }
 
+    public function list(string $orderBy = 'id', string $sortBy = 'asc'): Collection
+    {
+        try {
+            return $this->model
+                ->get($this->columns, $orderBy, $sortBy);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function listAttributes(string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
         try {
             return $this->model
                 ->where('is_active', 1)
                 ->get($this->columns, $orderBy, $sortBy);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function listCategoryAttributes($select): Collection
+    {
+        try {
+            return $this->model->with(array('values' => function ($query) use ($select) {
+                $query->whereIn('id', $select);
+            }))->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

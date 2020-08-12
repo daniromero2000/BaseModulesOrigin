@@ -82,14 +82,13 @@ class CourierRepository implements CourierRepositoryInterface
             $courier = "";
             if (!empty(auth()->user()->customerAddresses->toArray())) {
                 $provinceId = auth()->user()->customerAddresses[0]->city->province->id;
-                $courier  =  $this->findCourierByProvince($provinceId);
+                $courier  =  $this->findCourierByProvince($provinceId, $this->columns);
             }
-
             if ($courier == null) {
-                $courier  = $this->findCourierById(request()->session()->get('courierId', 3));
+                $courier  = $this->findCourierById(request()->session()->get('courierId', 3), $this->columns);
             }
         } else {
-            $courier  = $this->findCourierById(request()->session()->get('courierId', 2));
+            $courier  = $this->findCourierById(request()->session()->get('courierId', 2), $this->columns);
         }
 
         return $courier;

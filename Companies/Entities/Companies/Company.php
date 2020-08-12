@@ -13,6 +13,8 @@ class Company extends Model
     protected $fillable = [
         'name',
         'city_id',
+        'identification',
+        'company_type',
     ];
 
     protected $hidden = [
@@ -26,12 +28,12 @@ class Company extends Model
         'created_at',
         'deleted_at',
         'updated_at',
-        'status'
+        'status',
     ];
 
-    protected $dates  = [
+    protected $dates = [
         'deleted_at',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 }

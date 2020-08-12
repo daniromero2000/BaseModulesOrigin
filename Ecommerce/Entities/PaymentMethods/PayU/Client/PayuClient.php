@@ -13,6 +13,7 @@ use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\util\PayUParameters;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\api\Environment as PayUEnvironment;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\exceptions\PayUException as ExceptionsPayUException;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\lib\PayU\PayUReports as PayUPayUReports;
 
 class PayuClient implements PayuClientInterface
 {
@@ -238,7 +239,7 @@ class PayuClient implements PayuClientInterface
             if ($response) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
@@ -257,7 +258,7 @@ class PayuClient implements PayuClientInterface
             if ($response) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
@@ -276,7 +277,7 @@ class PayuClient implements PayuClientInterface
             if (!is_null($response)) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
@@ -287,12 +288,12 @@ class PayuClient implements PayuClientInterface
     public function searchById($payuOrderId, $onSuccess, $onError)
     {
         try {
-            $response = PayUReports::getOrderDetail([PayUParameters::ORDER_ID => $payuOrderId]);
+            $response = PayUPayUReports::getOrderDetail([PayUParameters::ORDER_ID => $payuOrderId]);
 
             if ($response) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
@@ -303,12 +304,12 @@ class PayuClient implements PayuClientInterface
     public function searchByReference($payuReferenceCode, $onSuccess, $onError)
     {
         try {
-            $response = PayUReports::getOrderDetailByReferenceCode([PayUParameters::REFERENCE_CODE => $payuReferenceCode]);
+            $response = PayUPayUReports::getOrderDetailByReferenceCode([PayUParameters::REFERENCE_CODE => $payuReferenceCode]);
 
             if ($response) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
@@ -319,12 +320,12 @@ class PayuClient implements PayuClientInterface
     public function searchByTransaction($payuTransactionId, $onSuccess, $onError)
     {
         try {
-            $response = PayUReports::getTransactionResponse([PayUParameters::TRANSACTION_ID => $payuTransactionId]);
+            $response = PayUPayUReports::getTransactionResponse([PayUParameters::TRANSACTION_ID => $payuTransactionId]);
 
             if ($response) {
                 $onSuccess($response);
             }
-        } catch (PayUException $exc) {
+        } catch (ExceptionsPayUException $exc) {
             $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);

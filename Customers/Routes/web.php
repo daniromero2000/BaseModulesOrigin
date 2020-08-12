@@ -84,10 +84,3 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 /**
  * Frontend routes
  */
-Route::namespace('Front')->group(function () {
-    Route::group(['prefix' => 'front'], function () {
-        Route::namespace('Pqrs')->group(function () {
-            Route::resource('pqrs', 'PqrController');
-        });
-    });
-});

@@ -12,13 +12,14 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use Modules\Companies\Entities\Companies\Company;
 
 $factory->define(Company::class, function () {
     return [
-        'name'             => 'FVN',
-        'country_id'       => 1,
-        'base_currency_id' => 3
+        'name' => 'FVN',
+        'country_id' => 1,
+        'base_currency_id' => 3,
+        'identification' => 123456,
+        'company_type' => 'Jurídico',
     ];
 });

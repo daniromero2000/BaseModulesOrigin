@@ -52,7 +52,7 @@ class CartController extends Controller
         $options = [];
         if ($request->has('productAttribute')) {
             $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
-            if (isset($attr->sale_price)) {
+            if (isset($attr->sale_price) && $attr->sale_price != '0') {
                 $product->price = $attr->sale_price;
             } else {
                 $product->price = $attr->price;
