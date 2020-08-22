@@ -7,16 +7,19 @@ use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryReposi
 use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class CategoryController extends Controller
 {
     private $categoryInterface, $attributeInterface, $productRepo;
 
     public function __construct(
+        ToolRepositoryInterface $toolRepositoryInterface,
         CategoryRepositoryInterface $categoryRepositoryInterface,
         AttributeRepositoryInterface $attributeRepositoryInterface,
         ProductRepositoryInterface $productRepository
     ) {
+        $this->toolsInterface     = $toolRepositoryInterface;
         $this->categoryInterface  = $categoryRepositoryInterface;
         $this->attributeInterface = $attributeRepositoryInterface;
         $this->productRepo        = $productRepository;
@@ -24,19 +27,30 @@ class CategoryController extends Controller
 
     public function getCategory(string $slug)
     {
-        $category = $this->categoryInterface->findCategoryBySlug(['slug' => $slug]);
+        $category           = $this->categoryInterface->findCategoryBySlug(['slug' => $slug]);
         $CategoryRepository = new CategoryRepository($category);
-
-        if (request('q')) {
-            $data = request()->input();
+        if (request()->input('q') && (request()->input('skip') == 0 || request()->input('skip') > 0)) {
+            $data[] = request('q');
             foreach ($data as $key => $value) {
                 foreach ($data[$key] as $key2 => $value2) {
                     $select[] = $data[$key][$key2];
                 }
             }
-            $products = $CategoryRepository->findProductsFilter($select)->where('is_active', 1);
+            $skip     = $this->toolsInterface->getSkip(request()->input('skip'));
+            $products = $CategoryRepository->findProductsFilter($select, $skip * 30);
+            $count    = $products[1];
+            $products = $products[0]->where('is_active', 1);
+            $paginate = ceil($count[0]->total / 30);
+        } elseif (request()->input('skip')) {
+            $count    = $CategoryRepository->countProducts();
+            $paginate = ceil($count[0]->total / 30);
+            $skip     = $this->toolsInterface->getSkip(request()->input('skip'));
+            $products = $CategoryRepository->findProductsSkip($skip * 30)->where('is_active', 1)->all();
         } else {
-            $products = $CategoryRepository->findProducts()->where('is_active', 1)->all();
+            $skip = 0;
+            $count    = $CategoryRepository->countProducts();
+            $paginate = ceil($count[0]->total / 30);
+            $products = $CategoryRepository->findProductsSkip($skip * 30)->where('is_active', 1)->all();
         }
 
         $values = $this->categoryInterface->getCategoryProductAttributes($products);
@@ -45,7 +59,9 @@ class CategoryController extends Controller
             'category'    => $category,
             'products'    => $products,
             'attributes'  => $this->attributeInterface->listCategoryAttributes($values),
-            'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
+            'bestSellers' => $this->productRepo->listProductGroups('Nuevos'),
+            'paginate'    => $paginate,
+            'skip'        => $skip
         ]);
     }
 }

@@ -1,3 +1,4 @@
+require('./bootstrap');
 import Vuex from 'vuex'
 import Vue from 'vue'
 import store from './store';

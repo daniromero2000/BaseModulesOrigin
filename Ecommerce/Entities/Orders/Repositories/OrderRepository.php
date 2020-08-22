@@ -5,11 +5,11 @@ namespace Modules\Ecommerce\Entities\Orders\Repositories;
 use Modules\Ecommerce\Entities\Carts\Repositories\CartRepository;
 use Modules\Ecommerce\Entities\Carts\ShoppingCart;
 use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
-use Modules\Ecommerce\Entities\Employees\Employee;
-use Modules\Ecommerce\Entities\Employees\Repositories\EmployeeRepository;
+use Modules\Companies\Entities\Employees\Employee;
+use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
 use Modules\Ecommerce\Events\OrderCreateEvent;
-use App\Mail\sendEmailNotificationToAdminMailable;
-use App\Mail\SendOrderToCustomerMailable;
+use Modules\Ecommerce\Mail\SendEmailNotificationToAdminMailable;
+use Modules\Ecommerce\Mail\SendOrderToCustomerMailable;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderInvalidArgumentException;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderNotFoundException;
 use Modules\Ecommerce\Entities\Addresses\Address;
@@ -102,20 +102,20 @@ class OrderRepository implements OrderRepositoryInterface
         $product->save();
     }
 
-    // public function sendEmailToCustomer()
-    // {
-    //     Mail::to($this->model->customer)
-    //         ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
-    // }
+    public function sendEmailToCustomer()
+    {
+        Mail::to($this->model->customer)
+            ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
+    }
 
-    // public function sendEmailNotificationToAdmin()
-    // {
-    //     $employeeRepo = new EmployeeRepository(new Employee);
-    //     $employee = $employeeRepo->findEmployeeById(1);
+    public function sendEmailNotificationToAdmin()
+    {
+        $employeeRepo = new EmployeeRepository(new Employee);
+        $employee = $employeeRepo->findEmployeeById(1);
 
-    //     Mail::to($employee)
-    //         ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
-    // }
+        Mail::to($employee)
+            ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+    }
 
     public function searchOrder(string $text): Collection
     {

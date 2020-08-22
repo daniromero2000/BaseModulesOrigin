@@ -1,36 +1,56 @@
 @extends('generals::layouts.admin.app')
+@section('header')
+<div class="header pb-2">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4 w-100">
+                <div class=" col-12">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Ordenes</a></li>
+                            <li class="breadcrumb-item active" active aria-current="page">{{ ucfirst($customer->name) }}
+                                {{$customer->last_name}}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="box">
         <div class="box-body">
-            <div class="box-header">
-                <div class="row">
-                    <div class="col-6">
-                        <span> Orden # <strong>{{$order->id}}</strong></span>
-                        <br>
-                        Referencia:<span> <b>{{ $order->reference}}</b></span>
-                        <br>
-                        <span> Cliente: <a href="{{ route('admin.customers.show', $customer->id) }}"><strong>{{ ucfirst($customer->name) }}
-                                    {{$customer->last_name}}</strong></span></a>
-                        <br>
-                        <span> Dirección: <strong>{{ $order->address->customer_address }}
-                                @if(isset($order->address->city))
-                                {{ $order->address->city->city }}
-                                @endif @if(isset($order->address->city))
-                                {{ $order->address->city->province->province }}
-                                @endif</strong></span>
-                        <br>
-                        Número Identificación: <span>
-                            <b>{{ $customer->customerIdentities[0]->identity_number}}</b></span>
-                        <br>
-                        Número Teléfono: <span> <b>{{ $customer->customerPhones[0]->phone}}</b></span>
-                    </div>
-                </div>
-            </div>
             <div class="card">
                 <div class="card-body">
                     <h4> <i class="fa fa-shopping-bag"></i> Información de la Orden</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <span> Orden # FVNO-<strong>{{$order->id}}</strong></span>
+                            <br>
+                            Referencia:<span> <b>{{ $order->reference}}</b></span>
+                            <br>
+                            <span> Cliente: <a
+                                    href="{{ route('admin.customers.show', $customer->id) }}"><strong>{{ ucfirst($customer->name) }}
+                                        {{$customer->last_name}}</strong></span></a>
+                            <br>
+                            <span> Dirección: <strong>{{ $order->address->customer_address }}
+                                    @if(isset($order->address->city))
+                                    {{ $order->address->city->city }}
+                                    @endif @if(isset($order->address->city))
+                                    {{ $order->address->city->province->province }}
+                                    @endif</strong></span>
+                            <br>
+                            Número Identificación: <span>
+                                <b>{{ $customer->customerIdentities[0]->identity_number}}</b></span>
+                            <br>
+                            Número Teléfono: <span> <b>{{ $customer->customerPhones[0]->phone}}</b></span>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -50,7 +70,7 @@
                                         <label for="order_status_id" class="hidden">Actualizar Estado</label>
                                         <input type="text" name="total_paid" class="form-control"
                                             placeholder="Total paid" style="margin-bottom: 5px; display: none"
-                                            value="{{ old('total_paid') ?? $order->total_paid }}" />
+                                            value="{{ old('total_paid') ?? $order->grand_total }}" />
                                         <div class="input-group">
                                             <select name="order_status_id" id="order_status_id"
                                                 class="form-control select2">

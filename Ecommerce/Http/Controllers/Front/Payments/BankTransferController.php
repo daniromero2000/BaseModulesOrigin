@@ -26,31 +26,37 @@ class BankTransferController extends Controller
 
     public function store(Request $request)
     {
-        $checkout          = $this->checkoutInterface->getLastCheckout();
-        $courier           = $this->courierInterface->getCourier();
-        $checkoutRepo      = new CheckoutRepository($checkout);
 
-        $order = $checkoutRepo->buildCheckoutItems([
-            'reference'       => Uuid::uuid4()->toString(),
-            'courier_id'      => $courier->id, // @deprecated
-            'customer_id'     => $request->user()->id,
-            'address_id'      => $request->input('billing_address'),
-            'order_status_id' => 5,
-            'payment'         => strtolower(config('bank-transfer.name')),
-            'discounts'       => 0,
-            'sub_total'       => $this->cartRepo->getSubTotal(),
-            'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
-            'total_shipping'  => $courier->cost,
-            'total_paid'      => 0,
-            'tax'             => $this->cartRepo->getTax()
-        ]);
+        if (!empty($this->cartRepo->getCartItems()->toArray())) {
+            $checkout          = $this->checkoutInterface->getLastCheckout();
+            $courier           = $this->courierInterface->getCourier();
+            $checkoutRepo      = new CheckoutRepository($checkout);
 
-        Cart::destroy();
-        $this->checkoutInterface->removeCheckout($checkout);
+            $order = $checkoutRepo->buildCheckoutItems([
+                'reference'       => Uuid::uuid4()->toString(),
+                'courier_id'      => $courier->id, // @deprecated
+                'customer_id'     => $request->user()->id,
+                'address_id'      => $request->input('billing_address'),
+                'order_status_id' => 5,
+                'payment'         => strtolower(config('bank-transfer.name')),
+                'discounts'       => 0,
+                'sub_total'       => $this->cartRepo->getSubTotal(),
+                'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
+                'total_shipping'  => $courier->cost,
+                'total_paid'      => 0,
+                'tax'             => $this->cartRepo->getTax()
+            ]);
 
-        return redirect()->route('thankupage_bancolombia', [
-            'order' => $order,
-            'total' => $order->grand_total
-        ])->with('message', 'Orden Exitosa!');
+            Cart::destroy();
+            $this->checkoutInterface->removeCheckout($checkout);
+
+            return redirect()->route('thankupage_bancolombia', [
+                'order' => $order,
+                'total' => $order->grand_total,
+                'customer' => auth()->user()->name
+            ])->with('message', 'Orden Exitosa!');
+        }
+
+        return redirect()->back();
     }
 }

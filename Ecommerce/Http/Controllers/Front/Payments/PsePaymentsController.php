@@ -35,31 +35,37 @@ class PsePaymentsController extends Controller
 
     public function store(Request $request)
     {
-        $paymentDataRequest = $request->input();
-        $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
-        $checkout           = $this->checkoutInterface->getLastCheckout();
-        $courier            = $this->courierInterface->getCourier();
-        $checkoutRepo       = new CheckoutRepository($checkout);
 
-        $order = $checkoutRepo->buildPayUCheckoutItems([
-            'reference'       => Uuid::uuid4()->toString(),
-            'courier_id'      => $courier->id, // @deprecated
-            'customer_id'     => $request->user()->id,
-            'address_id'      => $request->input('billingAddress'),
-            'order_status_id' => 5,
-            'payment'         => strtolower(config('payu.name') . '-' . 'PSE'),
-            'discounts'       => 0,
-            'sub_total'       => $this->cartRepo->getSubTotal(),
-            'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
-            'total_shipping'  => $courier->cost,
-            'total_paid'      => $this->cartRepo->getTotal(2, $courier->cost),
-            'tax'             => $this->cartRepo->getTax()
-        ]);
+        if (!empty($this->cartRepo->getCartItems()->toArray())) {
 
-        $payuClient = new PayuClient(config('payu'));
-        $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
+            $paymentDataRequest = $request->input();
+            $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
+            $checkout           = $this->checkoutInterface->getLastCheckout();
+            $courier            = $this->courierInterface->getCourier();
+            $checkoutRepo       = new CheckoutRepository($checkout);
 
-        return redirect($request->session()->get('BANK_URL'));
+            $order = $checkoutRepo->buildPayUCheckoutItems([
+                'reference'       => Uuid::uuid4()->toString(),
+                'courier_id'      => $courier->id, // @deprecated
+                'customer_id'     => $request->user()->id,
+                'address_id'      => $request->input('billingAddress'),
+                'order_status_id' => 5,
+                'payment'         => strtolower(config('payu.name') . '-' . 'PSE'),
+                'discounts'       => 0,
+                'sub_total'       => $this->cartRepo->getSubTotal(),
+                'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
+                'total_shipping'  => $courier->cost,
+                'total_paid'      => $this->cartRepo->getTotal(2, $courier->cost),
+                'tax'             => $this->cartRepo->getTax()
+            ]);
+
+            $payuClient = new PayuClient(config('payu'));
+            $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
+
+            return redirect($request->session()->get('BANK_URL'));
+        }
+
+        return redirect()->back();
     }
 
     public function pay(PayuClientInterface $payuClient, $order, $paymentDataRequest, $checkout)
@@ -88,7 +94,7 @@ class PsePaymentsController extends Controller
             PayUParameters::PAYER_ID => "1",
             PayUParameters::PAYER_NAME => $paymentDataRequest['BUYER_NAME'],
             PayUParameters::PAYER_EMAIL => $order->customer->email,
-            PayUParameters::PAYER_CONTACT_PHONE => $order->customer->customerPhones[0]->phone,
+            PayUParameters::PAYER_CONTACT_PHONE => $paymentDataRequest['PAYER_CONTACT_PHONE'],
             PayUParameters::PAYER_DNI => $paymentDataRequest['PAYER_DNI'],
             PayUParameters::PAYER_STREET => $order->address->customer_address,
             PayUParameters::PAYER_STREET_2 => $order->address->customer_address,

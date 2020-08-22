@@ -105,4 +105,8 @@ Route::namespace('Front')->group(function () {
     Route::get('outlet', 'ProductController@outlet')->name('outlet');
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
+
+    Route::get('/email/v2', function () {
+        return view('ecommerce::emails.customer.sendOrderDetailsToCustomer');
+    });
 });

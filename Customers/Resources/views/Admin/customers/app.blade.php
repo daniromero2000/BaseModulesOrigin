@@ -1,7 +1,6 @@
 @extends('generals::layouts.admin.app')
 @section('styles')
-<link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-{{-- <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}"> --}}
+<script src="{{ asset('js/customers.js') }}" defer></script>
 <style>
     .card-img-overlay {
         position: absolute;

@@ -80,13 +80,12 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-
         return view('customers::Admin.customers.index');
     }
 
     public function create()
     {
-        return view('customers::admin.customers.create', [
+        return view('customers::Admin.customers.create', [
             'genres'            => $this->genreInterface->getAllGenresNames(),
             'customer_channels' => $this->customerChannelInterface->getAllCustomerChannelNames(),
             'scholarities'      => $this->scholarityInterface->getAllScholaritiesNames(),
@@ -108,12 +107,12 @@ class CustomerController extends Controller
         $this->customerStatusesLogInterface->createCustomerStatusesLog($data);
 
         $request->session()->flash('message', config('messaging.create'));
-        return redirect()->route('admin.customers.show', $customer->id);
+        return redirect()->route('Admin.customers.show', $customer->id);
     }
 
     public function show(int $id)
     {
-        return view('customers::admin.customers.show', [
+        return view('customers::Admin.customers.customer', [
             'customer' => $this->customerInterface->findCustomerById($id)
         ]);
     }
@@ -122,7 +121,7 @@ class CustomerController extends Controller
     {
         $customer = $this->customerInterface->findCustomerById($id);
 
-        return view('customers::admin.customers.edit', [
+        return view('customers::Admin.customers.edit', [
             'customer'            => $customer,
             'customer_channels'      => $this->customerChannelInterface->getAllCustomerChannelNames(),
             'statuses'            => $this->customerStatusInterface->listCustomerStatuses(),
@@ -164,7 +163,7 @@ class CustomerController extends Controller
         $customerRepo = new CustomerRepository($this->customerInterface->findCustomerById($id));
         $customerRepo->deleteCustomer();
 
-        return redirect()->route('admin.customers.index')
+        return redirect()->route('Admin.customers.index')
             ->with('message', 'Eliminado Satisfactoriamente');
     }
 
@@ -194,7 +193,7 @@ class CustomerController extends Controller
         return [
             'customers'     => $list,
             'headers'       => ['Nombre', 'Apellido', 'Fecha Ingreso', 'Lead', 'Estado', 'Opciones'],
-            'optionsRoutes' => 'admin.' . (request()->segment(2)),
+            'optionsRoutes' => 'Admin.' . (request()->segment(2)),
         ];
     }
 

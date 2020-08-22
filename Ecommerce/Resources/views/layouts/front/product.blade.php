@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-xl-4 d-flex col-md-6 col-sm-8">
+    <div class="col-lg-4 col-xl-4 d-flex col-md-6 col-sm-8 ">
         <div class="product-description text-center w-100 p-2 my-auto">
             <div class="w-100">
                 <div class="w-100">
@@ -199,5 +199,12 @@
             <button class="glider-next glider-next-one"><i class="fas fa-caret-right slider"></i></button>
         </div>
     </div>
+    <div class="py-2 py-md-5">
+        <a href="">
+            <img class="img-fluid" src="{{asset('img/FVN/banner03.jpg')}}" alt="feels-very-nice">
+        </a>
+    </div>
 </div>
+
+
 @endif

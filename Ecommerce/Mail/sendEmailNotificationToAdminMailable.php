@@ -37,6 +37,6 @@ class sendEmailNotificationToAdminMailable extends Mailable
             'payment' => $this->order->paymentMethod
         ];
 
-        return $this->view('emails.admin.OrderNotificationEmail', $data);
+        return $this->view('ecommerce::emails.admin.OrderNotificationEmail', $data);
     }
 }

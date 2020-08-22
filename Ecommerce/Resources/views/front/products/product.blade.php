@@ -14,7 +14,7 @@
 <script src="{{ asset('js/front/carousel/carousel.js')}}"></script>
 @endsection
 @section('content')
-<div class="container-xl product">
+<div class="container-reset product">
     <div class="row">
         <div class="col-md-12 mt-3">
             <nav aria-label="breadcrumb">

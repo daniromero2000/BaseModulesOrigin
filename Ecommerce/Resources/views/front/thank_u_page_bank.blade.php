@@ -1,89 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.front.thank_you_page')
+@section('content')
+<div class="container d-flex mt-4">
+  <div class="ml-auto">
+    <h3 class="orden">ORDEN N°: FVNO-{{$order}}</h3>
+  </div>
+</div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>fvn</title>
-  <link rel="icon" href="{{asset('img/fvn/logo.png')}}" type="image/png">
-  <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/style.css')}}">
-  <!-- Event snippet for Website traffic conversion page -->
-  <script>
-    gtag('event', 'conversion', {'send_to': 'AW-604881959/T2tHCK7X6toBEKeIt6AC'}); 
-  </script>
-</head>
+<div class="container mt-3">
+  <p class="text-center text-orden">
+    <span> Hola {{request()->customer}},</span>
+    <br>
+    <span><b>Gracias por comprar en FVN online</b></span>
+    <br>
+    <span>
+      Tu pedido ha sido creado con el número FVN-{{$order}} exitosamente en nuestro sistema de información.
+    </span>
+    <br>
+    <span>Nuestra promesa de entrega es de 3 a 7 días hábiles contados a partir del dia hábil después de realizar
+      una transferencia a la cuenta <b> No° 85200041360</b> a nombre de <b>Melba
+        Herrera</b> por un valor de <span class="total"><b>${{ number_format($total, 0)}}</b>. No por
+        consignación ya que esta tiene costo.</span>
+      <br>
+      <br>
+      O escanea un código <b>QR</b> por medio de la app de bancolombia
+      <br>
+      <br>
+      <button class="ml-auto btn btn-sm btn-primary" data-toggle="modal" data-target="#imgQr">Ver
+        código</button>
+  </p>
 
-<body>
-  <!--::banner part start::-->
-  <section class="banner_part">
-    <div class="container">
-      <div class="row align-items-center justify-content-between">
-        <div class="col-lg-5">
-          <div class="banner_img d-block">
-            <img src="{{asset('img/thankYouPage/banner_img.png')}}" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="banner_text">
-            <div class="banner_text_iner">
-              <h1>Gracias!</h1>
-              <p><span>Tu solicitud de compra</span>
-                <span>por la orden <b>{{$order}}</b></span>
-                <br>
-                <span>fue efectuada</span>
-                <br>
-                <br>
-                Puedes hacer una transferencia a la cuenta <b> No° 85200041360</b> a nombre de <b>Melba
-                  Herrera</b> por un valor de <span class="total"><b>{{$total}}</b>. No por
-                  consignación ya que esta tiene costo.
-                </span>
-                <br>
-                <br>
-                O escanea un código <b>QR</b> por medio de la app de bancolombia
-                <br>
-                <br>
-                <button class="ml-auto btn btn-sm btn-primary" data-toggle="modal" data-target="#imgQr">Ver
-                  código</button>
-                <br></p>
-              <a href="{{route('home')}}" class="btn_2">Ver más productos</a>
-            </div>
-          </div>
+  <hr class="mt-4" style="border-top: 2px solid rgb(0 46 84 / 69%);">
+</div>
+<div class="modal fade" id="imgQr" tabindex="-1" role="dialog" aria-labelledby="imgQrLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="w-100">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> </div>
+
+        <div class="row">
+          <img src="{{asset('img/FVN/codeQr.jpg')}}" class="img-fluid" alt="code-qr">
         </div>
       </div>
     </div>
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_7.png')}}" alt="" class="feature_icon_1 custom-animation1">
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_8.png')}}" alt="" class="feature_icon_2 custom-animation2">
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_1.png')}}" alt="" class="feature_icon_3 custom-animation3">
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_2.png')}}" alt="" class="feature_icon_4 custom-animation4">
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_3.png')}}" alt="" class="feature_icon_5 custom-animation5">
-    <img src="{{asset('img/thankYouPage/animate_icon/Ellipse_4.png')}}" alt="" class="feature_icon_6 custom-animation6">
-    <div class="modal fade" id="imgQr" tabindex="-1" role="dialog" aria-labelledby="imgQrLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="w-100">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button> </div>
+  </div>
+</div>
 
-            <div class="row">
-              <img src="{{asset('img/fvn/codeQr.jpg')}}" class="img-fluid" alt="code-qr">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</body>
-<script src="{{ asset('js/front/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/front/sweetalert2.js') }}"></script>
-<script src="{{ asset('js/front/front.js') }}"></script>
-<script src="{{ asset('js/admin/validate.js') }}"></script>
-
-</html>
+@endsection

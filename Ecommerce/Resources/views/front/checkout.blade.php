@@ -98,14 +98,13 @@
                             </div>
                             <div class="my-auto">
                                 <button type="submit" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">Agregar</button>
+                                    data-target="#exampleModal">Agregar Dirección</button>
                             </div>
                         </div>
                         @if(!empty($addresses->toArray()))
                         <div class="table-responsive">
                             <table class="table table-striped mt-3 text-center">
                                 <thead class="text-sm">
-                                    <th>Alias</th>
                                     <th>Dirección</th>
                                     <th>Dirección de facturación</th>
                                     <th>Dirección de entrega</th>
@@ -113,7 +112,6 @@
                                 <tbody class="text-sm">
                                     @foreach($addresses as $key => $address)
                                     <tr>
-                                        <td>{{ $address->alias }}</td>
                                         <td><span id="address{{$address->id}}">
                                                 {{ $address->customer_address }}
                                             </span>
@@ -170,10 +168,10 @@
                                 </tbody>
                             </table>
                         </div>
-
                         @else
                         <div class="alert alert-info py-2 px-3 mt-2" role="alert">
-                            No tienes direcciones registradas
+                            ¡No tienes direcciones registradas!. Por favor selecciona la opción "Agregar Dirección" para
+                            registrar la dirección de envío y poder continuar con el proceso de compra.
                         </div>
                         @endif
                     </div>
@@ -264,8 +262,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" id="billing_address"
-                                                                name="billing_address"
+                                                            <input type="hidden" name="billing_address"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -298,8 +295,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" id="billing_address"
-                                                                name="billing_address"
+                                                            <input type="hidden" name="billing_address"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -330,8 +326,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" id="billing_address"
-                                                                name="billing_address"
+                                                            <input type="hidden" name="billing_address"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -359,9 +354,10 @@
     </div>
     @else
     <div class="row">
-        <div class="col-12 mb-2">
-            <p class="alert alert-warning">No hay productos en el carrito aún. <a href="{{ route('home') }}">Mostrar
-                    ahora!</a></p>
+        <div class="col-12 mb-2 mt-4">
+            <p class="alert alert-warning">No hay productos en el carrito aún. <a class="text-white"
+                    href="{{ route('home') }}"><b>Ver
+                        productos!</b></a></p>
         </div>
     </div>
     @endif
@@ -385,8 +381,8 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="customer_address">Dirección <span class="text-danger">*</span></label>
-                            <input type="text" name="customer_address" id="customer_address" placeholder="Dirección"
-                                class="form-control" value="{{ old('customer_address') }}">
+                            <input type="text" required name="customer_address" id="customer_address"
+                                placeholder="Dirección" class="form-control" value="{{ old('customer_address') }}">
                         </div>
                         <div class="form-group">
                             <label for="country_id">País </label>
@@ -402,8 +398,8 @@
                         <div id="cities" class="form-group" style="display: none;"></div>
                         <div class="form-group">
                             <label for="phone">Tu Teléfono </label>
-                            <input type="text" name="phone" id="phone" placeholder="Teléfono" class="form-control"
-                                value="{{ old('phone') }}">
+                            <input type="text" name="phone" id="phone" required placeholder="Teléfono"
+                                class="form-control" value="{{ old('phone') }}">
                         </div>
                     </div>
                 </div>
@@ -668,11 +664,6 @@
     });
     }
 </script>
-<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
-<script>
-    $(document).ready(function(){
-    $('#creditcard').mask("9999 9999 9999 9999");
-    });
-</script>
+
 
 @endsection

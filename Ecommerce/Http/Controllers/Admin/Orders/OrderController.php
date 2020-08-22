@@ -53,47 +53,64 @@ class OrderController extends Controller
 
     public function show($orderId)
     {
-        $order = $this->orderRepo->findOrderById($orderId);
-        $orderRepo = new OrderRepository($order);
+        $order          = $this->orderRepo->findOrderById($orderId);
+        $orderRepo      = new OrderRepository($order);
         $order->courier = $orderRepo->getCouriers()->first();
         $order->address = $orderRepo->getAddresses()->first();
-        $items = $orderRepo->listOrderedProducts();
-        $couriers = $this->courierRepo->listCouriers()->pluck('name', 'id');
-        $orderShipment = $this->orderShippingRepo->findOrderShipment($orderId);
-        //dd($orderShipment);
-        $count = count($items);
-
-        $cant = 0;
+        $items          = $orderRepo->listOrderedProducts();
+        $couriers       = $this->courierRepo->listCouriers()->pluck('name', 'id');
+        $orderShipment  = $this->orderShippingRepo->findOrderShipment($orderId);
+        $cant   = 0;
         $weight = 0.00;
 
-        //dd($items);
-
         foreach ($items as $item) {
-            //dd($item->quantity);
-            $cant += $item->quantity;
-
+            $cant   += $item->quantity;
             $weight += $item->weight * number_format($item->quantity, 2);
-            //dd($weight);
         }
-        //dd($weight);
+
         return view('ecommerce::admin.orders.show', [
-            'order'         =>  $order,
-            'items'         =>  $items,
-            'customer'      =>  $this->customerRepo->findCustomerById($order->customer_id),
-            'currentStatus' =>  $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
-            'payment'       =>  $order->payment,
-            'user'          =>  auth()->guard('employee')->user(),
-            'couriers'      =>  $couriers,
-            'cant'          =>  $cant,
-            'weight'        =>  $weight,
-            'orderShipment'   =>  $orderShipment,
+            'order'             =>  $order,
+            'items'             =>  $items,
+            'customer'          =>  $this->customerRepo->findCustomerById($order->customer_id),
+            'currentStatus'     =>  $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
+            'payment'           =>  $order->payment,
+            'user'              =>  auth()->guard('employee')->user(),
+            'couriers'          =>  $couriers,
+            'cant'              =>  $cant,
+            'weight'            =>  $weight,
+            'orderShipment'     =>  $orderShipment,
+        ]);
+    }
+
+    /**
+     * @param $orderId
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($orderId)
+    {
+        $order = $this->orderRepo->findOrderById($orderId);
+
+        $orderRepo      = new OrderRepository($order);
+        $order->courier = $orderRepo->getCouriers()->first();
+        $order->address = $orderRepo->getAddresses()->first();
+        $items          = $orderRepo->listOrderedProducts();
+
+        return view('ecommerce::admin.orders.edit', [
+            'statuses'      => $this->orderStatusRepo->listOrderStatuses(),
+            'order'         => $order,
+            'items'         => $items,
+            'customer'      => $this->customerRepo->findCustomerById($order->customer_id),
+            'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
+            'payment'       => $order->payment,
+            'user'          => auth()->guard('employee')->user()
         ]);
     }
 
 
     public function update(Request $request, $orderId)
     {
-        $order = $this->orderRepo->findOrderById($orderId);
+        $order     = $this->orderRepo->findOrderById($orderId);
         $orderRepo = new OrderRepository($order);
 
         if ($request->has('total_paid') && $request->input('total_paid') != null) {
@@ -104,7 +121,7 @@ class OrderController extends Controller
 
         $orderRepo->updateOrder($orderData);
 
-        return redirect()->route('admin.orders.edit', $orderId);
+        return redirect()->route('admin.orders.show', $orderId);
     }
 
     public function generateInvoice(int $id)
@@ -112,13 +129,13 @@ class OrderController extends Controller
         $order = $this->orderRepo->findOrderById($id);
 
         $data = [
-            'order' => $order,
-            'products' => $order->products,
-            'customer' => $order->customer,
-            'courier' => $order->courier,
-            'address' => $order->address,
-            'status' => $order->orderStatus,
-            'payment' => $order->paymentMethod
+            'order'     => $order,
+            'products'  => $order->products,
+            'customer'  => $order->customer,
+            'courier'   => $order->courier,
+            'address'   => $order->address,
+            'status'    => $order->orderStatus,
+            'payment'   => $order->paymentMethod
         ];
 
         $pdf = app()->make('dompdf.wrapper');
@@ -128,14 +145,14 @@ class OrderController extends Controller
 
     private function transFormOrder(Collection $list)
     {
-        $courierRepo = new CourierRepository(new Courier());
-        $customerRepo = new CustomerRepository(new Customer());
+        $courierRepo     = new CourierRepository(new Courier());
+        $customerRepo    = new CustomerRepository(new Customer());
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
 
         return $list->transform(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
-            $order->courier = $courierRepo->findCourierById($order->courier_id);
+            $order->courier  = $courierRepo->findCourierById($order->courier_id);
             $order->customer = $customerRepo->findCustomerById($order->customer_id);
-            $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
+            $order->status   = $orderStatusRepo->findOrderStatusById($order->order_status_id);
             return $order;
         })->all();
     }

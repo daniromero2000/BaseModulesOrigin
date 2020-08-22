@@ -135,6 +135,16 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $this->model->products;
     }
 
+    public function countProducts()
+    {
+        return $this->model->countProducts;
+    }
+
+    public function findProductsSkip($totalviews): Collection
+    {
+        return $this->model->products->skip($totalviews)->take(30);
+    }
+
     public function findProductsOrder()
     {
         return $this->model->productsOrder;
@@ -149,9 +159,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         }
     }
 
-    public function findProductsFilter($select)
+    public function findProductsFilter($select, $totalviews)
     {
-        return $this->model->productsFilter($select);
+        return $this->model->productsFilter($select, $totalviews);
     }
 
     public function syncProducts(array $params)

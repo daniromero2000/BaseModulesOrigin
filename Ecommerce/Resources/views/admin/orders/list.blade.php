@@ -23,7 +23,7 @@
     @if($orders)
     <div class="card">
         <div class="card-header">
-            <h2>Ordenes</h2>
+            <h2>Ordenes {{ config('app.name') }}</h2>
             @include('generals::layouts.search', ['route' => route('admin.orders.index')])
         </div>
         <div class="table-responsive">
@@ -50,7 +50,7 @@
                         <td>
                             <span
                                 class="label @if($order->grand_total != $order->total_paid) label-danger @else label-success @endif">{{ config('cart.currency') }}
-                                {{ $order->grand_total }}</span>
+                                ${{ number_format($order->grand_total, 0) }}</span>
                         </td>
                         <td>
                             <span class="badge"

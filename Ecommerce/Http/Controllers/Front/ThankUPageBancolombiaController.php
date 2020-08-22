@@ -24,7 +24,8 @@ class ThankUPageBancolombiaController extends Controller
     {
         return view('ecommerce::front.thank_u_page_bank', [
             'order' =>  request()->input('order'),
-            'total' => request()->input('total')
+            'total' => request()->input('total'),
+            'customer' => auth()->user()->name
         ]);
     }
 }

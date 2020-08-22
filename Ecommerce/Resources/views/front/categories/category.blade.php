@@ -12,6 +12,23 @@
 <link rel="stylesheet" href="{{ asset('css/front/carousel/glider.css')}}">
 <script src="{{ asset('js/front/carousel/glider.js')}}"></script>
 <script src="{{ asset('js/front/carousel/carousel.js')}}"></script>
+<style>
+    .page-item {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .page-link {
+        border-radius: 18px !important;
+        padding: .5rem .8rem !important;
+        color: #82888e;
+    }
+
+    .page-item.active .page-link {
+        background-color: #ba3d6b !important;
+        border-color: #ad3f68 !important;
+    }
+</style>
 @endsection
 @section('content')
 <div class="wrapper">
@@ -46,8 +63,30 @@
                         @include('ecommerce::front.categories.sidebar-category', ['attributes' => $attributes])
                     </div>
                 </div>
-                <div class="col-lg-9 px-1">
+                <div class="col-lg-9 px-1 mx-auto">
                     @include('ecommerce::front.products.product-list', ['products' => $products])
+                    <nav class="mt-4" aria-label="...">
+                        <ul class="pagination d-flex justify-content-center">
+                            <li class="page-item @if(request()->input('skip') < 1) disabled @endif">
+                                <a class="page-link"
+                                    href="{{ route("front.category.slug", [ $category->slug, 'skip' => (request()->input('skip') - 1), 'q' => request()->input('q') ] ) }}"
+                                    tabindex="-1" aria-disabled="true"><i class="fas fa-angle-left"></i></a>
+                            </li>
+                            @for ($i = 0; $i < $paginate; $i++) <li
+                                class="page-item @if(request()->input('skip') == $i) active @endif"><a
+                                    class="page-link "
+                                    href="{{ route("front.category.slug", [ $category->slug, 'skip' => ($skip = $i), 'q' => request()->input('q') ] ) }}">{{$i + 1}}</a>
+                                </li>
+                                @endfor
+                                @if ($paginate > 1)
+                                <li class="page-item" @if((request()->input('skip') + 1) == $paginate) hidden @endif>
+                                    <a class="page-link"
+                                        href="{{ route("front.category.slug", [ $category->slug, 'skip' => (request()->input('skip') + 1), 'q' => request()->input('q') ] ) }}"><i
+                                            class="fas fa-angle-right"></i></a>
+                                </li>
+                                @endif
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

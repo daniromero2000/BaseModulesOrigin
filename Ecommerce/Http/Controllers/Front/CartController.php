@@ -10,6 +10,7 @@ use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRe
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -91,7 +92,7 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    public function getCart()
+    public function getCart(Request $request)
     {
         $cartItems   = $this->cartRepo->getCartItemsTransformed();
         $data        = [];
@@ -102,6 +103,16 @@ class CartController extends Controller
 
         $courier = $this->courierRepo->getCourier();
         $shippingFee = $this->cartRepo->getShippingFee($courier);
+
+        if ($request->has('mode')) {
+            return  [
+                'cartItems'     => $data,
+                'subtotal'      => $this->cartRepo->getSubTotal(),
+                'tax'           => $this->cartRepo->getTax(),
+                'shippingFee'   => $shippingFee,
+                'total'         => $this->cartRepo->getTotal()
+            ];
+        }
 
         return  [
             'cartItems'     => $data,

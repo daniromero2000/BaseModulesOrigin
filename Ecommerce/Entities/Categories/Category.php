@@ -7,6 +7,7 @@ use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
@@ -48,6 +49,11 @@ class Category extends Model
             ->with('attributes:id,quantity,price,sale_price,default,product_id')
             ->orderBy('sort_order', 'asc');
     }
+    public function countProducts()
+    {
+        return $this->belongsToMany(Product::class)->select(DB::raw('count(*) as total'))
+            ->orderBy('sort_order', 'asc')->where('is_active', 1);
+    }
 
     public function productsOrder()
     {
@@ -55,12 +61,19 @@ class Category extends Model
             ->orderBy('sort_order', 'asc');
     }
 
-    public function productsFilter($select)
+    public function productsFilter($select, $totalviews)
     {
-        return $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use ($select) {
-            $query->whereHas('attributesValues', function (Builder $query) use ($select) {
+        $data = $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use ($select, $totalviews) {
+            $query->whereHas('attributesValues', function (Builder $query) use ($select, $totalviews) {
                 $query->whereIn('value', $select);
             });
-        })->get();
+        })->skip($totalviews)->take(30)->get();
+
+        $count = $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use ($select, $totalviews) {
+            $query->whereHas('attributesValues', function (Builder $query) use ($select, $totalviews) {
+                $query->whereIn('value', $select);
+            });
+        })->select(DB::raw('count(*) as total'))->where('is_active', 1)->get();
+        return [$data, $count];
     }
 }

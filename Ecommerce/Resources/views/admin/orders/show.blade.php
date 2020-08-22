@@ -1,4 +1,74 @@
 @extends('generals::layouts.admin.app')
+@section('styles')
+<style>
+    body {
+        margin: 0;
+        font-family: Open Sans, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        background-color: #fff;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: .5rem;
+        font-family: inherit;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #32325d;
+    }
+
+    .table thead th {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: .65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: .0625rem solid #dee2e6;
+    }
+
+    .text-muted {
+        color: #8898aa !important;
+    }
+
+    .small,
+    small {
+        font-size: 80%;
+        font-weight: 400;
+    }
+
+    .table td,
+    .table th {
+        font-size: .8125rem;
+        white-space: nowrap;
+    }
+
+    .table th {
+        font-weight: 600;
+    }
+
+    .table td,
+    .table th {
+        padding: 1rem;
+        vertical-align: top;
+        border-top: .0625rem solid #dee2e6;
+    }
+</style>
+
+@endsection
 @section('header')
 <div class="header pb-2">
     <div class="container-fluid">
@@ -29,8 +99,7 @@
                 <div class="col-12">
                     <div class="row mx-0 w-100">
                         <div class="col-6">
-
-                            <span> Orden # <strong>{{$order->id}}</strong></span>
+                            <span> Orden # FVNO-<strong>{{$order->id}}</strong></span>
                             <br>
                             Referencia:<span> <b>{{ $order->reference}}</b></span>
                             <br>
@@ -38,13 +107,12 @@
                                     href="{{ route('admin.customers.show', $customer->id) }}"><strong>{{ ucfirst($customer->name) }}
                                         {{$customer->last_name}}</strong></span></a>
                             <br>
-
                             <span> Dirección: <strong>{{ $order->address->customer_address }}
                                     @if(isset($order->address->city))
-                                        {{ $order->address->city->city }}
+                                    {{ $order->address->city->city }}
                                     @endif
                                     @if(isset($order->address->city))
-                                        {{ $order->address->city->province->province }}
+                                    {{ $order->address->city->province->province }}
                                     @endif</strong>
                             </span>
                             <br>
@@ -57,49 +125,55 @@
                         </div>
                         <div class="d-flex align-items-center flex-wrap col-md-6 text-right mb-3 ml-auto">
 
-                            <a href="{{route('admin.orders.invoice.generate', $order['id'])}}" class="flex-fill btn btn-primary btn-sm ">Descargar Factura</a>
+                            <a href="{{route('admin.orders.invoice.generate', $order['id'])}}"
+                                class="flex-fill btn btn-primary btn-sm ">Descargar Factura</a>
                             @if(!$orderShipment->isEmpty())
-                                <a href="{{route('admin.order-shipments.show', $order['id'])}}" class="flex-fill btn btn-primary btn-sm ">Ver Despacho </a>
+                            <a href="{{route('admin.order-shipments.show', $order['id'])}}"
+                                class="flex-fill btn btn-primary btn-sm ">Ver Despacho </a>
                             @else
-                                <!-- Generar Despacho Button -->
-                                <button type="button" class="flex-fill btn btn-primary btn-sm " data-toggle="modal" data-target="#staticBackdrop">Crear Despacho</button>
-                                <!-- Generar Despacho Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Crear Despacho</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {!! Form::open(['method' => 'POST','route' => ['admin.order-shipments.store'],'style'=>'display:inline']) !!}
-                                                    {!! Form::hidden('order_id', $order['id']); !!}
-                                                    {!! Form::label('courier_id', 'Courier:', ['class' => 'control-label']) !!}
-                                                    {!! Form::select('courier_id', $couriers, $order['courier_id'], array('class' => 'form-control', 'multiple')) !!}
-                                                    <br>
-                                                    {!! Form::label('track_number', 'Numero de Guia:', ['class' => 'control-label']) !!}
-                                                    {!! Form::text('track_number', $order['tracking_number'], array('class' => 'form-control')); !!}
-                                                    {!! Form::hidden('total_qty', $cant); !!}
-                                                    {!! Form::hidden('total_weight', $weight); !!}
-                                                    <br>
-                                                    {!! Form::submit('Crear Despacho', ['class' => 'flex-fill btn btn-primary btn-sm']) !!}
-                                                {!! Form::close() !!}
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
+                            <!-- Generar Despacho Button -->
+                            <button type="button" class="flex-fill btn btn-primary btn-sm " data-toggle="modal"
+                                data-target="#staticBackdrop">Crear Despacho</button>
+                            <!-- Generar Despacho Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1"
+                                role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Crear Despacho</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {!! Form::open(['method' => 'POST','route' =>
+                                            ['admin.order-shipments.store'],'style'=>'display:inline']) !!}
+                                            {!! Form::hidden('order_id', $order['id']); !!}
+                                            {!! Form::label('courier_id', 'Courier:', ['class' => 'control-label']) !!}
+                                            {!! Form::select('courier_id', $couriers, $order['courier_id'],
+                                            array('class' => 'form-control', 'multiple')) !!}
+                                            <br>
+                                            {!! Form::label('track_number', 'Numero de Guia:', ['class' =>
+                                            'control-label']) !!}
+                                            {!! Form::text('track_number', $order['tracking_number'], array('class' =>
+                                            'form-control')); !!}
+                                            {!! Form::hidden('total_qty', $cant); !!}
+                                            {!! Form::hidden('total_weight', $weight); !!}
+                                            <br>
+                                            {!! Form::submit('Crear Despacho', ['class' => 'flex-fill btn btn-primary
+                                            btn-sm']) !!}
+                                            {!! Form::close() !!}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             @endif
-
-
-
-
-                            <a href="{{ route('admin.customers.show', $customer->id) }}" class="flex-fill btn btn-primary btn-sm ">Ver cliente</a>
-
+                            <a href="{{ route('admin.customers.show', $customer->id) }}"
+                                class="flex-fill btn btn-primary btn-sm ">Ver cliente</a>
                         </div>
                     </div>
                 </div>
@@ -109,12 +183,13 @@
                     <h4> <i class="fa fa-shopping-bag"></i> Información de Orden</h4>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center text-center table-flush table-hover text-center">
-                        <thead class="thead-light ">
+                    <table class="table text-center table-flush table-hover">
+                        <thead class="thead-light">
                             <tr>
                                 <td>Fecha</td>
-                                <td>Pago</td>
+                                <td>Medio de pago</td>
                                 <td>Estado</td>
+                                <td>Valor</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,12 +232,12 @@
                                 <td>${{ number_format($order['grand_total'], 0) }}</td>
                             </tr>
                             @if($order['total_paid'] != $order['grand_total'])
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total Pagado</td>
-                                    <td>${{ number_format($order['total_paid'], 0) }}</td>
-                                </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Total Pagado</td>
+                                <td>${{ number_format($order['total_paid'], 0) }}</td>
+                            </tr>
                             @endif
                         </tbody>
                     </table>
@@ -177,54 +252,54 @@
         </div>
     </div>
     @if($order)
-        @if($order->grand_total != $order->total_paid)
-        <p class="alert alert-danger">
-            Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
-            Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $order->grand_total }}</strong> <br>
-            Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $order->total_paid }}</strong>
-        </p>
-        @endif
-        <div class="card">
-            @if(!$items->isEmpty())
-            <div class="card-body">
-                <div class="card">
-                    <div class="w-100 p-3">
-                        <h4> <i class="fa fa-gift"></i> Items</h4>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-center table-flush table-hover">
-                            <thead class="thead-light">
-                                <th>SKU</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                            </thead>
-                            <tbody>
-                                @foreach($items as $item)
-                                <tr>
-                                    <td>{{ $item->sku }}</td>
-                                    <td>{{ $item->name }} </td>
-                                    <td>
-                                        @php($pattr =
-                                        \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($item->product_attribute_id))
-                                        @if(!is_null($pattr))<br>
-                                        @foreach($pattr->attributesValues as $it)
-                                        <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
-                                        @endforeach
-                                        @endif
-                                    </td>
-                                    <td>{{ $item->pivot->quantity }}</td>
-                                    <td>{{ $item->price }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+    @if($order->grand_total != $order->total_paid)
+    <p class="alert alert-danger">
+        Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
+        Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $order->grand_total }}</strong> <br>
+        Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $order->total_paid }}</strong>
+    </p>
+    @endif
+    <div class="card">
+        @if(!$items->isEmpty())
+        <div class="card-body">
+            <div class="card">
+                <div class="w-100 p-3">
+                    <h4> <i class="fa fa-gift"></i> Items</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-center table-flush table-hover">
+                        <thead class="thead-light">
+                            <th>SKU</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </thead>
+                        <tbody>
+                            @foreach($items as $item)
+                            <tr>
+                                <td>{{ $item->sku }}</td>
+                                <td>{{ $item->name }} </td>
+                                <td>
+                                    @php($pattr =
+                                    \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($item->product_attribute_id))
+                                    @if(!is_null($pattr))<br>
+                                    @foreach($pattr->attributesValues as $it)
+                                    <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
+                                    @endforeach
+                                    @endif
+                                </td>
+                                <td>{{ $item->pivot->quantity }}</td>
+                                <td>{{ $item->price }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endif
-                {{-- <div class="card-body">
+        </div>
+        @endif
+        {{-- <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -240,50 +315,50 @@
                                         <tbody>
                                             <tr>
                                                 <td>{{ $order->courier->name }}</td>
-                <td>{{ $order->courier->description }}</td>
-                </tr>
-                </tbody>
-                </table>
-            </div>
-            </div>
-            </div>
+        <td>{{ $order->courier->description }}</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
 
-            </div>
-            </div> --}}
-        </div>
-        <div class="card">
-            @if(!$order->orderPayments->isEmpty())
-            <div class="card-body">
-                <div class="card">
-                    <div class="w-100 p-3">
-                        <h4> <i class="fa fa-gift"></i> Método de Pago</h4>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-center table-flush table-hover">
-                            <thead class="thead-light">
-                                <th>Método de Pago</th>
-                                <th>Descripción</th>
-                                <th>Id de la transacción</th>
-                                <th>Estado</th>
-                                <th>Fecha</th>
-                            </thead>
-                            <tbody>
-                                @foreach($order->orderPayments as $payment)
-                                <tr>
-                                    <td>{{ $payment->method }}</td>
-                                    <td>{{ $payment->description }} </td>
-                                    <td>{{ $payment->transaction_id }}</td>
-                                    <td>{{ $payment->state }}</td>
-                                    <td>{{ $payment->created_at }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+    </div>
+    </div> --}}
+    </div>
+    <div class="card">
+        @if(!$order->orderPayments->isEmpty())
+        <div class="card-body">
+            <div class="card">
+                <div class="w-100 p-3">
+                    <h4> <i class="fa fa-gift"></i> Método de Pago</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-center table-flush table-hover">
+                        <thead class="thead-light">
+                            <th>Método de Pago</th>
+                            <th>Descripción</th>
+                            <th>Id de la transacción</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </thead>
+                        <tbody>
+                            @foreach($order->orderPayments as $payment)
+                            <tr>
+                                <td>{{ $payment->method }}</td>
+                                <td>{{ $payment->description }} </td>
+                                <td>{{ $payment->transaction_id }}</td>
+                                <td>{{ $payment->state }}</td>
+                                <td>{{ $payment->created_at }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endif
         </div>
+        @endif
+    </div>
     @endif
 </section>
 @endsection

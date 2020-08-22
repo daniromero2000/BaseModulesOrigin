@@ -30,7 +30,11 @@ interface CategoryRepositoryInterface
 
     public function findProducts(): Collection;
 
-    public function findProductsFilter($select);
+    public function findProductsSkip($totalviews): Collection;
+
+    public function countProducts();
+
+    public function findProductsFilter($select, $totalviews);
 
     public function syncProducts(array $params);
 

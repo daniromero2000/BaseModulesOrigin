@@ -4,14 +4,14 @@
         <div class="col-12">
             <div class="form-group">
                 <label class="text-sm " for="">Número de tarjeta</label>
-                <input type="text" required name="CREDIT_CARD_NUMBER" class="form-control" id="creditcard"
-                    aria-describedby="textHelp">
+                <input type="text" required name="CREDIT_CARD_NUMBER" class="form-control"
+                    placeholder="XXXX XXXX XXXX XXXX" id="creditcard" aria-describedby="textHelp">
             </div>
             <div class="row mb-3 justify-content-center">
                 @foreach ($creditCards as $item)
                 <div class="col-3 d-flex">
                     <div class="form-check container-card">
-                        <input class="" required type="radio" name="PAYMENT_METHOD" id="creditCards{{$item->id}}"
+                        <input class="" required type="radio" name="PAYMENT_METHOD" id="creditCard{{$item->icon}}"
                             value="{{$item->description}}">
                         <br>
                         <label class="form-check-label" for="creditCards{{$item->id}}">
@@ -22,7 +22,7 @@
                 @endforeach
             </div>
             <div class="form-group">
-                <select class="form-control" required name="INSTALLMENTS_NUMBER" id="exampleFormControlSelect1">
+                <select class="form-control" required name="INSTALLMENTS_NUMBER">
                     <option value="">¿En cuantas cuotas deseas pagar?
                     </option>
                     <option id="totalCart" value="1"> </option>
@@ -43,7 +43,8 @@
             </div>
             <div class="form-group">
                 <label class="text-sm " for="">Nombre y Apellido como figura en la tarjeta</label>
-                <input type="text" class="form-control" required id="" name="BUYER_NAME" aria-describedby="textHelp">
+                <input type="text" class="form-control" placeholder="Nombre y Apellido" required name="BUYER_NAME"
+                    aria-describedby="textHelp">
             </div>
             <div class="w-100">
                 <label class="text-sm " for="exampleFormControlSelect1">Fecha de
@@ -52,7 +53,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <select class="form-control" required name="day" id="exampleFormControlSelect1">
+                        <select class="form-control" required name="day">
                             <option value="">MM</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <select class="form-control" required name="age" id="exampleFormControlSelect1">
+                        <select class="form-control" required name="age">
                             <option value="">AA</option>
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
@@ -115,8 +116,8 @@
                     <div class="form-group">
                         <label class="text-sm" for="">Código de Seguridad
                             tarjeta</label>
-                        <input type="password" class="form-control" required name="CREDIT_CARD_SECURITY_CODE"
-                            aria-describedby="textHelp">
+                        <input type="password" placeholder="****" class="form-control" required
+                            name="CREDIT_CARD_SECURITY_CODE" aria-describedby="textHelp">
                     </div>
                 </div>
             </div>

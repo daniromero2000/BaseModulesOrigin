@@ -1,4 +1,4 @@
-@extends('customers::admin.customers.indexCustomers')
+@extends('customers::Admin.customers.app')
 @section('stylesCustomer')
 @endsection
 @section('contentCustomer')

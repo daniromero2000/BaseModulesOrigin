@@ -35,41 +35,46 @@ class CreditCardPaymentsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->input());
-        $paymentDataRequest = $request->input();
-        $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
-        $checkout           = $this->checkoutInterface->getLastCheckout();
-        $courier            = $this->courierInterface->getCourier();
-        $checkoutRepo       = new CheckoutRepository($checkout);
+        if (!empty($this->cartRepo->getCartItems()->toArray())) {
 
-        $order = $checkoutRepo->buildPayUCheckoutItems([
-            'reference'       => Uuid::uuid4()->toString(),
-            'courier_id'      => $courier->id, // @deprecated
-            'customer_id'     => $request->user()->id,
-            'address_id'      => $request->input('billingAddress'),
-            'order_status_id' => 1,
-            'payment'         => strtolower(config('payu.name') . '-' . $paymentDataRequest['PAYMENT_METHOD']),
-            'discounts'       => 0,
-            'sub_total'       => $this->cartRepo->getSubTotal(),
-            'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
-            'total_shipping'  => $courier->cost,
-            'total_paid'      => $this->cartRepo->getTotal(2, $courier->cost),
-            'tax'             => $this->cartRepo->getTax()
-        ]);
+            $paymentDataRequest = $request->input();
+            $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
+            $checkout           = $this->checkoutInterface->getLastCheckout();
+            $courier            = $this->courierInterface->getCourier();
+            $checkoutRepo       = new CheckoutRepository($checkout);
 
-        $payuClient = new PayuClient(config('payu'));
-        $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
+            $order = $checkoutRepo->buildPayUCheckoutItems([
+                'reference'       => Uuid::uuid4()->toString(),
+                'courier_id'      => $courier->id, // @deprecated
+                'customer_id'     => $request->user()->id,
+                'address_id'      => $request->input('billingAddress'),
+                'order_status_id' => 1,
+                'payment'         => strtolower(config('payu.name') . '-' . $paymentDataRequest['PAYMENT_METHOD']),
+                'discounts'       => 0,
+                'sub_total'       => $this->cartRepo->getSubTotal(),
+                'grand_total'     => $this->cartRepo->getTotal(2, $courier->cost),
+                'total_shipping'  => $courier->cost,
+                'total_paid'      => $this->cartRepo->getTotal(2, $courier->cost),
+                'tax'             => $this->cartRepo->getTax()
+            ]);
 
-        if ($order->orderPayments[0]->state == 'APPROVED') {
-            return redirect()->route('thankupage_payu', [
-                'order'          => $order,
-                'total'          => $order->grand_total,
-                'transaction_id' => $order->orderPayments[0]->transaction_id
-            ])->with('message', 'Orden Exitosa!');
-        } else {
-            return redirect()->route('checkout.index')
-                ->with('error', 'Proceso Rechazado!' . ' ' . $order->orderPayments[0]->description);
+            $payuClient = new PayuClient(config('payu'));
+            $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
+
+            if ($order->orderPayments[0]->state == 'APPROVED') {
+                return redirect()->route('thankupage_payu', [
+                    'order'          => $order,
+                    'total'          => $order->grand_total,
+                    'transaction_id' => $order->orderPayments[0]->transaction_id,
+                    'customer' => $request->user()->name
+                ])->with('message', 'Orden Exitosa!');
+            } else {
+                return redirect()->route('checkout.index')
+                    ->with('error', 'Proceso Rechazado!' . ' ' . $order->orderPayments[0]->description);
+            }
         }
+
+        return redirect()->back();
     }
 
     public function pay(PayuClientInterface $payuClient, $order, $paymentDataRequest, $checkout)

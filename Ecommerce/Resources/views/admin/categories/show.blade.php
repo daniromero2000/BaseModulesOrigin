@@ -1,4 +1,7 @@
 @extends('generals::layouts.admin.app')
+@section('styles')
+<script src="{{ asset('js/ecommerce.js') }}" defer></script>
+@endsection
 @section('header')
 <div class="header pb-2">
     <div class="container-fluid">

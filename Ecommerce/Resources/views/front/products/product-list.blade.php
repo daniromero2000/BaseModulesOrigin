@@ -26,7 +26,7 @@
                     </div>
                     <div class="w-100 pt-2 px-2 text-center">
                         <div class="w-100">
-                            <span class="title-products"> {{$product->name}} </span>
+                            <h3 class="title-products"> {{$product->name}} </h3>
                         </div>
                         @if ($product->sale_price > 0)
                         <p class="price-old">
@@ -40,7 +40,7 @@
                             </small><br>
                         </p>
                         @else
-                        <p class="price-new">
+                        <p class="price-new mt-3">
                             <small> <b>
                                     ${{ number_format($product->price, 0) }}
                                 </b></small>
