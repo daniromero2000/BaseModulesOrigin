@@ -57,6 +57,19 @@ Take advantage of two of the hottest frameworks used in this project -- Laravel 
 
 composer create-project --prefer-dist laravel/laravel [project name]
 
+##### a. Create a new laravel Project
+
+Edit composer.json adding the following pakages:
+* **kalnoy/nestedset**: composer require kalnoy/nestedset (https://packagist.org/packages/kalnoy/nestedset).
+* **laravel/helpers**: composer require laravel/helpers (https://laravel.com/docs/7.x/helpers).
+* **nwidart/laravel-modules**: composer require nwidart/laravel-modules (https://nwidart.com/laravel-modules/v6/introduction).
+* **santigarcor/laratrust**: composer require santigarcor/laratrust THEN php artisan vendor:publish --tag="laratrust" (https://laratrust.santigarcor.me/).
+* **barryvdh/laravel-debugbar**: composer require barryvdh/laravel-debugbar --dev (https://github.com/barryvdh/laravel-debugbar).
+* **laravel/ui**: composer require laravel/ui (https://laravel.com/docs/7.x/authentication).
+* **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
+
+
+
 ##### a. Download zip from the link below:
 
 [Download the latest release](https://github.com/bagisto/bagisto/releases/latest)
