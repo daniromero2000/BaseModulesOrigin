@@ -2,240 +2,89 @@
 
 namespace Modules\Companies\Http\Controllers\Admin\Companies;
 
-use Illuminate\Http\Request;
+use Modules\Companies\Entities\Companies\Repositories\CompanyRepository;
+use Modules\Companies\Entities\Companies\Repositories\Interfaces\CompanyRepositoryInterface;
+use Modules\Companies\Entities\Companies\Requests\CreateCompanyRequest;
+use Modules\Companies\Entities\Companies\Requests\UpdateCompanyRequest;
+use Modules\Generals\Entities\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
-use Modules\Companies\Entities\Companies\Repositories\Interfaces\CompanyRepositoryInterface;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
     private $toolsInterface;
     private $companyInterface;
+    private $countryInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
-        CompanyRepositoryInterface $companyRepositoryInterface
+        CompanyRepositoryInterface $companyRepositoryInterface,
+        CountryRepositoryInterface $countryRepositoryInterface
     ) {
         $this->toolsInterface = $toolRepositoryInterface;
-        $this->middleware(['permission:customers, guard:employee']);
         $this->companyInterface = $companyRepositoryInterface;
+        $this->countryInterface = $countryRepositoryInterface;
     }
 
     public function index(Request $request)
     {
-        //return view('companies::Admin.companies.index');
-        $list = $this->companyInterface->listCompanies();
-        //dd($list);
-
-        return view('companies::admin.companies.list', [
-            'companies' => $list,
-            //'optionsRoutes' => 'admin.'.(request()->segment(2)),
-            //'skip' => $skip,
-            'headers' => ['Nombre', 'Ciudad', 'Identificación', 'Tipo', 'Estado', 'Opciones'],
-            /*'roles'              => $this->roleInterface->getAllRoleNames(),
-            'all_departments'    => $this->departmentInterface->getAllDepartmentNames()*/
-        ]);
-    }
-
-    /*public function create()
-    {
-        return view('customers::admin.customers.create', [
-            'genres' => $this->genreInterface->getAllGenresNames(),
-            'customer_channels' => $this->customerChannelInterface->getAllCustomerChannelNames(),
-            'scholarities' => $this->scholarityInterface->getAllScholaritiesNames(),
-            'civil_statuses' => $this->civilStatusInterface->getAllCivilStatusesNames(),
-            'cities' => $this->cityInterface->listCities(),
-        ]);
-    }
-
-    public function store(CreateCustomerRequest $request)
-    {
-        $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
-
-        $data = array(
-            'customer_id' => $customer->id,
-            'status' => 'Creado',
-            'employee_id' => auth()->guard('employee')->user()->id,
-        );
-
-        $this->customerStatusesLogInterface->createCustomerStatusesLog($data);
-
-        $request->session()->flash('message', config('messaging.create'));
-
-        return redirect()->route('admin.customers.show', $customer->id);
-    }
-
-    public function show(int $id)
-    {
-        return view('customers::admin.customers.show', [
-            'customer' => $this->customerInterface->findCustomerById($id),
-        ]);
-    }
-
-    public function edit($id)
-    {
-        $customer = $this->customerInterface->findCustomerById($id);
-
-        return view('customers::admin.customers.edit', [
-            'customer' => $customer,
-            'customer_channels' => $this->customerChannelInterface->getAllCustomerChannelNames(),
-            'statuses' => $this->customerStatusInterface->listCustomerStatuses(),
-            'scholarities' => $this->scholarityInterface->getAllScholaritiesNames(),
-            'cities' => $this->cityInterface->listCities(),
-            'currentStatus' => $customer->customerStatus->id,
-            'lead' => $customer->customerChannel->id,
-            'customer_scholarity' => $customer->scholarity->id,
-            'customer_city' => $customer->city->id,
-        ]);
-    }
-
-    public function update(UpdateCustomerRequest $request, $id)
-    {
-        $customer = $this->customerInterface->findCustomerById($id);
-        $update = new CustomerRepository($customer);
-        $data = $request->except('customer_channel', 'customer_status', '_method', '_token', 'password');
-        if ($request->has('password')) {
-            $data['password'] = bcrypt($request->input('password'));
-        }
-
-        unset($customer->age);
-        $update->updateCustomer($data);
-
-        $customer = $this->customerInterface->findCustomerById($id);
-
-        $customerStatusLog = array(
-            'customer_id' => $customer->id,
-            'status' => $customer->customerStatus->status,
-            'employee_id' => auth()->guard('employee')->user()->id,
-        );
-
-        $customerStatusLogs = $this->customerStatusesLogInterface->createCustomerStatusesLog($customerStatusLog);
-
-        return response()->json([$update, $customerStatusLogs], 201);
-    }
-
-    public function destroy($id)
-    {
-        $customerRepo = new CustomerRepository($this->customerInterface->findCustomerById($id));
-        $customerRepo->deleteCustomer();
-
-        return redirect()->route('admin.customers.index')
-            ->with('message', 'Eliminado Satisfactoriamente');
-    }
-
-    public function getCustomer(int $id)
-    {
-        $customer = $this->customerInterface->findCustomerById($id);
-
-        return [
-            'customer' => $customer,
-            'currentStatus' => $customer->customerStatus,
-        ];
-    }
-
-    public function list(Request $request)
-    {
         if (request()->has('q')) {
-            $list = $this->customerInterface->searchCustomer(request()->input('q'));
+            $list = $this->companyInterface->searchCompany(request()->input('q'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif (request()->has('t')) {
-            $list = $this->customerInterface->searchTrashedCustomer(request()->input('t'));
+            $list = $this->companyInterface->searchTrashedCompany(request()->input('t'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } else {
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
-            $list = $this->customerInterface->listCustomers($skip * 30);
+            $list = $this->companyInterface->listCompanies($skip * 30);
         }
 
-        return [
-            'customers' => $list,
-            'headers' => ['Nombre', 'Apellido', 'Fecha Ingreso', 'Lead', 'Estado', 'Opciones'],
+        return view('companies::admin.companies.list', [
+            'companies' => $list,
+            'skip' => $skip,
+            'countries' => $this->countryInterface->listCountries(),
             'optionsRoutes' => 'admin.'.(request()->segment(2)),
-        ];
+            'headers' => ['ID', 'Nombre', 'Identificación', 'Logo', 'Estado', 'Opciones'],
+        ]);
     }
 
-    public function getlistEconomicActivity(Request $request)
+    public function create()
     {
-        return [
-            'professions_lists' => $this->professionsListInterface->getAllProfessionsNames(),
-            'economic_activity_types' => $this->economicActivityInterface->getAllEconomicActivityTypesNames(),
-        ];
+        return view('companies::admin.companies.create', [
+            'countries' => $this->countryInterface->listCountries(),
+        ]);
     }
 
-    public function getListCities(Request $request)
+    public function store(CreateCompanyRequest $request)
     {
-        return [
-            'cities' => $this->cityInterface->listCities(),
-        ];
+        $this->companyInterface->createCompany($request->except('_token', '_method'));
+
+        return redirect()->route('admin.companies.index')
+            ->with('message', 'Compañia Creada Exitosamente!');
     }
 
-    public function getRelationships(Request $request)
+    public function edit(int $id)
     {
-        return [
-            'relationships' => $this->relationshipInterface->getAllRelationshipsNames(),
-        ];
+        return redirect()->route('admin.companies.index');
     }
 
-    public function getCivilStatuses(Request $request)
+    public function update(UpdateCompanyRequest $request, $id)
     {
-        return [
-            'civil_statuses' => $this->civilStatusInterface->getAllCivilStatusesNames(),
-        ];
+        $update = new CompanyRepository($this->companyInterface->findCompanyById($id));
+        $update->updateCompany($request->except('_token', '_method'));
+        $request->session()->flash('message', 'Actualizacion Exitosa');
+
+        return redirect()->route('admin.companies.index');
     }
 
-    public function getGenres(Request $request)
+    public function destroy(int $id)
     {
-        return [
-            'genres' => $this->genreInterface->getAllGenresNames(),
-        ];
-    }
+        $company = new CompanyRepository($this->companyInterface->findCompanyById($id));
+        $company->deleteCompany();
 
-    public function getScholarities(Request $request)
-    {
-        return [
-            'scholarities' => $this->scholarityInterface->getAllScholaritiesNames(),
-        ];
-    }
+        request()->session()->flash('message', 'Eliminado Satisfactoriamente');
 
-    public function getProfessions(Request $request)
-    {
-        return [
-            'professions' => $this->professionsListInterface->getAllProfessionsNames(),
-        ];
+        return redirect()->route('admin.companies.index');
     }
-
-    public function getVehicles(Request $request)
-    {
-        return [
-            'vehicle_types' => $this->vehicleTypeInterface->getAllVehicleTypesNames(),
-            'vehicle_brands' => $this->vehicleBrandInterface->getAllVehicleBrandsNames(),
-        ];
-    }
-
-    public function getIdentityTypes(Request $request)
-    {
-        return [
-            'identity_types' => $this->identityTypeInterface->getAllIdentityTypesNames(),
-        ];
-    }
-
-    public function getHousings(Request $request)
-    {
-        return [
-            'housings' => $this->housingInterface->getAllHousingsNames(),
-        ];
-    }
-
-    public function getStratums(Request $request)
-    {
-        return [
-            'stratums' => $this->stratumInterface->getAllStratumsNames(),
-        ];
-    }
-
-    public function getEps(Request $request)
-    {
-        return [
-            'epss' => $this->epsInterface->getAllEpsNames(),
-        ];
-    }*/
 }

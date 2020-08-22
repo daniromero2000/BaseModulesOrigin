@@ -4,17 +4,22 @@ namespace Modules\Companies\Entities\Companies;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
+use Modules\Generals\Entities\Countries\Country;
 
 class Company extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SearchableTrait;
     protected $table = 'companies';
 
     protected $fillable = [
         'name',
-        'city_id',
         'identification',
         'company_type',
+        'description',
+        'country_id',
+        'logo',
+        'base_currency_id',
     ];
 
     protected $hidden = [
@@ -36,4 +41,25 @@ class Company extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $searchable = [
+        'columns' => [
+            'companies.name' => 10,
+            'countries.name' => 10,
+        ],
+        'joins' => [
+            'countries' => ['countries.id', 'companies.country_id'],
+        ],
+    ];
+
+    public function searchCompany($term)
+    {
+        return self::search($term);
+    }
+
+    public function countries()
+    {
+        return $this->belongsTo(Country::class)
+            ->select(['id', 'name', 'is_active']);
+    }
 }

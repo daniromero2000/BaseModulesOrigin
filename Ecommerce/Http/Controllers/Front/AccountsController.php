@@ -12,14 +12,15 @@ use App\Http\Controllers\Controller;
 class AccountsController extends Controller
 {
     use OrderTransformable;
-    private $customerRepo, $courierRepo;
+    private $customerRepo;
+    private $courierRepo;
 
     public function __construct(
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository
     ) {
         $this->customerRepo = $customerRepository;
-        $this->courierRepo  = $courierRepository;
+        $this->courierRepo = $courierRepository;
     }
 
     public function index()
@@ -35,9 +36,9 @@ class AccountsController extends Controller
         $orders->load('products');
 
         return view('ecommerce::front.accounts', [
-            'customer'  => $customer,
-            'orders'    => $orders,
-            'addresses' => $customerRepo->findAddresses()
+            'customer' => $customer,
+            'orders' => $orders,
+            'addresses' => $customerRepo->findAddresses(),
         ]);
     }
 }

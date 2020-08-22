@@ -24,14 +24,17 @@
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Compañias</h3>
+            @include('generals::layouts.search', ['route' => route('admin.companies.index')])
         </div>
         @php
         @endphp
         @include('generals::layouts.admin.tables.tables', [$headers, 'datas' => $companies ])
         <div class="card-footer py-2">
+            @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>
     </div>
     @else
+    @include('generals::layouts.admin.pagination.pagination_null', [$skip])
     @endif
 </section>
 @endsection
