@@ -84,6 +84,16 @@ Edit composer.json adding the following pakages:
 1. Run composer dump-autoload for data recongnition.
 2. Run php artisan module:list for modules recognition. at this point every module is disabled.
 
+##### e. setting up Generals module:
+
+1. Run php artisan module:enable Generals.
+2. Run php artisan vendor:publish and publish the module content.
+
+##### f. setting up Companies module:
+
+1. Run php artisan module:enable Companies.
+2. Run php artisan vendor:publish and publish the module content.
+
 ##### a. Download zip from the link below:
 
 [Download the latest release](https://github.com/bagisto/bagisto/releases/latest)
