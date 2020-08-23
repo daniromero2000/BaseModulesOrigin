@@ -34,8 +34,10 @@ class PayuClientServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigs();
+        //Laravel 6
         $this->app->singleton(PayuClientInterface::class, $this->getCreatePayuClientClosure());
 
+        //Laravel 7
         // $this->app->singleton(PayuClientInterface::class, function () {
         //     $settings = $this->getSettings();
         //     return new PayuClient($settings);
