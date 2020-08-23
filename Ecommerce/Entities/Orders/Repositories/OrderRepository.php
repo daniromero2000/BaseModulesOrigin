@@ -9,7 +9,7 @@ use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
 use Modules\Ecommerce\Events\OrderCreateEvent;
 use Modules\Ecommerce\Mail\sendEmailNotificationToAdminMailable;
-use Modules\Ecommerce\Mail\SendOrderToCustomerMailable;
+use Modules\Ecommerce\Mail\sendOrderToCustomerMailable;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderInvalidArgumentException;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderNotFoundException;
 use Modules\Ecommerce\Entities\Addresses\Address;
