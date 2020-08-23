@@ -8,7 +8,7 @@ use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
 use Modules\Ecommerce\Events\OrderCreateEvent;
-use Modules\Ecommerce\Mail\SendEmailNotificationToAdminMailable;
+use Modules\Ecommerce\Mail\sendEmailNotificationToAdminMailable;
 use Modules\Ecommerce\Mail\SendOrderToCustomerMailable;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderInvalidArgumentException;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderNotFoundException;
