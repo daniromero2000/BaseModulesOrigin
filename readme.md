@@ -93,6 +93,18 @@ Edit composer.json adding the following pakages:
 
 1. Run php artisan module:enable Companies.
 2. Run php artisan vendor:publish and publish the module content.
+3. In the config folder is a new file called companies... copy the content of this file into the laratrust file and into the specific places.
+
+##### g. setting up Companies module:
+
+1. Run php artisan module:enable Customers.
+2. Run php artisan vendor:publish and publish the module content.
+
+##### h. setting up Ecommerce module:
+
+1. Run php artisan module:enable Ecommerce.
+2. Run php artisan vendor:publish and publish the module content.
+
 
 ##### a. Download zip from the link below:
 
