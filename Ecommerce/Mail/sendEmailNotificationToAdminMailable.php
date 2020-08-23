@@ -28,15 +28,16 @@ class sendEmailNotificationToAdminMailable extends Mailable
     public function build()
     {
         $data = [
-            'order' => $this->order,
+            'order'    => $this->order,
             'products' => $this->order->products,
             'customer' => $this->order->customer,
-            'courier' => $this->order->courier,
-            'address' => $this->order->address,
-            'status' => $this->order->orderStatus,
-            'payment' => $this->order->paymentMethod
+            'courier'  => $this->order->courier,
+            'address'  => $this->order->address,
+            'status'   => $this->order->orderStatus,
+            'payment'  => $this->order->paymentMethod
         ];
 
-        return $this->view('ecommerce::emails.admin.OrderNotificationEmail', $data);
+        return $this->subject('Orden de Compra FVN')
+            ->view('ecommerce::emails.admin.OrderNotificationEmail', $data);
     }
 }

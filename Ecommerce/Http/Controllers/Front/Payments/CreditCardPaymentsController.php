@@ -17,6 +17,7 @@ use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositor
 use Modules\Ecommerce\Events\OrderCreateEvent;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
+
 class CreditCardPaymentsController extends Controller
 {
     private $cartRepo, $checkoutInterface, $toolInterface;
@@ -62,6 +63,7 @@ class CreditCardPaymentsController extends Controller
             $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
 
             if ($order->orderPayments[0]->state == 'APPROVED') {
+                event(new OrderCreateEvent($order));
                 return redirect()->route('thankupage_payu', [
                     'order'          => $order,
                     'total'          => $order->grand_total,
@@ -143,7 +145,6 @@ class CreditCardPaymentsController extends Controller
             if ($response->code == 'SUCCESS') {
                 if ($response->transactionResponse->state == 'APPROVED') {
                     $orderRepo->buildOrderDetails(Cart::content());
-                    event(new OrderCreateEvent($order));
                     Cart::destroy();
                     $this->checkoutInterface->removeCheckout($checkout);
                 } else {

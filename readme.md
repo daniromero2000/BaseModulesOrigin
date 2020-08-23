@@ -69,7 +69,6 @@ Edit composer.json adding the following pakages:
 * **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
 
 
-
 ##### a. Download zip from the link below:
 
 [Download the latest release](https://github.com/bagisto/bagisto/releases/latest)

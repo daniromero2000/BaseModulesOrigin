@@ -41,7 +41,7 @@ class OrderRepository implements OrderRepositoryInterface
             $order = $this->model->create($params);
             $orderRepo = new OrderRepository($order);
             $orderRepo->buildOrderDetails(Cart::content());
-            event(new OrderCreateEvent($order));
+            // event(new OrderCreateEvent($order));
 
             return $order;
         } catch (QueryException $e) {

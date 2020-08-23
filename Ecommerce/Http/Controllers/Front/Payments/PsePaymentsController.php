@@ -37,7 +37,6 @@ class PsePaymentsController extends Controller
     {
 
         if (!empty($this->cartRepo->getCartItems()->toArray())) {
-
             $paymentDataRequest = $request->input();
             $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
             $checkout           = $this->checkoutInterface->getLastCheckout();
@@ -61,6 +60,7 @@ class PsePaymentsController extends Controller
 
             $payuClient = new PayuClient(config('payu'));
             $this->pay($payuClient, $order, $paymentDataRequest, $checkout);
+            event(new OrderCreateEvent($order));
 
             return redirect($request->session()->get('BANK_URL'));
         }
@@ -133,7 +133,6 @@ class PsePaymentsController extends Controller
             if ($response->code == 'SUCCESS') {
                 if ($response->transactionResponse->state == 'PENDING') {
                     $orderRepo->buildOrderDetails(Cart::content());
-                    event(new OrderCreateEvent($order));
                     Cart::destroy();
                     $this->checkoutInterface->removeCheckout($checkout);
                     return  session(['BANK_URL' => $response->transactionResponse->extraParameters->BANK_URL]);

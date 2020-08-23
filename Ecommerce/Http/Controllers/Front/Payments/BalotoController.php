@@ -9,6 +9,7 @@ use Modules\Ecommerce\Entities\Carts\Repositories\Interfaces\CartRepositoryInter
 use Modules\Ecommerce\Entities\Checkout\CheckoutRepository;
 use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Modules\Ecommerce\Entities\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use Modules\Ecommerce\Events\OrderCreateEvent;
 
 class BalotoController extends Controller
 {
@@ -48,6 +49,7 @@ class BalotoController extends Controller
 
             Cart::destroy();
             $this->checkoutInterface->removeCheckout($checkout);
+            event(new OrderCreateEvent($order));
             return redirect()->route('thankupage_baloto', [
                 'order' => $order,
                 'total' => $order->grand_total,
