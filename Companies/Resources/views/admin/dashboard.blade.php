@@ -218,7 +218,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <a href="#" class="avatar rounded-circle">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/bootstrap.jpg')}}">
+                                <img alt="Image placeholder" src="{{asset('modules/generals/argonTemplate/img/theme/bootstrap.jpg')}}">
                             </a>
                         </div>
                         <div class="col">
@@ -235,7 +235,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <a href="#" class="avatar rounded-circle">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/angular.jpg')}}">
+                                <img alt="Image placeholder" src="{{asset('modules/generals/argonTemplate/img/theme/angular.jpg')}}">
                             </a>
                         </div>
                         <div class="col">
@@ -252,7 +252,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <a href="#" class="avatar rounded-circle">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/sketch.jpg')}}">
+                                <img alt="Image placeholder" src="{{asset('modules/generals/argonTemplate/img/theme/sketch.jpg')}}">
                             </a>
                         </div>
                         <div class="col">
@@ -269,7 +269,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <a href="#" class="avatar rounded-circle">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/react.jpg')}}">
+                                <img alt="Image placeholder" src="{{asset('modules/generals/argonTemplate/img/theme/react.jpg')}}">
                             </a>
                         </div>
                         <div class="col">
@@ -286,7 +286,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <a href="#" class="avatar rounded-circle">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/vue.jpg')}}">
+                                <img alt="Image placeholder" src="{{asset('modules/generals/argonTemplate/img/theme/vue.jpg')}}">
                             </a>
                         </div>
                         <div class="col">
@@ -334,7 +334,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/bootstrap.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/bootstrap.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">Argon Design System</span>
@@ -355,22 +355,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -405,7 +405,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/angular.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/angular.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
@@ -426,22 +426,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -476,7 +476,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/sketch.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/sketch.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">Black Dashboard</span>
@@ -497,22 +497,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -547,7 +547,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/react.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/react.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">React Material Dashboard</span>
@@ -568,22 +568,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -617,7 +617,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/vue.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/vue.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
@@ -638,22 +638,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -688,7 +688,7 @@
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/bootstrap.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/bootstrap.jpg')}}">
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">Argon Design System</span>
@@ -709,22 +709,22 @@
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Ryan Tompson">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-1.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-1.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Romina Hadid">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-2.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-2.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Alexander Smith">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-3.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-3.jpg')}}">
                                         </a>
                                         <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                             data-original-title="Jessica Doe">
                                             <img alt="Image placeholder"
-                                                src="{{asset('argonTemplate/img/theme/team-4.jpg')}}">
+                                                src="{{asset('modules/generals/argonTemplate/img/theme/team-4.jpg')}}">
                                         </a>
                                     </div>
                                 </td>
@@ -783,7 +783,7 @@
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- Country flag -->
-                                <img src="{{asset('argonTemplate/img/icons/flags/US.png')}}" alt="Country flag" />
+                                <img src="{{asset('modules/generals/argonTemplate/img/icons/flags/US.png')}}" alt="Country flag" />
                             </div>
                             <div class="col">
                                 <small>Country:</small>
@@ -803,7 +803,7 @@
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- Country flag -->
-                                <img src="{{asset('argonTemplate/img/icons/flags/DE.png')}}" alt="Country flag" />
+                                <img src="{{asset('modules/generals/argonTemplate/img/icons/flags/DE.png')}}" alt="Country flag" />
                             </div>
                             <div class="col">
                                 <small>Country:</small>
@@ -823,7 +823,7 @@
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- Country flag -->
-                                <img src="{{asset('argonTemplate/img/icons/flags/GB.png')}}" alt="Country flag" />
+                                <img src="{{asset('modules/generals/argonTemplate/img/icons/flags/GB.png')}}" alt="Country flag" />
                             </div>
                             <div class="col">
                                 <small>Country:</small>

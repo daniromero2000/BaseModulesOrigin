@@ -20,12 +20,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>SmartCommerce</title>
-<link rel="icon" href="{{asset('argonTemplate/img/icons/shop.png')}}" type="image/png">
+<link rel="icon" href="{{asset('modules/generals/argonTemplate/img/icons/shop.png')}}" type="image/png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-<link rel="stylesheet" href="{{asset('argonTemplate/resources/nucleo/css/nucleo.css')}}" type="text/css">
-<link rel="stylesheet" href="{{asset('argonTemplate/resources/@fortawesome/fontawesome-free/css/all.min.css')}}"
+<link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/nucleo/css/nucleo.css')}}"
     type="text/css">
-<link rel="stylesheet" href="{{asset('argonTemplate/css/argon.css?v=1.1.0')}}" type="text/css">
+<link rel="stylesheet"
+    href="{{asset('modules/generals/argonTemplate/resources/@fortawesome/fontawesome-free/css/all.min.css')}}"
+    type="text/css">
+<link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/css/argon.css?v=1.1.0')}}" type="text/css">
 <style>
     .button-reset {
         border: 0px;

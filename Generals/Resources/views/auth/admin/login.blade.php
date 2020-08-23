@@ -15,12 +15,14 @@
     <title>{{ config('app.name') }}</title>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
         type='text/css'>
-    <link rel="icon" href="{{asset('argonTemplate/img/icons/shop.png')}}" type="image/png">
+    <link rel="icon" href="{{asset('modules/generals/argonTemplate/img/icons/shop.png')}}" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-    <link rel="stylesheet" href="{{asset('argonTemplate/resources/nucleo/css/nucleo.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{asset('argonTemplate/resources/@fortawesome/fontawesome-free/css/all.min.css')}}"
+    <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/nucleo/css/nucleo.css')}}"
         type="text/css">
-    <link rel="stylesheet" href="{{asset('argonTemplate/css/argon.css?v=1.1.0')}}" type="text/css">
+    <link rel="stylesheet"
+        href="{{asset('modules/generals/argonTemplate/resources/@fortawesome/fontawesome-free/css/all.min.css')}}"
+        type="text/css">
+    <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/css/argon.css?v=1.1.0')}}" type="text/css">
 
 </head>
 
@@ -155,6 +157,6 @@
     </div>
 
 </body>
-<script src="{{asset('argonTemplate/js/argon.js?v=1.1.0')}}"></script>
+<script src="{{asset('modules/generals/argonTemplate/js/argon.js?v=1.1.0')}}"></script>
 
 </html>

@@ -119,7 +119,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function sendEmailToCustomer()
     {
         Mail::to($this->model->customer)
-            ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
+            ->send(new SendOrderToCustomerMailable($this->model));
     }
 
     public function sendEmailNotificationToAdmin()

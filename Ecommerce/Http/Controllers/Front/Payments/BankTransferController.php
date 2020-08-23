@@ -47,11 +47,11 @@ class BankTransferController extends Controller
                 'total_paid'      => 0,
                 'tax'             => $this->cartRepo->getTax()
             ]);
+            $order->payment_method =  'Bancolombia';
 
             Cart::destroy();
             $this->checkoutInterface->removeCheckout($checkout);
             event(new OrderCreateEvent($order));
-
             return redirect()->route('thankupage_bancolombia', [
                 'order' => $order,
                 'total' => $order->grand_total,

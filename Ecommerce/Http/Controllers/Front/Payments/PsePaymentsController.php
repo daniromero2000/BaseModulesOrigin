@@ -57,6 +57,7 @@ class PsePaymentsController extends Controller
                 'total_paid'      => $this->cartRepo->getTotal(2, $courier->cost),
                 'tax'             => $this->cartRepo->getTax()
             ]);
+            $order->payment_method =  'PSE';
 
             $payuClient = new PayuClient(config('payu'));
             $this->pay($payuClient, $order, $paymentDataRequest, $checkout);

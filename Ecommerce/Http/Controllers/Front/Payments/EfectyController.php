@@ -47,6 +47,7 @@ class EfectyController extends Controller
                 'total_paid'      => 0,
                 'tax'             => $this->cartRepo->getTax()
             ]);
+            $order->payment_method =  'Efecty';
 
             Cart::destroy();
             $this->checkoutInterface->removeCheckout($checkout);

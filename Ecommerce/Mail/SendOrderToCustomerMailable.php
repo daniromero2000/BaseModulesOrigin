@@ -39,7 +39,7 @@ class SendOrderToCustomerMailable extends Mailable
             'courier'  => $this->order->courier,
             'address'  => $this->order->address,
             'status'   => $this->order->orderStatus,
-            'payment'  => $this->order->paymentMethod
+            'payment'  => $this->order->payment_method
         ];
 
         return $this->subject('Orden de Compra FVN')

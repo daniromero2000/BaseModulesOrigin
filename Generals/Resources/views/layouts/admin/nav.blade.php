@@ -129,7 +129,8 @@
                         aria-expanded="false">
                         <div class="media align-items-center">
                             <span class="avatar avatar-sm rounded-circle" style=" background-color: white; ">
-                                <img alt="Image placeholder" src="{{asset('argonTemplate/img/theme/user.png')}}">
+                                <img alt="Image placeholder"
+                                    src="{{asset('modules/generals/argonTemplate/img/theme/user.png')}}">
                             </span>
                             <div class=" media-body ml-2 d-none d-lg-block">
                                 <span

@@ -25,13 +25,14 @@
     <div class="row">
         <div class="col-md-4 order-md-last">
             <div class="card card-profile">
-                <img src="{{asset('argonTemplate/img/theme/img-1-1000x600.jpg')}}" alt="Image placeholder"
-                    class="card-img-top">
+                <img src="{{asset('modules/generals/argonTemplate/img/theme/img-1-1000x600.jpg')}}"
+                    alt="Image placeholder" class="card-img-top">
                 <div class="row justify-content-center">
                     <div class="col-lg-3 order-lg-2">
                         <div class="card-profile-image">
                             <a href="#">
-                                <img src="{{asset('argonTemplate/img/theme/user.png')}}" class="rounded-circle">
+                                <img src="{{asset('modules/generals/argonTemplate/img/theme/user.png')}}"
+                                    class="rounded-circle">
                             </a>
                         </div>
                     </div>

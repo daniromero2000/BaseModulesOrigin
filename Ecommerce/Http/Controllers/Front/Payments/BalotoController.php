@@ -46,6 +46,7 @@ class BalotoController extends Controller
                 'total_paid'      => 0,
                 'tax'             => $this->cartRepo->getTax()
             ]);
+            $order->payment_method =  'Baloto';
 
             Cart::destroy();
             $this->checkoutInterface->removeCheckout($checkout);
