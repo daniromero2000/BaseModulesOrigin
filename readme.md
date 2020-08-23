@@ -57,7 +57,7 @@ Take advantage of two of the hottest frameworks used in this project -- Laravel 
 
 composer create-project --prefer-dist laravel/laravel [project name]
 
-##### a. Create a new laravel Project
+##### b. Install required packages
 
 Edit composer.json adding the following pakages:
 * **kalnoy/nestedset**: composer require kalnoy/nestedset (https://packagist.org/packages/kalnoy/nestedset).
@@ -68,6 +68,21 @@ Edit composer.json adding the following pakages:
 * **laravel/ui**: composer require laravel/ui (https://laravel.com/docs/7.x/authentication).
 * **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
 
+##### c. clone smartCommerce Modules
+
+1. Create a folder in project root called "Modules".
+2. Clone the smartcommerce Modules into that folder.
+3. Extract the folders in "smartcommerce" and paste it into "Modules". check for hidden files and folders... those need to be moved to.
+
+##### d. setting up .env file:
+
+1. Copy the .env file content a paste it in the .env of the project.
+2. Set up all project config parameters in the .env project file (database connection)
+
+##### e. setting up modules:
+
+1. Run composer dump-autoload for data recongnition.
+2. Run php artisan module:list for modules recognition. at this point every module is disabled.
 
 ##### a. Download zip from the link below:
 
