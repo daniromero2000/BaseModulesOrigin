@@ -8,8 +8,8 @@ use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
 use Modules\Ecommerce\Events\OrderCreateEvent;
-use Modules\Ecommerce\Mail\sendEmailNotificationToAdminMailable;
-use Modules\Ecommerce\Mail\sendOrderToCustomerMailable;
+use Modules\Ecommerce\Mail\SendEmailNotificationToAdminMailable;
+use Modules\Ecommerce\Mail\SendOrderToCustomerMailable;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderInvalidArgumentException;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderNotFoundException;
 use Modules\Ecommerce\Entities\Addresses\Address;
@@ -114,7 +114,7 @@ class OrderRepository implements OrderRepositoryInterface
         $employee = $employeeRepo->findEmployeeById(1);
 
         Mail::to($employee)
-            ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+            ->send(new SendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
     }
 
     public function searchOrder(string $text): Collection

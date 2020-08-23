@@ -22,9 +22,9 @@ class OrderCreateEventListener
     {
         // send email to customer
         $orderRepo = new OrderRepository($event->order);
-        $orderRepo->sendEmailToCustomer();
+        $orderRepo->SendEmailToCustomer();
 
         $orderRepo = new OrderRepository($event->order);
-        $orderRepo->sendEmailNotificationToAdmin();
+        $orderRepo->SendEmailNotificationToAdmin();
     }
 }
