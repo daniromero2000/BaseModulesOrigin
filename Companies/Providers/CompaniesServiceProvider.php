@@ -41,11 +41,11 @@ class CompaniesServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/laratrust.php' => config_path('laratrust.php'),
+            __DIR__ . '/../Config/laratrust.php' => config_path('companies.php'),
         ], 'laratrust');
         $this->mergeConfigFrom(
             __DIR__ . '/../Config/laratrust.php',
-            'companies'
+            'laratrus'
         );
     }
 
