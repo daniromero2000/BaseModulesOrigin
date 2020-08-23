@@ -28,7 +28,22 @@ class OrderRepository implements OrderRepositoryInterface
 {
     use OrderTransformable;
     protected $model;
-    private $columns = ['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'total_shipping', 'sub_total', 'tax_amount', 'grand_total', 'created_at', 'total_paid'];
+    private $columns = [
+        'id',
+        'reference',
+        'courier_id',
+        'customer_id',
+        'address_id',
+        'order_status_id',
+        'payment',
+        'discounts',
+        'total_shipping',
+        'sub_total',
+        'tax_amount',
+        'grand_total',
+        'created_at',
+        'total_paid'
+    ];
 
     public function __construct(Order $order)
     {
@@ -41,7 +56,6 @@ class OrderRepository implements OrderRepositoryInterface
             $order = $this->model->create($params);
             $orderRepo = new OrderRepository($order);
             $orderRepo->buildOrderDetails(Cart::content());
-            // event(new OrderCreateEvent($order));
 
             return $order;
         } catch (QueryException $e) {
