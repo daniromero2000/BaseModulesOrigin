@@ -31,11 +31,11 @@ to the ever demanding online world. Your business -- whether small or huge -- ca
 **Read our documentation: [SmartCommerce Docs](https://devdocs..com/)**
 
 **For Developers**:
-Take advantage of two of the hottest frameworks used in this project -- Laravel and Vue.js -- both of which have been used in Bagisto.
+Take advantage of two of the hottest frameworks used in this project -- Laravel and Vue.js -- both of which have been used in SmartCommerce.
 
 ### Documentation
 
-#### Bagisto Documentation [https://devdocs..com](https://devdocs..com)
+#### SmartCommerce Documentation [https://devdocs..com](https://devdocs..com)
 
 ### Requirements
 
@@ -105,15 +105,27 @@ Edit composer.json adding the following pakages:
 1. Run php artisan module:enable Ecommerce.
 2. Run php artisan vendor:publish and publish the module content.
 
+##### h. setting up Pqrs module:
+
+1. Run php artisan module:enable Pqrs.
+2. Run php artisan vendor:publish and publish the module content.
+
+##### h. Migrating the Database:
+
+1. create a new database.
+2. register database config in .env file of the project
+3. Run php artisan migrate
+4. Run php artisan module:migrate --seed [module name]. Is necesary to migrate every module enabled.
+5. Module migration order: Generals, Companies, Customers, Ecommerce, Pqrs
 
 ##### a. Download zip from the link below:
 
-[Download the latest release](https://github.com/bagisto/bagisto/releases/latest)
+[Download the latest release](https://github.com/SmartCommerce/SmartCommerce/releases/latest)
 
 ##### b. Extract the contents of zip and execute the project in your browser:
 
 ~~~
-http(s)://localhost/bagisto/public
+http(s)://localhost/SmartCommerce/public
 ~~~
 
 or
@@ -122,19 +134,19 @@ or
 http(s)://example.com/public
 ~~~
 
-**2. Or you can install Bagisto from your console.**
+**2. Or you can install SmartCommerce from your console.**
 
 ##### Execute these commands below, in order
 
 ~~~
-1. composer create-project bagisto/bagisto-standard
+1. composer create-project SmartCommerce/SmartCommerce-standard
 ~~~
 
 ~~~
-2. php artisan bagisto:install
+2. php artisan SmartCommerce:install
 ~~~
 
-**To execute Bagisto**:
+**To execute SmartCommerce**:
 
 ##### On server:
 
@@ -171,8 +183,8 @@ password:admin123
 
 
 ### License
-Bagisto is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/bagisto/bagisto/blob/master/LICENSE).
+SmartCommerce is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/SmartCommerce/SmartCommerce/blob/master/LICENSE).
 
 ### Security Vulnerabilities
-Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in Bagisto then please email us: mailto:support@bagisto.com.
+Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in SmartCommerce then please email us: mailto:support@SmartCommerce.com.
 

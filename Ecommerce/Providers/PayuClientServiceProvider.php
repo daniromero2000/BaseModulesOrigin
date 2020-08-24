@@ -5,7 +5,6 @@ namespace Modules\Ecommerce\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
-use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
 
 class PayuClientServiceProvider extends ServiceProvider
 {

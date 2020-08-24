@@ -40,7 +40,7 @@ Route::namespace('Front')->group(function () {
 });
 
 Route::namespace('Front')->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    // Route::get('/', 'HomeController@index')->name('home');
     Route::namespace('Pqrs')->group(function () {
         Route::resource('pqrs', 'PqrController');
     });
