@@ -2,9 +2,6 @@
 
 namespace Modules\Ecommerce\Entities\Wishlists\Repositories;
 
-use Carbon\Carbon;
-use Modules\Ecommerce\Entities\Wishlists\Exceptions\WishlistNotFoundException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Modules\Ecommerce\Entities\Products\Exceptions\WishlistCreateErrorException;
 use Modules\Ecommerce\Entities\Wishlists\Wishlist;
@@ -13,12 +10,12 @@ class WishlistRepository implements WishlistRepositoryInterface
 {
     protected $model;
     private $columns = [
-    'product_id',
-    'customer_id',
-    'moved_to_cart',
-    'shared',
-    'time_of_moving',
-    'created_at'
+        'product_id',
+        'customer_id',
+        'moved_to_cart',
+        'shared',
+        'time_of_moving',
+        'created_at'
     ];
 
     public function __construct(
@@ -29,7 +26,10 @@ class WishlistRepository implements WishlistRepositoryInterface
 
     public function listWishList($id)
     {
-        return $this->model->where('customer_id', $id)->where('moved_to_cart', null)->orderBy('created_at', 'desc')->get($this->columns);
+        return $this->model->where('customer_id', $id)
+            ->where('moved_to_cart', null)
+            ->orderBy('created_at', 'desc')
+            ->get($this->columns);
     }
 
     public function createWishlist(array $data): Wishlist
@@ -53,8 +53,10 @@ class WishlistRepository implements WishlistRepositoryInterface
         $date = ['moved_to_cart' => date("Y-m-d")];
         return  $data->update($date);
     }
+
     public function listWishListAdmin()
     {
-        return $this->model->orderBy('created_at', 'desc')->get($this->columns);
+        return $this->model->orderBy('created_at', 'desc')
+            ->get($this->columns);
     }
 }

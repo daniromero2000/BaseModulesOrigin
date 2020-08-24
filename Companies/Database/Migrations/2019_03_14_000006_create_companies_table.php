@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateCompaniesTable extends Migration
 {
@@ -17,6 +16,8 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('identification')->unique();
+            $table->string('company_type')->default('Natural');
             $table->text('description')->nullable();
             $table->unsignedInteger('country_id')->index();
             $table->foreign('country_id')->references('id')->on('countries');

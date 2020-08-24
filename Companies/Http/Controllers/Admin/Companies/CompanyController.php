@@ -13,16 +13,14 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    private $toolsInterface;
-    private $companyInterface;
-    private $countryInterface;
+    private $toolsInterface, $companyInterface, $countryInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
         CompanyRepositoryInterface $companyRepositoryInterface,
         CountryRepositoryInterface $countryRepositoryInterface
     ) {
-        $this->toolsInterface = $toolRepositoryInterface;
+        $this->toolsInterface   = $toolRepositoryInterface;
         $this->companyInterface = $companyRepositoryInterface;
         $this->countryInterface = $countryRepositoryInterface;
     }
@@ -41,11 +39,11 @@ class CompanyController extends Controller
         }
 
         return view('companies::admin.companies.list', [
-            'companies' => $list,
-            'skip' => $skip,
-            'countries' => $this->countryInterface->listCountries(),
-            'optionsRoutes' => 'admin.'.(request()->segment(2)),
-            'headers' => ['ID', 'Nombre', 'Identificación', 'Logo', 'Estado', 'Opciones'],
+            'companies'     => $list,
+            'skip'          => $skip,
+            'countries'     => $this->countryInterface->listCountries(),
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
+            'headers'       => ['ID', 'Nombre', 'Identificación', 'Logo', 'Estado', 'Opciones'],
         ]);
     }
 
