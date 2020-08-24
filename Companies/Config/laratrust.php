@@ -1,12 +1,6 @@
 <?php
 
-/**
-                         * This file is part of Laratrust,
-         * a role & permission management solution for Laravel.
- *
- * @license MIT
- * @package Laratrust
- */
+//config for Laratrust
 
 use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Permissions\Permission;
@@ -36,6 +30,70 @@ return [
          */
         'team' => Team::class,
 
+    ],
+
+
+];
+
+
+//config for Auth
+
+return [
+
+    'guards' => [
+        'web' => [
+            'driver'   => 'session',
+            'provider' => 'users',
+        ],
+
+        'checkout' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver'   => 'token',
+            'provider' => 'users',
+            'hash'     => false,
+        ],
+
+        'employee' => [
+            'driver'   => 'session',
+            'provider' => 'employee',
+        ],
+    ],
+
+
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model'  => Modules\Customers\Entities\Customers\Customer::class,
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
+
+        'employee' => [
+            'driver' => 'eloquent',
+            'model'  => Modules\Companies\Entities\Employees\Employee::class,
+        ],
+    ],
+
+
+    'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+        ],
+
+        'employee' => [
+            'provider' => 'employee',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+        ],
     ],
 
 
