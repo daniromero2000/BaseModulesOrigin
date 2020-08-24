@@ -35,13 +35,18 @@ use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderS
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\OrderShippingItemRepository;
 use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
+use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
+        $this->app->bind(
+            PayuClient::class,
+            PayuClientInterface::class
+        );
 
         $this->app->bind(
             WishlistRepository::class,

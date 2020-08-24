@@ -34,7 +34,8 @@ class PayuClientServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigs();
-        $this->app->singleton(PayuClientInterface::class, $this->getCreatePayuClientClosure());
+        //$this->app->singleton(PayuClientInterface::class, $this->getCreatePayuClientClosure());
+        $this->getCreatePayuClientClosure();
     }
 
     /**
