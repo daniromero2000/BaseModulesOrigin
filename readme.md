@@ -88,27 +88,33 @@ Edit composer.json adding the following pakages:
 
 1. Run php artisan module:enable Generals.
 2. Run php artisan vendor:publish and publish the module content.
+3. php artisan module:publish Generals
+4. Run php artisan optimize for config recognition.
 
 ##### f. setting up Companies module:
 
 1. Run php artisan module:enable Companies.
 2. Run php artisan vendor:publish and publish the module content.
-3. In the config folder is a new file called companies... copy the content of this file into the laratrust file and into the specific places.
+3. In the config folder is a new file called companies... copy the content of this file into the laratrust and the auth file and into the specific places.
+4. Run php artisan optimize for config recognition.
 
 ##### g. setting up Companies module:
 
 1. Run php artisan module:enable Customers.
 2. Run php artisan vendor:publish and publish the module content.
+3. Run php artisan optimize for config recognition.
 
 ##### h. setting up Ecommerce module:
 
 1. Run php artisan module:enable Ecommerce.
 2. Run php artisan vendor:publish and publish the module content.
+3. Run php artisan optimize for config recognition.
 
 ##### h. setting up Pqrs module:
 
 1. Run php artisan module:enable Pqrs.
 2. Run php artisan vendor:publish and publish the module content.
+3. Run php artisan optimize for config recognition.
 
 ##### h. Migrating the Database:
 
@@ -117,6 +123,14 @@ Edit composer.json adding the following pakages:
 3. Run php artisan migrate
 4. Run php artisan module:migrate --seed [module name]. Is necesary to migrate every module enabled.
 5. Module migration order: Generals, Companies, Customers, Ecommerce, Pqrs
+
+
+##### i. Setting up VueJs:
+
+1. Run npm install --save
+2. Run npm install vuex --save
+3. run npm install vue bootstrap-vue bootstrap
+4. Run npm i -S vuedraggabl
 
 ##### a. Download zip from the link below:
 
