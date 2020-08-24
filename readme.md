@@ -130,7 +130,8 @@ Edit composer.json adding the following pakages:
 1. Run npm install --save
 2. Run npm install vuex --save
 3. run npm install vue bootstrap-vue bootstrap
-4. Run npm i -S vuedraggabl
+4. Run npm install --save vuedraggable
+5. Run npm run dev
 
 ##### a. Download zip from the link below:
 
