@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="col-xl-12">
-                                <button type="button" onclick="addCart({{$product->id}},'2')"
+                                <button type="button" onclick="addCartWishlist({{$product->id}},{{  $data->id }},'2')"
                                     class="btn button-reset btn-block mx-auto mt-2">
                                     <i class="fas fa-cart-plus"></i> Agregar a carrito
                                 </button>

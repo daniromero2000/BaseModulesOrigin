@@ -2,51 +2,59 @@
 
 namespace Modules\Ecommerce\Entities\Wishlists\Repositories;
 
-use Modules\Ecommerce\Entities\Wishlists\Wishlist;
+use Carbon\Carbon;
+use Modules\Ecommerce\Entities\Wishlists\Exceptions\WishlistNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Collection;
-use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Exceptions\WishlistCreateErrorException;
+use Modules\Ecommerce\Entities\Wishlists\Wishlist;
 
 class WishlistRepository implements WishlistRepositoryInterface
 {
     protected $model;
     private $columns = [
-        'id',
-        'product_id',
-        'customer_id',
-        'moved_to_cart',
-        'shared',
-        'time_of_moving',
+    'product_id',
+    'customer_id',
+    'moved_to_cart',
+    'shared',
+    'time_of_moving',
+    'created_at'
     ];
 
-    public function __construct(Wishlist $wishlist)
-    {
-        $this->model = $wishlist;
+    public function __construct(
+        Wishlist $Wishlist
+    ) {
+        $this->model = $Wishlist;
     }
 
-    public function createWishlist(array $params): Wishlist
+    public function listWishList($id)
     {
-
+        return $this->model->where('customer_id', $id)->where('moved_to_cart', null)->orderBy('created_at', 'desc')->get($this->columns);
     }
 
-    public function updateWhishlist(array $params): bool
+    public function createWishlist(array $data): Wishlist
     {
-
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            throw new WishlistCreateErrorException($e);
+        }
     }
 
-    public function findWishlistById(int $id): Wishlist
+    public function deleteWishlist($id)
     {
-
+        $data = $this->model->findOrFail($id);
+        return  $data->delete();
     }
 
-    public function listWishlist(string $order = 'id', string $sort = 'desc'): Collection
+    public function moveToCartWishlist($id)
     {
-        return $this->model->all($this->columns, $order, $sort);
+        $data = $this->model->findOrFail($id);
+        $date = ['moved_to_cart' => date("Y-m-d")];
+        return  $data->update($date);
     }
-
-    public function deleteCourier()
+    public function listWishListAdmin()
     {
-        return $this->model->delete();
+        return $this->model->orderBy('created_at', 'desc')->get($this->columns);
     }
 }

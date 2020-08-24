@@ -87,6 +87,6 @@ class CustomerAddressController extends Controller
         $address->delete();
 
         return redirect()->route('accounts',  ['tab' => 'profile'])
-            ->with('message', 'Contacto Eliminado Satisfactoriamente');
+            ->with('message', 'Contacto eliminado satisfactoriamente');
     }
 }

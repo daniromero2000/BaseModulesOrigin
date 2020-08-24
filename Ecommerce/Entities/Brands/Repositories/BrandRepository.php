@@ -10,10 +10,15 @@ use Modules\Ecommerce\Entities\Products\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Http\UploadedFile;
+use Modules\Generals\Entities\Tools\UploadableTrait;
+
 use Modules\Ecommerce\Entities\Brands\Repositories\Interfaces\BrandRepositoryInterface;
 
 class BrandRepository implements BrandRepositoryInterface
 {
+    use UploadableTrait;
+
     protected $model;
     private $columns = [
         'id',
@@ -28,10 +33,24 @@ class BrandRepository implements BrandRepositoryInterface
         $this->model = $brand;
     }
 
-    public function createBrand(array $data): Brand
+    public function createBrand(array $params): Brand
     {
         try {
-            return $this->model->create($data);
+
+            $collection = collect($params);
+            if (isset($params['name'])) {
+                $slug = str_slug($params['name']);
+            }
+
+            if (isset($params['logo']) && ($params['logo'] instanceof UploadedFile)) {
+                    $logo = $this->uploadOne($params['logo'], 'brands');
+                }
+
+                $merge = $collection->merge(compact('slug', 'logo'));
+                $brand = new Brand($merge->all());
+                $brand->save();
+
+               return $brand;
         } catch (QueryException $e) {
             throw new CreateBrandErrorException($e);
         }
@@ -46,10 +65,22 @@ class BrandRepository implements BrandRepositoryInterface
         }
     }
 
-    public function updateBrand(array $data): bool
+    public function updateBrand(array $params): bool
     {
         try {
-            return $this->model->update($data);
+            $brand = $this->findBrandById($this->model->id);
+            $collection = collect($params)->except('_token');
+            $slug = str_slug($collection->get('name'));
+
+            if (isset($params['logo']) && ($params['logo'] instanceof UploadedFile)) {
+                $logo = $this->uploadOne($params['logo'], 'categories');
+            }
+
+            $merge = $collection->merge(compact('slug', 'logo'));
+
+            $brand->update($merge->all());
+            return 'true';
+
         } catch (QueryException $e) {
             throw new UpdateBrandErrorException($e);
         }

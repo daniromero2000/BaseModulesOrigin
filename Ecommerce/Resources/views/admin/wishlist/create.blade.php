@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Crear Marca</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Crear Wishlist</li>
                         </ol>
                     </nav>
                 </div>
@@ -20,24 +20,23 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="card">
+    <div class="box">
         <div class="card">
+            <h1>
+                Vista create wishlist
+            </h1>
             <div class="card-body">
-                <form action="{{ route('admin.brands.store') }}" method="post" class="form"
+                <form action="{{ route('admin.wishlist.store') }}" method="post" class="form"
                     enctype="multipart/form-data">
-                    <div class="card-body">
+                    <div class="box-body">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Nombre <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                                 value="{{ old('name') }}">
                         </div>
-                        <div class="form-group">
-                            <label for="logo">logo </label>
-                            <input type="file" name="logo" id="logo" class="form-control">
-                        </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="box-footer">
                         <div class="btn-group">
                             <a href="{{ route('admin.brands.index') }}" class="btn btn-default">Regresar</a>
                             <button type="submit" class="btn btn-primary">Crear</button>

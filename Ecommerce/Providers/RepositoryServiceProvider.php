@@ -31,9 +31,9 @@ use Modules\Ecommerce\Entities\OrderPayment\Repositories\OrderPaymentRepository;
 use Modules\Ecommerce\Entities\OrderCommentaries\Repositories\Interfaces\OrderCommentaryRepositoryInterface;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShippingInterface;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\OrderShippingRepository;
-use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\OrderShippingItemRepository;
-use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
@@ -49,8 +49,8 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            WishlistRepository::class,
-            WishlistRepositoryInterface::class
+            WishlistRepositoryInterface::class,
+            WishlistRepository::class
         );
 
         $this->app->bind(

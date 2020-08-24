@@ -22,7 +22,6 @@
                             <img src="{{ asset('img/blank.jpg') }}" data-src="{{ asset("storage/$product->cover") }}"
                                 class="card-products-img lazy" alt="{{ $product->slug }}">
                         </a>
-
                     </div>
                     <div class="w-100 pt-2 px-2 text-center">
                         <div class="w-100">
@@ -54,7 +53,7 @@
                                 <i class="fas fa-eye"></i>
                             </div>
                         </a>
-                        <a class="text-dark" href="">
+                        <a class="text-dark" onclick="addWishlist({{$product->id}})">
                             <div class="icons-options">
                                 <i class="fas fa-heart"></i>
                             </div>

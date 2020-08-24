@@ -38,7 +38,7 @@
 <script src="{{ asset('js/front/horizontalvertical.js') }}"></script>
 <script>
     $(document).ready(function(){
-    	$('.zoom-img').zoom(); 
-    }); 
+    	$('.zoom-img').zoom();
+    });
 </script>
 @endsection

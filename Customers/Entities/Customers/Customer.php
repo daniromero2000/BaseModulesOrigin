@@ -23,6 +23,7 @@ use Modules\Customers\Entities\CustomerVehicles\CustomerVehicle;
 use Modules\Customers\Entities\CustomerProfessions\CustomerProfession;
 use Modules\Customers\Entities\CustomerReferences\CustomerReference;
 use Modules\Ecommerce\Entities\Orders\Order;
+use Modules\Ecommerce\Entities\Wishlists\Wishlist;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Customer extends Authenticatable
@@ -220,5 +221,10 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Order::class)
             ->select(['id', 'reference', 'courier_id', 'customer_id', 'address_id', 'order_status_id', 'payment', 'discounts', 'sub_total', 'tax_amount', 'grand_total', 'created_at']);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class)->where('moved_to_cart', null);
     }
 }

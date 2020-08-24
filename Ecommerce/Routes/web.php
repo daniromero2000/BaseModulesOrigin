@@ -60,6 +60,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
         Route::resource('couriers', 'Couriers\CourierController');
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
+
+        Route::namespace('Wishlist')->group(function () {
+            Route::resource('wishlist', 'WishlistController');
+        });
     });
 });
 
@@ -100,9 +104,12 @@ Route::namespace('Front')->group(function () {
         Route::get('/api/getProvince/{id}/city', 'CheckoutController@getProvince')->name('checkout.getProvince');
     });
     Route::resource('cart', 'CartController');
-    Route::get("api/getCart/", 'CartController@getCart')->name('front.get.cart');
-    Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
+    Route::resource('wishlist', 'WishlistController');
+    Route::get('api/getCart/', 'CartController@getCart')->name('front.get.cart');
+    Route::get('category/{slug}', 'CategoryController@getCategory')->name('front.category.slug');
     Route::get('outlet', 'ProductController@outlet')->name('outlet');
+    Route::get('search', 'ProductController@search')->name('search.product');
+    Route::get('{product}', 'ProductController@show')->name('front.get.product');
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
 });

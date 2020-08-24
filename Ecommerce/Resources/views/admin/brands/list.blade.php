@@ -31,6 +31,7 @@
                             <tr>
                                 <td>Nombre</td>
                                 <td>Estado</td>
+                                <td>Logo</td>
                                 <td>Acciones</td>
                             </tr>
                         </thead>
@@ -41,6 +42,11 @@
                                     <a href="{{ route('admin.brands.show', $brand->id) }}">{{ $brand->name }}</a>
                                 </td>
                                 <td>@include('generals::layouts.status', ['status' => $brand->is_active])</td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#covermodal{{ $brand->id }}" data-original-title="Ver cover" href="">
+                                            Ver Logo
+                                        </a>
+                                    </td>
                                 <td>
                                     <form action="{{ route('admin.brands.destroy', $brand->id) }}" mehod="post"
                                         class="form-horizontal">
@@ -55,6 +61,33 @@
                                         </div>
                                     </form>
                                 </td>
+
+                                <div class="modal fade" id="covermodal{{ $brand->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="row w-100">
+                                                    <div class="col-12 text-center">
+                                                        <h2>Imagen de cover {{ $brand->id }}</h2>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row text-center">
+                                                    <div class="col-12 col-md-12 col-sm-12">
+                                                        <img class="img-fluid" src="{{ asset('storage/'.$brand->logo) }}" alt="{{$brand->name}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button aria-describedby="Visualizar cover" style="color: #fff !important; background-color: #ba3d6b !important" type="button" class="btn" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             @endforeach
                         </tbody>

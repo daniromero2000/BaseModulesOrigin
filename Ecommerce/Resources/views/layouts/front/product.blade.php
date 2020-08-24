@@ -164,6 +164,12 @@
                                     Agregar al Carrito
                                 </button>
                             </div>
+                            <div class="col-xl-12">
+                                <button type="button" onclick="addWishlist({{$product->id}},'2')"
+                                    class="btn button-reset btn-block mx-auto mt-2">
+                                    Agregar a lista de deseos
+                                </button>
+                            </div>
                         </div>
 
                     </form>

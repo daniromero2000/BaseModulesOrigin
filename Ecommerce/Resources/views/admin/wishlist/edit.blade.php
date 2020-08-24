@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Crear Marca</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Editar Marca</li>
                         </ol>
                     </nav>
                 </div>
@@ -20,27 +20,30 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="card">
+    <div class="box">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.brands.store') }}" method="post" class="form"
+                <form action="{{ route('admin.wishlist.update', $wishlist->id) }}" method="post" class="form"
                     enctype="multipart/form-data">
-                    <div class="card-body">
+                    <div class="box-body">
                         {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="put">
                         <div class="form-group">
                             <label for="name">Nombre <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
-                                value="{{ old('name') }}">
+                                value="{{ $brand->name }}">
                         </div>
-                        <div class="form-group">
-                            <label for="logo">logo </label>
-                            <input type="file" name="logo" id="logo" class="form-control">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                @include('ecommerce::admin.shared.status-select', ['status' =>
+                                $brand->is_active])
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="box-footer">
                         <div class="btn-group">
                             <a href="{{ route('admin.brands.index') }}" class="btn btn-default">Regresar</a>
-                            <button type="submit" class="btn btn-primary">Crear</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
                     </div>
                 </form>

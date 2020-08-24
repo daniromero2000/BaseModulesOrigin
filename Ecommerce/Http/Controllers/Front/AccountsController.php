@@ -36,9 +36,10 @@ class AccountsController extends Controller
         $orders->load('products');
 
         return view('ecommerce::front.accounts', [
-            'customer' => $customer,
-            'orders' => $orders,
-            'addresses' => $customerRepo->findAddresses(),
+            'customer'  => $customer,
+            'orders'    => $orders,
+            'wishlist'  => $customer->wishlist,
+            'addresses' => $customerRepo->findAddresses()
         ]);
     }
 }

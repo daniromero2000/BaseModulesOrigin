@@ -5,6 +5,7 @@ namespace Modules\Customers\Http\Controllers\Front;
 use Modules\Customers\Entities\Customers\Repositories\CustomerRepository;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
+use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\Orders\Transformers\OrderTransformable;
 
 class AccountsController extends Controller

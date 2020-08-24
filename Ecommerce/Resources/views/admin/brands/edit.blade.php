@@ -33,6 +33,10 @@
                             <input type="text" name="name" id="name" placeholder="Nombre" class="form-control"
                                 value="{{ $brand->name }}">
                         </div>
+                        <div class="form-group">
+                            <label for="logo">logo </label>
+                            <input type="file" name="logo" id="logo" class="form-control">
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @include('ecommerce::admin.shared.status-select', ['status' =>

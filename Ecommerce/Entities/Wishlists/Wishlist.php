@@ -3,6 +3,8 @@
 namespace Modules\Ecommerce\Entities\Wishlists;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Customers\Entities\Customers\Customer;
+use Modules\Ecommerce\Entities\Products\Product;
 
 class Wishlist extends Model
 {
@@ -11,7 +13,6 @@ class Wishlist extends Model
     protected $fillable = [
         'product_id',
         'customer_id',
-        'additional',
         'moved_to_cart',
         'shared',
         'time_of_moving'
@@ -35,4 +36,14 @@ class Wishlist extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
+

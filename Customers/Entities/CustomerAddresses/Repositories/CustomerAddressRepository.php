@@ -36,4 +36,18 @@ class CustomerAddressRepository implements CustomerAddressRepositoryInterface
             throw new AddressNotFoundException('Address not found.');
         }
     }
+    public function deleteCustomerAddress($id)
+    {
+        $data = $this->model->findOrFail($id);
+        $data->delete();
+        return $data->delete();
+    }
+    public function updateCustomerAddress($id)
+    {
+        try {
+            return $this->model->where('id', $this->model->id)->update($id);
+        } catch (QueryException $e) {
+            throw new ProductUpdateErrorException($e);
+        }    
+    }
 }
