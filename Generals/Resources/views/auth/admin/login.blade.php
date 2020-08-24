@@ -27,61 +27,6 @@
 </head>
 
 <body class="g-sidenav-show g-sidenav-pinned" style=" background-color: #e6e9ec !important; ">
-    {{-- <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="login-box">
-                    <div class="login-logo"> <img src="{{asset('/img/lagobo_logo.png')}}"
-    class="img-responsive center-block" alt="Lagobo" width="190" title="Lagobo"></div>
-    @include('generals::layouts.errors-and-messages')<div class="login-box-body">
-        <h1 class="login-box-msg">Inicia Sesión</h1>
-        <form action="{{ route('admin.login') }}" method="post">@csrf<div class="form-group has-feedback">
-                <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                        placeholder="{{ trans('adminlte::adminlte.email') }}" required>
-                    <span class="fa fa-user-circle form-control-feedback"></span>
-                    @if ($errors->has('email'))
-                    <span class="help-block text-warning text-sm">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input type="password" name="password" class="form-control"
-                    placeholder="{{ trans('adminlte::adminlte.password') }}" required>
-                <span class="fa fa-key form-control-feedback"></span>
-                @if ($errors->has('password'))
-                <span class="help-block text-warning text-sm">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="checkbox icheck text-center">
-                        <label>
-                            <input type="checkbox" name="remember">
-                            {{ trans('adminlte::adminlte.remember_me') }}
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="auth-links text-right">
-                        <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
-                            class="text-center">{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a>
-                    </div>
-                </div>
-                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> <button type="submit"
-                        class="btn btn-primary btn-block btn-flat">Iniciar Sesión</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div> --}}
     <div class="main-content">
         <!-- Header -->
         <div class="header bg-gradient-primary py-5">
@@ -90,6 +35,7 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                             <h1 class="text-white">Bienvenido a SmartCommerce!</h1>
+
                             <p class="text-lead text-white">inicie sesión ingresando la información requerida a
                                 continuación</p>
                         </div>
@@ -107,8 +53,13 @@
         <div class="container mt--8 pb-5">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-7">
-                    <div class="card bg-secondary border-0 mb-0">
+                    <div class="card bg-white border-0 mb-0">
                         <div class="card-body px-lg-5 py-lg-5">
+                            <div class="w-100 d-flex">
+                                <img src="{{asset('modules/generals/argonTemplate/img/brand/logo_smart.png')}}"
+                                    class="navbar-brand-img mx-auto mb-3" alt="Logo SmartCommerce"
+                                    style="max-width: 200px;">
+                            </div>
                             <div class="text-center text-muted mb-4">
                                 <h2 class="">Inicia Sesión</h2>
                             </div>
@@ -151,9 +102,11 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>
