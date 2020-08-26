@@ -100,7 +100,7 @@ Edit composer.json adding the following pakages:
 3. In the config folder is a new file called companies... copy the content of this file into the laratrust and the auth file and into the specific places.
 4. Run php artisan optimize for config recognition.
 
-##### g. setting up Companies module:
+##### g. setting up Customers module:
 
 1. Run php artisan module:enable Customers.
 2. Run php artisan vendor:publish and publish the module content.
@@ -112,13 +112,13 @@ Edit composer.json adding the following pakages:
 2. Run php artisan vendor:publish and publish the module content.
 3. Run php artisan optimize for config recognition.
 
-##### h. setting up Pqrs module:
+##### i. setting up Pqrs module:
 
 1. Run php artisan module:enable Pqrs.
 2. Run php artisan vendor:publish and publish the module content.
 3. Run php artisan optimize for config recognition.
 
-##### h. Migrating the Database:
+##### j. Migrating the Database:
 
 1. create a new database.
 2. register database config in .env file of the project
@@ -126,14 +126,24 @@ Edit composer.json adding the following pakages:
 4. Run php artisan module:migrate --seed [module name]. Is necesary to migrate every module enabled.
 5. Module migration order: Generals, Companies, Customers, Ecommerce, Pqrs
 
-
-##### i. Setting up VueJs:
+##### k. Setting up VueJs:
 
 1. Run npm install --save
-2. Run npm install vuex --save
-3. run npm install vue bootstrap-vue bootstrap
-4. Run npm install --save vuedraggable
-5. Run npm run dev
+2. Run npm install vue
+3. Run npm install vuex --save
+4. Run npm install vue bootstrap-vue bootstrap
+5. Run npm install --save vuedraggable
+6. Run npm run dev
+
+##### l. Setting up VueJs on Customers module:
+
+1. Check if the file exists in public/js customers.js, if it doesn't exist, proceed to create it.
+2. Run npm run dev
+
+##### M. Setting up VueJs on Ecommerce module:
+
+1. Check if the file exists in public/js ecommerce.js, if it doesn't exist, proceed to create it.
+2. Run npm run dev
 
 ##### a. Download zip from the link below:
 
