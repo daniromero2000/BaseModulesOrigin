@@ -19,7 +19,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Faker\Generator as Faker;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -229,7 +228,7 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->whereHas('productGroups', function (Builder $query) use ($group) {
             $query->where('name', $group);
-        })->get($this->columns);;
+        })->where('is_active', 1)->get($this->columns);;
     }
 
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool
