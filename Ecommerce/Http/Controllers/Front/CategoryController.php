@@ -40,16 +40,16 @@ class CategoryController extends Controller
             $products = $CategoryRepository->findProductsFilter($select, $skip * 30);
             $count    = $products[1];
             $products = $products[0]->where('is_active', 1);
-            $paginate = ceil($count[0]->total / 30);
+            $paginate = ceil($count->count()  / 30);
         } elseif (request()->input('skip')) {
             $count    = $CategoryRepository->countProducts();
-            $paginate = ceil($count[0]->total / 30);
+            $paginate = ceil($count->count()  / 30);
             $skip     = $this->toolsInterface->getSkip(request()->input('skip'));
             $products = $CategoryRepository->findProductsSkip($skip * 30)->where('is_active', 1)->all();
         } else {
             $skip = 0;
             $count    = $CategoryRepository->countProducts();
-            $paginate = ceil($count[0]->total / 30);
+            $paginate = ceil($count->count() / 30);
             $products = $CategoryRepository->findProductsSkip($skip * 30)->where('is_active', 1)->all();
         }
 
