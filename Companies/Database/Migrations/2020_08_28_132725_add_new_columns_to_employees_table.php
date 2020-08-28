@@ -17,10 +17,9 @@ class AddNewColumnsToEmployeesTable extends Migration
             $table->char('rh')->after('employee_position_id');
             $table->string('bank_account')->unique()->nullable()->after('rh');
             $table->string('work_schedule')->nullable()->after('bank_account');
-            $table->string('personal_email')->nullable()->unique()->after('work_schedule');
-            $table->date('admission_date')->nullable()->after('personal_email');
-            $table->tinyInteger('is_rotative')->unsigned()->default(0)->after('personal_email');
-            $table->integer('customer_id')->unsigned()->nullable()->after('admission_date');
+            $table->date('admission_date')->nullable()->after('work_schedule');
+            $table->tinyInteger('is_rotative')->unsigned()->default(0)->after('admission_date');
+            $table->integer('customer_id')->unsigned()->nullable()->after('is_rotative');
             $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
@@ -37,7 +36,6 @@ class AddNewColumnsToEmployeesTable extends Migration
                 'rh',
                 'bank_account',
                 'work_schedule',
-                'personal_email',
                 'admission_date',
                 'is_rotative',
             ));
