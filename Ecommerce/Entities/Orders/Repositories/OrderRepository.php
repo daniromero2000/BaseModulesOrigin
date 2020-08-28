@@ -147,7 +147,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function listOrderedProducts(): Collection
     {
-        return $this->model->products->map(function (Product $product) {
+        return $this->model->orderProducts->map(function (Product $product) {
             $product->name = $product->pivot->product_name;
             $product->sku = $product->pivot->product_sku;
             $product->description = $product->pivot->product_description;
