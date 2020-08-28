@@ -10,5 +10,5 @@ interface OrderShippingItemInterface
 {
     public function createOrderShippingItem(array $data): OrderShippingItem;
     public function listOrderShippingItems(): Collection;
-
+    public function findOrderShipmentItems(int $shipment_id): Collection;
 }

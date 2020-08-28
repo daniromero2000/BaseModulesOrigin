@@ -24,6 +24,7 @@ class OrderShipping extends Model
     protected $fillable = [
         'order_id',
         'courier_id',
+        'employee_id',
         'description',
         'total_qty',
         'total_weight',
@@ -52,12 +53,12 @@ class OrderShipping extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class)->with(['courier']);
     }
 
     public function shipmentItems()
     {
-        return $this->hasMany(OrderShippingItem::class);
+        return $this->hasMany(OrderShippingItem::class, 'shipment_id');
     }
 
     public function courier()
@@ -68,6 +69,11 @@ class OrderShipping extends Model
     public function searchForShipment(string $order_id)
     {
         return self::search($order_id);
+    }
+    
+    public function searchShipmentItems(string $shipment_id)
+    {
+        return self::search($shipment_id);
     }
 
 

@@ -84,7 +84,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function findOrderById(int $id): Order
     {
         try {
-            return $this->model->with(['orderPayments'])
+            return $this->model->with(['orderPayments', 'orderShipment'])
                 ->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new OrderNotFoundException($e);
