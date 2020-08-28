@@ -15,6 +15,7 @@ class CreateEmployeeEmailsTable extends Migration
     {
         Schema::create('employee_emails', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('email_type')->default('Corporative');
             $table->string('email')->unique();
             $table->integer('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');

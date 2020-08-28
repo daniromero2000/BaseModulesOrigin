@@ -25,6 +25,13 @@ class CreateEmployeesTable extends Migration
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
+            $table->char('rh');
+            $table->string('bank_account')->unique()->nullable();
+            $table->string('work_schedule')->nullable();
+            $table->date('admission_date')->nullable();
+            $table->tinyInteger('is_rotative')->unsigned()->default(0);
+            $table->integer('customer_id')->unsigned()->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->dateTime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->tinyInteger('is_active')->unsigned()->default(1);
