@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
 
         Route::namespace('Wishlist')->group(function () {
-            Route::resource('wishlist', 'WishlistController');
+            Route::resource('wishlist', 'WishlistControllerAdmin');
         });
     });
 });
@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 Route::namespace('Auth')->group(function () {
     Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
+    Route::resource('wishlist', 'WishlistController');
 });
 
 Route::namespace('Front')->group(function () {
@@ -112,4 +113,5 @@ Route::namespace('Front')->group(function () {
     Route::get('{product}', 'ProductController@show')->name('front.get.product');
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
+    Route::get('api/getWishlist/', 'WishlistController@getWishlist');
 });

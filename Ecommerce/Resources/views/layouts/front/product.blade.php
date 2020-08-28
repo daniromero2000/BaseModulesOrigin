@@ -161,7 +161,7 @@
                             <div class="col-xl-12">
                                 <button type="button" onclick="addCart({{$product->id}},'1')"
                                     class="btn button-reset btn-block mx-auto mt-2">
-                                    Agregar al Carrito
+                                    Agregar al carrito
                                 </button>
                             </div>
                             <div class="col-xl-12">
@@ -171,7 +171,6 @@
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -206,8 +205,8 @@
         </div>
     </div>
     <div class="py-2 py-md-5">
-        <a href="">
-            <img class="img-fluid" src="{{asset('img/FVN/banner03.jpg')}}" alt="feels-very-nice">
+        <a>
+            <img class="img-fluid banner-product-rounded" src="{{asset('img/FVN/banner03.jpg')}}" alt="feels-very-nice">
         </a>
     </div>
 </div>

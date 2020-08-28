@@ -149,7 +149,7 @@
             @include('generals::layouts.errors-and-messages')
         </div>
         <div class="col-md-12">
-            <h5 style=" color: gray; "><i class="fas fa-user-circle"></i> Mi cuenta</h5>
+            <h5 style=" color: gray; "><i class="fas fa-user-circle"></i> Perfil - {{$customer->name}} </h5>
             <hr>
         </div>
     </div>
@@ -181,10 +181,74 @@
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="row">
-                        <div class="row mx-auto mt-5">
-                            <div class="col-12 col-md-12 col-sm-12 mt-2">
-                                <h4>{{$customer->name}} <br /><small>{{$customer->email}}</small></h4>
+                    <div class="container bootstrap snippet">
+                        <div class="row">
+                            <div class="col-sm-4"><!--left col-->
+                                <div class="text-center">
+                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar profile-rounded img-thumbnail" alt="avatar">
+                                    <br>
+                                    <h5 class="text-color-gray">{{$customer->name}} {{$customer->last_name}}</h5>
+                                </div>
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">Activity</li>
+                                    <li class="list-group-item">1</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-8">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                      <a class="nav-item item-tab-menu nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                                      <a class="nav-item item-tab-menu nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                                      <a class="nav-item item-tab-menu nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                    </div>
+                                  </nav>
+                                  <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="container px-3 py-3">
+                                            <p>Home tab</p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <div class="container px-3 py-3">
+                                            <p>Home tab</p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                        <div class="container px-3 py-3">
+                                            <p>Contact tab</p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
+                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
+                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
+                                            </p>
+                                        </div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -306,10 +370,18 @@
                 <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                     @if(!$addresses->isEmpty())
                         <table class="table text-sm text-center">
+                            {{-- Inicio --}}
+                            <a href="/wishlist" class="dropdown-item">
+                                <div class="media">
+                                    <div class="media-body d-flex justify-content-between px-4 py-2">
+                                        <p class="text-sm subtotal">Subtotal</p>
+                                        <p class="text-sm text-muted price"></p>
+                                    </div>
+                                </div>
+                            </a>
                             <thead>
                                 <th class="head-tab">Dirección</th>
                                 <th class="head-tab">Ciudad</th>
-                                <th class="head-tab">Zip</th>
                                 <th class="head-tab">Opciones</th>
                             </thead>
                             <tbody>
@@ -317,15 +389,15 @@
                                     <tr>
                                         <td>{{$address->customer_address}}</td>
                                         <td>{{$address->city->city}}</td>
-                                        <td>{{$address->zip}}</td>
                                         <td>
                                             <a href="" data-toggle="modal" data-target="#productModal" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
-                                                <i style="color:#4F98B9" class="fas fa-cart-plus"></i>
+                                                <i style="color: #4F98B9;" class="fas fa-trash-alt"></i>
                                             </a>
                                             <!-- Button trigger modal -->
                                             <a href="" data-toggle="modal" data-target="#exampleModal">
                                                 <i style="color: #4F98B9;" class="fa fa-edit"></i>
                                             </a>
+
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-cont" role="document">
@@ -422,21 +494,16 @@
                                                 <div class="container">
                                                     <div class="row text-center">
                                                         <div class="col-12 col-md-12">
-                                                            <h4><i class="fas fa-exclamation-circle"></i> Advertencia</h4>
-                                                            <p>¿Seguro desea eliminar el registro de lista de deseos?</p>
+                                                            <h4 style="color:#B93D6B"><i class="fas fa-exclamation-circle"></i> Advertencia</h4>
+                                                            <p style="color:#808080">¿Seguro desea eliminar el registro de su lista de deseos?</p>
                                                         </div>
                                                     </div>
-                                                    <form action="{{ route('wishlist.destroy', $data->id) }}" method="post"
+                                                    <form action="{{ route('wishlist.destroy', $data->id) }}" method="POST"
                                                         class="form-horizontal">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="delete">
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Estoy seguro de borrar producto</button>
-                                                            {{-- <button  type="submit"
-                                                            class="btn btn-danger btn-md btn-block" data-toggle="tooltip"
-                                                            data-original-title="Borrar">
-                                                            Estoy seguro de borrar producto
-                                                        </button> --}}
+                                                            <button style="background-color:#B93D6B" type="button" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
                                                           </div>
                                                     </form>
                                                 </div>

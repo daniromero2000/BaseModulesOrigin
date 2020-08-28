@@ -74,4 +74,13 @@ class WishlistController extends Controller
         return redirect()->route('accounts',  ['tab' => 'wishlist'])
             ->with('message', 'Eliminado Satisfactoriamente');
     }
+
+    public function getWishlist()
+    {
+        if (!is_null(auth()->user())) {
+            return $this->wishlistInterface->listWishList(auth()->user()->id);
+        }
+
+        return '';
+    }
 }
