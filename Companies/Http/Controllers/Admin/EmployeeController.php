@@ -22,6 +22,7 @@ use Modules\Companies\Entities\EmployeeCommentaries\Repositories\Interfaces\Empl
 use Modules\Companies\Entities\Employees\Exceptions\EmployeeNotFoundException;
 use Modules\Companies\Entities\EmployeeStatusesLogs\Repositories\Interfaces\EmployeeStatusesLogRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
+use Modules\Companies\Entities\Subsidiaries\Repositories\Interfaces\SubsidiaryRepositoryInterface;
 
 
 class EmployeeController extends Controller
@@ -30,7 +31,7 @@ class EmployeeController extends Controller
     private $employeePositionInterface, $employeeCommentaryInterface;
     private $employeeStatusesLogInterface, $cityInterface, $identityTypeInterface;
     private $stratumInterface, $housingInterface, $epsInterface;
-    private $professionsListInterface, $toolsInterface;
+    private $professionsListInterface, $toolsInterface, $subsidiaryInterface;
 
     public function __construct(
         EmployeeRepositoryInterface $employeeRepositoryInterface,
@@ -45,7 +46,8 @@ class EmployeeController extends Controller
         HousingRepositoryInterface $housingRepositoryInterface,
         EpsRepositoryInterface $epsRepositoryInterface,
         ProfessionsListRepositoryInterface $professionsListRepositoryInterface,
-        ToolRepositoryInterface $toolRepositoryInterface
+        ToolRepositoryInterface $toolRepositoryInterface,
+        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface
     ) {
         $this->toolsInterface               = $toolRepositoryInterface;
         $this->employeeInterface            = $employeeRepositoryInterface;
@@ -60,6 +62,7 @@ class EmployeeController extends Controller
         $this->housingInterface             = $housingRepositoryInterface;
         $this->epsInterface                 = $epsRepositoryInterface;
         $this->professionsListInterface     = $professionsListRepositoryInterface;
+        $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
     }
 
     public function index(Request $request)
@@ -79,7 +82,7 @@ class EmployeeController extends Controller
             'employees'          => $list,
             'optionsRoutes'      => 'admin.' . (request()->segment(2)),
             'skip'               => $skip,
-            'headers'            => ['Id', 'Nombre', 'Apellido', 'Email', 'Departamento', 'Estado', 'Opciones'],
+            'headers'            => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
             'roles'              => $this->roleInterface->getAllRoleNames(),
             'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames()
@@ -91,7 +94,8 @@ class EmployeeController extends Controller
         return view('companies::admin.employees.create', [
             'roles'              => $this->roleInterface->getAllRoleNames(),
             'departments'        => $this->departmentInterface->getAllDepartmentNames(),
-            'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames()
+            'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
+            'subsidiaries'       => $this->subsidiaryInterface->getAllSubsidiaryNames()
         ]);
     }
 

@@ -25,9 +25,40 @@
         <div class="card-header border-0">
             <h3 class="mb-0">Empleados</h3>
         </div>
-        @php
-        @endphp
-        @include('generals::layouts.admin.tables.tables-employeeposition-department-status', [$headers, 'datas' => $employees ])
+        <div class="table-responsive">
+            <table class="table align-items-center table-flush table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        @foreach ($headers as $header)
+                        <th class="text-center">{{ $header }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    @if($employees)
+                    @foreach($employees as $data)
+                    <tr>
+                        <td class="text-center">{{ $data->id }}</td>
+                        <td class="text-center">{{ $data->name }} {{ $data->last_name }}</td>
+                        <td class="text-center">{{ $data->email }}</td>
+                        @foreach ($data->department as $department )
+                        <td class="text-center">@if($department->name != ''){{ $department->name }}@else NA @endif</td>
+                        @endforeach
+                        <td class="text-center">
+                            @include('generals::layouts.status', ['status' => $data->is_active])</td>
+                        <td class="text-center">
+                            @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
+                            $optionsRoutes])
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    @include('companies::layouts.edit_employee')
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
         <div class="card-footer py-2">
             @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>

@@ -102,6 +102,54 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Tipo Sangre</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
+                                    </div>
+                                    <input type="text" name="rh" id="rh"  placeholder="RH"
+                                        class="form-control" value="{!! $data->rh ?: old('rh')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Cuenta Bancaria</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
+                                    </div>
+                                    <input type="text" name="bank_account" id="bank_account" placeholder="XXXX" class="form-control"
+                                        value="{!! $data->bank_account ?: old('bank_account')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Turno</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
+                                    </div>
+                                    <input type="text" name="work_schedule" id="work_schedule" placeholder="Horario" class="form-control"
+                                        value="{!! $data->work_schedule ?: old('work_schedule')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Ingreso</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
+                                    </div>
+                                    <input type="date" name="admission_date" id="admission_date" placeholder="Fecha Ingreso" class="form-control"
+                                        value="{!! $data->admission_date ?: old('admission_date')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
                             @include('generals::admin.shared.status-select', ['status' => $data->is_active])
                         </div>
                         <div class="col-sm-6">

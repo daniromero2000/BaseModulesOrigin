@@ -16,7 +16,19 @@ use Modules\Companies\Entities\Employees\Exceptions\UpdateEmployeeErrorException
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
     protected $model;
-    private $columns = ['id', 'name', 'last_name', 'email', 'employee_position_id', 'is_active'];
+    private $columns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active'
+    ];
 
     public function __construct(Employee $employee)
     {
@@ -76,7 +88,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
                 'employeeProfessions:professions_list_id,employee_id,status,created_at'
-            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'subsidiary_id', 'employee_position_id', 'is_active']);
+            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'rh', 'bank_account', 'subsidiary_id', 'employee_position_id', 'is_active']);
         } catch (ModelNotFoundException $e) {
             throw new EmployeeNotFoundException($e);
         }

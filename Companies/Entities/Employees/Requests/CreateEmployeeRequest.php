@@ -22,7 +22,9 @@ class CreateEmployeeRequest extends FormRequest
             'password'             => ['required', 'min:8', 'max:255', 'bail'],
             'role'                 => ['required'],
             'phone'                => ['max:255'],
-            'is_active'               => ['max:3'],
+            'rh'                   => ['required', 'bail'],
+            'bank_account'         => ['required', 'bail'],
+            'is_active'            => ['max:3'],
             'employee_position_id' => ['required'],
         ];
     }
