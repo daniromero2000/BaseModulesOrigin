@@ -2,7 +2,8 @@
     <div class="card-body">
         <div class="row align-items-center mb-3">
             <div class="col">
-                <h3 class="mb-0">{{ $employee->employeePosition->position }} {{ $employee->name }} {{ $employee->last_name }}</h3>
+                <h3 class="mb-0">{{ $employee->employeePosition->position }} {{ $employee->name }}
+                    {{ $employee->last_name }}</h3>
             </div>
             <div class="col text-right">
                 <a data-toggle="modal" data-target="#modal{{ $employee->id }}"
@@ -42,9 +43,9 @@
                     </thead>
                     <tbody class="list">
                         <tr>
-                            <td>{{ $employee->work_schecule }}</td>
-                            <td> @if ($employee->work_schecule == 0) No @endif @if ($employee->work_schecule == 1) Si
-                                @endif</td>
+                            <td>{{ $employee->work_schedule }}</td>
+                            <td> @if ($employee->is_rotative == 0) No @endif
+                                @if ($employee->is_rotative == 1) Si @endif</td>
                             <td>{{ $employee->admission_date }}</td>
                             <td>{{ $employee->last_login_at }}</td>
                         </tr>

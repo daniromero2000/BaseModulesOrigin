@@ -30,6 +30,34 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'is_active'
     ];
 
+    private $listColumns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active'
+    ];
+
+    private $employeeColumns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active'
+    ];
+
     public function __construct(Employee $employee)
     {
         $this->model = $employee;
@@ -41,7 +69,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             return  $this->model
                 ->orderBy('name', 'desc')
                 ->skip($totalView)->take(30)
-                ->get($this->columns);
+                ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -88,7 +116,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
                 'employeeProfessions:professions_list_id,employee_id,status,created_at'
-            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'rh', 'bank_account', 'subsidiary_id', 'employee_position_id', 'is_active']);
+            ])->findOrFail($id, $this->employeeColumns);
         } catch (ModelNotFoundException $e) {
             throw new EmployeeNotFoundException($e);
         }
