@@ -142,7 +142,7 @@ class Employee extends Authenticatable
     public function employeeEmails()
     {
         return $this->hasMany(EmployeeEmail::class)
-            ->select(['id', 'email', 'employee_id', 'status', 'created_at']);
+            ->select(['id', 'email_type', 'email', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeePhones()

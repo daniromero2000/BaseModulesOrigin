@@ -14,7 +14,8 @@ class EmployeeEmail extends Model
 
     public $fillable = [
         'employee_id',
-        'email'
+        'email',
+        'email_type'
     ];
 
     protected $hidden = [

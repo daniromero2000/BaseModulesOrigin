@@ -13,6 +13,7 @@ class CreateEmployeeEmailRequest extends BaseFormRequest
     {
         return [
             'employee_id' => ['required', 'bail'],
+            'email_type' => ['required', 'bail'],
             'email'       => ['required', 'max:255', 'email', 'unique:employee_emails']
         ];
     }

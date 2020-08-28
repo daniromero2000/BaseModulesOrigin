@@ -70,7 +70,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'subsidiary',
                 'employeeStatusesLogs:employee_id,status,user_id,created_at',
                 'employeePosition:id,position,is_active',
-                'employeeEmails:email,employee_id,status,created_at',
+                'employeeEmails',
                 'employeePhones:phone_type,phone,employee_id,status,created_at',
                 'employeeAddresses:housing_id,address,time_living,stratum_id,city_id,employee_id,status,created_at',
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
