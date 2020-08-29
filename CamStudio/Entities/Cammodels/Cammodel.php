@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CamStudio\Entities;
+namespace Modules\CamStudio\Entities\Cammodels;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

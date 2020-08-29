@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\Companies\Entities\Roles\Role;
 use Modules\Companies\Entities\Departments\Department;
 use Modules\Companies\Entities\EmployeeAddresses\EmployeeAddress;
@@ -192,5 +193,11 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Customer::class)
             ->select(['id', 'name']);
+    }
+
+    public function cammodels()
+    {
+        return $this->hasMany(Cammodel::class)
+            ->select(['id', 'employee_id', 'manager_id', 'fake_age', 'nickname', 'height', 'weight', 'breast_cup_size', 'meta', 'likes_dislikes', 'about_me', 'private_show', 'my_rules']);
     }
 }
