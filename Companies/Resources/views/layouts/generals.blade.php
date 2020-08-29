@@ -45,7 +45,7 @@
                         <tr>
                             <td>{{ $employee->work_schedule }}</td>
                             <td> @if ($employee->is_rotative == 0) No @endif
-                                @if ($employee->is_rotative == 1) Si @endif</td>
+                                @if ($employee->is_rotative == 1) Sí @endif</td>
                             <td>{{ $employee->admission_date }}</td>
                             <td>{{ $employee->last_login_at }}</td>
                         </tr>

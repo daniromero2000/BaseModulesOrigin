@@ -2,13 +2,10 @@
 
 namespace Modules\Companies\Http\Controllers\Admin;
 
-
 use Modules\Companies\Entities\Admins\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Modules\Companies\Entities\Employees\Employee;
-use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
 
 class LoginController extends Controller
 {
@@ -23,7 +20,6 @@ class LoginController extends Controller
 
         return view('generals::auth.admin.login');
     }
-
 
     public function login(LoginRequest $request)
     {
