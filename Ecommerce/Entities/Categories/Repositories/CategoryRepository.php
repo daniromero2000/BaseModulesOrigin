@@ -41,7 +41,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function listFrontCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection
     {
-        return $this->model->where('is_active', 1)->orderBy($order, $sort)
+        return $this->model->where('is_active', 1)->orderBy($order, $sort)->where('parent_id', null)
             ->get($this->columns)->except($except);
     }
 
