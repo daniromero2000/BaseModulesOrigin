@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CamStudio\Entities\Cammodels;
+namespace Modules\CamStudio\Entities\CammodelBannedCountries;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
