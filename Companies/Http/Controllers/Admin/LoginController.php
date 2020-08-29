@@ -85,9 +85,6 @@ class LoginController extends Controller
             session(['actionsPerModule' => $actionsPerModule]);
             session(['actionsModuleOnlyId' => $actionsModule]);
 
-
-
-
             $user->last_login_at = Carbon::now();
             $user->save();
             return $this->sendLoginResponse($request);

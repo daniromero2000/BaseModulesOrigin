@@ -108,8 +108,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
-                                    <input type="text" name="rh" id="rh"  placeholder="RH"
-                                        class="form-control" value="{!! $data->rh ?: old('rh')  !!}" required>
+                                    <input type="text" name="rh" id="rh" placeholder="RH" class="form-control"
+                                        value="{!! $data->rh ?: old('rh')  !!}" required>
                                 </div>
                             </div>
                         </div>
@@ -120,8 +120,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
-                                    <input type="text" name="bank_account" id="bank_account" placeholder="XXXX" class="form-control"
-                                        value="{!! $data->bank_account ?: old('bank_account')  !!}" required>
+                                    <input type="text" name="bank_account" id="bank_account" placeholder="XXXX"
+                                        class="form-control" value="{!! $data->bank_account ?: old('bank_account')  !!}"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +133,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
-                                    <input type="text" name="work_schedule" id="work_schedule" placeholder="Horario" class="form-control"
+                                    <input type="text" name="work_schedule" id="work_schedule" placeholder="Horario"
+                                        class="form-control"
                                         value="{!! $data->work_schedule ?: old('work_schedule')  !!}" required>
                                 </div>
                             </div>
@@ -144,8 +146,28 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
-                                    <input type="date" name="admission_date" id="admission_date" placeholder="Fecha Ingreso" class="form-control"
+                                    <input type="date" name="admission_date" id="admission_date"
+                                        placeholder="Fecha Ingreso" class="form-control"
                                         value="{!! $data->admission_date ?: old('admission_date')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="is_rotative" class="form-group">
+                                <label class="form-control-label" for="is_rotative">Rota?</label>
+                                <div class="input-group">
+                                    <select name="is_rotative" id="is_rotative" class="form-control">
+                                        @if( 1 == $data->is_rotative)
+                                        <option selected="selected" value="1">Sí </option>
+                                        <option value="0">No</option>
+                                        @elseif( 0 == $data->is_rotative)
+                                        <option selected="selected" value="0">No</option>
+                                        <option value="1">Sí</option>
+                                        @else
+                                        <option value="0">No</option>
+                                        <option value="1">Sí</option>
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                         </div>

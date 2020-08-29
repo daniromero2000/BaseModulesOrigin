@@ -43,6 +43,7 @@ class Employee extends Authenticatable
         'bank_account',
         'work_schedule',
         'admission_date',
+        'is_rotative'
     ];
 
     protected $hidden = [
