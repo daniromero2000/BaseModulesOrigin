@@ -35,6 +35,7 @@
                     </tbody>
                     <thead class="thead-light">
                         <tr>
+                            <th scope="col">Fecha de Nacimiento</th>
                             <th scope="col">Turno</th>
                             <th scope="col">Rota?</th>
                             <th scope="col">Inicio Labores</th>
@@ -43,11 +44,12 @@
                     </thead>
                     <tbody class="list">
                         <tr>
+                            <td>{{ date('M d, Y h:i a', strtotime($employee->birthday)) }} </td>
                             <td>{{ $employee->work_schedule }}</td>
                             <td> @if ($employee->is_rotative == 0) No @endif
                                 @if ($employee->is_rotative == 1) Sí @endif</td>
-                            <td>{{ $employee->admission_date }}</td>
-                            <td>{{ $employee->last_login_at }}</td>
+                            <td>{{ date('M d, Y h:i a', strtotime($employee->admission_date)) }}</td>
+                            <td>{{ date('M d, Y h:i a', strtotime($employee->last_login_at)) }}</td>
                         </tr>
                     </tbody>
                 </table>

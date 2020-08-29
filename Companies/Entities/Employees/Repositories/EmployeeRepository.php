@@ -42,7 +42,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'subsidiary_id',
         'employee_position_id',
         'is_active',
-        'is_rotative'
+        'is_rotative',
+        'birthday'
     ];
 
     private $employeeColumns = [
@@ -58,7 +59,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'employee_position_id',
         'is_active',
         'last_login_at',
-        'is_rotative'
+        'is_rotative',
+        'birthday'
     ];
 
     public function __construct(Employee $employee)

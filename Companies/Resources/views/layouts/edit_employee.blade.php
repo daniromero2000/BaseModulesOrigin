@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="email">Ingreso</label>
+                                <label class="form-control-label" for="admission_date">Ingreso</label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
@@ -149,6 +149,18 @@
                                     <input type="date" name="admission_date" id="admission_date"
                                         placeholder="Fecha Ingreso" class="form-control"
                                         value="{!! $data->admission_date ?: old('admission_date')  !!}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="birthday">Fecha Nacimiento</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
+                                    </div>
+                                    <input type="date" name="birthday" id="birthday" placeholder="Fecha Nacimiento"
+                                        class="form-control" value="{!! $data->birthday ?: old('birthday')  !!}" required>
                                 </div>
                             </div>
                         </div>
