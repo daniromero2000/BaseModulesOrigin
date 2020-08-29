@@ -19,7 +19,7 @@ class CreateCammodelsTable extends Migration
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->integer('manager_id')->unsigned();
             $table->foreign('manager_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->tinyInteger('fake_age')->default(18);
+            $table->tinyInteger('fake_age')->unsigned()->default(18);
             $table->string('nickname');
             $table->string('height')->default(0);
             $table->string('weight')->default(0);
