@@ -21,6 +21,7 @@ use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
 use Modules\Companies\Entities\Subsidiaries\Subsidiary;
+use Modules\Customers\Entities\Customers\Customer;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -185,5 +186,11 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Subsidiary::class)
             ->select(['id', 'name', 'address', 'phone', 'city_id', 'company_id', 'is_active']);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class)
+            ->select(['id', 'name']);
     }
 }
