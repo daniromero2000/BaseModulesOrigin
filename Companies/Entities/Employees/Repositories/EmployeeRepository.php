@@ -27,7 +27,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'admission_date',
         'subsidiary_id',
         'employee_position_id',
-        'is_active'
+        'is_active',
     ];
 
     private $listColumns = [
@@ -55,7 +55,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'admission_date',
         'subsidiary_id',
         'employee_position_id',
-        'is_active'
+        'is_active',
+        'last_login_at'
     ];
 
     public function __construct(Employee $employee)
