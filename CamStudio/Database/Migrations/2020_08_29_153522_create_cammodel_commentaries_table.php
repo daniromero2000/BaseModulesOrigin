@@ -14,7 +14,7 @@ class CreateCammodelCommentariesTable extends Migration
     public function up()
     {
         Schema::create('cammodel_commentaries', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('commentary');
             $table->string('user');
             $table->integer('cammodel_id')->unsigned()->index();

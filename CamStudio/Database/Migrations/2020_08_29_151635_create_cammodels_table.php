@@ -14,7 +14,7 @@ class CreateCammodelsTable extends Migration
     public function up()
     {
         Schema::create('cammodels', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->integer('manager_id')->unsigned();

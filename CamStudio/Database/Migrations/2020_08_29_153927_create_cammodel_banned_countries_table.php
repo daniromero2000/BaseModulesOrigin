@@ -14,7 +14,7 @@ class CreateCammodelBannedCountriesTable extends Migration
     public function up()
     {
         Schema::create('cammodel_banned_countries', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('country');
             $table->integer('cammodel_id')->unsigned()->index();
             $table->foreign('cammodel_id')->references('id')->on('cammodels')->onDelete('cascade');
