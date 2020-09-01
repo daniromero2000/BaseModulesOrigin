@@ -2,14 +2,10 @@
 
 namespace Modules\Companies\Entities\Employees;
 
-use Modules\Generals\Entities\CivilStatuses\CivilStatus;
-use Modules\Generals\Entities\Epss\Eps;
-use Modules\Generals\Entities\Genres\Genre;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use Modules\Companies\Entities\Roles\Role;
 use Modules\Companies\Entities\Departments\Department;
 use Modules\Companies\Entities\EmployeeAddresses\EmployeeAddress;
 use Modules\Companies\Entities\EmployeeCommentaries\EmployeeCommentary;
@@ -20,13 +16,21 @@ use Modules\Companies\Entities\EmployeePhones\EmployeePhone;
 use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
+use Modules\Companies\Entities\Roles\Role;
 use Modules\Companies\Entities\Subsidiaries\Subsidiary;
+use Modules\Customers\Entities\Customers\Customer;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
+use Modules\Generals\Entities\CivilStatuses\CivilStatus;
+use Modules\Generals\Entities\Epss\Eps;
+use Modules\Generals\Entities\Genres\Genre;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Employee extends Authenticatable
 {
-    use Notifiable, SoftDeletes, LaratrustUserTrait,  SearchableTrait;
+    use Notifiable;
+    use SoftDeletes;
+    use LaratrustUserTrait;
+    use SearchableTrait;
     protected $table = 'employees';
 
     protected $fillable = [
@@ -38,7 +42,8 @@ class Employee extends Authenticatable
         'is_active',
         'company_id',
         'subsidiary_id',
-        'employee_position_id'
+        'employee_position_id',
+        'customer_id',
     ];
 
     protected $hidden = [
@@ -57,10 +62,10 @@ class Employee extends Authenticatable
         'created_at',
         'updated_at',
         'deleted_at',
-        'status'
+        'status',
     ];
 
-    protected $dates  = [
+    protected $dates = [
         'deleted_at',
         'created_at',
         'updated_at',
@@ -68,17 +73,17 @@ class Employee extends Authenticatable
 
     protected $searchable = [
         'columns' => [
-            'employees.name'                      => 10,
-            'employees.email'                     => 5,
-            'employees.last_name'                 => 5,
+            'employees.name' => 10,
+            'employees.email' => 5,
+            'employees.last_name' => 5,
             'employee_identities.identity_number' => 10,
-            'employee_phones.phone'               => 10,
-            'employee_emails.email'               => 5,
+            'employee_phones.phone' => 10,
+            'employee_emails.email' => 5,
         ],
         'joins' => [
             'employee_identities' => ['employees.id', 'employee_identities.employee_id'],
-            'employee_phones'     => ['employees.id', 'employee_phones.employee_id'],
-            'employee_emails'     => ['employees.id', 'employee_emails.employee_id'],
+            'employee_phones' => ['employees.id', 'employee_phones.employee_id'],
+            'employee_emails' => ['employees.id', 'employee_emails.employee_id'],
         ],
     ];
 
@@ -179,5 +184,11 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Subsidiary::class)
             ->select(['id', 'name', 'address', 'phone', 'city_id', 'company_id', 'is_active']);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class)
+            ->select(['id', 'name', 'lastname', 'birthday', 'city_id', 'email', 'status']);
     }
 }
