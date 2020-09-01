@@ -113,20 +113,8 @@ class EmployeeController extends Controller
     public function store(CreateEmployeeRequest $request)
     {
         $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
-        /*$d = [
-            '_token' => $request->_token,
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'employee_position_id' => $request->employee_position_id,
-            'department_id' => $request->department_id,
-            'password' => $request->password,
-            'role' => $request->role,
-            'customer_id' => $customer->id,
-        ];*/
-        //$employee = $this->employeeInterface->createEmployee($d);
-        //$employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
-        $employee = $this->employeeInterface->createEmployee($request->all());
+
+        $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
 
         $data = [
             'employee_id' => $employee->id,
