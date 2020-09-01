@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Ecommerce\Entities\OrderCommentaries\OrderCommentary;
 use Modules\Ecommerce\Entities\OrderPayments\OrderPayment;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Modules\Ecommerce\Entities\OrderShippings\OrderShipping;
 
 class Order extends Model
 {
@@ -82,6 +83,19 @@ class Order extends Model
             ]);
     }
 
+    public function orderProducts()
+    {
+        return $this->belongsToMany(Product::class)
+            ->withPivot([
+                'quantity',
+                'product_name',
+                'product_sku',
+                'product_description',
+                'product_price',
+                'product_attribute_id'
+            ])->where('company_id', auth()->guard('employee')->user()->subsidiary->company_id);
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class)
@@ -124,5 +138,10 @@ class Order extends Model
     {
         return  $this->hasMany(OrderPayment::class)
             ->select(['id', 'method', 'description', 'transaction_id', 'transaction_order', 'state', 'order_id', 'created_at']);
+    }
+
+    public function orderShipment()
+    {
+        return $this->hasMany(OrderShipping::class);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\Companies\Entities\Departments\Department;
 use Modules\Companies\Entities\EmployeeAddresses\EmployeeAddress;
 use Modules\Companies\Entities\EmployeeCommentaries\EmployeeCommentary;
@@ -44,6 +45,12 @@ class Employee extends Authenticatable
         'subsidiary_id',
         'employee_position_id',
         'customer_id',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'is_rotative',
+        'birthday',
     ];
 
     protected $hidden = [
@@ -147,7 +154,7 @@ class Employee extends Authenticatable
     public function employeeEmails()
     {
         return $this->hasMany(EmployeeEmail::class)
-            ->select(['id', 'email', 'employee_id', 'status', 'created_at']);
+            ->select(['id', 'email_type', 'email', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeePhones()
@@ -190,5 +197,11 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Customer::class)
             ->select(['id', 'name', 'lastname', 'birthday', 'city_id', 'email', 'status']);
+    }
+
+    public function cammodels()
+    {
+        return $this->hasMany(Cammodel::class)
+            ->select(['id', 'employee_id', 'manager_id', 'fake_age', 'nickname', 'height', 'weight', 'breast_cup_size', 'meta', 'likes_dislikes', 'about_me', 'private_show', 'my_rules']);
     }
 }

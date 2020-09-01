@@ -23,103 +23,69 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="card">
-        <div class="card-header">
-            <div class="row w-100 mx-0 mt-3">
-                <div class="col-12">
-                    <div class="row mx-0 w-100">
-                        <div class="col-6">
-                            <span> Orden # <strong>{{$order->id}}</strong></span>
-                            <br>
-                            Referencia:<span> <b>{{ $order->reference}}</b></span>
-                        </div>
-                        <div class="col-md-6 text-right mb-3 ml-auto">
-                            <a href="{{route('admin.orders.invoice.generate', $order['id'])}}"
-                                class="btn btn-primary btn-sm">Descargar
-                                Factura</a>
-
-                            <a href="{{ route('admin.customers.show', $customer->id) }}"
-                                class="btn btn-primary btn-sm">Ver cliente</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
+    <div class="row">
+        <div class="col-md-12 col-log-7">
+            <div class="card">
                 <div class="w-100 p-3">
-                    <h4> <i class="fa fa-shopping-bag"></i> Información de Orden</h4>
+                    <h4> <i class="fa fa-truck"></i> Informaci&oacute;n Despacho Orden</h4>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center text-center table-flush table-hover text-center">
-                        <thead class="thead-light ">
-                            <tr>
-                                <td>Fecha</td>
-                                <td>Cliente</td>
-                                <td>Pago</td>
-                                <td>Estado</td>
-                            </tr>
-                        </thead>
+                    <table class="table align-items-center table-flush table-hover table-striped">
                         <tbody>
                             <tr>
-                                <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
-                                <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}
-                                        {{ $customer->last_name }}</a>
+                                <td>Orden #: </td>
+                                <td><b>{{$order->id}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Referencia:</td>
+                                <td><b>{{ $order->reference}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Courier:</td>
+                                <td><b>{{ $courier }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Cantidad:</td>
+                                <td><b>{{ $orderShipment->total_qty }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Peso:</td>
+                                <td><b>{{ $orderShipment->total_weight }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Numero Guia:</td>
+                                <td><b>{{ $orderShipment->track_number }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Direcci&oacute;n:</td>
+                                <td><b>{{ $order->address->customer_address }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad:</td>
+                                <td><b>
+                                    @if(isset($order->address->city))
+                                    {{ $order->address->city->city }}
+                                    @endif
+                                    </b>
                                 </td>
-                                <td><strong>{{ $order['payment'] }}</strong></td>
-                                <td><span class="badge bg-info text-white">{{ $currentStatus->name }}</span>
+                            </tr>
+                            <tr>
+                                <td>Departamento:</td>
+                                <td>
+                                    <b>
+                                        @if(isset($order->address->city))
+                                        {{ $order->address->city->province->province }}
+                                        @endif
+                                    </b>
                                 </td>
                             </tr>
-                        </tbody>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Subtotal</td>
-                                <td>${{ number_format($order['sub_total'], 0) }}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Impuesto</td>
-                                <td>${{ number_format($order['tax_amount'], 0) }}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td>${{ number_format($order['discounts'],0) }}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Envío</td>
-                                <td>${{ number_format($order['total_shipping'], 0) }}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Total de orden</td>
-                                <td>${{ number_format($order['grand_total'], 0) }}</td>
-                            </tr>
-                            @if($order['total_paid'] != $order['grand_total'])
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Total Pagado</td>
-                                <td>${{ number_format($order['total_paid'], 0) }}</td>
-                            </tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="card-footer text-right">
-            <div class="btn-group">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-default btn-sm">Regresar</a>
-                <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary btn-sm">Editar</a>
-            </div>
-        </div>
-    </div>
+    </div>    
+
     @if($order)
     @if($order->grand_total != $order->total_paid)
     <p class="alert alert-danger">
@@ -129,37 +95,29 @@
     </p>
     @endif
     <div class="card">
-        @if(!$items->isEmpty())
+        @if($orderShipment)
         <div class="card-body">
             <div class="card">
                 <div class="w-100 p-3">
                     <h4> <i class="fa fa-gift"></i> Items</h4>
                 </div>
+                
                 <div class="table-responsive">
                     <table class="table text-center table-flush table-hover">
                         <thead class="thead-light">
                             <th>SKU</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
                             <th>Cantidad</th>
+                            <th>Peso</th>
                             <th>Precio</th>
                         </thead>
                         <tbody>
-                            @foreach($items as $item)
+                            @foreach($orderShipment->shipmentItems as $item)
                             <tr>
-                                <td>{{ $item->sku }}</td>
+                                <td>{{ $item->sku }} </td>
                                 <td>{{ $item->name }} </td>
-                                <td>
-                                    {!! $item->description !!}
-                                    @php($pattr =
-                                    \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($item->product_attribute_id))
-                                    @if(!is_null($pattr))<br>
-                                    @foreach($pattr->attributesValues as $it)
-                                    <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
-                                    @endforeach
-                                    @endif
-                                </td>
-                                <td>{{ $item->pivot->quantity }}</td>
+                                <td>{{ $item->qty }}</td>
+                                <td>{{ $item->weight }}</td>
                                 <td>{{ $item->price }}</td>
                             </tr>
                             @endforeach
@@ -169,66 +127,6 @@
             </div>
         </div>
         @endif
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="w-100 p-3">
-                            <h4> <i class="fa fa-truck"></i> Envío</h4>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center text-center table-flush table-hover">
-                                <thead class="thead-light">
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $order->courier->name }}</td>
-                                        <td>{{ $order->courier->description }}</td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="w-100 p-3">
-                            <h4> <i class="fa fa-map-marker"></i> Dirección</h4>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center text-center table-flush table-hover">
-                                <thead class="thead-light">
-                                    <th>Dirección</th>
-                                    <th>Ciudad</th>
-                                    <th>Departamento</th>
-                                    <th>Zip</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $order->address->customer_address }}</td>
-                                        <td>
-                                            @if(isset($order->address->city))
-                                            {{ $order->address->city->city }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(isset($order->address->city))
-                                            {{ $order->address->city->province->province }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $order->address->zip }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     @endif
 </section>

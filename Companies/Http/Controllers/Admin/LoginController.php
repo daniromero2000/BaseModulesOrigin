@@ -2,9 +2,9 @@
 
 namespace Modules\Companies\Http\Controllers\Admin;
 
-
 use Modules\Companies\Entities\Admins\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -20,7 +20,6 @@ class LoginController extends Controller
 
         return view('generals::auth.admin.login');
     }
-
 
     public function login(LoginRequest $request)
     {
@@ -81,6 +80,9 @@ class LoginController extends Controller
             session(['actionsUser'      => $actionsUser]);
             session(['actionsPerModule' => $actionsPerModule]);
             session(['actionsModuleOnlyId' => $actionsModule]);
+
+            $user->last_login_at = Carbon::now();
+            $user->save();
             return $this->sendLoginResponse($request);
         }
 

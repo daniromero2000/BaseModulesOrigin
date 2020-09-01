@@ -19,6 +19,10 @@ class CreateShipmentsTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->integer('courier_id')->unsigned();
             $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->integer('subsidiary_id')->unsigned();
+            $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->integer('total_qty')->nullable();
             $table->integer('total_weight')->nullable();
             $table->text('track_number')->nullable();

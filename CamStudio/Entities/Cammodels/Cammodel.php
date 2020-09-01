@@ -1,30 +1,37 @@
 <?php
 
-namespace Modules\Companies\Entities\EmployeeEmails;
+namespace Modules\CamStudio\Entities\Cammodels;
 
-use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\Employees\Employee;
 
-
-class EmployeeEmail extends Model
+class Cammodel extends Model
 {
     use SoftDeletes;
-    protected $table = 'employee_emails';
 
-    public $fillable = [
+    protected $table = 'cammodels';
+    protected $fillable = [
         'employee_id',
-        'email',
-        'email_type'
+        'manager_id',
+        'fake_age',
+        'nickname',
+        'height',
+        'weight',
+        'breast_cup_size',
+        'tattoos_piercings',
+        'meta',
+        'likes_dislikes',
+        'about_me',
+        'private_show',
+        'my_rules'
     ];
 
     protected $hidden = [
+        'created_at',
+        'deleted_at',
         'updated_at',
         'relevance',
-        'id',
-        'employee_id',
-        'status',
-        'deleted_at'
     ];
 
     protected $guarded = [
@@ -32,13 +39,12 @@ class EmployeeEmail extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        'status'
     ];
 
     protected $dates  = [
         'deleted_at',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function employee()

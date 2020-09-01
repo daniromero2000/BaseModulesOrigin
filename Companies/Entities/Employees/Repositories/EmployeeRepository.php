@@ -16,7 +16,52 @@ use Modules\Companies\Entities\Employees\Exceptions\UpdateEmployeeErrorException
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
     protected $model;
-    private $columns = ['id', 'name', 'last_name', 'email', 'employee_position_id', 'is_active'];
+    private $columns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active',
+    ];
+
+    private $listColumns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active',
+        'is_rotative',
+        'birthday'
+    ];
+
+    private $employeeColumns = [
+        'id',
+        'name',
+        'last_name',
+        'email',
+        'rh',
+        'bank_account',
+        'work_schedule',
+        'admission_date',
+        'subsidiary_id',
+        'employee_position_id',
+        'is_active',
+        'last_login_at',
+        'is_rotative',
+        'birthday'
+    ];
 
     public function __construct(Employee $employee)
     {
@@ -29,7 +74,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             return  $this->model
                 ->orderBy('name', 'desc')
                 ->skip($totalView)->take(30)
-                ->get($this->columns);
+                ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -70,13 +115,13 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'subsidiary',
                 'employeeStatusesLogs:employee_id,status,user_id,created_at',
                 'employeePosition:id,position,is_active',
-                'employeeEmails:email,employee_id,status,created_at',
+                'employeeEmails',
                 'employeePhones:phone_type,phone,employee_id,status,created_at',
                 'employeeAddresses:housing_id,address,time_living,stratum_id,city_id,employee_id,status,created_at',
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
                 'employeeProfessions:professions_list_id,employee_id,status,created_at'
-            ])->findOrFail($id, ['id', 'name', 'last_name', 'email', 'subsidiary_id', 'employee_position_id', 'is_active']);
+            ])->findOrFail($id, $this->employeeColumns);
         } catch (ModelNotFoundException $e) {
             throw new EmployeeNotFoundException($e);
         }

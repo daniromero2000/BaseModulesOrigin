@@ -59,7 +59,7 @@ class OrderController extends Controller
         $order->address = $orderRepo->getAddresses()->first();
         $items          = $orderRepo->listOrderedProducts();
         $couriers       = $this->courierRepo->listCouriers()->pluck('name', 'id');
-        $orderShipment  = $this->orderShippingRepo->findOrderShipment($orderId);
+        $orderShipment  = $order->orderShipment;
         $cant   = 0;
         $weight = 0.00;
 
@@ -67,7 +67,7 @@ class OrderController extends Controller
             $cant   += $item->quantity;
             $weight += $item->weight * number_format($item->quantity, 2);
         }
-
+        //dd(auth()->guard('employee')->user()->subsidiary_id);
         return view('ecommerce::admin.orders.show', [
             'order'             =>  $order,
             'items'             =>  $items,

@@ -92,14 +92,48 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div id="subsidiaries" class="form-group">
+                            <label class="form-control-label" for="department_id">Sucursal</label>
+                            <div class="input-group">
+                                <select name="subsidiary_id" id="subsidiary_id" class="form-control" enabled>
+                                    @foreach($subsidiaries as $subsidiary)
+                                    <option value="{{ $subsidiary->id }}">{{ $subsidiary->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="rh" class="form-group">
                             <label class="form-control-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                                 </div>
-                                <input type="password" name="password" id="password" placeholder="xxxxx"
+                                <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="password">Tipo Sangre</label>
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                </div>
+                                <input type="text" name="rh" id="rh" placeholder="Rh"
                                     class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="bank_account" class="form-group">
+                            <label class="form-control-label" for="password">Cuenta Bancaria</label>
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                </div>
+                                <input type="text" name="bank_account" id="bank_account" placeholder="xxxxx" class="form-control" required>
                             </div>
                         </div>
                     </div>

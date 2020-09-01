@@ -47,5 +47,10 @@ class OrderShippingItemRepository implements OrderShippingItemInterface
         return $this->model->get($this->columns);
     }
 
+    public function findOrderShipmentItems(int $shipment_id): Collection
+    {
+        return $this->model->searchForShipmentItems($shipment_id)->get();
+    }
+
 
 }

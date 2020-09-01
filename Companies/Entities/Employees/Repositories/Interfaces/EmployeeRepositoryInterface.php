@@ -23,9 +23,9 @@ interface EmployeeRepositoryInterface
 
     public function isAuthUser(Employee $employee): bool;
 
-    public function searchEmployee(string $text): Collection;
+    public function searchEmployee(string $text = null): Collection;
 
-    public function searchTrashedEmployee(string $text): Collection;
+    public function searchTrashedEmployee(string $text = null): Collection;
 
     public function deleteEmployee(): bool;
 

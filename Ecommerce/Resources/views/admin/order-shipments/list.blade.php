@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Ordenes</li>
+                            <li class="breadcrumb-item active" active aria-current="page"><a href="{{ route('admin.order-shipments.index') }}">Despachos</a></li></li>
                         </ol>
                     </nav>
                 </div>
@@ -24,18 +24,20 @@
 
     <div class="card">
         <div class="card-header">
-            <h2>Order Shipments</h2>
+            <h2>Despacho de Ordenes</h2>
             @include('generals::layouts.search', ['route' => route('admin.orders.index')])
         </div>
+        
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover text-center">
-                <thead class="thead-light ">
+                <thead class="thead-light">
                     <tr>
                         <td>Orden</td>
                         <td>Courier</td>
                         <td>Cantidad</td>
                         <td>Peso</td>
                         <td>Track #</td>
+                        <td>Despacho</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +48,9 @@
                         <td>{{ $item->total_qty }}</td>
                         <td>{{ $item->total_weight }}</td>
                         <td>{{ $item->track_number }}</td>
+                        <td>
+                            <a title="Ver Despacho"  href="{{route('admin.order-shipments.show', $item->id)}}"><i class="fa fa-truck"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
