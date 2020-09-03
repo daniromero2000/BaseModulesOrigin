@@ -31,15 +31,9 @@
 </style>
 @endsection
 @section('content')
-<div class="wrapper">
+<div class="wrapper mt-4">
 
-    <div id="content">
-        <div class="w-100">
-            <img src="{{ asset('img/FVN/baner-category.png')}}" class="d-block w-100" alt="baner-categorias">
-        </div>
-        <div class="tips">
-            <img src="{{ asset('img/fvn/tips.png')}}" class="d-block w-100" alt="tips">
-        </div>
+    <div id="content ">
         <div class="container-reset">
             <div class="row mx-auto">
                 <div class="col-lg-3">
@@ -90,47 +84,81 @@
                 </div>
             </div>
         </div>
-        @if (!empty($bestSellers))
-        <div class="container-reset mt-4">
-            <div class="text-center content-title-banner-products">
-                <h4 style=" font-size: 50px; padding: 25px; ">
-                    También te puede interesar
-                </h4>
-            </div>
-            <div class="px-4 pb-4 pt-2">
-                <div class="glider-contain">
-                    <div class="glider">
-                        @foreach ($bestSellers as $item)
-                        <a href="{{ route('front.get.product', str_slug($item->slug)) }}">
-                            <div class="card-body p-2 d-flex">
-                                <img src="{{ asset('storage/'.$item->cover) }}" alt="{{ $item->name }}"
-                                    class="img-card-product m-auto">
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>
-                    <button class="glider-prev glider-prev-one"><i class="fas fa-caret-left slider"></i></button>
-                    <button class="glider-next glider-next-one"><i class="fas fa-caret-right slider"></i></button>
-                </div>
-            </div>
-        </div>
-        @endif
+    </div>
+</div>
+@if (!empty($bestSellers))
+<div class="container-reset my-4" id="carrousel-reset" style="display: none">
+    <div class="text-center content-title-banner-products">
+        <h4 class="title-interesing">
+            También te puede interesar
+        </h4>
+    </div>
+    <div class="px-4 px-lg-5 pb-4 pt-2">
+        <div class="glider-contain">
+            <div class="glider">
+                @foreach ($bestSellers as $item)
+                <div class="p-1 p-sm-3">
+                    <div class="card border-0" style=" border-radius: 11px; ">
+                        <div class="card-body p-2 d-flex">
+                            <a href="{{ route('front.get.product', str_slug($item->slug)) }}"
+                                style="text-decoration: none;margin: auto;">
+                                <img data-src="{{ asset('storage/'.$item->cover) }}" alt="{{ $item->slug }}"
+                                    class="img-card-product m-auto lazy">
+                            </a>
 
-        <div class="w-100 ">
-            <div class="container-lg py-5 px-2">
-                <a href="">
-                    <img src="{{ asset('img/FVN/footerCategory.png')}}" class="d-block w-100" alt="footerCategory">
-                </a>
+                        </div>
+                        <div class="w-100 p-2">
+                            <a href="{{ route('front.get.product', str_slug($item->slug)) }}"
+                                style="text-decoration: none;">
+                                <p class="name-card-slider">
+                                    {{$item->name}}
+                                </p>
+                            </a>
+                            <div class="container-price-slider">
+                                @if ($item->sale_price > 0)
+                                <p class="text-center price-old-card-slider">
+
+                                    <del>${{ number_format($item->price, 0) }} </del>
+                                </p>
+                                <p class="text-center price-new-card-slider">
+                                    <b>
+                                        ${{ number_format($item->sale_price, 0) }}
+                                    </b>
+                                    <br>
+                                </p>
+                                @else
+                                <p class="text-center price-new-card-slider">
+
+                                    ${{ number_format($item->price, 0) }}
+                                    <br>
+                                </p>
+                                @endif
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-add-card mb-1" onclick="addCart({{$item->id}},'1')"
+                                    type="button">AÑADIR AL
+                                    CARRITO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
+            <button class="glider-prev glider-prev-one"><i class="fas fa-caret-left slider"></i></button>
+            <button class="glider-next glider-next-one"><i class="fas fa-caret-right slider"></i></button>
         </div>
     </div>
 </div>
+@endif
 <div class="overlay"></div>
 @endsection
 @section('scripts')
 <script src="{{ asset('js/front/sidebar/sidebar.js') }}"></script>
 
 <script type="text/javascript">
+    window.onload = (function(){
+        $('#carrousel-reset').show();
+    });
     $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"

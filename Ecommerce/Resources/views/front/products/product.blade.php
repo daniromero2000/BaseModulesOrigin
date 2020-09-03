@@ -12,23 +12,20 @@
 <link rel="stylesheet" href="{{ asset('css/front/carousel/glider.css')}}">
 <script src="{{ asset('js/front/carousel/glider.js')}}"></script>
 <script src="{{ asset('js/front/carousel/carousel.js')}}"></script>
+
 @endsection
 @section('content')
 <div class="container-reset product">
-    <div class="row">
-        <div class="col-md-12 mt-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-reset bg-white">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('front.category.slug', $category->slug) }}">{{ $category->name }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    @include('ecommerce::layouts.front.product')
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb breadcrumb-reset mt-2 bg-white">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('front.category.slug', $category->slug) }}">{{ $category->name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+        </ol>
+    </nav>
 </div>
+@include('ecommerce::layouts.front.product')
 @endsection
 @section('scripts')
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
@@ -40,5 +37,9 @@
     $(document).ready(function(){
     	$('.zoom-img').zoom();
     });
+    window.onload = (function(){
+    $('#carrousel-reset').show();
+    });
 </script>
+
 @endsection
