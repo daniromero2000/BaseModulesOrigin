@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Companies\Entities\CompaniesReviews;
+namespace Modules\Companies\Entities\CompanyReviews;
 
 use Modules\Companies\Entities\Companies\Company;
 use Illuminate\Database\Eloquent\Model;

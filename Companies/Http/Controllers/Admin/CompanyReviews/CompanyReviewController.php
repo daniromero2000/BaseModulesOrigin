@@ -19,7 +19,6 @@ class CompanyReviewController extends Controller
     public function store(CreateCompanyReviewRequest $request)
     {
         $this->companyReviewInterface->createCompanyReview($request->except('_token', '_method'));
-
         $request->session()->flash('message', 'Calificación Exitosa!');
 
         return back();
