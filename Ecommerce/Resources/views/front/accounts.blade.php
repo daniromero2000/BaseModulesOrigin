@@ -156,7 +156,7 @@
     <div class="nav-wrapper">
         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
             <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0 active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                <a class="nav-link mb-sm-3 mb-md-0 @if(!request()->has('address2')) active @endif" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                     aria-controls="profile" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Perfil
                 </a>
             </li>
@@ -170,8 +170,9 @@
                     aria-controls="address" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Direcciones
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link mb-sm-3 mb-md-0" id="address-tab2" data-toggle="tab" href="#address2" role="tab"
+          
+            <li class="nav-item ">
+                <a class="nav-link mb-sm-3 mb-md-0 @if (request()->has('address2')) active @endif" id="address-tab2" data-toggle="tab" href="#address2" role="tab"
                     aria-controls="address2" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Lista de deseos
                 </a>
             </li>
@@ -180,7 +181,7 @@
     <div class="card shadow mb-5">
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade @if(!request()->has('address2')) show active @endif" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="container bootstrap snippet">
                         <div class="row">
                             <div class="col-sm-12"><!--left col-->
@@ -190,46 +191,6 @@
                                 <div class="card text-center mt-3">
                                     <div class="card-header">
                                         <h4><h5 class="title-card-profile">{{$customer->name}} {{$customer->last_name}}</h5></h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-birthday-cake"></i> Cumpleaños</h6>
-                                                        <div class="row">
-                                                            <div class="col-12 col-md-12">
-                                                                <p class="card-text">{{$customer->birthday}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-city"></i> Ciudad</h6>
-                                                        <div class="row">
-                                                            <div class="col-12 col-md-12">
-                                                                <p class="card-text">{{$customer->city->city}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-user-graduate"></i> Nivel de escolaridad</h6>
-                                                        <div class="row">
-                                                            <div class="col-12 col-md-12">
-                                                                <p class="card-text">{{$customer->scholarity->scholarity}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -248,10 +209,10 @@
                                             <div class="col-sm-4">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-church"></i> Estado civil</h6>
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-birthday-cake"></i> Cumpleaños</h6>
                                                         <div class="row">
                                                             <div class="col-12 col-md-12">
-                                                                <p class="card-text">{{$customer->civilStatus->civil_status}}</p>
+                                                                <p class="card-text">{{$customer->birthday}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -262,44 +223,32 @@
                                     <div class="card-footer text-muted">
                                     </div>
                                 </div>
-                                {{-- <ul class="list-group text-center">
-                                    <li class="list-group-item">{{$customer->email}}</li>
-                                    <li class="list-group-item">{{$customer->customer_channel_id}}</li>
-                                    <li class="list-group-item">{{$customer->genre->genre}}</li>
-                                </ul> --}}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                     @if(!$orders->isEmpty())
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <td>Fecha</td>
-                                        <td>Total</td>
-                                        <td class="text-center">Estado</td>
-                                    </tr>
-                                </tbody>
-                                <tbody>
+                        <table class="table text-sm text-center">
+                            <thead>
+                                <th class="head-tab">Fecha</th>
+                                <th class="head-tab">Total</th>
+                                <th class="head-tab">Estado</th>
+                            </thead>
+                            <tbody>
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>
-                                            <a data-toggle="modal" data-target="#order_modal_{{$order['id']}}" title="Show order"
+                                            <a class="link-modal-ped" data-toggle="modal" data-target="#order_modal_{{$order['id']}}" title="Show order"
                                                 href="javascript: void(0)">{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}
                                             </a>
                                             <div class="modal fade" id="order_modal_{{$order['id']}}" tabindex="-1"
                                                 role="dialog" aria-labelledby="MyOrders">
                                                 <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Referencia
+                                                    <div class="modal-content modal-rounded">
+                                                        <div class="m-auto mt-4">
+                                                            <h5 class="modal-title title-detail-profile">Referencia
                                                                 #{{$order['reference']}}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
                                                         </div>
                                                         {{-- <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal"
@@ -311,10 +260,10 @@
                                                         <div class="modal-body">
                                                             <table class="table text-sm">
                                                                 <thead>
-                                                                    <th>Dirección</th>
-                                                                    <th>Metodo de Pago</th>
-                                                                    <th>Total</th>
-                                                                    <th>Estado</th>
+                                                                    <th class="head-tab">Dirección</th>
+                                                                    <th class="head-tab">Metodo de Pago</th>
+                                                                    <th class="head-tab">Total</th>
+                                                                    <th class="head-tab">Estado</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
@@ -334,13 +283,13 @@
                                                                 </tbody>
                                                             </table>
                                                             <hr>
-                                                            <p>Detalles del Pedido:</p>
+                                                            <p>Detalles del pedido:</p>
                                                             <table class="table text-sm">
                                                                 <thead>
-                                                                    <th>Nombre</th>
-                                                                    <th>Cantidad</th>
-                                                                    <th>Precio</th>
-                                                                    <th>Cover</th>
+                                                                    <th class="head-tab">Nombre</th>
+                                                                    <th class="head-tab">Cantidad</th>
+                                                                    <th class="head-tab">Precio</th>
+                                                                    <th class="head-tab">Cover</th>
                                                                 </thead>
                                                                 <tbody>
                                                                 @foreach ($order['products'] as $product)
@@ -377,12 +326,11 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     @else
-                        <p class="alert alert-warning">Sin pedidos aún. <a href="{{ route('home') }}">Compra Ahora!</a>
-                        </p>
+                    <br/>
+                        <p class="alert alert-warning">No tienes direcciones creadas aún.</p>
                     @endif
                 </div>
                 <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
@@ -399,9 +347,6 @@
                                         <td>{{$address->customer_address}}</td>
                                         <td>{{$address->city->city}}</td>
                                         <td>
-                                            <a href="" data-toggle="modal" data-target="#editaddressModal" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
-                                                <i style="color: #4F98B9;" class="fa fa-edit"></i>
-                                            </a>
                                             <!-- Button trigger modal -->
                                             <a href="" data-toggle="modal" data-target="#destroyadressModal">
                                                 <i style="color: #4F98B9;" class="fas fa-trash-alt"></i>
@@ -424,53 +369,17 @@
                                                                     <p style="color:#808080">¿Seguro desea eliminar la dirección?</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
-                                                            <input type="hidden" name="_method" value="delete">
-                                                            {{ csrf_field() }}
-                                                            <button class="btn btn-sm btn-confirm" type="submit"> Eliminar
-                                                                <i class="fa fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal edit address -->
-                                        <div class="modal fade" id="editaddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content modal-rounded">
-                                                    <div class="content text-center mt-3 title-modal">
-                                                        <h5>Editar dirección</h5>
-                                                    </div>
-                                                    <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form"
-                                                        enctype="multipart/form-data">
-                                                        <div class="modal-body">
-                                                            <input type="hidden" name="default_address" value="1">
-                                                            <div class="card-body p-2">
-                                                                {{ csrf_field() }}
-                                                                <div class="form-group">
-                                                                    <label for="customer_address" class="label-modal">Dirección <span class="text-danger">*</span></label>
-                                                                    <input type="text" required name="customer_address" id="customer_address"
-                                                                        placeholder="Dirección" class="form-control" value="{{ old('customer_address') }}">
-                                                                </div>
-                                                                <div id="provinces" class="form-group" style="display: none;"></div>
-                                                                <div id="cities" class="form-group" style="display: none;"></div>
-                                                                <div class="form-group">
-                                                                    <label class="label-modal" for="phone">Tu teléfono </label>
-                                                                    <input type="text" name="phone" id="phone" required placeholder="#########"
-                                                                        class="form-control" value="{{ old('phone') }}">
-                                                                </div>
+                                                            <div class="modal-footer">
+                                                                <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    {{ csrf_field() }}
+                                                                    <button class="btn btn-sm btn-confirm" type="submit"> Eliminar
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-                                                            <button type="submmit" class="btn btn-confirm btn-sm">Guardar</button>
-                                                        </div>
-                                                    </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -485,7 +394,7 @@
                 </div>
 
 
-                <div class="tab-pane fade" id="address2" role="tabpanel" aria-labelledby="address-tab2">
+                <div class="tab-pane fade @if(request()->has('address2')) show active @endif" id="address2" role="tabpanel" aria-labelledby="address-tab2">
                     @if(!$wishlist->isEmpty())
                     <table class="table text-sm text-center">
                         <thead>
@@ -571,7 +480,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="delete">
                                                         <div class="modal-footer">
-                                                            <button style="background-color:#B93D6B" type="button" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
+                                                            <button style="background-color:#B93D6B" type="submit" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
                                                           </div>
                                                     </form>
                                                 </div>

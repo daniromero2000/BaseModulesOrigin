@@ -13,12 +13,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 /**
  * Admin routes
  */
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
+
+        Route::namespace('Wishlist')->group(function () {
+            Route::resource('wishlists', 'WishlistController');
+        });
 
         Route::namespace('Products')->group(function () {
             Route::resource('products', 'ProductController');
@@ -60,16 +63,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('product-attributes', 'ProductAttributeController');
         });
 
+        Route::resource('wishlist', 'Wishlist\WishlistController');
+
         Route::resource('couriers', 'Couriers\CourierController');
 
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
-
-    
-        Route::namespace('ProductReviews')->group(function () {
-            Route::resource('product-reviews', 'ProductReviewController');
-        });
-      
-
     });
 });
 
@@ -82,7 +80,6 @@ Route::namespace('Auth')->group(function () {
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::resource('wishlist', 'WishlistController');
     Route::resource('product-reviews', 'ProductReviewController');
-   
 });
 
 Route::namespace('Front')->group(function () {

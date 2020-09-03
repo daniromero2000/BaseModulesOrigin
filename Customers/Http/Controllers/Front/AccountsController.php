@@ -22,19 +22,19 @@ class AccountsController extends Controller
 
     public function index()
     {
-        $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
+        $customer     = $this->customerRepo->findCustomerById(auth()->user()->id);
         $customerRepo = new CustomerRepository($customer);
-        $orders = $customerRepo->findOrders(['*'], 'created_at');
-        $addresses = $customerRepo->findAddresses();
+        $orders       = $customerRepo->findOrders(['*'], 'created_at');
+        $addresses    = $customerRepo->findAddresses();
         $orders->transform(function (Order $orders) {
             return $this->transformOrder($orders);
         });
 
         return view('front.accounts', [
-            'customer' => $customer,
-            'orders' => $this->customerRepo->paginateArrayResults($orders->toArray(), 15),
+            'customer'  => $customer,
+            'orders'    => $this->customerRepo->paginateArrayResults($orders->toArray(), 15),
             'addresses' => $addresses,
-            'items' => $customer->items,
+            'items'     => $customer->items,
         ]);
     }
 }

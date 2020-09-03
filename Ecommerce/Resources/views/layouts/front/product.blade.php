@@ -3,6 +3,15 @@
     margin-top: -10px;
     margin-bottom: 10px;
 }
+.fas.fa-star{
+    color: gold;
+    font-size: 22px;
+}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 </style>
 
 <div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
@@ -153,43 +162,115 @@
                                 <div class="input-group mx-auto">
                                     <div class="input-group mb-3 container-quanty mx-auto">
                                         <div class="input-group-prepend">
-                                            <button type="button" class="btn btn-sm minus-btn" onclick="res()"
-                                                id="minus-btn"><i class="fa fa-minus"></i></button>
+                                            <button type="button" class="btn btn-sm minus-btn" onclick="res()" id="minus-btn"><i class="fa fa-minus"></i></button>
                                         </div>
-                                        <input type="text" id="qty_input" name="quantity"
-                                            class="form-control form-control-sm text-center" value="1" min="1">
+                                        <input type="text" id="qty_input" name="quantity" class="form-control form-control-sm text-center" value="1" min="1">
                                         <div class="input-group-prepend">
-                                            <button type="button" class="btn btn-sm plus-btn" onclick="sum()"
-                                                id="plus-btn"><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-sm plus-btn" onclick="sum()" id="plus-btn"><i class="fa fa-plus"></i></button>
                                         </div>
                                         <input type="hidden" id="qty_input_real" class="" value="1" min="1">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-12">
-                                <button type="button" onclick="addCart({{$product->id}},'1')"
-                                    class="btn button-reset btn-block mx-auto mt-2">
+                                <button type="button" onclick="addCart({{$product->id}},'1')" class="btn button-reset btn-block mx-auto mt-2">
                                     Agregar al carrito
                                 </button>
                             </div>
                             <div class="col-xl-12">
-                                <button type="button" onclick="addWishlist({{$product->id}},'2')"
-                                    class="btn button-reset btn-block mx-auto mt-2">
+                                <button type="button" onclick="addWishlist({{$product->id}},'2')" class="btn button-reset btn-block mx-auto mt-2">
                                     Agregar a lista de deseos
                                 </button>
                             </div>
+                            <div id="ratingReviews "class=" mt-3">
+                                <div class="mx-0 w-100 d-flex justify-content-center">
+                                    <div class="col-xs-12 col-md-12 text-center">
+                                        <h1 id='promedioRating' class="rating-num">{{ $promedioRating }} </h1>                                        
+                                        <div class="rating-reviews">
+                                            <i class="far fa-star" aria-hidden="true" data-attr="1" id="rating-review-1"></i>
+                                            <i class="far fa-star" aria-hidden="true" data-attr="2" id="rating-review-2"></i>
+                                            <i class="far fa-star" aria-hidden="true" data-attr="3" id="rating-review-3"></i>
+                                            <i class="far fa-star" aria-hidden="true" data-attr="4" id="rating-review-4"></i>
+                                            <i class="far fa-star" aria-hidden="true" data-attr="5" id="rating-review-5"></i>
+                                        </div>
+                                        <div id="totalVotantes">
+                                            <i class="fa fa-user" aria-hidden="true"></i> <span>{{ $cant_reviews }}</span> votos
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-xs-12 col-md-6">
+                                        <div class="row rating-desc">
+                                            <div class="col-xs-3 col-md-3 text-right">
+                                                <i class="fa fa-star" aria-hidden="true"></i>5
+                                            </div>
+                                            <div class="col-xs-8 col-md-9">
+                                                <div class="progress progress-striped">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        <span class="sr-only">0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-xs-3 col-md-3 text-right">
+                                                <i class="fa fa-star" aria-hidden="true"></i>4
+                                            </div>
+                                            <div class="col-xs-8 col-md-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        <span class="sr-only">0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-xs-3 col-md-3 text-right">
+                                                <i class="fa fa-star" aria-hidden="true"></i>3
+                                            </div>
+                                            <div class="col-xs-8 col-md-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        <span class="sr-only">0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-xs-3 col-md-3 text-right">
+                                                <i class="fa fa-star" aria-hidden="true"></i>2
+                                            </div>
+                                            <div class="col-xs-8 col-md-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        <span class="sr-only">0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-xs-3 col-md-3 text-right">
+                                                <i class="fa fa-star" aria-hidden="true"></i>1
+                                            </div>
+                                            <div class="col-xs-8 col-md-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        <span class="sr-only">0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div> -->
+                                </div>
+                            </div> 
                             <div class="col-xl-12">
                             
                                 <button type="button" @auth data-toggle="modal" data-target="#produtcReviewModal" @endauth data-backdrop="static" data-keyboard="false" id="triggerProductReviewModal" class="btn button-reset btn-block mx-auto mt-2 ">
                                     Calificar Producto @auth - <span class="selected-rating valid" data-attr="">0</span><small> / 5</small>@endauth
                                 </button>
-                            
-
-                                
                             </div>
-
-                            <div class="modal fade" id="produtcReviewModal" tabindex="-1" role="dialog"
-                                aria-labelledby="produtcReviewModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="produtcReviewModal" tabindex="-1" role="dialog" aria-labelledby="produtcReviewModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -200,8 +281,7 @@
                                                 <label for="comment"  class="control-label col-md-12 d-flex justify-content-center mt-2 mb-3">
                                                     <textarea id='comment' class="w-100" name="comment" placeholder="Comparte tu opinión con el vededor!"></textarea>
                                                 </label>
-                                                <label class="col-md-12  control-label d-flex justify-content-center"
-                                                    for="rating">
+                                                <label class="col-md-12  control-label d-flex justify-content-center" for="rating">
                                                     <span class="field-label-header">Que tal te parece este
                                                         producto</span><br>
                                                     <span class="field-label-info"></span>
@@ -211,24 +291,19 @@
                                                         value="{{$product->id}}" required="required">
                                                 </label>                                                
                                                 <div class="col-md-12 d-flex justify-content-center mt-2 mb-2">
-                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
-                                                        data-attr="1" id="rating-star-1">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0" data-attr="1" id="rating-star-1">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </button>
-                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
-                                                        data-attr="2" id="rating-star-2">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0" data-attr="2" id="rating-star-2">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </button>
-                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
-                                                        data-attr="3" id="rating-star-3">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0" data-attr="3" id="rating-star-3">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </button>
-                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
-                                                        data-attr="4" id="rating-star-4">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0" data-attr="4" id="rating-star-4">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </button>
-                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
-                                                        data-attr="5" id="rating-star-5">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0" data-attr="5" id="rating-star-5">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </button>
                                                 </div>
@@ -240,21 +315,14 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="createProductReview" disabled class="btn button-reset" data-dismiss="modal">Enviar Calificaci&oacute;n</button>                                            
+                                            <button type="button" id="createProductReview" disabled class="btn button-reset" data-dismiss="modal">Enviar Calificaci&oacute;n</button>
                                             <button type="button" @guest id="cancelReview" @endguest class="btn btn-secondary" data-dismiss="modal">Cancelar </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-
-
-
-
-
+                            </div>                            
                         </div>
+                       
                     </form>
                 </div>
             </div>

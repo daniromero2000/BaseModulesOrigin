@@ -5,6 +5,7 @@ namespace Modules\Ecommerce\Entities\ProductReviews;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Modules\Customers\Entities\Customers\Customer;
+use Modules\Ecommerce\Entities\Products\Product;
 
 
 class ProductReview extends Model
@@ -51,14 +52,11 @@ class ProductReview extends Model
         'updated_at'
     ];
 
+
+
     public function customerProductReview(string $shipment_id)
     {
         return self::search($shipment_id);
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
     }
 
     public function searchForReview(array $data)
@@ -67,5 +65,14 @@ class ProductReview extends Model
     }
 
     
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
 }

@@ -119,6 +119,12 @@
                                 </span>
                                 <small>Productos</small>
                             </a>
+                            <a href="{{ route('admin.wishlist.index')}}" class="col-4 shortcut-item">
+                                <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                                    <i class="fas fa-heart"></i>
+                                </span>
+                                <small>Wishlist</small>
+                            </a>
                         </div>
                     </div>
                 </li>

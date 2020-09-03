@@ -89,8 +89,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductById(int $id): Product
     {
         try {
-            $data = $this->model->findOrFail($id);
-            return $this->transformProduct($this->model->findOrFail($id, $this->columns));
+            $data = $this->model->with(['reviews'])->findOrFail($id);
+            return $this->transformProduct($this->model->with(['reviews'])->findOrFail($id, $this->columns));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -99,7 +99,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductByIdFull(int $id): Product
     {
         try {
-            return $this->model->with(['attributes'])->findOrFail($id);
+            return $this->model->with(['attributes', 'reviews'])->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -280,7 +280,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function findOneByOrFail(array $data)
     {
-        return $this->model->where($data)->firstOrFail($this->columns);
+        return $this->model->with(['reviews'])->where($data)->firstOrFail($this->columns);
     }
 
     public function duplicateProduct(Int $id)

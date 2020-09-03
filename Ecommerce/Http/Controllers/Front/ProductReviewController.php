@@ -19,16 +19,6 @@ class ProductReviewController extends Controller
         $this->productReviewInterf  = $productReviewInterface;
     }
 
-    public function index()
-    {
-
-    }
-
-    public function create(Request $request)
-    {
-       //       
-    }
-
     public function store(Request $request)
     {
         if (Auth::check()) {
@@ -46,7 +36,6 @@ class ProductReviewController extends Controller
         return 'login';
     }
 
-
     public function edit($id)
     {
         if (Auth::check()) {
@@ -58,7 +47,6 @@ class ProductReviewController extends Controller
                     'data' => $this->productReviewInterf->findProductReview($data),
                     'res' => 'succes'
             ];
-            //return dd($response);
             return $response;
         }
         return 'login';
@@ -67,7 +55,6 @@ class ProductReviewController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $data = [
             'name'          =>  '',//$request->input('name'),
             'title'         =>  '',//$request->input('title'),
@@ -78,11 +65,5 @@ class ProductReviewController extends Controller
             'customer_id'   =>  auth()->user()->id,
         ];
         return $this->productReviewInterf->updateProductReview($data,$id);
-
-    }
-
-    public function destroy($id)
-    {
-      
     }
 }

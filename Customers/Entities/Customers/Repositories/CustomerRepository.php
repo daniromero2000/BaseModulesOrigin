@@ -30,7 +30,8 @@ class CustomerRepository implements CustomerRepositoryInterface
         'civil_status_id',
         'genre_id',
         'customer_status_id',
-        'created_at'
+        'created_at',
+        'email'
     ];
 
     public function __construct(Customer $customer)
