@@ -1,3 +1,10 @@
+<style>
+.rating-header {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+</style>
+
 <div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
     <div class="col-lg-8 mb-3">
         <div class="p-2 d-flex">
@@ -98,6 +105,7 @@
                     @include('generals::layouts.errors-and-messages')
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
+
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
                         <div class="w-100">
                             <div class="form-group  mb-2">
@@ -170,6 +178,82 @@
                                     Agregar a lista de deseos
                                 </button>
                             </div>
+                            <div class="col-xl-12">
+                            
+                                <button type="button" @auth data-toggle="modal" data-target="#produtcReviewModal" @endauth data-backdrop="static" data-keyboard="false" id="triggerProductReviewModal" class="btn button-reset btn-block mx-auto mt-2 ">
+                                    Calificar Producto @auth - <span class="selected-rating valid" data-attr="">0</span><small> / 5</small>@endauth
+                                </button>
+                            
+
+                                
+                            </div>
+
+                            <div class="modal fade" id="produtcReviewModal" tabindex="-1" role="dialog"
+                                aria-labelledby="produtcReviewModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title ">Calificar Producto </h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row" id="rating-ability-wrapper">
+                                                <label for="comment"  class="control-label col-md-12 d-flex justify-content-center mt-2 mb-3">
+                                                    <textarea id='comment' class="w-100" name="comment" placeholder="Comparte tu opinión con el vededor!"></textarea>
+                                                </label>
+                                                <label class="col-md-12  control-label d-flex justify-content-center"
+                                                    for="rating">
+                                                    <span class="field-label-header">Que tal te parece este
+                                                        producto</span><br>
+                                                    <span class="field-label-info"></span>
+                                                    <input type="hidden" id="selected_rating" name="selected_rating"
+                                                        value="" required="required">
+                                                    <input type="hidden" id="product_id" name="product_id"
+                                                        value="{{$product->id}}" required="required">
+                                                </label>                                                
+                                                <div class="col-md-12 d-flex justify-content-center mt-2 mb-2">
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
+                                                        data-attr="1" id="rating-star-1">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
+                                                        data-attr="2" id="rating-star-2">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
+                                                        data-attr="3" id="rating-star-3">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
+                                                        data-attr="4" id="rating-star-4">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btnrating btn btn-default btn-lg border-0"
+                                                        data-attr="5" id="rating-star-5">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-12 d-flex justify-content-center mt-2">
+                                                    <h2 class="bold rating-header" >
+                                                        <span class="selected-rating">0</span><small> / 5</small>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="createProductReview" disabled class="btn button-reset" data-dismiss="modal">Enviar Calificaci&oacute;n</button>                                            
+                                            <button type="button" @guest id="cancelReview" @endguest class="btn btn-secondary" data-dismiss="modal">Cancelar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
                         </div>
                     </form>
                 </div>
@@ -210,6 +294,5 @@
         </a>
     </div>
 </div>
-
 
 @endif

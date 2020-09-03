@@ -45,7 +45,7 @@ class OrderController extends Controller
         } else {
             $list = $this->orderRepo->listOrders('created_at', 'desc');
         }
-
+        //dd($list);
         return view('ecommerce::admin.orders.list', [
             'orders' => $list
         ]);
@@ -58,11 +58,13 @@ class OrderController extends Controller
         $order->courier = $orderRepo->getCouriers()->first();
         $order->address = $orderRepo->getAddresses()->first();
         $items          = $orderRepo->listOrderedProducts();
+        //dd(auth()->guard('employee')->user());
         $couriers       = $this->courierRepo->listCouriers()->pluck('name', 'id');
         $orderShipment  = $order->orderShipment;
+        //dd($orderShipment[0]->company_id);
         $cant   = 0;
         $weight = 0.00;
-
+        //dd(auth()->guard('employee')->user()->subsidiary->company_id);
         foreach ($items as $item) {
             $cant   += $item->quantity;
             $weight += $item->weight * number_format($item->quantity, 2);

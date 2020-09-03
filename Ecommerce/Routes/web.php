@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
+
         Route::namespace('Products')->group(function () {
             Route::resource('products', 'ProductController');
             Route::put('api/update-product-order/{id}', 'ProductController@updateSortOrder');
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::put('api/update-category-order/{id}', 'CategoryController@updateSortOrder');
             Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
         });
+
         Route::namespace('Orders')->group(function () {
             Route::resource('orders', 'OrderController');
             Route::resource('order-statuses', 'OrderStatusController');
@@ -59,11 +61,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         });
 
         Route::resource('couriers', 'Couriers\CourierController');
+
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
 
-        Route::namespace('Wishlist')->group(function () {
-            Route::resource('wishlist', 'WishlistControllerAdmin');
+    
+        Route::namespace('ProductReviews')->group(function () {
+            Route::resource('product-reviews', 'ProductReviewController');
         });
+      
+
     });
 });
 
@@ -75,6 +81,8 @@ Route::namespace('Auth')->group(function () {
     Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::resource('wishlist', 'WishlistController');
+    Route::resource('product-reviews', 'ProductReviewController');
+   
 });
 
 Route::namespace('Front')->group(function () {
@@ -104,6 +112,7 @@ Route::namespace('Front')->group(function () {
         Route::get('/api/getCountry/{id}/province', 'CheckoutController@getCountry')->name('checkout.getCountry');
         Route::get('/api/getProvince/{id}/city', 'CheckoutController@getProvince')->name('checkout.getProvince');
     });
+
     Route::resource('cart', 'CartController');
     Route::resource('wishlist', 'WishlistController');
     Route::get('api/getCart/', 'CartController@getCart')->name('front.get.cart');
@@ -114,4 +123,11 @@ Route::namespace('Front')->group(function () {
     Route::get("search", 'ProductController@search')->name('search.product');
     Route::get("{product}", 'ProductController@show')->name('front.get.product');
     Route::get('api/getWishlist/', 'WishlistController@getWishlist');
+    /**
+     * Product Reviews routes
+     */
+    Route::get('product-reviews/search/{id}', 'ProductReviewController@edit');
+    Route::post('product-reviews/store', 'ProductReviewController@store');
+    Route::post('product-reviews/update/{id}', 'ProductReviewController@update');
+    /** End Product Reviews routes*/
 });

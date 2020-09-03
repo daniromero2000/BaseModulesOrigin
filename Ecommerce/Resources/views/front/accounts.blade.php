@@ -183,72 +183,90 @@
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="container bootstrap snippet">
                         <div class="row">
-                            <div class="col-sm-4"><!--left col-->
+                            <div class="col-sm-12"><!--left col-->
                                 <div class="text-center">
-                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar profile-rounded img-thumbnail" alt="avatar">
-                                    <br>
-                                    <h5 class="text-color-gray">{{$customer->name}} {{$customer->last_name}}</h5>
+                                    <img src="{{ asset('img/FVN/avatar.png') }}" class="avatar profile-rounded img-thumbnail" alt="avatar">
                                 </div>
-                                <ul class="list-group text-center">
-                                    <li class="list-group-item">Activity</li>
-                                    <li class="list-group-item">1</li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-8">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                      <a class="nav-item item-tab-menu nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                                      <a class="nav-item item-tab-menu nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                                      <a class="nav-item item-tab-menu nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                <div class="card text-center mt-3">
+                                    <div class="card-header">
+                                        <h4><h5 class="title-card-profile">{{$customer->name}} {{$customer->last_name}}</h5></h4>
                                     </div>
-                                  </nav>
-                                  <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        <div class="container px-3 py-3">
-                                            <p>Home tab</p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-birthday-cake"></i> Cumpleaños</h6>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12">
+                                                                <p class="card-text">{{$customer->birthday}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-city"></i> Ciudad</h6>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12">
+                                                                <p class="card-text">{{$customer->city->city}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-user-graduate"></i> Nivel de escolaridad</h6>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12">
+                                                                <p class="card-text">{{$customer->scholarity->scholarity}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <div class="container px-3 py-3">
-                                            <p>Home tab</p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-at"></i> Correo electrónico</h6>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12">
+                                                                <p class="card-text">{{$customer->email}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title title-detail-profile"><i class="fas fa-church"></i> Estado civil</h6>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12">
+                                                                <p class="card-text">{{$customer->civilStatus->civil_status}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                        <div class="container px-3 py-3">
-                                            <p>Contact tab</p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia dolorem
-                                                dicta harum sit soluta itaque provident excepturi sequi dolor accusamus deserunt
-                                                et cumque, nesciunt ea est dignissimos quibusdam molestias hic!
-                                            </p>
-                                        </div>
+                                    <div class="card-footer text-muted">
                                     </div>
-                                  </div>
+                                </div>
+                                {{-- <ul class="list-group text-center">
+                                    <li class="list-group-item">{{$customer->email}}</li>
+                                    <li class="list-group-item">{{$customer->customer_channel_id}}</li>
+                                    <li class="list-group-item">{{$customer->genre->genre}}</li>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
@@ -370,15 +388,6 @@
                 <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                     @if(!$addresses->isEmpty())
                         <table class="table text-sm text-center">
-                            {{-- Inicio --}}
-                            <a href="/wishlist" class="dropdown-item">
-                                <div class="media">
-                                    <div class="media-body d-flex justify-content-between px-4 py-2">
-                                        <p class="text-sm subtotal">Subtotal</p>
-                                        <p class="text-sm text-muted price"></p>
-                                    </div>
-                                </div>
-                            </a>
                             <thead>
                                 <th class="head-tab">Dirección</th>
                                 <th class="head-tab">Ciudad</th>
@@ -390,43 +399,81 @@
                                         <td>{{$address->customer_address}}</td>
                                         <td>{{$address->city->city}}</td>
                                         <td>
-                                            <a href="" data-toggle="modal" data-target="#productModal" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
-                                                <i style="color: #4F98B9;" class="fas fa-trash-alt"></i>
-                                            </a>
-                                            <!-- Button trigger modal -->
-                                            <a href="" data-toggle="modal" data-target="#exampleModal">
+                                            <a href="" data-toggle="modal" data-target="#editaddressModal" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
                                                 <i style="color: #4F98B9;" class="fa fa-edit"></i>
                                             </a>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-cont" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
+                                            <!-- Button trigger modal -->
+                                            <a href="" data-toggle="modal" data-target="#destroyadressModal">
+                                                <i style="color: #4F98B9;" class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                        <!-- Modal destroy address -->
+                                        <div class="modal fade modal-top" id="destroyadressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-cont" role="document">
+                                                <div class="modal-content modal-rounded">
+                                                    <div class="row mx-0 justify-content-end">
+                                                        <button type="button" class="close mr-2 mt-1" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <div class="col-12 col-md-12">
+                                                                    <h4 style="color:#B93D6B">Advertencia <i class="fas fa-exclamation-circle"></i> </h4>
+                                                                    <p style="color:#808080">¿Seguro desea eliminar la dirección?</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
+                                                            <input type="hidden" name="_method" value="delete">
+                                                            {{ csrf_field() }}
+                                                            <button class="btn btn-sm btn-confirm" type="submit"> Eliminar
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
-                                                                <a href="{{ route('customer.address.edit', [auth()->user()->id, $address->id]) }}"
-                                                                class="btn btn-sm"> <i style="color: #4F98B9;" class="fa fa-edit"></i></a>
-                                                                <input type="hidden" name="_method" value="delete">
-                                                                {{ csrf_field() }}
-                                                                <button onclick="return confirm('¿Estás Seguro?')" type="submit"
-                                                                class="btn btn-sm"> <i style="color: #4F98B9;" class="fa fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Guardar</button>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </div>
+                                        <!-- Modal edit address -->
+                                        <div class="modal fade" id="editaddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content modal-rounded">
+                                                    <div class="content text-center mt-3 title-modal">
+                                                        <h5>Editar dirección</h5>
+                                                    </div>
+                                                    <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form"
+                                                        enctype="multipart/form-data">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="default_address" value="1">
+                                                            <div class="card-body p-2">
+                                                                {{ csrf_field() }}
+                                                                <div class="form-group">
+                                                                    <label for="customer_address" class="label-modal">Dirección <span class="text-danger">*</span></label>
+                                                                    <input type="text" required name="customer_address" id="customer_address"
+                                                                        placeholder="Dirección" class="form-control" value="{{ old('customer_address') }}">
+                                                                </div>
+                                                                <div id="provinces" class="form-group" style="display: none;"></div>
+                                                                <div id="cities" class="form-group" style="display: none;"></div>
+                                                                <div class="form-group">
+                                                                    <label class="label-modal" for="phone">Tu teléfono </label>
+                                                                    <input type="text" name="phone" id="phone" required placeholder="#########"
+                                                                        class="form-control" value="{{ old('phone') }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                                                            <button type="submmit" class="btn btn-confirm btn-sm">Guardar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -454,7 +501,7 @@
                                 <td>{{$data->product->name}}</td>
                                 <td>$ {{ number_format($data->product->price)}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#covermodal" data-original-title="Ver cover" href="">
+                                    <a data-toggle="modal" data-target="#modalcover" data-original-title="Ver cover" href="">
                                         <i style="color:#4F98B9" class="fas fa-eye"></i>
                                     </a>
                                     <a href="" data-toggle="modal" data-target="#productModal{{ $data->product->id }}" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
@@ -464,7 +511,28 @@
                                         <i style="color:#4F98B9" class="fas fa-times-circle"></i>
                                     </a>
                                 </td>
-                                <!-- Modal producto-->
+                                <!-- Modal cover -->
+                                <div class="modal fade" id="modalcover" data-backdrop="static" data-keyboard="false"
+                                    tabindex="-1" role="dialog" aria-labelledby="covermodal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-content">
+                                                <div class="row mx-0 justify-content-end">
+                                                    <button type="button" class="close mr-2 mt-1" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="content m-auto">
+                                                    <div class="text-center" style="color:#B93D6B">
+                                                        <h4>{{$data->product->name}}</h4>
+                                                    </div>
+                                                    <img class="img-fluid lazy" data-src="{{ asset("storage/" . $data->product->cover )}}"
+                                                    alt="{{$data->product->name}}" style=" border-radius: 6px; ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal fade" id="productModal{{ $data->product->id }}" data-backdrop="static" data-keyboard="false"
                                     tabindex="-1" role="dialog" aria-labelledby="productModal{{ $data->product->id }}Label" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
@@ -480,7 +548,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal eliminar -->
+                                <!-- Modal eliminar wishlist -->
                                 <div class="modal fade" id="destroyModal" data-backdrop="static" data-keyboard="false"
                                     tabindex="-1" role="dialog" aria-labelledby="productModal{{ $data->product->id }}Label" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
@@ -494,7 +562,7 @@
                                                 <div class="container">
                                                     <div class="row text-center">
                                                         <div class="col-12 col-md-12">
-                                                            <h4 style="color:#B93D6B"><i class="fas fa-exclamation-circle"></i> Advertencia</h4>
+                                                            <h4 style="color:#B93D6B">Advertencia <i class="fas fa-exclamation-circle"></i></h4>
                                                             <p style="color:#808080">¿Seguro desea eliminar el registro de su lista de deseos?</p>
                                                         </div>
                                                     </div>
