@@ -26,7 +26,8 @@ class WishlistRepository implements WishlistRepositoryInterface
 
     public function listWishList($id)
     {
-        return $this->model->with('product')->where('customer_id', $id)
+        return $this->model->with('product')
+            ->where('customer_id', $id)
             ->where('moved_to_cart', null)
             ->orderBy('created_at', 'desc')
             ->get($this->columns);
