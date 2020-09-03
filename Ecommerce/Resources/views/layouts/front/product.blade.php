@@ -7,8 +7,11 @@
     color: gold;
     font-size: 22px;
 }
+.fa.fa-star{
+    font-size: 10px;
+}
 .rating-num { margin-top:0px;font-size: 54px; }
-.progress { margin-bottom: 5px;}
+
 .progress-bar { text-align: left; }
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
@@ -184,7 +187,7 @@
                             </div>
                             <div id="ratingReviews "class=" mt-3">
                                 <div class="mx-0 w-100 d-flex justify-content-center">
-                                    <div class="col-xs-12 col-md-12 text-center">
+                                    <div class="col-xs-12 col-md-6 text-center">
                                         <h1 id='promedioRating' class="rating-num">{{ $promedioRating }} </h1>                                        
                                         <div class="rating-reviews">
                                             <i class="far fa-star" aria-hidden="true" data-attr="1" id="rating-review-1"></i>
@@ -197,12 +200,12 @@
                                             <i class="fa fa-user" aria-hidden="true"></i> <span>{{ $cant_reviews }}</span> votos
                                         </div>
                                     </div>
-                                    <!-- <div class="col-xs-12 col-md-6">
+                                    <div class="col-xs-12 col-md-6">
                                         <div class="row rating-desc">
-                                            <div class="col-xs-3 col-md-3 text-right">
+                                            <div class="col-xs-3 col-md-3 text-right mb-1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>5
                                             </div>
-                                            <div class="col-xs-8 col-md-9">
+                                            <div class="col-xs-8 col-md-9 mb-1">
                                                 <div class="progress progress-striped">
                                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -211,10 +214,10 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-xs-3 col-md-3 text-right">
+                                            <div class="col-xs-3 col-md-3 text-right mb-1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>4
                                             </div>
-                                            <div class="col-xs-8 col-md-9">
+                                            <div class="col-xs-8 col-md-9 mb-1">
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -223,10 +226,10 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-xs-3 col-md-3 text-right">
+                                            <div class="col-xs-3 col-md-3 text-right mb-1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>3
                                             </div>
-                                            <div class="col-xs-8 col-md-9">
+                                            <div class="col-xs-8 col-md-9 mb-1">
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -235,10 +238,10 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-xs-3 col-md-3 text-right">
+                                            <div class="col-xs-3 col-md-3 text-right mb-1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>2
                                             </div>
-                                            <div class="col-xs-8 col-md-9">
+                                            <div class="col-xs-8 col-md-9 mb-1">
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -247,10 +250,10 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-xs-3 col-md-3 text-right">
+                                            <div class="col-xs-3 col-md-3 text-right mb-1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>1
                                             </div>
-                                            <div class="col-xs-8 col-md-9">
+                                            <div class="col-xs-8 col-md-9 mb-1">
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -261,7 +264,7 @@
                                             
                                         </div>
                                         
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div> 
                             <div class="col-xl-12">

@@ -54,11 +54,17 @@ class ProductController extends Controller
         $reviews        =   $product->reviews;
         $total_rating   =   0;
         $cant_reviews   =   count($reviews);
-        foreach ($reviews as $item) {
-            $total_rating   +=  $item->rating;
+        if($cant_reviews>0){
+            foreach ($reviews as $item) {
+                $total_rating   +=  $item->rating;
+            }
+            // para el promedio se toma el total de ratings y se divide entre la cantidad de reviews
+            $promedio = $total_rating/$cant_reviews;
         }
-        // para el promedio se toma el total de ratings y se divide entre la cantidad de reviews
-        $promedio = $total_rating/$cant_reviews;
+        else{
+            $promedio = 0;
+        }
+
         // agrego el promedio al objeto producto
         return view('ecommerce::front.products.product', [
             'product'               =>  $product,
