@@ -31,8 +31,8 @@ use Modules\Ecommerce\Entities\OrderStatuses\Repositories\OrderStatusRepository;
 
 class OrderShipmentController extends Controller
 {
-    private $orderRepo, $orderShippingInterf, $orderShippingItemInterf, $orderShippingRepo, $customerRepo, $orderStatusRepo ;
-    
+    private $orderRepo, $orderShippingInterf, $orderShippingItemInterf, $orderShippingRepo, $customerRepo, $orderStatusRepo;
+
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
@@ -41,8 +41,7 @@ class OrderShipmentController extends Controller
         OrderShippingRepository $orderShippingRepoInterfe,
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository
-        )
-    {
+    ) {
         $this->orderRepo                = $orderRepository;
         $this->orderShippingInterf      = $orderShippingInterface;
         $this->orderShippingItemInterf  = $orderShippingItemInterface;
@@ -84,16 +83,17 @@ class OrderShipmentController extends Controller
     {
         $request['employee_id']     =   auth()->guard('employee')->user()->id;
         $request['company_id']      =   auth()->guard('employee')->user()->subsidiary->company_id;
+        $request['subsidiary_id']      =   auth()->guard('employee')->user()->subsidiary->id;
         $shipment                   =   $this->orderShippingInterf->createOrderShipping($request->all());
         $orderId                    =   $request->order_id;
         $order                      =   $this->orderRepo->findOrderById($orderId);
         $orderRepo                  =   new OrderRepository($order);
         $products                   =   $orderRepo->listOrderedProducts();
 
-        foreach($products as $item){
+        foreach ($products as $item) {
             //dd($item);
             $cant   =   $item->quantity;
-            for ($i = 1; $i <= $cant; ) {
+            for ($i = 1; $i <= $cant;) {
                 $shipmentItems = array(
                     'name'           =>  $item->name,
                     'description'    =>  $item->description,
