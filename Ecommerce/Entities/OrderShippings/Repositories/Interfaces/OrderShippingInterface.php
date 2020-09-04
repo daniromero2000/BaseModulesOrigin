@@ -12,5 +12,4 @@ interface OrderShippingInterface
     public function listOrderShippings(): Collection;
     public function findOrderShipment(int $order_id): OrderShipping;
     public function findShipmentItems(int $shipment_id): Collection;
-
 }
