@@ -10,7 +10,7 @@ use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
 
-use Modules\Ecommerce\Entities\OrderShipping\OrderShipping; 
+use Modules\Ecommerce\Entities\OrderShippings\OrderShipping;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\OrderShippingRepository;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShippingInterface;
 use Modules\Ecommerce\Entities\OrderShippings\Requests\CreateOrderShippingRequest;
@@ -57,9 +57,8 @@ class OrderShipmentController extends Controller
      */
     public function index()
     {
-        $employee_id =    auth()->guard('employee')->user()->id; 
+        $employee_id =    auth()->guard('employee')->user()->id;
         $list = $this->orderShippingInterf->listOrderShippings();
-        //dd($list);
         return view('ecommerce::admin.order-shipments.list', [
             'shipments' => $list,
             'employee_id' => $employee_id
@@ -84,7 +83,7 @@ class OrderShipmentController extends Controller
     public function store(CreateOrderShippingRequest $request)
     {
         $request['employee_id']     =   auth()->guard('employee')->user()->id;
-        $request['subsidiary_id']   =   auth()->guard('employee')->user()->subsidiary_id;
+        $request['company_id']      =   auth()->guard('employee')->user()->subsidiary->company_id;
         $shipment                   =   $this->orderShippingInterf->createOrderShipping($request->all());
         $orderId                    =   $request->order_id;
         $order                      =   $this->orderRepo->findOrderById($orderId);
@@ -125,7 +124,6 @@ class OrderShipmentController extends Controller
      */
     public function show($id)
     {
-        
         $orderShipment      = $this->orderShippingRepo->findOrderShipment($id);
 
         return view('ecommerce::admin.order-shipments.show', [
@@ -136,7 +134,6 @@ class OrderShipmentController extends Controller
             'courier'               =>  $orderShipment->courier->name,
             'user'                  =>  auth()->guard('employee')->user(),
             'orderShipment'         =>  $orderShipment,
-           
         ]);
     }
 

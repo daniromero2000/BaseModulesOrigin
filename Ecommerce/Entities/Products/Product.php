@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Modules\Ecommerce\Entities\ProductGroups\ProductGroup;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Modules\Ecommerce\Entities\ProductReviews\ProductReview;
 
 class Product extends Model implements Buyable
 {
@@ -149,5 +150,15 @@ class Product extends Model implements Buyable
     {
         return $this->belongsTo(Brand::class)
             ->select(['id', 'name', 'slug', 'logo', 'is_visible_on_front', 'is_active']);
+    }
+    /**
+     * Get the product reviews.
+     *
+     * @param 
+     * @return 
+     */
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class, 'product_id');
     }
 }

@@ -63,17 +63,16 @@ class CustomerAddressController extends Controller
     {
         $this->addressRepo->deleteCustomerAddress($addressId);
 
-        return redirect()->back()->with('message',' Elimnado exitosamente');
+        return redirect()->back()->with('message', ' Elimnado exitosamente');
         // return redirect()->route('admin.products.index')
         //     ->with('message', config('messaging.delete'));
     }
     public function edit($id)
     {
-        //Test Controller -> Jose Trespalacios
-        return ('Actualizado');
+        //
     }
     public function update($id)
     {
-        //
+        dd('Uptdate');
     }
 }

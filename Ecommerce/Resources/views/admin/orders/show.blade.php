@@ -128,7 +128,7 @@
 
                             <a href="{{route('admin.orders.invoice.generate', $order['id'])}}" class="flex-fill btn btn-primary btn-sm ">Descargar Factura</a>
                             @if($currentStatus->id == 1)
-                                @if(!$orderShipment->isEmpty())
+                                @if(!$orderShipment->isEmpty() && $orderShipment[0]->company_id == $user->subsidiary->company_id )
                                     <a href="{{route('admin.order-shipments.show', $orderShipment[0]['id'])}}" class="flex-fill btn btn-primary btn-sm ">Ver Despacho </a>
                                 @else
                                     <!-- Generar Despacho Button -->

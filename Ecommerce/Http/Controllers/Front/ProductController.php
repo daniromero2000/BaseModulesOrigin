@@ -40,18 +40,40 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Show the specified resource.
+     * @param string $slug
+     * @return Response
+     */
     public function show(string $slug)
     {
         if (request()->has('item')) {
             dd(request()->input());
         }
-        $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
+        $product        =   $this->productRepo->findProductBySlug(['slug' => $slug]);
+        $reviews        =   $product->reviews;
+        $total_rating   =   0;
+        $cant_reviews   =   count($reviews);
+        if($cant_reviews>0){
+            foreach ($reviews as $item) {
+                $total_rating   +=  $item->rating;
+            }
+            // para el promedio se toma el total de ratings y se divide entre la cantidad de reviews
+            $promedio = $total_rating/$cant_reviews;
+        }
+        else{
+            $promedio = 0;
+        }
+
+        // agrego el promedio al objeto producto
         return view('ecommerce::front.products.product', [
-            'product' => $product,
-            'images' => $product->images()->get(),
-            'bestSellers' => $this->productRepo->listProductGroups('Nuevos'),
-            'productAttributes' => $product->attributes,
-            'category' => $product->categories()->first()
+            'product'               =>  $product,
+            'images'                =>  $product->images()->get(),
+            'bestSellers'           =>  $this->productRepo->listProductGroups('Nuevos'),
+            'productAttributes'     =>  $product->attributes,
+            'category'              =>  $product->categories()->first(),
+            'promedioRating'        =>  $promedio,
+            'cant_reviews'         =>  $cant_reviews
         ]);
     }
 

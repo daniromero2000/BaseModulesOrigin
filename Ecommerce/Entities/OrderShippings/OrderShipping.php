@@ -25,6 +25,7 @@ class OrderShipping extends Model
         'order_id',
         'courier_id',
         'employee_id',
+        'company_id',
         'description',
         'total_qty',
         'total_weight',
@@ -70,7 +71,7 @@ class OrderShipping extends Model
     {
         return self::search($order_id);
     }
-    
+
     public function searchShipmentItems(string $shipment_id)
     {
         return self::search($shipment_id);

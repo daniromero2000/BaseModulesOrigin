@@ -93,7 +93,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
     {
-        return $this->model->with('orderStatus')->orderBy('id', 'desc')
+        return $this->model->with(['orderStatus', 'companyId'])->orderBy('id', 'desc')
             ->get($this->columns);
     }
 

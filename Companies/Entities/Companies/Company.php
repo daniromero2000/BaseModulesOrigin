@@ -44,6 +44,7 @@ class Company extends Model
 
     protected $searchable = [
         'columns' => [
+            'companies.id' => 10,
             'companies.name' => 10,
             'countries.name' => 10,
         ],

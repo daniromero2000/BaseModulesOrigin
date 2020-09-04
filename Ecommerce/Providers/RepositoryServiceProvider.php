@@ -37,12 +37,19 @@ use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepositoryInterfac
 use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
+use Modules\Ecommerce\Entities\ProductReviews\Repositories\Interfaces\ProductReviewInterface;
+use Modules\Ecommerce\Entities\ProductReviews\Repositories\ProductReviewRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            ProductReviewInterface::class,
+            ProductReviewRepository::class
+        );
+
         $this->app->bind(
             PayuClient::class,
             PayuClientInterface::class

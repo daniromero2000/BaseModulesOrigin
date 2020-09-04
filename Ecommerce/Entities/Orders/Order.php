@@ -13,6 +13,7 @@ use Modules\Ecommerce\Entities\OrderCommentaries\OrderCommentary;
 use Modules\Ecommerce\Entities\OrderPayments\OrderPayment;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Modules\Ecommerce\Entities\OrderShippings\OrderShipping;
+use Modules\Companies\Entities\Companies\Company;
 
 class Order extends Model
 {
@@ -115,6 +116,11 @@ class Order extends Model
     {
         return $this->belongsTo(CustomerAddress::class)
             ->select(['id', 'housing_id', 'customer_address', 'time_living', 'stratum_id', 'city_id', 'customer_id', 'postal_code', 'comment', 'default_address']);
+    }
+
+    public function companyId()
+    {
+        return $this->belongsTo(Company::class)->select(['id']);
     }
 
     public function orderStatus()

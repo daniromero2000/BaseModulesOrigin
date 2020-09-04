@@ -20,7 +20,7 @@ class OrderShippingRepository implements OrderShippingInterface
         'id',
         'order_id',
         'courier_id',
-        'employee_id',
+        'company_id',
         'total_qty',
         'total_weight',
         'track_number',
@@ -54,13 +54,11 @@ class OrderShippingRepository implements OrderShippingInterface
 
     public function findOrderShipment(int $order_id): OrderShipping
     {
-        
         try {
             return $this->model->with(['shipmentItems', 'order'])->findOrFail($order_id);
         } catch (QueryException $e) {
             dd($e);
         }
-        
     }
 
     public function findShipmentItems(int $shipment_id): Collection

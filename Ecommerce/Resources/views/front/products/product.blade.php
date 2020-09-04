@@ -40,6 +40,10 @@
     window.onload = (function(){
     $('#carrousel-reset').show();
     });
+    
+    if($('#table').val()){
+        $('#table-sizes').show();
+    }
 </script>
 
 @endsection
