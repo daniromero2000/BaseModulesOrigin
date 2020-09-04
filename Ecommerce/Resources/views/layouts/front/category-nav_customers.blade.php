@@ -1,6 +1,8 @@
 @foreach($categories as $category)
-<li aria-haspopup="true"><span class="wsmenu-click"><i class="wsmenu-arrow"></i></span><a
-        href="{{route('front.category.slug', $category->slug)}}" class="navtext"><span>{{$category->name}}</span></a>
+<li aria-haspopup="true"><span class="wsmenu-click">@if (!empty($category->children->toArray()))<i
+            class="wsmenu-arrow"></i>@endif
+    </span><a href="{{route('front.category.slug', $category->slug)}}"
+        class="navtext"><span>{{$category->name}}</span></a>
     @if (!empty($category->children->toArray()))
     <div class="wsmegamenu clearfix">
         <div class="container-fluid">
