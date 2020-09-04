@@ -35,11 +35,11 @@ class OrderShipmentController extends Controller
 
     public function index()
     {
-        $employee_id =    auth()->guard('employee')->user()->id;
         $list = $this->orderShippingInterf->listOrderShippings();
+
         return view('ecommerce::admin.order-shipments.list', [
-            'shipments' => $list,
-            'employee_id' => $employee_id
+            'shipments'   => $list,
+            'employee_id' => auth()->guard('employee')->user()->id
         ]);
     }
 
