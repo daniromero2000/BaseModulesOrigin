@@ -2,27 +2,15 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Admin\OrderShipments;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use Modules\Ecommerce\Entities\Orders\Repositories\OrderRepository;
-use Modules\Ecommerce\Entities\OrderShippings\OrderShipping;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\OrderShippingRepository;
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShippingInterface;
 use Modules\Ecommerce\Entities\OrderShippings\Requests\CreateOrderShippingRequest;
-use Modules\Ecommerce\Entities\OrderShippingItems\OrderShippingItem;
-use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\OrderShippingItemRepository;
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
-use Modules\Ecommerce\Entities\OrderShippingItems\Requests\CreateOrderShippingItemRequest;
-use Modules\Customers\Entities\Customers\Customer;
-use Modules\Customers\Entities\Customers\Repositories\CustomerRepository;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use Modules\Ecommerce\Entities\OrderStatuses\OrderStatus;
 use Modules\Ecommerce\Entities\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
-use Modules\Ecommerce\Entities\OrderStatuses\Repositories\OrderStatusRepository;
-
 
 class OrderShipmentController extends Controller
 {
@@ -113,15 +101,5 @@ class OrderShipmentController extends Controller
     public function edit($id)
     {
         return view('ecommerce::admin.order-shipments.edit');
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }
