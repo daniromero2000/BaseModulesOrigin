@@ -195,7 +195,7 @@
                                 <div class="col-11 mx-auto col-sm-6 px-1">
                                     <button type="button" onclick="addCart({{$product->id}},'1')"
                                         class="btn button-reset btn-block mx-auto mt-2"
-                                        style=" font-size: 13px !important; ">
+                                        style=" font-size: 12px !important; ">
                                         <i class="fas fa-shopping-cart"></i>
                                         Agregar al carrito
                                     </button>
@@ -203,8 +203,8 @@
                                 <div class="col-11 mx-auto col-sm-6 px-1">
                                     <button type="button" onclick="addWishlist({{$product->id}},'2')"
                                         class="btn button-reset btn-block mx-auto mt-2 "
-                                        style=" font-size: 13px !important; ">
-                                        <i class="fas fa-tag"></i>
+                                        style=" font-size: 12px !important; ">
+                                        <i class="fas fa-heart"></i>
                                         <span>Agregar a lista de deseos</span>
                                     </button>
                                 </div>
@@ -440,9 +440,7 @@
                                 @endif
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-primary btn-add-card mb-1" onclick="addCart({{$item->id}},'1')"
-                                    type="button">AÑADIR AL
-                                    CARRITO</button>
+                                <button class="btn btn-primary btn-add-card mb-1" type="button">Ver producto</button>
                             </div>
                         </div>
                     </div>
