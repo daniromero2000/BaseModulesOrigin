@@ -229,7 +229,7 @@ function createProductReview() {
     }));
 }
 /**
- * Actualiza el voyo y el comentario del producto realizado por el cutomer
+ * Actualiza el voyo y el comentario del producto realizado por el customer
  * @param  {} //
  * @return  {} // 
  * Author Jhon Pizarro
@@ -298,14 +298,33 @@ function cancelReview() {
  */
 function promedioRating() {
     let valid = $('.product');
-    let promedioRating = $('#promedioRating').html()
-    promedioRating = parseFloat(promedioRating)
-    console.log(promedioRating)
-
-    for (i = 1; i <= promedioRating; ++i) {
-        $("#rating-review-" + i).addClass('fas').removeClass('far')
-        //$("#rating-review-"+i).removeClass('btn-default')
+    if (valid.length > 0) {
+        let promedioRating = $('#promedioRating').html()
+        promedioRating = parseFloat(promedioRating)
+        for (i = 1; i <= promedioRating; ++i) {
+            $("#rating-review-" + i).addClass('fas').removeClass('far')
+        }
     }
+}
+
+function showRatingPorcents() {
+    if($(window).width() < 769){
+        $('#ratingContainer').removeClass('justify-content-cent').addClass('flex-wrap')
+        $('#porcentByRating').addClass('mt-3')
+        console.log('menor')
+    }
+    let valid = $('.product');
+    if (valid.length > 0) {
+        $("#moreInfo").on('click', (function () {
+            console.log('clic')
+            $('#porcentByRating').show('slow').fadeTo( "slow", 1 )
+        }))
+        $(".close").on('click', (function () {
+            console.log('close ')
+            $('#porcentByRating').fadeTo( "slow", 0 ).hide('slow')
+        }))
+    }
+
 }
 /******************************************************** */
 /******************************************************** */
@@ -321,4 +340,5 @@ jQuery(document).ready(function ($) {
     cancelReview();
     promedioRating();
     getListWishlist();
+    showRatingPorcents();
 });
