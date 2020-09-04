@@ -26,6 +26,7 @@ class OrderShipping extends Model
         'courier_id',
         'employee_id',
         'company_id',
+        'subsidiary_id',
         'description',
         'total_qty',
         'total_weight',
@@ -64,7 +65,7 @@ class OrderShipping extends Model
 
     public function courier()
     {
-       return $this->belongsTo(Courier::class);
+        return $this->belongsTo(Courier::class);
     }
 
     public function searchForShipment(string $order_id)
@@ -76,6 +77,4 @@ class OrderShipping extends Model
     {
         return self::search($shipment_id);
     }
-
-
 }
