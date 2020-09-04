@@ -31,8 +31,11 @@
 </style>
 @endsection
 @section('content')
-<div class="wrapper mt-4">
+<div class="w-100">
+    <img src="{{ asset('img/banners/banner-category.png') }}" class="img-fluid" alt="banner-categoria">
+</div>
 
+<div class="wrapper mt-5">
     <div id="content ">
         <div class="container-reset">
             <div class="row mx-auto">
