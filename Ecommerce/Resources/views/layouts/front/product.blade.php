@@ -82,9 +82,6 @@
                                 @endif
                             </ul>
                         </div>
-                        <div class="dots">
-                            <div class="dotwrap"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -144,8 +141,7 @@
 
                                         <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
                                             <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Ver
-                                                        tabla
-                                                        de tallas</b></span></label></a>
+                                                        tabla de tallas</b></span></label></a>
                                     </div>
 
                                     <div class="container-sizes w-100" id="sizes">
@@ -198,19 +194,18 @@
                                 </div>
                                 <div class="col-11 mx-auto col-sm-6 px-1">
                                     <button type="button" onclick="addCart({{$product->id}},'1')"
-                                        class="btn button-reset btn-block mx-auto mt-2">
-                                        <img src="{{ asset('img/icons/cart.png') }}" alt="Agregar al carrito"
-                                            class="height-container-img-product" style=" max-width: 30px; " />
+                                        class="btn button-reset btn-block mx-auto mt-2"
+                                        style=" font-size: 13px !important; ">
+                                        <i class="fas fa-shopping-cart"></i>
                                         Agregar al carrito
                                     </button>
                                 </div>
                                 <div class="col-11 mx-auto col-sm-6 px-1">
                                     <button type="button" onclick="addWishlist({{$product->id}},'2')"
-                                        class="btn button-reset btn-block mx-auto mt-2 btn-wish">
-                                        <img src="{{ asset('img/icons/wishlist.png') }}"
-                                            alt="Agregar a la lista de deseos" class="height-container-img-product"
-                                            style="max-width: 28px;position: absolute;left: 4px;top: 2px;" />
-                                        <span>Agregar a lista</span> <br> de deseos
+                                        class="btn button-reset btn-block mx-auto mt-2 "
+                                        style=" font-size: 13px !important; ">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Agregar a lista de deseos</span>
                                     </button>
                                 </div>
                                 <div id="ratingReviews " class=" mt-3">
