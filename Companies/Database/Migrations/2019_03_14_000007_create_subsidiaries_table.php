@@ -24,6 +24,7 @@ class CreateSubsidiariesTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->unsignedInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->tinyInteger('is_main')->unsigned()->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
