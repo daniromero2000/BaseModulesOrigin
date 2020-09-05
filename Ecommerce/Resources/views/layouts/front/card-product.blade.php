@@ -1,10 +1,10 @@
-<div class="container-reset {{ $background }}" id="carrousel-reset" style="display: none">
+<div class="{{ $background }}" id="carrousel-reset" style="display: none">
     <div class="text-center content-title-banner-products">
         <h3 class="title-interesing">
             {{$title}}
         </h3>
     </div>
-    <div class="px-4 px-lg-5 pb-4 pt-2">
+    <div class="px-4 px-lg-5 pb-4 pt-2 container-reset">
         <div class="glider-contain">
             <div class="glider">
                 @foreach ($bestSellers as $item)
