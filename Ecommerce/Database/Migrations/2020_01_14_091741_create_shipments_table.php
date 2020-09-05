@@ -23,6 +23,8 @@ class CreateShipmentsTable extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('subsidiary_id')->unsigned();
+            $table->foreign('subsidiary_id')->references('id')->on('companies');
             $table->integer('total_qty')->nullable();
             $table->integer('total_weight')->nullable();
             $table->text('track_number')->nullable();

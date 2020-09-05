@@ -74,10 +74,10 @@ function getListWishlist() {
             var total = response.length;
             //console.log(response);
             wishlist = '';
-            /* response.forEach(e => {
+             response.forEach(e => {
                 // wishlist += '<a href="/cart" class="dropdown-item"> <div class="media"> <img src="' + e.product.cover + '" alt="' + e.product.slug + '" class="img-size-50 mr-3 img-circle"> <div class="media-body"> <h3 class="dropdown-item-title"> ' + e.product.name + ' </h3> <p class="text-sm"></p> <p class="text-sm text-muted"><i class="fas fa-dollar-sign"></i> ' + +'</p> </div> </div>  </a> <div class="dropdown-divider"></div>'
                 wishlist += '<a href="/cart" class="dropdown-item"> <div class="media"> <img src="/storage/' + e.product.cover + '" alt="' + e.product.slug + '" class="img-size-50 mr-3 img-circle"> <div class="media-body"> <h3 class="dropdown-item-title"> ' + e.product.name + ' </h3> <p class="text-sm"></p> <p class="text-sm text-muted">' + '</p> </div> </div>  </a> <div class="dropdown-divider"></div>'
-            }); */
+            });
 
             if (total > 0) {
                 $('#wishlistContainer').show();
