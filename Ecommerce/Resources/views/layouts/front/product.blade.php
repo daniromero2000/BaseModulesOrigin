@@ -1,37 +1,3 @@
-<style>
-    .rating-header {
-        margin-top: -10px;
-        margin-bottom: 10px;
-    }
-
-    .fas.fa-star {
-        color: gold;
-        font-size: 22px;
-    }
-
-    .fa.fa-star {
-        font-size: 10px;
-    }
-
-    .rating-num {
-        margin-top: 0px;
-        font-size: 54px;
-    }
-
-    .progress-bar {
-        text-align: left;
-    }
-
-    .rating-desc .col-md-3 {
-        padding-right: 0px;
-    }
-
-    .sr-only {
-        margin-left: 5px;
-        overflow: visible;
-        clip: auto;
-    }
-</style>
 <div class="container-reset product">
     <div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
         <div class="col-xl-8 col-lg-7 mb-3">
