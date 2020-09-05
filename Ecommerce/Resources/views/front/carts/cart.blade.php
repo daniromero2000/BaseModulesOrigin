@@ -1,6 +1,13 @@
 @extends('layouts.front.app')
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/front/cart/app.min.css')}}">
+<style>
+    @media (min-width:768px) {
+        .h-card-cupon {
+            max-height: 146px;
+        }
+    }
+</style>
 @endsection
 @section('content')
 <div class="container-reset product-in-cart-list content-empty">
@@ -10,7 +17,10 @@
     @if(!$cartItems->isEmpty())
     <div class="row mx-0 mt-3">
         <div class="col-md-12 px-2">
-            <div class="row mx-0 header">
+            <div class="row bg-header-cart py-2 container-xl mx-auto">
+                <h3 class="px-3">EN EL CARRITO</h3>
+            </div>
+            <div class="row bg-cart header-cart py-3 container-xl mx-auto">
                 <div class="col-xl-5 col-md-5 offset-xl-1"><b class="pl-md-4 pl-lg-5">Producto</b></div>
                 <div class="col-xl-1 col-md-2 text-md-center"><b>Cantidad</b></div>
                 <div class="col-xl-1 col-md-1 text-md-center"><b>Envío</b></div>
@@ -18,7 +28,7 @@
                 <div class="col-xl-1 col-md-1 text-md-center"><b>Total</b></div>
             </div>
             @foreach($cartItems as $cartItem)
-            <div class="row mx-0 mt-2 relative">
+            <div class="row bg-cart py-3 relative container-xl mx-auto" style=" border-radius: 0px 0px 20px 20px; ">
                 <div class="col-xl-5 col-md-5 col-sm-12 offset-xl-1 mb-3">
                     <div class="row mx-0">
                         <div class="text-center col-sm-3 col-xl-2">
@@ -51,13 +61,14 @@
                     <div class="input-group mx-auto">
                         <div class="input-group mb-3 container-quanty mx-auto">
                             <div class="input-group-prepend">
-                                <button type="button" class="btn btn-sm minus-btn" onclick="minus({{$cartItem->id}})"
-                                    id="minus-btn{{$cartItem->id}}"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="bg-white btn-sm minus-btn"
+                                    onclick="minus({{$cartItem->id}})" id="minus-btn{{$cartItem->id}}"><i
+                                        class="fa fa-minus"></i></button>
                             </div>
                             <input type="text" id="qty_input{{$cartItem->id}}"
                                 class="form-control form-control-sm text-center" value="{{ $cartItem->qty }}" min="1">
                             <div class="input-group-prepend">
-                                <button type="button" class="btn btn-sm plus-btn" onclick="max({{$cartItem->id}})"
+                                <button type="button" class="bg-white btn-sm plus-btn" onclick="max({{$cartItem->id}})"
                                     id="plus-btn{{$cartItem->id}}"><i class="fa fa-plus"></i></button>
                             </div>
                             <input type="hidden" id="row{{$cartItem->id}}" value="{{$cartItem->rowId}}">
@@ -117,8 +128,8 @@
         </div>
     </div>
     <div class="row container-xl mx-auto px-0 mb-4">
-        <div class="col-md-6 col-lg-7" style=" max-height: 146px;">
-            <div class="card-body" style=" background: #f1f0f0; min-height: 220px;">
+        <div class="col-md-6 col-lg-7 pl-lg-0 h-card-cupon">
+            <div class="card-body bg-card-cupon" style=" background: #f1f0f0; min-height: 220px;">
                 <div class="py-4 py-sm-5 px-sm-3 p-lg-5">
                     <label for=""> <b>TU CUPÓN AQUI</b></label>
                     <div class="input-group mb-3">
@@ -134,8 +145,8 @@
             </div>
 
         </div>
-        <div class="col-md-6 col-lg-5">
-            <div class="card-body" style=" background: #f1f0f0; min-height: 220px;">
+        <div class="col-md-6 col-lg-5 pr-lg-0">
+            <div class="card-body bg-card-payment" style=" background: #f1f0f0; min-height: 220px;">
                 <div class="mx-auto" style=" max-width: 325px; ">
                     <div class="row py-2 px-5 ">
                         <div class="col-12 mt-2 justify-content-between d-flex">SUBTOTAL
@@ -149,7 +160,7 @@
                         </div>
                         <div class="col-12 mt-2 justify-content-between d-flex">TOTAL
                             <b id="totalCart">${{ number_format($total, 0) }}</b></div>
-                        <div class="mt-4 d-flex mx-auto">
+                        <div class="mt-4 d-flex mx-auto btn-payment">
                             <a href="{{ route('checkout.index') }}"
                                 class="btn bg-blue-page text-white mx-auto"><b>FINALIZAR
                                     COMPRA</b></a>

@@ -48,3 +48,6 @@
         </div>
     </div>
 </div>
+<div class="mt-3 text-center">
+    <p>Pasa el mouse encima de la imagen para aplicar zoom</p>
+</div>
