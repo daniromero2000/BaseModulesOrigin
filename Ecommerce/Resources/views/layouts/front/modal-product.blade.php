@@ -93,7 +93,7 @@
                                         <input type="text" id="qty_input{{$product->id}}" name="quantity"
                                             class="form-control form-control-sm text-center" value="1" min="1">
                                         <div class="input-group-prepend">
-                                            <button type="button" class="btn btn-sm plus-btn"
+                                            <button type="button" class="bg-white btn-sm plus-btn"
                                                 onclick="sumId({{$product->id}})"><i class="fa fa-plus"></i></button>
                                         </div>
                                         <input type="hidden" id="qty_input_real{{$product->id}}" class="" value="1"

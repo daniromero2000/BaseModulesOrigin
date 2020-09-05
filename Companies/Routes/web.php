@@ -51,6 +51,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('employee-addresses', 'EmployeeAddressController');
         });
 
+        Route::namespace('EmployeeEmergencyContacts')->group(function () {
+            Route::resource('employee-emergency-contact', 'EmployeeEmergencyContactController');
+        });
+
         Route::namespace('EmployeeEpss')->group(function () {
             Route::resource('employee-epss', 'EmployeeEpsController');
         });

@@ -25,6 +25,10 @@ function addCartWishlist(product, wishlist, mode) {
     }
 }
 
+window.onload = (function () {
+    $('#carrousel-reset').show();
+});
+
 function movetoCart(params) {
     $.ajax({
         url: '/wishlist/' + params,
@@ -308,7 +312,7 @@ function promedioRating() {
 }
 
 function showRatingPorcents() {
-    if($(window).width() < 769){
+    if ($(window).width() < 769) {
         $('#ratingContainer').removeClass('justify-content-cent').addClass('flex-wrap')
         $('#porcentByRating').addClass('mt-3')
         console.log('menor')
@@ -317,11 +321,11 @@ function showRatingPorcents() {
     if (valid.length > 0) {
         $("#moreInfo").on('click', (function () {
             console.log('clic')
-            $('#porcentByRating').show('slow').fadeTo( "slow", 1 )
+            $('#porcentByRating').show('slow').fadeTo("slow", 1)
         }))
         $(".close").on('click', (function () {
             console.log('close ')
-            $('#porcentByRating').fadeTo( "slow", 0 ).hide('slow')
+            $('#porcentByRating').fadeTo("slow", 0).hide('slow')
         }))
     }
 

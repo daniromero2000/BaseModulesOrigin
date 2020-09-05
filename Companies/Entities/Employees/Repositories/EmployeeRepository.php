@@ -2,16 +2,16 @@
 
 namespace Modules\Companies\Entities\Employees\Repositories;
 
-use Modules\Companies\Entities\Employees\Employee;
-use Modules\Companies\Entities\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Employees\Exceptions\CreateEmployeeErrorException;
 use Modules\Companies\Entities\Employees\Exceptions\EmployeeNotFoundException;
 use Modules\Companies\Entities\Employees\Exceptions\UpdateEmployeeErrorException;
+use Modules\Companies\Entities\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -43,7 +43,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'employee_position_id',
         'is_active',
         'is_rotative',
-        'birthday'
+        'birthday',
     ];
 
     private $employeeColumns = [
@@ -60,7 +60,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'is_active',
         'last_login_at',
         'is_rotative',
-        'birthday'
+        'birthday',
     ];
 
     public function __construct(Employee $employee)
@@ -85,6 +85,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         if (is_null($text)) {
             return $this->model->get($this->columns);
         }
+
         return $this->model->searchEmployee($text)->get($this->columns);
     }
 
@@ -93,6 +94,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         if (is_null($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
+
         return $this->model->onlyTrashed()->get($this->columns);
     }
 
@@ -100,6 +102,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     {
         try {
             $data['password'] = Hash::make($data['password']);
+
             return $this->model->create($data);
         } catch (QueryException $e) {
             throw new CreateEmployeeErrorException($e);
@@ -118,9 +121,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeEmails',
                 'employeePhones:phone_type,phone,employee_id,status,created_at',
                 'employeeAddresses:housing_id,address,time_living,stratum_id,city_id,employee_id,status,created_at',
+                'employeeEmergencyContact:name,phone,employee_id,status,created_at',
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
-                'employeeProfessions:professions_list_id,employee_id,status,created_at'
+                'employeeProfessions:professions_list_id,employee_id,status,created_at',
             ])->findOrFail($id, $this->employeeColumns);
         } catch (ModelNotFoundException $e) {
             throw new EmployeeNotFoundException($e);
@@ -169,6 +173,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         if (Auth::guard('employee')->user()->id == $employee->id) {
             $isAuthUser = true;
         }
+
         return $isAuthUser;
     }
 
