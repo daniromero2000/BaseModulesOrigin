@@ -20,6 +20,8 @@ class CreateEmployeesTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->date('birthday')->nullable();
+            $table->integer('genre_id')->unsigned()->nullable();
+            $table->foreign('genre_id')->references('id')->on('genres');
             $table->string('avatar')->nullable()->default('Sin Avatar');
             $table->integer('subsidiary_id')->unsigned();
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
