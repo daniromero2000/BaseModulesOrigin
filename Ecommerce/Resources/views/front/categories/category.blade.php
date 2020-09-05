@@ -73,7 +73,10 @@
     </div>
 </div>
 @if (!empty($bestSellers))
-@include('ecommerce::layouts.front.card-product',['title' => 'También te puede interesar'])
+<div class="my-4">
+    @include('ecommerce::layouts.front.card-product',['title' => 'También te puede
+    interesar','background'=>'carrousel-reset'])
+</div>
 @endif
 <div class="overlay"></div>
 @endsection

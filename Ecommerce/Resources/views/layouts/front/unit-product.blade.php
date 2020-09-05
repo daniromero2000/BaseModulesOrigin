@@ -139,6 +139,8 @@
 @include('ecommerce::layouts.front.modal_size_guide')
 
 @if (!empty($bestSellers))
-@include('ecommerce::layouts.front.card-product',['title' => 'También te puede interesar',
-'background'=>'carrousel-reset'])
+<div class="my-4">
+    @include('ecommerce::layouts.front.card-product',['title' => 'También te puede interesar',
+    'background'=>'carrousel-reset'])
+</div>
 @endif

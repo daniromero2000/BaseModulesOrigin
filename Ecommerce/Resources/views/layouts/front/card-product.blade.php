@@ -46,7 +46,8 @@
                                 @endif
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-primary btn-add-card mb-1" type="button">Ver producto</button>
+                                <a href="{{ route('front.get.product', str_slug($item->slug)) }}"
+                                    class="btn btn-primary btn-add-card mb-1">Ver producto</a>
                             </div>
                         </div>
                     </div>
