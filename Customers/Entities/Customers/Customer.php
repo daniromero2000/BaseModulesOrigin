@@ -69,7 +69,8 @@ class Customer extends Authenticatable
     protected $dates  = [
         'deleted_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'birthday'
     ];
 
     protected $searchable = [

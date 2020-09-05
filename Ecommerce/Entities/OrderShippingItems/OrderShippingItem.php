@@ -24,7 +24,6 @@ class OrderShippingItem extends Model
     protected $fillable = [
         'name',
         'description',
-        'description',
         'sku',
         'qty',
         'weight',
