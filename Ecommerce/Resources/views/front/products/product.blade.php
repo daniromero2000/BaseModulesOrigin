@@ -25,7 +25,7 @@
         </ol>
     </nav>
 </div>
-@include('ecommerce::layouts.front.product')
+@include('ecommerce::layouts.front.unit-product')
 @endsection
 @section('scripts')
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
@@ -37,9 +37,7 @@
     $(document).ready(function(){
     	$('.zoom-img').zoom();
     });
-    window.onload = (function(){
-    $('#carrousel-reset').show();
-    });
+  
     
     if($('#table').val()){
         $('#table-sizes').show();
