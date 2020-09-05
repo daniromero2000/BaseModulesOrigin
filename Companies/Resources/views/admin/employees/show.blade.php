@@ -60,6 +60,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                         @include('companies::layouts.addresses')
                         @include('companies::layouts.phones')
                         @include('companies::layouts.emails')
+                        @include('companies::layouts.contacts')
                     </div>
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -76,6 +77,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
     </div>
     @include('companies::layouts.edit_employee', ['data' => $employee])
     @include('companies::layouts.add_address_modal')
+    @include('companies::layouts.add_emergencycontact_modal')
     @include('companies::layouts.add_email_modal')
     @include('companies::layouts.add_phone_modal')
     @include('companies::layouts.add_identity_modal')

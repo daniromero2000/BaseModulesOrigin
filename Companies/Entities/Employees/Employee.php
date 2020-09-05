@@ -11,6 +11,7 @@ use Modules\Companies\Entities\Departments\Department;
 use Modules\Companies\Entities\EmployeeAddresses\EmployeeAddress;
 use Modules\Companies\Entities\EmployeeCommentaries\EmployeeCommentary;
 use Modules\Companies\Entities\EmployeeEmails\EmployeeEmail;
+use Modules\Companies\Entities\EmployeeEmergencyContacts\EmployeeEmergencyContact;
 use Modules\Companies\Entities\EmployeeEpss\EmployeeEps;
 use Modules\Companies\Entities\EmployeeIdentities\EmployeeIdentity;
 use Modules\Companies\Entities\EmployeePhones\EmployeePhone;
@@ -173,6 +174,12 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(EmployeeAddress::class)
             ->select(['id', 'housing_id', 'address', 'time_living', 'stratum_id', 'city_id', 'employee_id', 'status', 'created_at']);
+    }
+
+    public function employeeEmergencyContact()
+    {
+        return $this->hasMany(EmployeeEmergencyContact::class)
+            ->select(['id', 'name', 'phone', 'employee_id', 'status', 'created_at']);
     }
 
     public function employeeEpss()
