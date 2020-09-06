@@ -39,20 +39,15 @@
                     @foreach($cammodels as $data)
                     <tr>
                         <td class="text-center">{{ $data->id }}</td>
-                        <td class="text-center">{{ $data->name }} {{ $data->last_name }}</td>
-                        <td class="text-center">{{ $data->email }}</td>
-                        @foreach ($data->department as $department )
-                        <td class="text-center">@if($department->name != ''){{ $department->name }}@else NA @endif</td>
-                        @endforeach
-                        <td class="text-center">
-                            @include('generals::layouts.status', ['status' => $data->is_active])</td>
+                        <td class="text-center">{{ $data->nickname }} {{ $data->last_name }}</td>
+                        <td class="text-center">{{ $data->meta }}</td>
                         <td class="text-center">
                             @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
                             $optionsRoutes])
                         </td>
                     </tr>
                     <!-- Modal -->
-                    @include('companies::layouts.edit_employee')
+                    {{-- @include('companies::layouts.edit_employee') --}}
                     @endforeach
                     @endif
                 </tbody>

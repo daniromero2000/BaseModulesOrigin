@@ -19,7 +19,6 @@ class CammodelsController extends Controller
         $this->cammodelInterface = $cammodelRepositoryInterface;
     }
 
-
     public function index(Request $request)
     {
         if (request()->has('q')) {
@@ -32,7 +31,6 @@ class CammodelsController extends Controller
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->cammodelInterface->listCammodels($skip * 30);
         }
-
 
         return view('camstudio::admin.cammodels.list', [
             'cammodels' => $list,
