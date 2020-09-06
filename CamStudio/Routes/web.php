@@ -10,3 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Route;
+
+/**
+ * Admin routes
+ */
+Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
+    Route::namespace('Admin')->group(function () {
+        Route::namespace('Cammodels')->group(function () {
+            Route::resource('cammodels', 'CammodelsController');
+        });
+    });
+});
+
+
+/**
+ * Frontend routes
+ */
+Route::namespace('Front')->group(function () {
+    Route::group(['middleware' => ['auth', 'web']], function () {
+    });
+});

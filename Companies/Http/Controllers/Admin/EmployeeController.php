@@ -27,20 +27,11 @@ use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class EmployeeController extends Controller
 {
-    private $employeeInterface;
-    private $roleInterface;
-    private $departmentInterface;
-    private $employeePositionInterface;
-    private $employeeCommentaryInterface;
-    private $employeeStatusesLogInterface;
-    private $cityInterface;
-    private $identityTypeInterface;
-    private $stratumInterface;
-    private $housingInterface;
-    private $epsInterface;
-    private $professionsListInterface;
-    private $toolsInterface;
-    private $subsidiaryInterface;
+    private $employeeInterface, $roleInterface, $departmentInterface;
+    private $employeePositionInterface, $employeeCommentaryInterface;
+    private $employeeStatusesLogInterface, $cityInterface, $identityTypeInterface;
+    private $stratumInterface, $housingInterface, $epsInterface;
+    private $professionsListInterface, $toolsInterface, $subsidiaryInterface;
 
     public function __construct(
         EmployeeRepositoryInterface $employeeRepositoryInterface,
@@ -91,7 +82,7 @@ class EmployeeController extends Controller
 
         return view('companies::admin.employees.list', [
             'employees' => $list,
-            'optionsRoutes' => 'admin.'.(request()->segment(2)),
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
             'headers' => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
             'roles' => $this->roleInterface->getAllRoleNames(),
