@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Ordenes</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.order-shipments.index') }}">Despachos</a></li>
                             <li class="breadcrumb-item active" active aria-current="page">{{ ucfirst($customer->name) }}
                                 {{$customer->last_name}}
                             </li>
@@ -23,111 +23,110 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="row">
-        <div class="col-md-12 col-log-7">
-            <div class="card">
-                <div class="w-100 p-3">
-                    <h4> <i class="fa fa-truck"></i> Informaci&oacute;n Despacho Orden</h4>
-                </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush table-hover table-striped">
-                        <tbody>
-                            <tr>
-                                <td>Orden #: </td>
-                                <td><b>{{$order->id}}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Referencia:</td>
-                                <td><b>{{ $order->reference}}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Courier:</td>
-                                <td><b>{{ $courier }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Cantidad:</td>
-                                <td><b>{{ $orderShipment->total_qty }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Peso:</td>
-                                <td><b>{{ $orderShipment->total_weight }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Numero Guia:</td>
-                                <td><b>{{ $orderShipment->track_number }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Direcci&oacute;n:</td>
-                                <td><b>{{ $order->address->customer_address }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Ciudad:</td>
-                                <td><b>
-                                    @if(isset($order->address->city))
-                                    {{ $order->address->city->city }}
-                                    @endif
-                                    </b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Departamento:</td>
-                                <td>
-                                    <b>
-                                        @if(isset($order->address->city))
-                                        {{ $order->address->city->province->province }}
+    @if($orderShipment)
+        <div class="row">
+            <div class="col-md-12 col-log-7">
+                <div class="card">
+                    <div class="w-100 p-3">
+                        <h4> <i class="fa fa-truck"></i> Informaci&oacute;n Despacho Orden</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush table-hover table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Orden #: </td>
+                                    <td><b>{{$orderShipment->order->id}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Referencia:</td>
+                                    <td><b>{{ $orderShipment->order->reference}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Courier:</td>
+                                    <td><b>{{ $courier }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Cantidad:</td>
+                                    <td><b>{{ $orderShipment->total_qty }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Peso:</td>
+                                    <td><b>{{ $orderShipment->total_weight }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Numero Guia:</td>
+                                    <td><b>{{ $orderShipment->track_number }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Direcci&oacute;n:</td>
+                                    <td><b>{{ $address }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Ciudad:</td>
+                                    <td><b>
+                                        @if(isset($city))
+                                        {{ $city }}
                                         @endif
-                                    </b>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Departamento:</td>
+                                    <td>
+                                        <b>
+                                            @if(isset($orderShipment->order->address->city))
+                                            {{ $orderShipment->order->address->city->province->province }}
+                                            @endif
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
-
-    @if($order)
-    @if($order->grand_total != $order->total_paid)
-    <p class="alert alert-danger">
-        Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
-        Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $order->grand_total }}</strong> <br>
-        Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $order->total_paid }}</strong>
-    </p>
-    @endif
-    <div class="card">
-        @if($orderShipment)
-        <div class="card-body">
+        @if($orderShipment->order)
+            @if($orderShipment->order->grand_total != $orderShipment->order->total_paid)
+            <p class="alert alert-danger">
+                Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
+                Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $orderShipment->order->grand_total }}</strong> <br>
+                Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $orderShipment->order->total_paid }}</strong>
+            </p>
+            @endif
             <div class="card">
-                <div class="w-100 p-3">
-                    <h4> <i class="fa fa-gift"></i> Items</h4>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="table text-center table-flush table-hover">
-                        <thead class="thead-light">
-                            <th>SKU</th>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
-                            <th>Peso</th>
-                            <th>Precio</th>
-                        </thead>
-                        <tbody>
-                            @foreach($orderShipment->shipmentItems as $item)
-                            <tr>
-                                <td>{{ $item->sku }} </td>
-                                <td>{{ $item->name }} </td>
-                                <td>{{ $item->qty }}</td>
-                                <td>{{ $item->weight }}</td>
-                                <td>{{ $item->price }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="w-100 p-3">
+                            <h4> <i class="fa fa-gift"></i> Items</h4>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table text-center table-flush table-hover">
+                                <thead class="thead-light">
+                                    <th>SKU</th>
+                                    <th>Nombre</th>
+                                    <th>Cantidad</th>
+                                    <th>Peso</th>
+                                    <th>Precio</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($orderShipment->shipmentItems as $item)
+                                    <tr>
+                                        <td>{{ $item->sku }} </td>
+                                        <td>{{ $item->name }} </td>
+                                        <td>{{ $item->qty }}</td>
+                                        <td>{{ $item->weight }}</td>
+                                        <td>{{ $item->price }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         @endif
-    </div>
     @endif
 </section>
 @endsection

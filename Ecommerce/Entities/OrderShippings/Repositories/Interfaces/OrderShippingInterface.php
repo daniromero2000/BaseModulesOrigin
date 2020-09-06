@@ -9,7 +9,8 @@ use Modules\Ecommerce\Entities\OrderShippings\OrderShipping;
 interface OrderShippingInterface
 {
     public function createOrderShipping(array $data): OrderShipping;
-    public function listOrderShippings(): Collection;
+    public function listOrderShippings(int $totalView): Collection;
     public function findOrderShipment(int $order_id): OrderShipping;
     public function findShipmentItems(int $shipment_id): Collection;
+    public function searchShipping(string $text): Collection;
 }

@@ -22,9 +22,9 @@ interface CustomerRepositoryInterface
 
     public function deleteCustomer(): bool;
 
-    public function searchCustomer(string $text): Collection;
+    public function searchCustomer(string $text = null): Collection;
 
-    public function searchTrashedCustomer(string $text): Collection;
+    public function searchTrashedCustomer(string $text = null): Collection;
 
     public function recoverTrashedCustomer(): bool;
 
@@ -35,4 +35,6 @@ interface CustomerRepositoryInterface
     public function checkForLogin($email);
 
     public function findOrders($columns = ['*'], string $orderBy = 'id'): Collection;
+
+    public function findCustomerByIdforShipment(int $id): Customer;
 }

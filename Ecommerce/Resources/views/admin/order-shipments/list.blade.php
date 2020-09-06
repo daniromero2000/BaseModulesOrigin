@@ -27,7 +27,6 @@
             <h2>Despacho de Ordenes</h2>
             @include('generals::layouts.search', ['route' => route('admin.order-shipments.index')])
         </div>
-        
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover text-center">
                 <thead class="thead-light">
@@ -42,7 +41,7 @@
                 </thead>
                 <tbody>
                     @foreach ($shipments as $item)
-                        @if ( $item->company_id == auth()->guard('employee')->user()->subsidiary->company_id)
+                        @if ( $item->company_id == $company_id)
                             <tr>
                                 <td><a title="Show order"
                                     href="{{ route('admin.orders.show', $item->order_id) }}">{{ $item->order_id }}</a> </td>
@@ -58,6 +57,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer py-2">
+            @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>
     </div>
 

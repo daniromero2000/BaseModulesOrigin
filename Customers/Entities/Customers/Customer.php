@@ -100,6 +100,13 @@ class Customer extends Authenticatable
             ->select(['id', 'housing_id', 'customer_address', 'time_living', 'stratum_id', 'city_id', 'customer_id', 'postal_code', 'comment', 'default_address']);
     }
 
+    public function customerAddressesforShipment()
+    {
+        return $this->hasMany(CustomerAddress::class)->whereDefaultAddress(true)
+            ->with(['city'])
+            ->select(['id', 'customer_address', 'city_id', 'customer_id', 'default_address']);
+    }
+
     public function frontCustomerAddresses()
     {
         return $this->hasMany(CustomerAddress::class)->whereDefaultAddress(true)

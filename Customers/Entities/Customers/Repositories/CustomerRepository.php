@@ -34,6 +34,13 @@ class CustomerRepository implements CustomerRepositoryInterface
         'email'
     ];
 
+    private $columns2 = [
+        'id',
+        'name',
+        'last_name',
+        'city_id',
+    ];
+
     public function __construct(Customer $customer)
     {
         $this->model = $customer;
@@ -106,6 +113,16 @@ class CustomerRepository implements CustomerRepositoryInterface
 
             $customer->age =  $this->getCustomerAge($customer->birthday);
 
+            return $customer;
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function findCustomerByIdforShipment(int $id): Customer
+    {
+        try {
+            $customer = $this->model->findOrFail($id, $this->columns2);
             return $customer;
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());

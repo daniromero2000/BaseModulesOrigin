@@ -11,12 +11,15 @@ use Modules\Ecommerce\Entities\OrderShippings\Requests\CreateOrderShippingReques
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use Modules\Ecommerce\Entities\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use Illuminate\Http\Request;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class OrderShipmentController extends Controller
 {
     private $orderRepo, $orderShippingInterf, $orderShippingItemInterf, $orderShippingRepo, $customerRepo, $orderStatusRepo;
 
     public function __construct(
+        ToolRepositoryInterface $toolRepositoryInterface,
         OrderRepositoryInterface $orderRepository,
         OrderShippingInterface $orderShippingInterface,
         OrderShippingItemInterface $orderShippingItemInterface,
@@ -24,6 +27,7 @@ class OrderShipmentController extends Controller
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository
     ) {
+        $this->toolsInterface           = $toolRepositoryInterface;
         $this->orderRepo                = $orderRepository;
         $this->orderShippingInterf      = $orderShippingInterface;
         $this->orderShippingItemInterf  = $orderShippingItemInterface;
@@ -33,13 +37,26 @@ class OrderShipmentController extends Controller
         $this->middleware(['permission:orders, guard:employee']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $list = $this->orderShippingInterf->listOrderShippings();
+        if (request()->has('q') && request()->input('q') != '') {
+            $skip = 0;
+            $list = $this->orderShippingRepo->searchShipping(request()->input('q'));
+        }
+        else {
+            $skip = $this->toolsInterface->getSkip($request->input('skip')); //CREARMETODO getSkip
+            $list = $this->orderShippingInterf->listOrderShippings($skip * 30);
+        }
+
+        $list       = $this->orderShippingInterf->listOrderShippings($skip * 30);
+        $company_id = auth()->guard('employee')->user()->subsidiary->company_id;
 
         return view('ecommerce::admin.order-shipments.list', [
-            'shipments'   => $list,
-            'employee_id' => auth()->guard('employee')->user()->id
+            'shipments'     =>  $list,
+            'employee_id'   =>  auth()->guard('employee')->user()->id,
+            'company_id'    =>  $company_id,
+            'optionsRoutes'  => 'admin.' . (request()->segment(2)),
+            'skip'           => $skip
         ]);
     }
 
@@ -52,13 +69,13 @@ class OrderShipmentController extends Controller
     {
         $request['employee_id']   = auth()->guard('employee')->user()->id;
         $request['company_id']    = auth()->guard('employee')->user()->subsidiary->company_id;
-        $request['subsidiary_id'] = auth()->guard('employee')->user()->subsidiary->id;
+        $request['subsidiary_id'] = auth()->guard('employee')->user()->subsidiary->id; // este hay que borrarlo porque sobra
         $shipment                 = $this->orderShippingInterf->createOrderShipping($request->input());
         $orderId                  = $request->order_id;
         $order                    = $this->orderRepo->findOrderById($orderId);
         $orderRepo                = new OrderRepository($order);
         $products                 = $orderRepo->listOrderedProducts();
-
+        // tratar de optimizzar con attach 
         foreach ($products as $item) {
             $cant   =   $item->quantity;
             for ($i = 1; $i <= $cant;) {
@@ -85,16 +102,17 @@ class OrderShipmentController extends Controller
 
     public function show($id)
     {
-        $orderShipment      = $this->orderShippingRepo->findOrderShipment($id);
-
+        $orderShipment      =   $this->orderShippingRepo->findOrderShipment($id)->paginate(15);
+        $customer           =   $this->customerRepo->findCustomerByIdforShipment($orderShipment->order->customer_id);
+        $courier            =   $orderShipment->courier->name;
+        $address            =   $orderShipment->order->address->customer_address;
+        $city               =   $orderShipment->order->address->city->city;
         return view('ecommerce::admin.order-shipments.show', [
-            'order'                 =>  $orderShipment->order,
-            'items'                 =>  $orderShipment->shipmentItems,
-            'customer'              =>  $this->customerRepo->findCustomerById($orderShipment->order->customer_id),
-            'currentStatus'         =>  $this->orderStatusRepo->findOrderStatusById($orderShipment->order->order_status_id),
-            'courier'               =>  $orderShipment->courier->name,
-            'user'                  =>  auth()->guard('employee')->user(),
+            'customer'              =>  $customer,
             'orderShipment'         =>  $orderShipment,
+            'courier'               =>  $courier,
+            'address'               =>  $address,
+            'city'                  =>  $city,
         ]);
     }
 

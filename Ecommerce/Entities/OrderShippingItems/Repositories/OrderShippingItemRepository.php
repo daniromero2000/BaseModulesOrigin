@@ -15,16 +15,11 @@ class OrderShippingItemRepository implements OrderShippingItemInterface
     private $columns = [
         'name',
         'description',
-        'description',
         'sku',
         'qty',
         'weight',
         'price',
-        'base_price',
-        'total',
-        'base_total',
         'shipment_id',
-        'created_at'
     ];
 
     public function __construct(OrderShippingItem $OrderShippingItem)
@@ -41,9 +36,8 @@ class OrderShippingItemRepository implements OrderShippingItemInterface
         }
     }
 
-    public function listOrderShippingItems(): Collection
+    public function listOrderShippingItems(int $totalView): Collection
     {
-        //return $this->model->with(['courier'])->get($this->columns);
         return $this->model->get($this->columns);
     }
 

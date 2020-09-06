@@ -52,12 +52,12 @@ class OrderShippingItem extends Model
 
     public function orderShiping()
     {
-        return $this->belongsTo(OrderShipping::class);
+        return $this->belongsTo(OrderShipping::class)->select('id','order_id','courier_id','total_qty','total_weight','track_number');
     }
 
     public function searchForShipmentItems(string $shipment_id)
     {
-        return self::search($shipment_id);
+        return self::search($shipment_id)->select('id','name','sku','qty','weight','price');
     }
 
 

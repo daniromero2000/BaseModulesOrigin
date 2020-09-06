@@ -24,8 +24,6 @@ class OrderShippingRepository implements OrderShippingInterface
         'total_qty',
         'total_weight',
         'track_number',
-        'email_sent',
-        'created_at'
     ];
 
     public function __construct(OrderShipping $orderShipping)
@@ -42,14 +40,13 @@ class OrderShippingRepository implements OrderShippingInterface
         }
     }
 
-    public function listOrderShippings(): Collection
+    public function listOrderShippings(int $totalView): Collection
     {
-        return $this->model->with(['courier'])->get($this->columns);
-    }
+        return $this->model->with(['courier'])->skip($totalView)->take(30)->get($this->columns);
 
-    public function findOrderShipment2(int $order_id): Collection
-    {
-        return $this->model->searchForShipment($order_id)->get();
+        
+        //
+        //->get($this->columns);
     }
 
     public function findOrderShipment(int $order_id): OrderShipping
@@ -67,6 +64,14 @@ class OrderShippingRepository implements OrderShippingInterface
     }
 
 
+    public function searchShipping(string $text): Collection
+    {
+        if (!empty($text)) {
+            return $this->model->searchShipping($text);
+        } else {
+            return $this->listOrderShippings(0);
+        }
+    }
 
 
 }

@@ -8,6 +8,7 @@ use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\OrderShippingItems\OrderShippingItem;
 use Modules\Ecommerce\Entities\Couriers\Courier;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Support\Collection;
 
 class OrderShipping extends Model
 {
@@ -52,20 +53,19 @@ class OrderShipping extends Model
         'created_at',
         'updated_at'
     ];
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class)->select('id','name');
+    }
 
     public function order()
     {
-        return $this->belongsTo(Order::class)->with(['courier']);
+        return $this->belongsTo(Order::class)->select('id','reference','courier_id','customer_id','address_id');
     }
 
     public function shipmentItems()
     {
         return $this->hasMany(OrderShippingItem::class, 'shipment_id');
-    }
-
-    public function courier()
-    {
-        return $this->belongsTo(Courier::class);
     }
 
     public function searchForShipment(string $order_id)
@@ -77,4 +77,11 @@ class OrderShipping extends Model
     {
         return self::search($shipment_id);
     }
+
+    public function searchShipping(string $term): Collection
+    {
+        return self::search($term)->get();
+    }
+
+
 }
