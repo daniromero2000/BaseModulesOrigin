@@ -28,7 +28,7 @@
                 <div class="col-xl-1 col-md-1 text-md-center"><b>Total</b></div>
             </div>
             @foreach($cartItems as $cartItem)
-            <div class="row bg-cart py-3 relative container-xl mx-auto" style=" border-radius: 0px 0px 20px 20px; ">
+            <div class="row bg-cart py-3 relative container-xl mx-auto">
                 <div class="col-xl-5 col-md-5 col-sm-12 offset-xl-1 mb-3">
                     <div class="row mx-0">
                         <div class="text-center col-sm-3 col-xl-2">
