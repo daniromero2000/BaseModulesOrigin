@@ -20,7 +20,7 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if(Empty(!$products))
+    @if(!empty(!$products->toArray()))
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Productos</h3>

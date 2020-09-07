@@ -66,6 +66,7 @@ class OrderShippingRepository implements OrderShippingInterface
 
     public function searchShipping(string $text): Collection
     {
+        
         if (!empty($text)) {
             return $this->model->searchShipping($text);
         } else {

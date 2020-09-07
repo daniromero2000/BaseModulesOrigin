@@ -10,13 +10,12 @@ use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShipp
 use Modules\Ecommerce\Entities\OrderShippings\Requests\CreateOrderShippingRequest;
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use Modules\Ecommerce\Entities\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use Illuminate\Http\Request;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class OrderShipmentController extends Controller
 {
-    private $orderRepo, $orderShippingInterf, $orderShippingItemInterf, $orderShippingRepo, $customerRepo, $orderStatusRepo;
+    private $orderRepo, $orderShippingInterf, $orderShippingItemInterf, $orderShippingRepo, $customerRepo;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
@@ -24,8 +23,7 @@ class OrderShipmentController extends Controller
         OrderShippingInterface $orderShippingInterface,
         OrderShippingItemInterface $orderShippingItemInterface,
         OrderShippingRepository $orderShippingRepoInterfe,
-        CustomerRepositoryInterface $customerRepository,
-        OrderStatusRepositoryInterface $orderStatusRepository
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->toolsInterface           = $toolRepositoryInterface;
         $this->orderRepo                = $orderRepository;
@@ -33,7 +31,6 @@ class OrderShipmentController extends Controller
         $this->orderShippingItemInterf  = $orderShippingItemInterface;
         $this->orderShippingRepo        = $orderShippingRepoInterfe;
         $this->customerRepo             = $customerRepository;
-        $this->orderStatusRepo          = $orderStatusRepository;
         $this->middleware(['permission:orders, guard:employee']);
     }
 
@@ -47,8 +44,6 @@ class OrderShipmentController extends Controller
             $skip = $this->toolsInterface->getSkip($request->input('skip')); //CREARMETODO getSkip
             $list = $this->orderShippingInterf->listOrderShippings($skip * 30);
         }
-
-        $list       = $this->orderShippingInterf->listOrderShippings($skip * 30);
         $company_id = auth()->guard('employee')->user()->subsidiary->company_id;
 
         return view('ecommerce::admin.order-shipments.list', [
@@ -102,7 +97,7 @@ class OrderShipmentController extends Controller
 
     public function show($id)
     {
-        $orderShipment      =   $this->orderShippingRepo->findOrderShipment($id)->paginate(15);
+        $orderShipment      =   $this->orderShippingRepo->findOrderShipment($id);
         $customer           =   $this->customerRepo->findCustomerByIdforShipment($orderShipment->order->customer_id);
         $courier            =   $orderShipment->courier->name;
         $address            =   $orderShipment->order->address->customer_address;

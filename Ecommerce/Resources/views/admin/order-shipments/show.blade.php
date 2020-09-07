@@ -88,11 +88,11 @@
         </div>
         @if($orderShipment->order)
             @if($orderShipment->order->grand_total != $orderShipment->order->total_paid)
-            <p class="alert alert-danger">
-                Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
-                Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $orderShipment->order->grand_total }}</strong> <br>
-                Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $orderShipment->order->total_paid }}</strong>
-            </p>
+                <p class="alert alert-danger">
+                    Ooops, hay una discrepancia en el monto total de la orden y el monto pagado <br />
+                    Monto Total de orden: <strong>{{ config('cart.currency') }} {{ $orderShipment->order->grand_total }}</strong> <br>
+                    Monto Total Pagado <strong>{{ config('cart.currency') }} {{ $orderShipment->order->total_paid }}</strong>
+                </p>
             @endif
             <div class="card">
                 <div class="card-body">
@@ -100,7 +100,6 @@
                         <div class="w-100 p-3">
                             <h4> <i class="fa fa-gift"></i> Items</h4>
                         </div>
-                        
                         <div class="table-responsive">
                             <table class="table text-center table-flush table-hover">
                                 <thead class="thead-light">
