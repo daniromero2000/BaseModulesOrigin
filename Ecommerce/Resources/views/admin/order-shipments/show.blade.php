@@ -25,64 +25,67 @@
     @include('generals::layouts.errors-and-messages')
     @if($orderShipment)
         <div class="row">
-            <div class="col-md-12 col-log-7">
+            <div class="col-md-12 col-lg-8">
                 <div class="card">
-                    <div class="w-100 p-3">
+                    <div class="card-header">
                         <h4> <i class="fa fa-truck"></i> Informaci&oacute;n Despacho Orden</h4>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush table-hover table-striped">
-                            <tbody>
-                                <tr>
-                                    <td>Orden #: </td>
-                                    <td><b>{{$orderShipment->order->id}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Referencia:</td>
-                                    <td><b>{{ $orderShipment->order->reference}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Courier:</td>
-                                    <td><b>{{ $courier }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Cantidad:</td>
-                                    <td><b>{{ $orderShipment->total_qty }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Peso:</td>
-                                    <td><b>{{ $orderShipment->total_weight }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Numero Guia:</td>
-                                    <td><b>{{ $orderShipment->track_number }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Direcci&oacute;n:</td>
-                                    <td><b>{{ $address }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Ciudad:</td>
-                                    <td><b>
-                                        @if(isset($city))
-                                        {{ $city }}
-                                        @endif
-                                        </b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Departamento:</td>
-                                    <td>
-                                        <b>
-                                            @if(isset($orderShipment->order->address->city))
-                                            {{ $orderShipment->order->address->city->province->province }}
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Orden #: </td>
+                                        <td><b>{{$orderShipment->order->id}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Referencia:</td>
+                                        <td><b>{{ $orderShipment->order->reference}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Courier:</td>
+                                        <td><b>{{ $courier }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cantidad:</td>
+                                        <td><b>{{ $orderShipment->total_qty }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Peso:</td>
+                                        <td><b>{{ $orderShipment->total_weight }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Numero Guia:</td>
+                                        <td><b>{{ $orderShipment->track_number }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Direcci&oacute;n:</td>
+                                        <td><b>{{ $address }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ciudad:</td>
+                                        <td><b>
+                                            @if(isset($city))
+                                            {{ $city }}
                                             @endif
-                                        </b>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Departamento:</td>
+                                        <td>
+                                            <b>
+                                                @if(isset($orderShipment->order->address->city))
+                                                {{ $orderShipment->order->address->city->province->province }}
+                                                @endif
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
+
                 </div>
             </div>
         </div>

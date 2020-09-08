@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Ecommerce\Entities\Wishlists\Repositories;
+namespace Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces;
 
 use Modules\Ecommerce\Entities\Wishlists\Wishlist;
 

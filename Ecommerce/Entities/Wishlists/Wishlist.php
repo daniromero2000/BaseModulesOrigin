@@ -5,9 +5,11 @@ namespace Modules\Ecommerce\Entities\Wishlists;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Customers\Entities\Customers\Customer;
 use Modules\Ecommerce\Entities\Products\Product;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wishlist extends Model
 {
+    use SoftDeletes;
     protected $table = 'wishlists';
 
     protected $fillable = [

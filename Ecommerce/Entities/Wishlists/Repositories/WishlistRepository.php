@@ -4,6 +4,7 @@ namespace Modules\Ecommerce\Entities\Wishlists\Repositories;
 
 use Illuminate\Database\QueryException;
 use Modules\Ecommerce\Entities\Products\Exceptions\WishlistCreateErrorException;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Wishlists\Wishlist;
 
 class WishlistRepository implements WishlistRepositoryInterface

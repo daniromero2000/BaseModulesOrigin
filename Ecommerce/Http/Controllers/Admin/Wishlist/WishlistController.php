@@ -2,7 +2,7 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Admin\Wishlist;
 
-use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -22,11 +22,6 @@ class WishlistController extends Controller
         return view('ecommerce::admin.wishlist.list', [
             'wishlist' => $this->wishlistRepo->listWishListAdmin()
         ]);
-        // if(!is_null(auth()->user())){
-        //     return $this->wishlistRepo->listWishList(auth()->user()->id);
-        // }
-
-        // return redirect('admin.login');
     }
 
     public function create()
@@ -44,32 +39,5 @@ class WishlistController extends Controller
 
             return $this->wishlistRepo->createWishlist($data);
         }
-        // $this->wishlistRepo->createWishlist($request->all());
-
-        // return redirect()->route('admin.brands.wishlist')
-        //     ->with('message', config('messaging.create'));
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update($request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -2,12 +2,11 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Front;
 
-use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Modules\Ecommerce\Entities\Wishlists\Wishlist;
 use Illuminate\Http\Request;
-use Modules\Ecommerce\Http\Controllers\Front\wishlistRepository;
 
 class WishlistController extends Controller
 {
@@ -47,17 +46,6 @@ class WishlistController extends Controller
         }
 
         return 'login';
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)

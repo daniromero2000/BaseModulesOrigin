@@ -64,7 +64,6 @@ class ProductReview extends Model
         return self::search($data);
     }
 
-    
     public function customer()
     {
         return $this->belongsTo(Customer::class);

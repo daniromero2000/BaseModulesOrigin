@@ -21,6 +21,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Cammodels')->group(function () {
             Route::resource('cammodels', 'CammodelsController');
         });
+        Route::namespace('CammodelBannedCountries')->group(function () {
+            Route::resource('banned-countries', 'CammodelBannedCountryController');
+        });
     });
 });
 

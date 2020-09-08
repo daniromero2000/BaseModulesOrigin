@@ -36,7 +36,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="name" id="name" validation-pattern="name" placeholder="Nombre" class="form-control" value="{{ old('name') }}" required>
+                                <input type="text" name="name" id="name" validation-pattern="name" placeholder="Nombre"
+                                    class="form-control" value="{{ old('name') }}" required>
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="last_name" id="last_name" validation-pattern="name" placeholder="Apellido" class="form-control" value="{{ old('last_name') }}" required>
+                                <input type="text" name="last_name" id="last_name" validation-pattern="name"
+                                    placeholder="Apellido" class="form-control" value="{{ old('last_name') }}" required>
                             </div>
                         </div>
                     </div>
@@ -58,7 +60,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                                <input type="text" name="email" id="email" validation-pattern="email" placeholder="Email" class="form-control" value="{{ old('email') }}" required>
+                                <input type="text" name="email" id="email" validation-pattern="email"
+                                    placeholder="Email" class="form-control" value="{{ old('email') }}" required>
                             </div>
                         </div>
                     </div>
@@ -66,10 +69,11 @@
                         <div id="cities" class="form-group">
                             <label class="form-control-label" for="employee_position_id">Cargo</label>
                             <div class="input-group">
-                                <select name="employee_position_id" id="employee_position_id" class="form-control" enabled>
+                                <select name="employee_position_id" id="employee_position_id" class="form-control"
+                                    enabled>
                                     @foreach($employee_positions as $employee_position)
-                                        <option value="{{ $employee_position->id }}">{{ $employee_position->position }}
-                                        </option>
+                                    <option value="{{ $employee_position->id }}">{{ $employee_position->position }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -81,7 +85,7 @@
                             <div class="input-group">
                                 <select name="department_id" id="department_id" class="form-control" enabled>
                                     @foreach($departments as $department)
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -93,7 +97,7 @@
                             <div class="input-group">
                                 <select name="subsidiary_id" id="subsidiary_id" class="form-control" enabled>
                                     @foreach($subsidiaries as $subsidiary)
-                                        <option value="{{ $subsidiary->id }}">{{ $subsidiary->name }}</option>
+                                    <option value="{{ $subsidiary->id }}">{{ $subsidiary->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -117,7 +121,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                                 </div>
-                                <input type="text" name="rh" id="rh" placeholder="Rh" class="form-control" required>
+                                <input type="text" name="rh" id="rh" placeholder="Rh"
+                                    class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -136,17 +141,17 @@
                         <label class="form-control-label" for="password">Rol</label>
                         <ul class="list-unstyled list-inline">
                             @foreach($roles as $role)
-                                <li>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" @if(isset($selectedIds) && in_array($role->id,
-                                            $selectedIds))checked="checked" @endif
-                                            name="role" id="role"
-                                            value="{{ $role->id }}">
-                                            {{ $role->display_name }}
-                                        </label>
-                                    </div>
-                                </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" @if(isset($selectedIds) && in_array($role->id,
+                                        $selectedIds))checked="checked" @endif
+                                        name="role" id="role"
+                                        value="{{ $role->id }}">
+                                        {{ $role->display_name }}
+                                    </label>
+                                </div>
+                            </li>
                             @endforeach
                         </ul>
                     </div>

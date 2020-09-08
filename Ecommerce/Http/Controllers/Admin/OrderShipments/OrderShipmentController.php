@@ -37,13 +37,17 @@ class OrderShipmentController extends Controller
     public function index(Request $request)
     {
         if (request()->has('q') && request()->input('q') != '') {
+         
             $skip = 0;
             $list = $this->orderShippingRepo->searchShipping(request()->input('q'));
+            //dd($list);
         }
         else {
             $skip = $this->toolsInterface->getSkip($request->input('skip')); //CREARMETODO getSkip
             $list = $this->orderShippingInterf->listOrderShippings($skip * 30);
         }
+
+        //$list       = $this->orderShippingInterf->listOrderShippings($skip * 30);
         $company_id = auth()->guard('employee')->user()->subsidiary->company_id;
 
         return view('ecommerce::admin.order-shipments.list', [
