@@ -320,9 +320,9 @@
                                     </div>
                                 </div>
                                 <!-- Modal eliminar wishlist -->
-                                <div class="modal fade" id="destroyModal" data-backdrop="static" data-keyboard="false"
+                                <div class="modal fade" id="destroyModal" data-backdrop="static" data-keyboard="false" style="margin-top:100px"
                                     tabindex="-1" role="dialog" aria-labelledby="productModal{{ $data->product->id }}Label" aria-hidden="true">
-                                    <div class="modal-dialog modal-md">
+                                    <div class="modal-dialog modal-md modal-rounded mt-5">
                                         <div class="modal-content">
                                             <div class="modal-content">
                                                 <div class="row mx-0 justify-content-end">
@@ -342,7 +342,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="delete">
                                                         <div class="modal-footer">
-                                                            <button style="background-color:#B93D6B" type="submit" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
+                                                            <button style="background-color:#B93D6B" type="submit" class="btn btn-danger">Confirmar</button>
                                                           </div>
                                                     </form>
                                                 </div>

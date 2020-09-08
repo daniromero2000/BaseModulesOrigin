@@ -33,7 +33,7 @@ use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShipp
 use Modules\Ecommerce\Entities\OrderShippings\Repositories\OrderShippingRepository;
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\OrderShippingItemRepository;
 use Modules\Ecommerce\Entities\OrderShippingItems\Repositories\Interfaces\OrderShippingItemInterface;
-use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepositoryInterface;
+use Modules\Ecommerce\Entities\Wishlists\Repositories\Interfaces\WishlistRepositoryInterface;
 use Modules\Ecommerce\Entities\Wishlists\Repositories\WishlistRepository;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Contracts\PayuClientInterface;
 use Modules\Ecommerce\Entities\PaymentMethods\PayU\Client\PayuClient;
