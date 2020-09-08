@@ -1,13 +1,13 @@
 @extends('layouts.front.app')
 @section('styles')
 <style>
-    
+
 </style>
 
 @endsection
 @section('content')
 <section class="container-reset content-empty content">
-    <div class="row">
+    <div class="row row-reset">
         <div class="card-body">
             @include('generals::layouts.errors-and-messages')
         </div>
@@ -48,7 +48,7 @@
                         <div class="row">
                             <div class="col-sm-12"><!--left col-->
                                 <div class="text-center">
-                                    <img src="{{ asset('img/FVN/avatar.png') }}" class="avatar profile-rounded img-thumbnail" alt="avatar">
+                                    <img src="{{ asset('img/tws/avatar.png') }}" class="avatar profile-rounded" alt="avatar">
                                 </div>
                                 <div class="card text-center mt-3">
                                     <div class="card-header">
@@ -211,7 +211,7 @@
                                         <td>
                                             <!-- Button trigger modal -->
                                             <a href="" data-toggle="modal" data-target="#destroyadressModal">
-                                                <i style="color: #4F98B9;" class="fas fa-trash-alt"></i>
+                                                <i style="color: #831448;" class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
                                         <!-- Modal destroy address -->
@@ -227,7 +227,7 @@
                                                         <div class="container">
                                                             <div class="row text-center">
                                                                 <div class="col-12 col-md-12">
-                                                                    <h4 style="color:#B93D6B">Advertencia <i class="fas fa-exclamation-circle"></i> </h4>
+                                                                    <h4 style="color:#831448">Advertencia <i class="fas fa-exclamation-circle"></i> </h4>
                                                                     <p style="color:#808080">¿Seguro desea eliminar la dirección?</p>
                                                                 </div>
                                                             </div>
@@ -273,13 +273,13 @@
                                 <td>$ {{ number_format($data->product->price)}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#modalcover" data-original-title="Ver cover" href="">
-                                        <i style="color:#4F98B9" class="fas fa-eye"></i>
+                                        <i style="color:#831448" class="fas fa-eye"></i>
                                     </a>
                                     <a href="" data-toggle="modal" data-target="#productModal{{ $data->product->id }}" class="table-action table-action" data-toggle="tooltip" data-original-title="Agregar a carrito">
-                                        <i style="color:#4F98B9" class="fas fa-cart-plus"></i>
+                                        <i style="color:#831448" class="fas fa-cart-plus"></i>
                                     </a>
                                     <a href="" data-toggle="modal" data-target="#destroyModal">
-                                        <i style="color:#4F98B9" class="fas fa-times-circle"></i>
+                                        <i style="color:#831448" class="fas fa-times-circle"></i>
                                     </a>
                                 </td>
                                 <!-- Modal cover -->
@@ -294,7 +294,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="content m-auto">
-                                                    <div class="text-center" style="color:#B93D6B">
+                                                    <div class="text-center" style="color:#831448">
                                                         <h4>{{$data->product->name}}</h4>
                                                     </div>
                                                     <img class="img-fluid lazy" data-src="{{ asset("storage/" . $data->product->cover )}}"
@@ -333,7 +333,7 @@
                                                 <div class="container">
                                                     <div class="row text-center">
                                                         <div class="col-12 col-md-12">
-                                                            <h4 style="color:#B93D6B">Advertencia <i class="fas fa-exclamation-circle"></i></h4>
+                                                            <h4 style="color:#831448">Advertencia <i class="fas fa-exclamation-circle"></i></h4>
                                                             <p style="color:#808080">¿Seguro desea eliminar el registro de su lista de deseos?</p>
                                                         </div>
                                                     </div>
@@ -342,7 +342,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="delete">
                                                         <div class="modal-footer">
-                                                            <button style="background-color:#B93D6B" type="submit" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
+                                                            <button style="background-color:#831448" type="submit" class="btn btn-danger" onclick="return confirm('¿Estás Seguro?')">Confirmar</button>
                                                           </div>
                                                     </form>
                                                 </div>
