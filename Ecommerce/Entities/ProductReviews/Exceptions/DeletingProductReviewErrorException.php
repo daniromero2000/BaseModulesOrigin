@@ -1,7 +1,7 @@
 <?php
 
-namespace Modules\Ecommerce\Entities\OrderShippings\Exceptions;
+namespace Modules\Ecommerce\Entities\ProductReviews\Exceptions;
 
-class DeletingOrderShippingErrorException extends \Exception
+class DeletingProducrReviewErrorException extends \Exception
 {
 }
