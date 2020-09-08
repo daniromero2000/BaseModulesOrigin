@@ -18,18 +18,17 @@
           <table class="table align-items-center table-flush table-hover text-center">
             <thead class="thead-light">
               <tr>
+              <th class="text-center" scope="col">Id Usuario</th>
                 <th class="text-center" scope="col">Nombre</th>
                 <th class="text-center" scope="col">Teléfono</th>
-                <th class="text-center" scope="col">Id Empleado</th>
               </tr>
             </thead>
             <tbody class="list">
               @foreach ($employee->employeeEmergencyContact as $employee_emergency_contacts)
               <tr>
-                <td class="text-center">{{ $employee_emergency_contacts->name }}
-                </td>
-                <td class="text-center">{{ $employee_emergency_contact->phone }}</td>
-                <td class="text-center">{{ $employee_emergency_contact->id }}</td>
+              <td class="text-center">{{ $employee_emergency_contacts->id }}</td>
+                <td class="text-center">{{ $employee_emergency_contacts->name }}</td>
+                <td class="text-center">{{ $employee_emergency_contacts->phone }}</td>
                 </td>
               </tr>
               @endforeach

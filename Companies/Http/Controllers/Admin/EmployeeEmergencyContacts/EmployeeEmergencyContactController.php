@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Companies\Http\Controllers\Admin\EmployeeEmergencyContact;
+namespace Modules\Companies\Http\Controllers\Admin\EmployeeEmergencyContacts;
 
 use App\Http\Controllers\Controller;
 use Modules\Companies\Entities\EmployeeEmergencyContacts\Repositories\Interfaces\EmployeeEmergencyContactRepositoryInterface;

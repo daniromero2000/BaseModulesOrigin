@@ -9,7 +9,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ route('admin.employee-emergency-contact.store') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ route('admin.employee-emergency-contacts.store') }}" method="post" enctype="multipart/form-data">
         <div class="modal-body py-0">
           @csrf
           <input name="employee_id" id="employee_id" type="hidden" validation-pattern="text"
