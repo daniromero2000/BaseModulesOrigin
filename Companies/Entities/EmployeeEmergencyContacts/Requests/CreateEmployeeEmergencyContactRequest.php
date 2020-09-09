@@ -9,9 +9,9 @@ class CreateEmployeeEmergencyContactRequest extends BaseFormRequest
     public function rules()
     {
         return [
+            'employee_id' => ['required', 'bail'],
             'name' => ['required', 'bail'],
             'phone' => ['required', 'bail'],
-            'employee_id' => ['required', 'bail'],
         ];
     }
 }

@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         });
 
         Route::namespace('EmployeeEmergencyContacts')->group(function () {
-            Route::resource('employee-emergency-contact', 'EmployeeEmergencyContactController');
+            Route::resource('employee-emergency-contacts', 'EmployeeEmergencyContactController');
         });
 
         Route::namespace('EmployeeEpss')->group(function () {

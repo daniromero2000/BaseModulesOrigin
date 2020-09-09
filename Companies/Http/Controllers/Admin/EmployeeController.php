@@ -128,16 +128,16 @@ class EmployeeController extends Controller
     {
         try {
             return view('companies::admin.employees.show', [
-                'employee' => $this->employeeInterface->findEmployeeById($id),
-                'cities' => $this->cityInterface->listCities(),
-                'identity_types' => $this->identityTypeInterface->getAllIdentityTypesNames(),
-                'stratums' => $this->stratumInterface->getAllStratumsNames(),
-                'housings' => $this->housingInterface->getAllHousingsNames(),
-                'epss' => $this->epsInterface->getAllEpsNames(),
-                'professions_lists' => $this->professionsListInterface->getAllProfessionsNames(),
+                'employee'           => $this->employeeInterface->findEmployeeById($id),
+                'cities'             => $this->cityInterface->listCities(),
+                'identity_types'     => $this->identityTypeInterface->getAllIdentityTypesNames(),
+                'stratums'           => $this->stratumInterface->getAllStratumsNames(),
+                'housings'           => $this->housingInterface->getAllHousingsNames(),
+                'epss'               => $this->epsInterface->getAllEpsNames(),
+                'professions_lists'  => $this->professionsListInterface->getAllProfessionsNames(),
                 'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
-                'all_departments' => $this->departmentInterface->getAllDepartmentNames(),
-                'roles' => $this->roleInterface->getAllRoleNames(),
+                'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
+                'roles'              => $this->roleInterface->getAllRoleNames(),
             ]);
         } catch (EmployeeNotFoundException $e) {
             request()->session()->flash('error', 'El Empleado que estás buscando no se encuentra');

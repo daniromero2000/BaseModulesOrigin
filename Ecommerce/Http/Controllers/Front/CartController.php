@@ -46,7 +46,7 @@ class CartController extends Controller
     public function store(AddToCartRequest $request)
     {
         $product = $this->productRepo->findProductById($request->input('product'));
-        if (isset($product->sale_price)) {
+        if (isset($product->sale_price) && $product->sale_price != '0') {
             $product->price = $product->sale_price;
         }
 

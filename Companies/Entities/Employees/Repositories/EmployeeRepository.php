@@ -121,7 +121,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 'employeeEmails',
                 'employeePhones:phone_type,phone,employee_id,status,created_at',
                 'employeeAddresses:housing_id,address,time_living,stratum_id,city_id,employee_id,status,created_at',
-                'employeeEmergencyContact:name,phone,employee_id,status,created_at',
+                'employeeEmergencyContact:id,name,phone,employee_id,status,created_at',
                 'employeeIdentities:identity_type_id,identity_number,expedition_date,city_id,employee_id,status,created_at',
                 'employeeEpss:eps_id,employee_id,status,created_at',
                 'employeeProfessions:professions_list_id,employee_id,status,created_at',
