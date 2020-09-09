@@ -36,18 +36,18 @@ class CammodelBannedCountry extends Model
     {
         return $this->belongsTo(Cammodel::class)
             ->select([
-                'id', 
-                'employee_id', 
-                'manager_id', 
-                'fake_age', 
-                'nickname', 
-                'height', 
-                'weight', 
-                'breast_cup_size', 
-                'meta', 
-                'likes_dislikes', 
-                'about_me', 
-                'private_show', 
+                'id',
+                'employee_id',
+                'manager_id',
+                'fake_age',
+                'nickname',
+                'height',
+                'weight',
+                'breast_cup_size',
+                'meta',
+                'likes_dislikes',
+                'about_me',
+                'private_show',
                 'my_rules'
             ]);
     }
