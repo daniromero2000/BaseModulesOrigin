@@ -26,7 +26,9 @@ class Cammodel extends Model
         'likes_dislikes',
         'about_me',
         'private_show',
-        'my_rules'
+        'my_rules',
+        'cover',
+        'image_tks'
     ];
 
     protected $hidden = [
