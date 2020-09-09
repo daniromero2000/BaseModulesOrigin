@@ -30,18 +30,16 @@ class CammodelBannedCountryController extends Controller
      */
     public function index(Request $request)
     {
-        /* if (request()->has('q')) {
-            //$list = $this->cammodelInterface->searchCammodel(request()->input('q'));
-            //$request->session()->flash('message', 'Resultado de la Busqueda');
-        } elseif (request()->has('t')) {
-            //$list = $this->cammodelInterface->searchTrashedCammodel(request()->input('t'));
-            //$request->session()->flash('message', 'Resultado de la Busqueda');
-        } else {
-            //$skip = $this->toolsInterface->getSkip($request->input('skip'));
-            //$list = $this->cammodelInterface->listCammodels($skip * 30);
-        } */
-        $skip = $this->toolsInterface->getSkip($request->input('skip'));
-        $list = $this->bannedCountryInterface->listCammodelBannedCountryies($skip * 30);
+        if (request()->has('q') && request()->input('q') != '') {
+            $skip = 0;
+            $list = $this->bannedCountryInterface->searchParam(request()->input('q'));
+        }
+        else {
+            $skip = $this->toolsInterface->getSkip($request->input('skip')); //CREARMETODO getSkip
+            $list = $this->bannedCountryInterface->listCammodelBannedCountryies($skip * 30);
+        }
+        // $skip = $this->toolsInterface->getSkip($request->input('skip'));
+        // $list = $this->bannedCountryInterface->listCammodelBannedCountryies($skip * 30);
         
         return view('camstudio::admin.cammodel-banned-countries.list', [
             'bannedCuntries' => $list,

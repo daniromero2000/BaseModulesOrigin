@@ -23,15 +23,6 @@ class OrderShipping extends Model
             'couriers.id' => 10,
             'couriers.name' => 10,
         ],
-        /* 'columns' => [
-            'customers.name' => 10,
-            'orders.reference' => 8,
-            'orders.id' => 8,
-        ],
-        'joins' => [
-            'customers' => ['customers.id', 'orders.customer_id'],
-            'order_product' => ['orders.id', 'order_product.order_id']
-        ], */
         'joins' => [
             'couriers' => ['couriers.id', 'shipments.courier_id']
         ],
