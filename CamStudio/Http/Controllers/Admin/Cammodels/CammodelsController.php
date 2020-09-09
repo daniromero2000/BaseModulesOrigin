@@ -4,18 +4,21 @@ namespace Modules\CamStudio\Http\Controllers\Admin\Cammodels;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
+use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class CammodelsController extends Controller
 {
     private $cammodelInterface, $toolsInterface;
 
     public function __construct(
-        ToolRepositoryInterface $toolRepositoryInterface,
-        CammodelRepositoryInterface $cammodelRepositoryInterface
+        CammodelRepositoryInterface $cammodelRepositoryInterface,
+        CityRepositoryInterface $cityRepositoryInterface,
+        ToolRepositoryInterface $toolRepositoryInterface
     ) {
-        $this->toolsInterface    = $toolRepositoryInterface;
+        $this->toolsInterface = $toolRepositoryInterface;
+        $this->cityInterface = $cityRepositoryInterface;
         $this->cammodelInterface = $cammodelRepositoryInterface;
     }
 
@@ -43,7 +46,7 @@ class CammodelsController extends Controller
 
     public function create()
     {
-        return view('camstudio::create');
+        return view('camstudio::admin.cammodels.create');
     }
 
 
@@ -55,13 +58,16 @@ class CammodelsController extends Controller
 
     public function show($id)
     {
-        return view('camstudio::show');
+        return view('camstudio::admin.cammodels.show', [
+            'cammodel' => $this->cammodelInterface->findCammodelById($id),
+            'cities'   => $this->cityInterface->listCities()
+        ]);
     }
 
 
     public function edit($id)
     {
-        return view('camstudio::edit');
+        return view('camstudio::admin.cammodels.edit');
     }
 
 

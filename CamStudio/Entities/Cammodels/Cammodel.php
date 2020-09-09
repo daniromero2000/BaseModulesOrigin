@@ -5,6 +5,8 @@ namespace Modules\CamStudio\Entities\Cammodels;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Companies\Entities\Employees\Employee;
+use Modules\CamStudio\Entities\CammodelCategories\CammodelCategory;
+use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
 
 class Cammodel extends Model
 {
@@ -67,5 +69,16 @@ class Cammodel extends Model
     {
         return $this->belongsTo(Employee::class)
             ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'subsidiary_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(CammodelCategory::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(CammodelImage::class)
+            ->select(['id', 'cammodel_id', 'src']);
     }
 }

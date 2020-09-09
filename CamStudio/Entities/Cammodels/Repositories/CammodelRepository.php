@@ -62,4 +62,13 @@ class CammodelRepository implements CammodelRepositoryInterface
             abort(503, $e->getMessage());
         }
     }
+
+    public function findCammodelById(int $id)
+    {
+        try {
+            return $this->model->findOrFail($id, $this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
 }

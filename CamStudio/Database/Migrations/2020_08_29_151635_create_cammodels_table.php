@@ -20,10 +20,12 @@ class CreateCammodelsTable extends Migration
             $table->integer('manager_id')->unsigned();
             $table->foreign('manager_id')->references('id')->on('employees')->onDelete('cascade');
             $table->tinyInteger('fake_age')->unsigned()->default(18);
+            $table->string('cover')->nullable();
             $table->string('nickname');
             $table->string('height')->default(0);
             $table->string('weight')->default(0);
             $table->string('breast_cup_size')->default(0);
+            $table->string('image_tks')->nullable();
             $table->text('tattoos_piercings');
             $table->text('meta');
             $table->text('likes_dislikes');
