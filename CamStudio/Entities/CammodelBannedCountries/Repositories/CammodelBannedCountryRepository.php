@@ -34,7 +34,7 @@ class CammodelBannedCountryRepository implements CammodelBannedCountryInterface
 
     public function listCammodelBannedCountryies(): Collection
     {
-        return $this->model->get($this->columns);
+        return $this->model->with(['country','cammodel'])->get($this->columns);
     }
 
 

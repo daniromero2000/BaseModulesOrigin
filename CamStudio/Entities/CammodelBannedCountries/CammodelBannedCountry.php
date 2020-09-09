@@ -3,7 +3,10 @@
 namespace Modules\CamStudio\Entities\CammodelBannedCountries;
 
 use Illuminate\Database\Eloquent\Model;
-//use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Generals\Entities\Countries\Country;
+use Modules\CamStudio\Entities\Cammodels\Cammodel;
+use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Support\Collection;
 
 class CammodelBannedCountry extends Model
 {
@@ -34,21 +37,11 @@ class CammodelBannedCountry extends Model
 
     public function cammodel()
     {
-        return $this->belongsTo(Cammodel::class)
-            ->select([
-                'id',
-                'employee_id',
-                'manager_id',
-                'fake_age',
-                'nickname',
-                'height',
-                'weight',
-                'breast_cup_size',
-                'meta',
-                'likes_dislikes',
-                'about_me',
-                'private_show',
-                'my_rules'
-            ]);
+        return $this->belongsTo(Cammodel::class)->select(['id', 'nickname']);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class)->select(['id', 'name']);
     }
 }

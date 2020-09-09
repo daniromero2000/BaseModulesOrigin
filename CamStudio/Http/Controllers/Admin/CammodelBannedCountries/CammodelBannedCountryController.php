@@ -44,10 +44,10 @@ class CammodelBannedCountryController extends Controller
         $list = $this->bannedCountryInterface->listCammodelBannedCountryies($skip * 30);
         
         return view('camstudio::admin.cammodel-banned-countries.list', [
-            'cammodels' => $list,
+            'bannedCuntries' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
+            'headers' => ['Id', 'Pais', 'Modelo'],
         ]);
     }
 

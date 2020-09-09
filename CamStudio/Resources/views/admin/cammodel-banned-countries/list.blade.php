@@ -20,7 +20,7 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if(!$cammodels->isEmpty())
+    @if(!$bannedCuntries->isEmpty())
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Modelos</h3>
@@ -35,16 +35,12 @@
                     </tr>
                 </thead>
                 <tbody class="list">
-                    @if($cammodels)
-                    @foreach($cammodels as $data)
+                    @if($bannedCuntries)
+                    @foreach($bannedCuntries as $item)
                     <tr>
-                        <td class="text-center">{{ $data->id }}</td>
-                        <td class="text-center">{{ $data->nickname }} {{ $data->last_name }}</td>
-                        <td class="text-center">{{ $data->meta }}</td>
-                        <td class="text-center">
-                            @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
-                            $optionsRoutes])
-                        </td>
+                        <td class="text-center">{{ $item->id }}</td>
+                        <td class="text-center">{{ $item->country->name }} </td>
+                        <td class="text-center">{{ $item->cammodel->nickname }}</td>
                     </tr>
                     @endforeach
                     @endif
