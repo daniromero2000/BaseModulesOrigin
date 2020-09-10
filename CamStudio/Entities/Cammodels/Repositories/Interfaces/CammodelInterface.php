@@ -5,7 +5,7 @@ namespace Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Illuminate\Support\Collection;
 
-interface CammodelRepositoryInterface
+interface CammodelInterface
 {
     public function searchCammodel(string $text = null): Collection;
 

@@ -1,11 +1,9 @@
 <div class="card card-profile">
-    <img src="" alt="Image placeholder" class="card-img-top">
+    <img src="{{ asset("storage/$cammodel->cover_page") }}" alt="Image placeholder" class="card-img-top">
     <div class="row justify-content-center">
         <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
-                <a href="#">
-                    <img src="" class="rounded-circle">
-                </a>
+                <img src="{{ asset("storage/$cammodel->cover") }}" class="rounded-circle">
             </div>
         </div>
     </div>
@@ -20,11 +18,11 @@
             <div class="col">
                 <div class="card-profile-stats d-flex justify-content-center">
                     <div>
-                        <span class="heading">22</span>
+                        <span class="heading">{{count($cammodel->images)}}</span>
                         <span class="description">Whislist</span>
                     </div>
                     <div>
-                        <span class="heading">10</span>
+                        <span class="heading">{{count($cammodel->images)}}</span>
                         <span class="description">Imagenes</span>
                     </div>
                     <div>

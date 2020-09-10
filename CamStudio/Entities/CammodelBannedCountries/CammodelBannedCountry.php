@@ -3,14 +3,14 @@
 namespace Modules\CamStudio\Entities\CammodelBannedCountries;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Generals\Entities\Countries\Country;
-use Modules\CamStudio\Entities\Cammodels\Cammodel;
-use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Support\Collection;
+use Modules\CamStudio\Entities\Cammodels\Cammodel;
+use Modules\Generals\Entities\Countries\Country;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class CammodelBannedCountry extends Model
 {
-    //use SoftDeletes;
+    use SearchableTrait;
 
     protected $table = 'cammodel_banned_countries';
     protected $fillable = [
@@ -30,9 +30,25 @@ class CammodelBannedCountry extends Model
         'updated_at',
     ];
 
-    protected $dates  = [
+    protected $dates = [
         'created_at',
         'updated_at',
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'cammodel_banned_countries.country_id' => 10,
+            'cammodel_banned_countries.cammodel_id' => 10,
+            'countries.id' => 10,
+            'countries.name' => 10,
+            'cammodels.id' => 10,
+            'cammodels.nickname' => 10,
+        ],
+        'joins' => [
+            'cammodels' => ['cammodels.id', 'cammodel_banned_countries.cammodel_id'],
+            'countries' => ['countries.id', 'cammodel_banned_countries.country_id'],
+        ],
+        'groupBy' => ['cammodel_banned_countries.country_id'],
     ];
 
     public function cammodel()
@@ -43,5 +59,10 @@ class CammodelBannedCountry extends Model
     public function country()
     {
         return $this->belongsTo(Country::class)->select(['id', 'name']);
+    }
+
+    public function searchParam(string $term): Collection
+    {
+        return self::search($term)->get();
     }
 }

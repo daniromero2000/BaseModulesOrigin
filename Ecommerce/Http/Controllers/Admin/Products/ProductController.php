@@ -62,7 +62,6 @@ class ProductController extends Controller
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->productRepo->listProducts($skip * 30);
         }
-
         $products = $list->map(function (Product $item) {
             return $this->transformProduct($item);
         })->all();

@@ -9,5 +9,8 @@ use Modules\CamStudio\Entities\CammodelBannedCountries\CammodelBannedCountry;
 interface CammodelBannedCountryInterface
 {
     public function createCammodelBannedCountry(array $data): CammodelBannedCountry;
+
     public function listCammodelBannedCountryies(): Collection;
+
+    public function searchParam(string $text): Collection;
 }

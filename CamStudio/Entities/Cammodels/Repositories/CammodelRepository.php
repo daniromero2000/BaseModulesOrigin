@@ -5,12 +5,14 @@ namespace Modules\CamStudio\Entities\Cammodels\Repositories;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
-class CammodelRepository implements CammodelRepositoryInterface
+class CammodelRepository implements CammodelInterface
 {
+    use SearchableTrait;
     protected $model;
-    private $listColumns = [
+    private $columns = [
         'id',
         'employee_id',
         'manager_id',
@@ -21,10 +23,13 @@ class CammodelRepository implements CammodelRepositoryInterface
         'breast_cup_size',
         'tattoos_piercings',
         'meta',
+        'slug',
         'likes_dislikes',
         'about_me',
         'private_show',
         'my_rules',
+        'cover',
+        'cover_page',
         'created_at'
     ];
 
@@ -55,9 +60,16 @@ class CammodelRepository implements CammodelRepositoryInterface
     {
         try {
             return  $this->model
+                ->with('manager')
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
-                ->get($this->listColumns);
+                ->get([
+                    'id',
+                    'manager_id',
+                    'fake_age',
+                    'nickname',
+                    'meta'
+                ]);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -66,7 +78,7 @@ class CammodelRepository implements CammodelRepositoryInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->findOrFail($id, $this->listColumns);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

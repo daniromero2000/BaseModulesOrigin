@@ -4,13 +4,15 @@ namespace Modules\CamStudio\Entities\Cammodels;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Companies\Entities\Employees\Employee;
 use Modules\CamStudio\Entities\CammodelCategories\CammodelCategory;
 use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
+use Modules\Companies\Entities\Employees\Employee;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Cammodel extends Model
 {
     use SoftDeletes;
+    use SearchableTrait;
 
     protected $table = 'cammodels';
     protected $fillable = [
@@ -20,6 +22,7 @@ class Cammodel extends Model
         'nickname',
         'height',
         'weight',
+        'slug',
         'breast_cup_size',
         'tattoos_piercings',
         'meta',
@@ -28,7 +31,8 @@ class Cammodel extends Model
         'private_show',
         'my_rules',
         'cover',
-        'image_tks'
+        'cover_page',
+        'image_tks',
     ];
 
     protected $hidden = [
@@ -45,7 +49,7 @@ class Cammodel extends Model
         'deleted_at',
     ];
 
-    protected $dates  = [
+    protected $dates = [
         'deleted_at',
         'created_at',
         'updated_at',
@@ -70,7 +74,37 @@ class Cammodel extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class)
-            ->select(['id', 'name', 'last_name', 'email', 'birthday', 'avatar', 'subsidiary_id', 'employee_position_id', 'is_active', 'last_login_at', 'remember_token']);
+            ->select([
+                'id',
+                'name',
+                'last_name',
+                'email',
+                'birthday',
+                'avatar',
+                'subsidiary_id',
+                'employee_position_id',
+                'is_active',
+                'last_login_at',
+                'remember_token',
+            ]);
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(Employee::class, 'manager_id')
+            ->select([
+                'id',
+                'name',
+                'last_name',
+                'email',
+                'birthday',
+                'avatar',
+                'subsidiary_id',
+                'employee_position_id',
+                'is_active',
+                'last_login_at',
+                'remember_token',
+            ]);
     }
 
     public function categories()
