@@ -39,7 +39,7 @@ class CammodelsController extends Controller
 
         return view('camstudio::admin.cammodels.list', [
             'cammodels' => $list,
-            'optionsRoutes' => 'admin.'.(request()->segment(2)),
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
             'headers' => ['Id', 'Nombre', 'Edad', 'Meta', 'Manager', 'Opciones'],
         ]);
@@ -56,11 +56,9 @@ class CammodelsController extends Controller
 
     public function show($id)
     {
-        return view('camstudio::admin.cammodels.show');
-
         return view('camstudio::admin.cammodels.show', [
-            'cammodel' => $this->cammodelInterface->findCammodelById($id),
-            'cities' => $this->cityInterface->listCities(),
+            'cammodel' => $this->cammodelInterf->findCammodelById($id),
+            'cities'   => $this->cityInterface->listCities(),
         ]);
     }
 

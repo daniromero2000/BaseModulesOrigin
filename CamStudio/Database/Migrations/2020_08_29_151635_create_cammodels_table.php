@@ -21,7 +21,9 @@ class CreateCammodelsTable extends Migration
             $table->foreign('manager_id')->references('id')->on('employees')->onDelete('cascade');
             $table->tinyInteger('fake_age')->unsigned()->default(18);
             $table->string('cover')->nullable();
+            $table->string('cover_page')->nullable();
             $table->string('nickname');
+            $table->string('slug');
             $table->string('height')->default(0);
             $table->string('weight')->default(0);
             $table->string('breast_cup_size')->default(0);

@@ -22,6 +22,7 @@ class Cammodel extends Model
         'nickname',
         'height',
         'weight',
+        'slug',
         'breast_cup_size',
         'tattoos_piercings',
         'meta',
@@ -30,6 +31,7 @@ class Cammodel extends Model
         'private_show',
         'my_rules',
         'cover',
+        'cover_page',
         'image_tks',
     ];
 

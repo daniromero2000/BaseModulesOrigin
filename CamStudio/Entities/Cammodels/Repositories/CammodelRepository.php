@@ -23,10 +23,13 @@ class CammodelRepository implements CammodelInterface
         'breast_cup_size',
         'tattoos_piercings',
         'meta',
+        'slug',
         'likes_dislikes',
         'about_me',
         'private_show',
         'my_rules',
+        'cover',
+        'cover_page',
         'created_at'
     ];
 
@@ -57,7 +60,7 @@ class CammodelRepository implements CammodelInterface
     {
         try {
             return  $this->model
-            ->with('manager')
+                ->with('manager')
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
                 ->get([
@@ -75,7 +78,7 @@ class CammodelRepository implements CammodelInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->findOrFail($id, $this->listColumns);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
