@@ -1,8 +1,11 @@
-@php
-$fechaActual = strtotime(date("Y-m-d"));
-$fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
-@endphp
 @extends('generals::layouts.admin.app')
+@section('styles')
+{{-- <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/quill/dist/quill.core.css')}}"
+type="text/css">--}}
+{{-- <script src="{{asset('modules/generals/argonTemplate/resources/dropzone/dist/min/dropzone.min.js')}}"></script>
+--}}
+
+@endsection
 @section('header')
 <div class="header pb-2">
     <div class="container-fluid">
@@ -43,7 +46,10 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
             </div>
         </div>
     </div>
-    <form action="">
+    <form action="{{ route('admin.cammodels.update', $cammodel->id) }}" method="post" class="form"
+        enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="_method" value="put">
         <div class="container-fluid mt--6">
             <div class="row">
                 <div class="col-xl-4 order-xl-2">
@@ -117,7 +123,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                                             <div class="form-group">
                                                 <label class="form-control-label">Gustos y disgustos</label>
                                                 <textarea rows="4" name="likes_dislikes" class="form-control"
-                                                    placeholder="Mis Gustos son..."></textarea>
+                                                    placeholder="Mis Gustos son..."> {{ $cammodel->likes_dislikes }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +137,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                                             <div class="form-group">
                                                 <label class="form-control-label">Mis reglas</label>
                                                 <textarea rows="4" name="my_rules" class="form-control"
-                                                    placeholder="Mis reglas son..."></textarea>
+                                                    placeholder="Mis reglas son..."> {{$cammodel->my_rules}} </textarea>
                                             </div>
                                         </div>
                                         {{-- <div class="col-lg-4">
@@ -157,7 +163,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                                     <div class="form-group">
                                         <label class="form-control-label">About Me</label>
                                         <textarea rows="4" name="about_me" class="form-control"
-                                            placeholder="Unas palabras sobre ti..."></textarea>
+                                            placeholder="Unas palabras sobre ti...">{{$cammodel->about_me}}</textarea>
                                     </div>
                                 </div>
                             </form>
@@ -172,8 +178,40 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
         </div>
 
     </form>
+    <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal" role="document">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Cambiar foto de portada</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
 
+                <form action="{{ route('admin.cammodels.update', $cammodel->id) }}" method="post" class="form"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="_method" value="put">
+                    <div class="modal-body">
+                        <div class="w-100">
+                            <img src="{{ asset("storage/$cammodel->cover_page") }}" alt="Image placeholder"
+                                class="img-fluid">
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="file" name="cover_page" id="cover_page" value="{{$cammodel->cover_page}}"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     {{-- @include('camstudio::admin.layouts.edit_employee', ['data' => $employee])
     @include('camstudio::admin.layouts.add_address_modal')
     @include('camstudio::admin.layouts.add_emergencycontact_modal')
@@ -184,4 +222,8 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
     @include('camstudio::admin.layouts.add_eps_modal')
     @include('camstudio::admin.layouts.add_profession_modal') --}}
 </section>
+@endsection
+@section('scripts')
+{{-- <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/quill/dist/quill.core.css')}}"
+type="text/css">--}}
 @endsection

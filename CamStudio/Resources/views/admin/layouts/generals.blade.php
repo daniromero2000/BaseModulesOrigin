@@ -1,5 +1,10 @@
 <div class="card card-profile">
-    <img src="{{ asset("storage/$cammodel->cover_page") }}" alt="Image placeholder" class="card-img-top">
+    <img src="{{ asset("storage/$cammodel->cover_page") }}" alt="Image placeholder" class="card-img-top"
+        style=" max-width: 600px; margin: auto; ">
+    <a class="bg-primary text-white" data-toggle="modal" data-target="#modal-default"
+        style="width: 35px;height: 35px;border-radius: 25px;position: absolute;top: 7px;right: 10px;display: flex;">
+        <i class="fas fa-pen m-auto"></i>
+    </a>
     <div class="row justify-content-center">
         <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">

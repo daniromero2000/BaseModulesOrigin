@@ -3,14 +3,16 @@
 namespace Modules\CamStudio\Entities\Cammodels\Repositories;
 
 use Illuminate\Database\QueryException;
+use Modules\Generals\Entities\Tools\UploadableTrait;
 use Illuminate\Support\Collection;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Http\UploadedFile;
 
 class CammodelRepository implements CammodelInterface
 {
-    use SearchableTrait;
+    use SearchableTrait, UploadableTrait;
     protected $model;
     private $columns = [
         'id',
@@ -75,10 +77,26 @@ class CammodelRepository implements CammodelInterface
         }
     }
 
+    public function saveCoverPageImage(UploadedFile $file): string
+    {
+        return $file->store('cammodels', ['disk' => 'public']);
+    }
+
     public function findCammodelById(int $id)
     {
         try {
             return $this->model->findOrFail($id, $this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function updateCammodel(array $data): bool
+    {
+        $filtered = collect($data)->all();
+
+        try {
+            return $this->model->where('id', $this->model->id)->update($filtered);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
