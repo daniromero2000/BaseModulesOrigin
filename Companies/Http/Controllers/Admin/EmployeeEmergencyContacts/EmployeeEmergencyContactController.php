@@ -9,8 +9,7 @@ use Modules\Companies\Entities\EmployeeStatusesLogs\Repositories\Interfaces\Empl
 
 class EmployeeEmergencyContactController extends Controller
 {
-    private $employeeEmergencyContactInterface;
-    private $employeeStatusesLogInterface;
+    private $employeeEmergencyContactInterface, $employeeStatusesLogInterface;
 
     public function __construct(
         EmployeeEmergencyContactRepositoryInterface $employeeEmergencyContactRepositoryInterface,
@@ -23,7 +22,8 @@ class EmployeeEmergencyContactController extends Controller
 
     public function store(CreateEmployeeEmergencyContactRequest $request)
     {
-        $emergencycontact = $this->employeeEmergencyContactInterface->createEmployeeEmergencyContact($request->except('_token', '_method'));
+        $emergencycontact = $this->employeeEmergencyContactInterface
+            ->createEmployeeEmergencyContact($request->except('_token', '_method'));
 
         $data = [
             'employee_id' => $emergencycontact->employee->id,
@@ -32,7 +32,6 @@ class EmployeeEmergencyContactController extends Controller
         ];
 
         $this->employeeStatusesLogInterface->createEmployeeStatusesLog($data);
-
         $request->session()->flash('message', 'Adición de Contacto de Emergencia Exitosa!');
 
         return back();
