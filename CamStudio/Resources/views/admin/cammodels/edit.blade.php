@@ -1,4 +1,5 @@
 @extends('generals::layouts.admin.app')
+
 @section('header')
 <div class="header pb-2">
     <div class="container-fluid">
