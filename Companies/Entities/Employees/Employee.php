@@ -167,13 +167,19 @@ class Employee extends Authenticatable
     public function employeeIdentities()
     {
         return $this->hasMany(EmployeeIdentity::class)
-            ->select(['id', 'identity_type_id', 'identity_number', 'expedition_date', 'city_id', 'employee_id', 'status', 'created_at']);
+            ->select([
+                'id', 'identity_type_id', 'identity_number', 'expedition_date',
+                'city_id', 'employee_id', 'status', 'created_at'
+            ]);
     }
 
     public function employeeAddresses()
     {
         return $this->hasMany(EmployeeAddress::class)
-            ->select(['id', 'housing_id', 'address', 'time_living', 'stratum_id', 'city_id', 'employee_id', 'status', 'created_at']);
+            ->select([
+                'id', 'housing_id', 'address', 'time_living', 'stratum_id',
+                'city_id', 'employee_id', 'status', 'created_at'
+            ]);
     }
 
     public function employeeEmergencyContact()
@@ -209,6 +215,10 @@ class Employee extends Authenticatable
     public function cammodels()
     {
         return $this->hasMany(Cammodel::class)
-            ->select(['id', 'employee_id', 'manager_id', 'fake_age', 'nickname', 'height', 'weight', 'breast_cup_size', 'meta', 'likes_dislikes', 'about_me', 'private_show', 'my_rules']);
+            ->select([
+                'id', 'employee_id', 'manager_id', 'fake_age', 'nickname',
+                'height', 'weight', 'breast_cup_size', 'meta', 'likes_dislikes',
+                'about_me', 'private_show', 'my_rules'
+            ]);
     }
 }
