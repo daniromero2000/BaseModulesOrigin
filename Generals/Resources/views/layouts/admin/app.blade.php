@@ -35,7 +35,7 @@
     <div class="main-content" id="panel">
         @include('generals::layouts.admin.nav')
         @yield('header')
-        <div class="container-fluid">
+        <div class="container-fluid" id="reset">
             @yield('content')
             @include('generals::layouts.admin.footer')
         </div>

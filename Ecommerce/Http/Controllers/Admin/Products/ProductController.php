@@ -142,19 +142,19 @@ class ProductController extends Controller
         }
 
         return view('ecommerce::admin.products.edit', [
-            'product' => $product,
-            'images' => $product->images()->get(['src']),
-            'categories' => $this->categoryRepo->listCategories('name', 'asc')->toTree(),
-            'product_groups' => $this->productGroupInterface->listproductGroups(),
-            'selectedIds' => $product->categories()->pluck('category_id')->all(),
-            'selectedGroupIds' => $product->productGroups()->pluck('product_group_id')->all(),
-            'attributes' => $this->attributeRepo->listAttributes(),
-            'productAttributes' => $productAttributes,
-            'qty' => $qty,
-            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
-            'weight' => $product->weight,
-            'default_weight' => $product->mass_unit,
-            'weight_units' => Product::MASS_UNIT
+            'qty'               => $qty,
+            'brands'            => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
+            'weight'            => $product->weight,
+            'images'            => $product->images()->get(['src']),
+            'product'           => $product,
+            'categories'        => $this->categoryRepo->listCategories('name', 'asc')->toTree(),
+            'attributes'        => $this->attributeRepo->listAttributes(),
+            'selectedIds'       => $product->categories()->pluck('category_id')->all(),
+            'weight_units'      => Product::MASS_UNIT,
+            'default_weight'    => $product->mass_unit,
+            'product_groups'    => $this->productGroupInterface->listproductGroups(),
+            'selectedGroupIds'  => $product->productGroups()->pluck('product_group_id')->all(),
+            'productAttributes' => $productAttributes
         ]);
     }
 
@@ -305,7 +305,6 @@ class ProductController extends Controller
             return $productRepo->saveCombination($productAttribute, $attribute);
         })->count();
     }
-
 
     private function updateProductCombinations(Request $request, Product $product): bool
     {

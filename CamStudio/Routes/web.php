@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
     Route::namespace('Admin')->group(function () {
         Route::namespace('Cammodels')->group(function () {
             Route::resource('cammodels', 'CammodelsController');
+            Route::get('remove-thumb', 'CammodelsController@removeThumbnail')->name('cammodels.remove.thumb');
         });
         Route::namespace('CammodelBannedCountries')->group(function () {
             Route::resource('banned-countries', 'CammodelBannedCountryController');

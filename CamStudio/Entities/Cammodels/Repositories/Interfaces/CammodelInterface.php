@@ -18,5 +18,13 @@ interface CammodelInterface
 
     public function saveCoverPageImage(UploadedFile $file): string;
 
+    public function saveCammodelImages(Collection $collection);
+
     public function updateCammodel(array $data): bool;
+
+    public function deleteThumb(string $src): bool;
+
+    public function syncCategories(array $params);
+
+    public function detachCategories();
 }
