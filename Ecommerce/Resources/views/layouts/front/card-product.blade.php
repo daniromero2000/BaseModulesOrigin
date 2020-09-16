@@ -4,11 +4,11 @@
             {{$title}}
         </h3>
     </div>
-    <div class="px-4 px-lg-5 pb-4 pt-2 container-reset">
+    <div class="px-4 px-lg-5 container-reset">
         <div class="glider-contain">
             <div class="glider">
                 @foreach ($bestSellers as $item)
-                <div class="p-1 p-sm-3">
+                <div class="p-1 p-sm-4">
                     {{-- <div class="card border-0" style=" border-radius: 11px; ">
                         <div class="card-body p-2 d-flex">
                             <a class="cursor" href="{{route('front.category.slug', $item->slug)}}">
@@ -63,73 +63,36 @@
                                 <img src="{{ asset('img/tws/product2.png') }}" data-src="{{ asset("storage/$item->cover") }}"
                                     class="card-products-img lazy" alt="{{ $item->slug }}">
                             </a>
-                            <div class="w-100">
-                                <h3 class="title-products"> {{$item->name}} </h3>
+                            <div style="min-height:50px !important">
+                                <div class="w-100">
+                                    <h3 class="title-products"> {{$item->name}} </h3>
+                                </div>
                             </div>
-                            @if ($item->sale_price > 0)
-                            <p class="price-old">
-                                <small>
-                                    <del>${{ number_format($item->price, 0) }} </del> </small>
-                            </p>
-                            <p class="price-new">
-                                <small><b>
-                                        ${{ number_format($item->sale_price, 0) }}
-                                    </b>
-                                </small><br>
-                            </p>
-                            @else
-                            <p class="price-new mt-2">
-                                <small> <b>
-                                        ${{ number_format($item->price, 0) }}
-                                    </b></small>
-                                <br>
-                            </p>
-                            @endif
-                            <div class="my-2">
-                                <a class="btn-cart-category" href="">AÑADIR AL CARRITO</a>
-                            </div>
+							<div class="">
+                                @if ($item->sale_price > 0)
+                                    <p class="price-old">
+                                        <small>
+                                            <del>${{ number_format($item->price, 0) }} </del> </small>
+                                    </p>
+                                    <p class="price-new">
+                                        <small><b>
+                                                ${{ number_format($item->sale_price, 0) }}
+                                            </b>
+                                        </small><br>
+                                    </p>
+                                    @else
+                                    <p class="price-new mt-2">
+                                        <small> <b>
+                                                ${{ number_format($item->price, 0) }}
+                                            </b></small>
+                                        <br>
+                                    </p>
+                                    @endif
+								<div>
+									<a class="btn-cart-category" href="">AÑADIR AL CARRITO</a>
+								</div>
+							</div>
                         </div>
-                        {{-- <div class="w-100 pt-2 px-2 text-center">
-                            <div class="w-100">
-                                <h3 class="title-products"> {{$product->name}} </h3>
-                            </div>
-                            @if ($product->sale_price > 0)
-                            <p class="price-old">
-                                <small>
-                                    <del>${{ number_format($product->price, 0) }} </del> </small>
-                            </p>
-                            <p class="price-new">
-                                <small><b>
-                                        ${{ number_format($product->sale_price, 0) }}
-                                    </b>
-                                </small><br>
-                            </p>
-                            @else
-                            <p class="price-new mt-3">
-                                <small> <b>
-                                        ${{ number_format($product->price, 0) }}
-                                    </b></small>
-                                <br>
-                            </p>
-                            @endif
-                        </div> --}}
-                        {{-- <div class="row justify-content-center">
-                            <a class="text-dark" data-toggle="modal" data-target="#productModal{{ $product->id }}">
-                                <div class="icons-options">
-                                    <i class="fas fa-eye"></i>
-                                </div>
-                            </a>
-                            <a class="text-dark" onclick="addWishlist({{$product->id}})">
-                                <div class="icons-options">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                            </a>
-                            <a class="text-dark" href="{{ route('front.get.product', str_slug($product->slug)) }}">
-                                <div class="icons-options">
-                                    <i class="fas fa-external-link-square-alt"></i>
-                                </div>
-                            </a>
-                        </div> --}}
                     </div>
                 </div>
                 @endforeach

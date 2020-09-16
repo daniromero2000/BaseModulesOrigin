@@ -4,6 +4,7 @@ namespace Modules\CamStudio\Http\Controllers\Admin\Cammodels;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\CamStudio\Entities\CammodelCategories\Repositories\Interfaces\CammodelCategoryRepositoryInterface;
 use Modules\CamStudio\Entities\Cammodels\Repositories\CammodelRepository;
 use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
@@ -11,18 +12,20 @@ use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class CammodelsController extends Controller
 {
-    private $cammodelInterf;
+    private $cammodelInterf, $cammodelCategoryInterf;
     private $toolsInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
         CammodelInterface $CammodelInterface,
+        CammodelCategoryRepositoryInterface $cammodelCategoryInterface,
         CityRepositoryInterface $cityRepositoryInterface
     ) {
-        $this->toolsInterface = $toolRepositoryInterface;
-        $this->cammodelInterf = $CammodelInterface;
-        $this->toolsInterface = $toolRepositoryInterface;
-        $this->cityInterface = $cityRepositoryInterface;
+        $this->toolsInterface          = $toolRepositoryInterface;
+        $this->cammodelInterf          = $CammodelInterface;
+        $this->toolsInterface          = $toolRepositoryInterface;
+        $this->cityInterface           = $cityRepositoryInterface;
+        $this->cammodelCategoryInterf  = $cammodelCategoryInterface;
     }
 
     public function index(Request $request)
@@ -57,9 +60,13 @@ class CammodelsController extends Controller
 
     public function show($id)
     {
+        $cammodel = $this->cammodelInterf->findCammodelById($id);
         return view('camstudio::admin.cammodels.show', [
-            'cammodel' => $this->cammodelInterf->findCammodelById($id),
-            'cities'   => $this->cityInterface->listCities(),
+            'cammodel'    => $cammodel,
+            'images'      => $cammodel->images()->get(['src']),
+            'cities'      => $this->cityInterface->listCities(),
+            'categories'  => $this->cammodelCategoryInterf->listCammodelCategories('name', 'asc')->toTree(),
+            'selectedIds' => $cammodel->categories()->pluck('cammodel_id')->all()
         ]);
     }
 
@@ -75,8 +82,33 @@ class CammodelsController extends Controller
         $cammodel     = $this->cammodelInterf->findCammodelById($id);
         $cammodelRepo = new CammodelRepository($cammodel);
 
+        $data = $request->except(
+            'categories',
+            '_token',
+            '_method',
+        );
+
         if ($request->hasFile('cover_page')) {
             $data['cover_page'] = $cammodelRepo->saveCoverPageImage($request->file('cover_page'));
+        }
+
+        if ($request->hasFile('cover')) {
+            $data['cover'] = $cammodelRepo->saveCoverPageImage($request->file('cover'));
+        }
+
+        if ($request->hasFile('image')) {
+            $cammodelRepo->saveCammodelImages(collect($request->file('image')));
+        }
+
+        if ($request->hasFile('image_tks')) {
+            $data['image_tks'] = $cammodelRepo->saveCoverPageImage($request->file('image_tks'));
+        }
+
+        if ($request->has('categories')) {
+            $cammodelRepo->syncCategories($request->input('categories'));
+        } else {
+
+            $cammodelRepo->detachCategories();
         }
 
         $cammodelRepo->updateCammodel($data);
@@ -86,5 +118,11 @@ class CammodelsController extends Controller
 
     public function destroy($id)
     {
+    }
+
+    public function removeThumbnail(Request $request)
+    {
+        $this->cammodelInterf->deleteThumb($request->input('src'));
+        return redirect()->back()->with('message', config('messaging.delete'));
     }
 }

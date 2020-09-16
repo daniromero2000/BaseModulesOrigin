@@ -8,7 +8,7 @@
                 @if(isset($product->cover))
                 <div class="card border-0 text-center card-products">
                     <div class="height-container-img-product relative container-img-product shadow-reset">
-                        @if ($product->sale_price > 0)
+                        {{-- @if ($product->sale_price > 0)
                         @php
                         $discount = round((($product->price - $product->sale_price) / $product->price) * 100);
                         @endphp
@@ -17,7 +17,7 @@
                                 <p class="ribbon-text"> - {{$discount}}%</p>
                             </div>
                         </div>
-                        @endif
+                        @endif --}}
                         <a class="cursor" href="{{ route('front.get.product', str_slug($product->slug))}}">
                             <img src="{{ asset('img/tws/product2.png') }}" data-src="{{ asset("storage/$product->cover") }}"
                                 class="card-products-img lazy" alt="{{ $product->slug }}">
@@ -111,7 +111,6 @@
                 <img src="{{ asset('img/blank.jpg') }}" data-src="https://placehold.it/263x330"
                     alt="{{ $product->name }}" class="height-container-img-product lazy" />
                 @endif
-
             </div>
             <div class="modal fade" id="productModal{{ $product->id }}" data-backdrop="static" data-keyboard="false"
                 tabindex="-1" role="dialog" aria-labelledby="productModal{{ $product->id }}Label" aria-hidden="true">

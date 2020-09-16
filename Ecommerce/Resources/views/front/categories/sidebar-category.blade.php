@@ -2,55 +2,6 @@
     <h2>{{ $category->name }}</h2>
     <hr>
 </div> --}}
-<div>
-    <ul class="category-items">
-        <div class="my-3">
-            <li>
-                <span>VIBRADORES</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>MASCULINOS</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>FEMENINOS</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>JUEGO ANAL</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>CONSOLADORES</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>ARNÉS</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>FIESTAS ERÓTICAS</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>WEBCAMS</span>
-            </li>
-        </div>
-        <div class="my-3">
-            <li>
-                <span>LIMPIEZA DE JUGUETES</span>
-            </li>
-        </div>
-    </ul>
-</div>
 <form action="{{route('front.category.slug',$category->slug)}}" class="px-2" method="get">
     @foreach($attributes as $attribute)
     <div class="accordion card mt-1 card-reset" id="accordionExample{{$attribute->id}}">

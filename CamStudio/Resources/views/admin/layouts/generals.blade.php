@@ -8,11 +8,12 @@
     <div class="row justify-content-center">
         <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
-                <img src="{{ asset("storage/$cammodel->cover") }}" class="rounded-circle">
+                <a data-toggle="modal" data-target="#modal-cover">
+                    <img src="{{ asset("storage/$cammodel->cover") }}" class="rounded-circle"> </a>
             </div>
         </div>
     </div>
-    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+    <div class="card-header text-center border-0 pt-5 pt-md-4 pb-0 pb-md-4">
         {{-- <div class="d-flex justify-content-between">
             <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
             <a href="#" class="btn btn-sm btn-default float-right">Message</a>
