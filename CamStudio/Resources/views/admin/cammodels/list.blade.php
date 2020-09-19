@@ -48,14 +48,10 @@
                                         @include('generals::layouts.status', ['status' => $data->is_active])</td> --}}
                         <td class="text-center">
                             <div class="d-flex justify-content-center">
-                                <a href="{{route('admin.cammodels.edit', $data->id)}}" class="table-action table-action"
-                                    data-original-title="Editar Empleado">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
                                 <a href="{{route('admin.cammodels.show', $data->id)}}"
                                     class=" table-action table-action" data-toggle="tooltip"
-                                    data-original-title="Ver Modelo">
-                                    <i class="fas fa-search"></i>
+                                    data-original-title="Editar Empleado">
+                                    <i class="fas fa-user-edit"></i>
                                 </a>
                                 <form id="form_1" action="{{route('admin.cammodels.destroy', $data->id)}}" method="post"
                                     class="form-horizontal">

@@ -44,7 +44,7 @@
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="card">
-        <form action="{{ route('admin.categories.update', $category->id) }}" method="post" class="form"
+        <form action="{{ route('admin.cammodel-categories.update', $category->id) }}" method="post" class="form"
             enctype="multipart/form-data">
             <div class="card-body">
                 <div class="row">
@@ -87,7 +87,7 @@
                                     style="border-radius: 15px;max-height: 330px;">
                                 <br />
                                 <a onclick="return confirm('¿Estás Seguro?')"
-                                    href="{{ route('admin.category.remove.image', ['category' => $category->id]) }}"
+                                    href="{{ route('admin.cammodel-categories.remove.image', ['category' => $category->id]) }}"
                                     class="btn btn-danger remove-img btn-sm btn-block">X</a>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
             </div>
             <div class="card-footer text-right">
                 <div class="btn-group">
-                    <a href="{{ route('admin.categories.index') }}" class="btn btn-default btn-sm">Regresar</a>
+                    <a href="{{ route('admin.cammodel-categories.index') }}" class="btn btn-default btn-sm">Regresar</a>
                     <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
                 </div>
             </div>

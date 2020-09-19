@@ -8,7 +8,13 @@ use Illuminate\Support\Collection;
 
 interface CammodelCategoryRepositoryInterface
 {
-    public function listCammodelCategories(string $order = 'id', string $sort = 'desc', $except = []): Collection;
+    public function searchCammodelCategories(string $text = null): Collection;
+
+    public function searchTrashedCammodelCategories(string $text = null): Collection;
+
+    public function listCammodelCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection;
+
+    public function listCammodelCategoriesSkip(int $totalView): Collection;
 
     public function createCammodelCategory(array $params): CammodelCategory;
 
@@ -17,6 +23,8 @@ interface CammodelCategoryRepositoryInterface
     public function findCammodelCategoryById(int $id): CammodelCategory;
 
     public function deleteCammodelCategory(): bool;
+
+    public function findCammodelOrder();
 
     public function updateSortOrder(array $data);
 

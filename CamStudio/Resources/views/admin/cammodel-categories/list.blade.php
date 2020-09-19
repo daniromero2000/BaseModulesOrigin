@@ -1,7 +1,4 @@
 @extends('generals::layouts.admin.app')
-@section('styles')
-<script src="{{ asset('js/ecommerce.js') }}" defer></script>
-@endsection
 @section('header')
 <div class="header pb-2">
     <div class="container-fluid">
@@ -11,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Categorías</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Categorias de Modelos</li>
                         </ol>
                     </nav>
                 </div>
@@ -21,73 +18,65 @@
 </div>
 @endsection
 @section('content')
-<section class="content" id="app">
+<section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if($categories)
+    @if(!$cammodelCategories->isEmpty())
     <div class="card">
         <div class="card-header border-0">
-            <h3 class="mb-0">Categorías</h3>
-            @include('generals::layouts.search', ['route' => route('admin.permissions.index')])
+            <h2 class="mb-0">Categorias de Modelos</h2>
+            @include('generals::layouts.search', ['route' => route('admin.cammodel-categories.index')])
         </div>
-
-        <div class="card-body">
-            <sort-category :data="{{$categories}}"></sort-category>
-        </div>
-
         <div class="table-responsive">
-            {{-- <table class="table align-items-center table-flush table-hover">
+            <table class="table align-items-center table-flush table-hover">
                 <thead class="thead-light">
                     <tr>
-                        <td class="text-center">Nombre</td>
-                        <td class="text-center">Cover</td>
-                        <td class="text-center">Estado</td>
-                        <td class="text-center">Acciones</td>
+                        @foreach ($headers as $header)
+                        <th class="text-center">{{ $header }}</th>
+                        @endforeach
                     </tr>
                 </thead>
-                <tbody class="text-center">
-                    @foreach ($categories as $category)
+                <tbody class="list text-center">
+                    @if($cammodelCategories)
+                    @foreach($cammodelCategories as $data)
                     <tr>
-                        <td>
-                            <a href="{{ route('admin.categories.show', $category->id) }}">{{ $category->name }}</a>
-            </td>
-            <td>
-                <a class="text-primary" data-toggle="modal" data-target="#cover{{$category->id}}"> Ver
-                    cover</a>
-            </td>
-            <td>@include('generals::layouts.status', ['status' => $category->is_active])</td>
-            <td>
-                <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post"
-                    class="form-horizontal">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="_method" value="delete">
-                    <div class="btn-group">
-                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-primary btn-sm"><i
-                                class="fa fa-edit"></i> Editar</a>
-                        <button onclick="return confirm('¿Estás Seguro?')" type="submit"
-                            class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Borrar</button>
-                    </div>
-                </form>
-            </td>
-            </tr>
-            <div id="cover{{$category->id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        @if(isset($category->cover))
-                        <img src="{{ asset("storage/$category->cover") }}" alt="" class=" img-fluid img-responsive">
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            </tbody>
-            </table> --}}
+                        <td class="text-center">{{ $data->name }}</td>
+                        <td class="text-center">{{ $data->slug }}</td>
+                <td>@include('generals::layouts.status', ['status' => $data->is_active])</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center">
+                                <a href="{{route('admin.cammodel-categories.edit', $data->id)}}"
+                                    class=" table-action table-action" data-toggle="tooltip"
+                                    data-original-title="Editar Categoria">
+                                    <i class="fas fa-user-edit"></i>
+                                </a>
+                                <a href="{{route('admin.cammodel-categories.show', $data->id)}}"
+                                    class=" table-action table-action" data-toggle="tooltip"
+                                    data-original-title="Ver Categoria">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <form id="form_1" action="{{route('admin.cammodel-categories.destroy', $data->id)}}" method="post"
+                                    class="form-horizontal">
+                                    <input type="hidden" name="_method" value="delete">
+                                    @csrf
+                                    <button type="submit" class="table-action table-action-delete button-reset"
+                                        data-toggle="tooltip" data-original-title="Borrar Categoria">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
         <div class="card-footer py-2">
-            {{-- @include('generals::layouts.admin.pagination.pagination', [$skip]) --}}
+            @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>
     </div>
     @else
-    {{-- @include('generals::layouts.admin.pagination.pagination_null', [$skip]) --}}
+    @include('generals::layouts.admin.pagination.pagination_null', [$skip, $optionsRoutes])
     @endif
 </section>
 @endsection
