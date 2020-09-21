@@ -60,7 +60,7 @@ class CammodelsController extends Controller
 
     public function show($id)
     {
-        $cammodel = $this->cammodelInterf->findCammodelById($id);
+        $cammodel = $this->cammodelInterf->findCammodelById($id); 
         return view('camstudio::admin.cammodels.show', [
             'cammodel'    => $cammodel,
             'images'      => $cammodel->images()->get(['src']),
