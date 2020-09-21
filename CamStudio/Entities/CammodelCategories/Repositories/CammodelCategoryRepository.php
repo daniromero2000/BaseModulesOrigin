@@ -29,10 +29,41 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
         $this->model = $category;
     }
 
+    public function searchCammodelCategories(string $text = null): Collection
+    {
+        if (is_null($text)) {
+            return $this->model->get($this->columns);
+        }
+
+        return $this->model->searchCammodelCategories($text)->get($this->columns);
+    }
+
+    public function searchTrashedCammodelCategories(string $text = null): Collection
+    {
+        if (is_null($text)) {
+            return $this->model->onlyTrashed($text)->get($this->columns);
+        }
+
+        return $this->model->onlyTrashed()->get($this->columns);
+    }
+
     public function listCammodelCategories(string $order = 'sort_order', string $sort = 'asc', $except = []): Collection
     {
         return $this->model->orderBy($order, $sort)
             ->get($this->columns)->except($except);
+    }
+
+    
+    public function listCammodelCategoriesSkip(int $totalView): Collection
+    {
+        try {
+            return  $this->model
+                ->orderBy('id', 'desc')
+                ->skip($totalView)->take(30)
+                ->get();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 
     public function createCammodelCategory(array $params): CammodelCategory
@@ -60,6 +91,11 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
         } catch (QueryException $e) {
             dd($e->getMessage());
         }
+    }
+
+    public function findCammodelOrder()
+    {
+        return $this->model->cammodelOrder;
     }
 
     public function updateCammodelCategory(array $params): CammodelCategory
@@ -148,7 +184,7 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
 
     public function deleteFile(array $file, $disk = null): bool
     {
-        return $this->model->update(['cover' => null], $file['category']);
+        return $this->model->where('id',  $file['category'])->update(['cover' => null]);
     }
 
     public function findCammodelCategoryBySlug(array $slug): CammodelCategory

@@ -2,6 +2,7 @@
 
 namespace Modules\CamStudio\Entities\CammodelCategories;
 
+use Illuminate\Support\Collection;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -40,7 +41,25 @@ class CammodelCategory extends Model
         'updated_at'
     ];
 
+    protected $searchable = [
+        'columns' => [
+            'cammodel_categories.name' => 10,
+            'cammodel_categories.slug' => 5
+        ],
+    ];
+
+    public function searchCammodelCategories(string $term): Collection
+    {
+        return self::search($term)->get();
+    }
+
     public function cammodel()
+    {
+        return $this->belongsToMany(Cammodel::class)
+            ->orderBy('sort_order', 'asc');
+    }
+
+    public function cammodelOrder()
     {
         return $this->belongsToMany(Cammodel::class)
             ->orderBy('sort_order', 'asc');

@@ -24,7 +24,7 @@
         <div class="box-body">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.categories.store') }}" method="post" class="form"
+                    <form action="{{ route('admin.cammodel-categories.store') }}" method="post" class="form"
                         enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
@@ -59,7 +59,7 @@
 
                             <div class="box-footer">
                                 <div class="btn-group">
-                                    <a href="{{ route('admin.categories.index') }}" class="btn btn-default">Regresar</a>
+                                    <a href="{{ route('admin.cammodel-categories.index') }}" class="btn btn-default">Regresar</a>
                                     <button type="submit" class="btn btn-primary">Crear</button>
                                 </div>
                             </div>

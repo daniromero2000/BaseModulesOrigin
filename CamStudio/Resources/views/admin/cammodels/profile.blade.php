@@ -19,7 +19,6 @@
 </div>
 @endsection
 @section('content')
-
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="row">

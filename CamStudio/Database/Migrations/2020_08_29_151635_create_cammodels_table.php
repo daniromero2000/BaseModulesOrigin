@@ -34,6 +34,7 @@ class CreateCammodelsTable extends Migration
             $table->text('about_me');
             $table->text('private_show');
             $table->text('my_rules');
+            $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

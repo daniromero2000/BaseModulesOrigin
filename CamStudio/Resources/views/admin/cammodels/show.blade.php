@@ -184,7 +184,7 @@ type="text/css">--}}
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="nickname">Nombre</label>
-                                                <input type="text" id="nickname" name="nickname" class="form-control"
+                                                <input required type="text" id="nickname" name="nickname" class="form-control"
                                                     placeholder="Nombre" value="{{$cammodel->nickname}}">
                                             </div>
                                         </div>
@@ -200,7 +200,7 @@ type="text/css">--}}
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="weight">Peso / Kg</label>
-                                                <input type="text" id="weight" name="weight"
+                                                <input required type="text" id="weight" name="weight"
                                                     value="{{$cammodel->weight}}" class="form-control" placeholder="50">
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@ type="text/css">--}}
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="fake_age">Edad</label>
-                                                <input type="text" id="fake_age" value="{{$cammodel->fake_age}}"
+                                                <input required type="text" id="fake_age" value="{{$cammodel->fake_age}}"
                                                     class="form-control" placeholder="50">
                                             </div>
                                         </div>
@@ -226,7 +226,7 @@ type="text/css">--}}
                                             <div class="form-group">
                                                 <label class="form-control-label" for="breast_cup_size">Tamaño de
                                                     senos</label>
-                                                <input type="text" id="breast_cup_size" name="breast_cup_size"
+                                                <input required type="text" id="breast_cup_size" name="breast_cup_size"
                                                     class="form-control" placeholder="38B"
                                                     value="{{$cammodel->breast_cup_size}}">
                                             </div>
@@ -277,7 +277,7 @@ type="text/css">--}}
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-control-label">Mis reglas</label>
-                                                <textarea rows="4" name="my_rules" class="form-control"
+                                                <textarea required rows="4" name="my_rules" class="form-control"
                                                     placeholder="Mis reglas son..."> {{$cammodel->my_rules}} </textarea>
                                             </div>
                                         </div>
@@ -290,14 +290,14 @@ type="text/css">--}}
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label">Gustos y disgustos</label>
-                                        <textarea rows="4" name="likes_dislikes" class="form-control"
+                                        <textarea required rows="4" name="likes_dislikes" class="form-control"
                                             placeholder="Mis Gustos son..."> {{ $cammodel->likes_dislikes }}</textarea>
                                     </div>
                                 </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label">Sobre mi</label>
-                                        <textarea rows="4" name="about_me" class="form-control"
+                                        <textarea required rows="4" name="about_me" class="form-control"
                                             placeholder="Unas palabras sobre ti...">{{$cammodel->about_me}}</textarea>
                                     </div>
                                 </div>
@@ -466,18 +466,7 @@ type="text/css">--}}
             </div>
         </div>
     </div>
-    {{-- @include('camstudio::admin.layouts.edit_employee', ['data' => $employee])
-    @include('camstudio::admin.layouts.add_address_modal')
-    @include('camstudio::admin.layouts.add_emergencycontact_modal')
-    @include('camstudio::admin.layouts.add_email_modal')
-    @include('camstudio::admin.layouts.add_phone_modal')
-    @include('camstudio::admin.layouts.add_identity_modal')
-    @include('camstudio::admin.layouts.add_comment_modal')
-    @include('camstudio::admin.layouts.add_eps_modal')
-    @include('camstudio::admin.layouts.add_profession_modal') --}}
 </section>
 @endsection
 @section('scripts')
-{{-- <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/quill/dist/quill.core.css')}}"
-type="text/css">--}}
 @endsection

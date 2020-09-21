@@ -27,7 +27,6 @@
             @include('generals::layouts.search', ['route' => route('admin.products.index')])
         </div>
         @include('ecommerce::admin.shared.products')
-
         <div class="card-footer py-2">
             @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>
