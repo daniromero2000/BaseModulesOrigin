@@ -272,13 +272,15 @@ type="text/css">--}}
                                 <hr class="my-4">
                                 <!-- Address -->
                                 <h6 class="heading-small text-muted mb-4">Restricciones</h6>
+                               
                                 <div class="pl-lg-4">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-control-label">Mis reglas</label>
-                                                <textarea required rows="4" name="my_rules" class="form-control"
-                                                    placeholder="Mis reglas son..."> {{$cammodel->my_rules}} </textarea>
+                                                <textarea required name="my_rules" rows="4" id="editor" placeholder="Mis reglas son...">
+                                                    {{$cammodel->my_rules}}
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -290,15 +292,17 @@ type="text/css">--}}
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label">Gustos y disgustos</label>
-                                        <textarea required rows="4" name="likes_dislikes" class="form-control"
-                                            placeholder="Mis Gustos son..."> {{ $cammodel->likes_dislikes }}</textarea>
+                                        <textarea required name="likes_dislikes" rows="4" id="likes_dislikes" placeholder="Mis Gustos son...">
+                                            {{$cammodel->likes_dislikes}}
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label">Sobre mi</label>
-                                        <textarea required rows="4" name="about_me" class="form-control"
-                                            placeholder="Unas palabras sobre ti...">{{$cammodel->about_me}}</textarea>
+                                        <textarea required name="about_me" rows="4" id="about_me" placeholder="Unas palabras sobre ti...">
+                                            {{$cammodel->about_me}}
+                                        </textarea>
                                     </div>
                                 </div>
                             </form>
@@ -469,4 +473,34 @@ type="text/css">--}}
 </section>
 @endsection
 @section('scripts')
+<script src="{{asset('ckeditor5/ckeditor.js')}}"></script>
+
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#editor' ), {
+        removePlugins: [ 'Heading', 'Link' ],
+        toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ]
+    } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector( '#likes_dislikes' ),{
+        removePlugins: [ 'Heading', 'Link' ],
+        toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ]
+    } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector( '#about_me' ),{
+        removePlugins: [ 'Heading', 'Link' ],
+        toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ]
+    } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection

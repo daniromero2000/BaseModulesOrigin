@@ -126,6 +126,8 @@ class CammodelRepository implements CammodelInterface
 
     public function syncCategories(array $params)
     {
+
+        // dd($this->model->categories()->sync($params));
         try {
             $this->model->categories()->sync($params);
         } catch (QueryException $e) {
