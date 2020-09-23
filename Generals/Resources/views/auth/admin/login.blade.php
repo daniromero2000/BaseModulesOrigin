@@ -47,8 +47,8 @@
                     <div class="card bg-white border-0 mb-0">
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="w-100 d-flex">
-                                <img src="{{asset('modules/generals/argonTemplate/img/brand/logo_smart.png')}}"
-                                    class="navbar-brand-img mx-auto mb-3" alt="Logo SmartCommerce"
+                                <img src="{{asset('modules/generals/argonTemplate/img/brand/logo.png')}}"
+                                    class="navbar-brand-img mx-auto mb-3" alt="Logo"
                                     style="max-width: 200px;">
                             </div>
                             <div class="text-center text-muted mb-4">
