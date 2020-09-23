@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('cedula')->unique();
             $table->string('name');
             $table->string('last_name');
+            $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
