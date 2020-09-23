@@ -15,15 +15,21 @@ class CourseRepository implements CourseRepositoryInterface
 {
     protected $model;
     private $columns = [
-
+        'id',
+        'name',
+        'cover',
+        'last_name',
+        'is_active',
+        'created_at'
     ];
 
     private $listColumns = [
-
-    ];
-
-    private $courseColumns = [
-
+        'id',
+        'cedula',
+        'name',
+        'last_name',
+        'is_active',
+        'created_at'
     ];
 
     public function __construct(Course $course)
@@ -73,7 +79,7 @@ class CourseRepository implements CourseRepositoryInterface
     public function findCourseById(int $id): Course
     {
         try {
-            return $this->model->findOrFail($id, $this->courseColumns);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new CourseNotFoundException($e);
         }
