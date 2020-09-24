@@ -69,6 +69,7 @@ Edit composer.json adding the following pakages:
 * **barryvdh/laravel-debugbar**: composer require barryvdh/laravel-debugbar --dev (https://github.com/barryvdh/laravel-debugbar).
 * **laravel/ui**: composer require laravel/ui (https://laravel.com/docs/7.x/authentication).
 * **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
+* **maatwebsite/excel**: composer require maatwebsite/excel (https://docs.laravel-excel.com/3.1/getting-started/installation.html).
 
 ##### c. clone smartCommerce Modules
 
