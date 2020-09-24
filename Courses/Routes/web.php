@@ -11,6 +11,26 @@
 |
 */
 
-Route::prefix('courses')->group(function() {
+use Illuminate\Support\Facades\Route;
+
+/**
+ * Admin routes
+ */
+Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
+    Route::namespace('Admin')->group(function () {
+        Route::namespace('Courses')->group(function () {
+            Route::resource('Courses', 'CoursesController');
+        });
+
+        Route::namespace('Students')->group(function () {
+            Route::resource('students', 'StudentsController');
+        });
+    });
+});
+
+/**
+ * Frontend routes
+ */
+Route::prefix('courses')->group(function () {
     Route::get('/', 'CoursesController@index');
 });

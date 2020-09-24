@@ -9,7 +9,19 @@ class Student extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'id_type',
+        'identification',
+        'name',
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'sesion_date',
+        'is_active',
+    ];
 
     protected $hidden = [
         'created_at',

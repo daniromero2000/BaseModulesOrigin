@@ -69,6 +69,7 @@ Edit composer.json adding the following pakages:
 * **barryvdh/laravel-debugbar**: composer require barryvdh/laravel-debugbar --dev (https://github.com/barryvdh/laravel-debugbar).
 * **laravel/ui**: composer require laravel/ui (https://laravel.com/docs/7.x/authentication).
 * **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
+* **maatwebsite/excel**: composer require maatwebsite/excel (https://docs.laravel-excel.com/3.1/getting-started/installation.html).
 
 ##### c. clone smartCommerce Modules
 
@@ -118,13 +119,19 @@ Edit composer.json adding the following pakages:
 2. Run php artisan vendor:publish and publish the module content.
 3. Run php artisan optimize for config recognition.
 
-##### j. Migrating the Database:
+##### J. setting up Courses module:
+
+1. Run php artisan module:enable Courses.
+2. Run php artisan vendor:publish and publish the module content.
+3. Run php artisan optimize for config recognition.
+
+##### K. Migrating the Database:
 
 1. create a new database.
 2. register database config in .env file of the project
 3. Run php artisan migrate
 4. Run php artisan module:migrate --seed [module name]. Is necesary to migrate every module enabled.
-5. Module migration order: Generals, Companies, Customers, Ecommerce, Pqrs
+5. Module migration order: Generals, Customers, Companies, Ecommerce, Pqrs, Courses
 
 ##### k. Setting up VueJs:
 
@@ -145,33 +152,6 @@ Edit composer.json adding the following pakages:
 1. Check if the file exists in public/js ecommerce.js, if it doesn't exist, proceed to create it.
 2. Run npm run dev
 
-##### a. Download zip from the link below:
-
-[Download the latest release](https://github.com/SmartCommerce/SmartCommerce/releases/latest)
-
-##### b. Extract the contents of zip and execute the project in your browser:
-
-~~~
-http(s)://localhost/SmartCommerce/public
-~~~
-
-or
-
-~~~
-http(s)://example.com/public
-~~~
-
-**2. Or you can install SmartCommerce from your console.**
-
-##### Execute these commands below, in order
-
-~~~
-1. composer create-project SmartCommerce/SmartCommerce-standard
-~~~
-
-~~~
-2. php artisan SmartCommerce:install
-~~~
 
 **To execute SmartCommerce**:
 
@@ -198,16 +178,9 @@ php artisan serve
 > *http(s)://example.com/admin/login*
 
 ~~~
-email:admin@example.com
-password:admin123
+email:desarrollo@smartcommerce.com.co
+password:secret
 ~~~
-
-**How to log in as customer:**
-
-*You can directly register as customer and then login.*
-
-> *http(s)://example.com/customer/register*
-
 
 ### License
 SmartCommerce is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/SmartCommerce/SmartCommerce/blob/master/LICENSE).

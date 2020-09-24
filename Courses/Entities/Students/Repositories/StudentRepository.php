@@ -15,15 +15,19 @@ class StudentRepository implements StudentRepositoryInterface
 {
     protected $model;
     private $columns = [
-
+        'id',
+        'cedula',
+        'name',
+        'is_active',
+        'created_at'
     ];
 
     private $listColumns = [
-
-    ];
-
-    private $studentColumns = [
-
+        'id',
+        'cedula',
+        'name',
+        'is_active',
+        'created_at'
     ];
 
     public function __construct(Student $student)
@@ -73,7 +77,7 @@ class StudentRepository implements StudentRepositoryInterface
     public function findStudentById(int $id): Student
     {
         try {
-            return $this->model->findOrFail($id, $this->studentColumns);
+            return $this->model->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new StudentNotFoundException($e);
         }
