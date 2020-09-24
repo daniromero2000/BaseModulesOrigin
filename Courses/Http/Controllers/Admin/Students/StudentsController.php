@@ -24,7 +24,7 @@ class StudentsController extends Controller
 
     public function create()
     {
-        return view('courses::create');
+        return view('courses::admin.students.create');
     }
 
     public function store(Request $request)

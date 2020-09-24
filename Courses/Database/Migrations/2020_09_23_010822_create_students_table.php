@@ -14,7 +14,7 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('id_type');
             $table->string('identification')->unique();
             $table->string('name');
@@ -24,7 +24,7 @@ class CreateStudentsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('hotel_name');
             $table->string('hotel_city');
-            $table->daate('sesion_date');
+            $table->date('sesion_date');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

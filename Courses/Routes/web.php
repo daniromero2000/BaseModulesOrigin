@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -20,12 +21,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Courses')->group(function () {
             Route::resource('Courses', 'CoursesController');
         });
+
+        Route::namespace('Students')->group(function () {
+            Route::resource('students', 'CoursesController');
+        });
     });
 });
 
 /**
  * Frontend routes
  */
-Route::prefix('courses')->group(function() {
+Route::prefix('courses')->group(function () {
     Route::get('/', 'CoursesController@index');
 });
