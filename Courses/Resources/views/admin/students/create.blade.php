@@ -21,7 +21,7 @@
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="box">
-        <form action="{{ route('admin.attributes.values.store') }}" method="post" class="form">
+        <form action="{{ route('admin.students.store') }}" method="post" class="form">
             <div class="box-body">
                 <div class="card">
                     <div class="card-body">
@@ -40,8 +40,7 @@
             </div>
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('admin.attributes.show', $attribute->id) }}"
-                        class="btn btn-default btn-sm">Regresar</a>
+
                     <button type="submit" class="btn btn-primary btn-sm">Crear</button>
                 </div>
             </div>

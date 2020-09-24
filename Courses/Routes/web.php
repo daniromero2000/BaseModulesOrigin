@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         });
 
         Route::namespace('Students')->group(function () {
-            Route::resource('students', 'CoursesController');
+            Route::resource('students', 'StudentsController');
         });
     });
 });
