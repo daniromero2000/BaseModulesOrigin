@@ -1,6 +1,6 @@
 <nav aria-label=" ...">
     <ul class="pagination justify-content-end mb-0">
-        <li class="page-item disabled">
+        <li class="page-item ">
             <a class="page-link" href="{{ route("$optionsRoutes.index", ['skip' => ($skip - 1)] ) }}" @if ($skip<1 )
                 hidden @endif tabindex="-1">
                 <i class="fas fa-angle-left"></i>
