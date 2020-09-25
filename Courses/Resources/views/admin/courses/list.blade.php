@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Productos</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Cursos</li>
                         </ol>
                     </nav>
                 </div>
