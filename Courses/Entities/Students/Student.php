@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Courses\Entities\CourseAttendances\CourseAttendance;
 use Modules\Courses\Entities\Courses\Course;
 
 class Student extends Model
@@ -47,13 +48,18 @@ class Student extends Model
         'updated_at',
     ];
 
+    public function searchStudent(string $term): Collection
+    {
+        return self::search($term)->get();
+    }
+
     public function courses()
     {
         return $this->belongsToMany(Course::class);
     }
 
-    public function searchStudent(string $term): Collection
+    public function courseAttendances()
     {
-        return self::search($term)->get();
+        return $this->hasMany(CourseAttendance::class);
     }
 }
