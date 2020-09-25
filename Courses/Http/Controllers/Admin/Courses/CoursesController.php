@@ -80,8 +80,8 @@ class CoursesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = $this->courseInterface->findCourseById($id);
-        $courseRepo = new CourseRepository($product);
+        $course = $this->courseInterface->findCourseById($id);
+        $courseRepo = new CourseRepository($course);
 
         $data = $request->except(
             '_token',
@@ -101,6 +101,10 @@ class CoursesController extends Controller
 
     public function destroy($id)
     {
-        //
+        $course = $this->courseInterface->findCourseById($id);
+        $course->delete();
+
+        request()->session()->flash('message', config('messaging.delete'));
+        return redirect()->route('admin.Courses.index');
     }
 }

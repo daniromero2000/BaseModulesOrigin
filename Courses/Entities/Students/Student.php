@@ -2,12 +2,14 @@
 
 namespace Modules\Courses\Entities\Students;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
-    use SoftDeletes;
+    use SearchableTrait, SoftDeletes;
 
     protected $fillable = [
         'id_type',
@@ -32,7 +34,6 @@ class Student extends Model
     ];
 
     protected $guarded = [
-        'id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -44,4 +45,9 @@ class Student extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function searchStudent(string $term): Collection
+    {
+        return self::search($term)->get();
+    }
 }
