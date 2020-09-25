@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Courses\Entities\CourseAttendances\CourseAttendance;
 
 class Course extends Model
 {
@@ -47,4 +48,8 @@ class Course extends Model
         return self::search($term)->get();
     }
 
+    public function courseAttendances()
+    {
+        return $this->hasMany(CourseAttendance::class);
+    }
 }
