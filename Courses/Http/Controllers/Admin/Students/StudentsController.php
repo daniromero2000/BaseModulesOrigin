@@ -5,6 +5,9 @@ namespace Modules\Courses\Http\Controllers\Admin\Students;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Courses\Entities\Student\StudentImport;
 use Modules\Courses\Entities\Students\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentsController extends Controller
@@ -29,7 +32,14 @@ class StudentsController extends Controller
 
     public function store(Request $request)
     {
-        dd('entre');
+
+        if ($request->hasFile('cover')) {
+            DB::table('students')->truncate();
+            DB::table('course_student')->truncate();
+            Excel::import(new StudentImport, $request->file('cover'));
+        }
+
+        dd('no file');
     }
 
     public function show($id)

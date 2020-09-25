@@ -2,16 +2,18 @@
 
 namespace Modules\Courses\Entities\Student;
 
-use Maatwebsite\Excel\Concerns\ToModel;
-use Modules\Courses\Entities\Students\Student;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Modules\Courses\Entities\Students\FirstSheetImport;
+use Modules\Courses\Entities\Students\SecondSheetImport;
 
-class StudentImport implements ToModel
+class StudentImport implements WithMultipleSheets
 {
-    public function model(array $row)
+
+    public function sheets(): array
     {
-        return new Student([
-            'id_type'       => $row['Tipo de identificación'] ?? $row['Tipo de identificacion'] ?? null,
-            'identification' => $row['No. Cédula'] ?? null
-        ]);
+        return [
+            0 => new FirstSheetImport(),
+            1 => new SecondSheetImport(),
+        ];
     }
 }
