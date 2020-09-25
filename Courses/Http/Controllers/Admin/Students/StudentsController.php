@@ -53,7 +53,7 @@ class StudentsController extends Controller
             Excel::import(new StudentImport, $request->file('cover'));
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Datos Cargados Satisfactoriamente!');;
     }
 
     public function show($id)
