@@ -2,18 +2,25 @@
 
 namespace Modules\Courses\Entities\Courses;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    protected $fillable = [];
+    use SearchableTrait, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'cover',
+        'is_active'
+    ];
 
     protected $hidden = [
         'created_at',
         'deleted_at',
         'updated_at',
-        'relevance',
-        'is_active',
     ];
 
     protected $guarded = [
@@ -21,7 +28,6 @@ class Course extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        'is_active',
     ];
 
     protected $dates = [
@@ -29,4 +35,16 @@ class Course extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $searchable = [
+        'columns' => [
+            'courses.name' => 15
+        ]
+    ];
+
+    public function searchCourse(string $term): Collection
+    {
+        return self::search($term)->get();
+    }
+
 }

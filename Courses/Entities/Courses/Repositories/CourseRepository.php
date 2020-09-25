@@ -2,32 +2,32 @@
 
 namespace Modules\Courses\Entities\Courses\Repositories;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
 use Modules\Courses\Entities\Courses\Course;
-use Modules\Courses\Entities\Courses\Exceptions\CreateCourseErrorException;
+use Modules\Generals\Entities\Tools\UploadableTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Courses\Entities\Courses\Exceptions\CourseNotFoundException;
-use Modules\Courses\Entities\Courses\Exceptions\UpdateCourseErrorException;
+use Modules\Courses\Entities\Courses\Exceptions\CreateCourseErrorException;
 use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
 
 class CourseRepository implements CourseRepositoryInterface
 {
+    use UploadableTrait;
     protected $model;
     private $columns = [
         'id',
         'name',
         'cover',
-        'last_name',
         'is_active',
         'created_at'
     ];
 
     private $listColumns = [
         'id',
-        'cedula',
         'name',
-        'last_name',
+        'cover',
         'is_active',
         'created_at'
     ];
@@ -54,7 +54,7 @@ class CourseRepository implements CourseRepositoryInterface
         if (is_null($text)) {
             return $this->model->get($this->columns);
         }
-
+        
         return $this->model->searchCourse($text)->get($this->columns);
     }
 
@@ -94,12 +94,19 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
-    public function updateCourse(array $params): bool
+    public function saveCoverImage(UploadedFile $file): string
     {
+        return $file->store('products', ['disk' => 'public']);
+    }
+
+    public function updateCourse(array $data): bool
+    {
+        $filtered = collect($data)->except('image')->all();
+
         try {
-            return $this->model->update($params);
+            return $this->model->where('id', $this->model->id)->update($filtered);
         } catch (QueryException $e) {
-            throw new UpdateCourseErrorException($e);
+            abort(503, $e->getMessage());
         }
     }
 
