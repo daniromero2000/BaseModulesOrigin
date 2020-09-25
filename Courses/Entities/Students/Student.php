@@ -4,6 +4,7 @@ namespace Modules\Courses\Entities\Students;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Courses\Entities\Courses\Course;
 
 class Student extends Model
 {
@@ -44,4 +45,9 @@ class Student extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }
