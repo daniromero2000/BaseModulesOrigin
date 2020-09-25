@@ -53,7 +53,7 @@ class StudentsController extends Controller
             Excel::import(new StudentImport, $request->file('cover'));
         }
 
-        dd('no file');
+        return redirect()->back();
     }
 
     public function show($id)
