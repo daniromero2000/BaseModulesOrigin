@@ -20,6 +20,11 @@ class CourseRepository implements CourseRepositoryInterface
         'id',
         'name',
         'cover',
+        'img_welcome',
+        'img_footer',
+        'img_button',
+        'slug',
+        'link',
         'is_active',
         'created_at'
     ];
@@ -28,6 +33,7 @@ class CourseRepository implements CourseRepositoryInterface
         'id',
         'name',
         'cover',
+        'slug',
         'is_active',
         'created_at'
     ];
@@ -49,12 +55,24 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
+    public function listCoursesFront()
+    {
+        try {
+            return  $this->model
+                ->orderBy('name', 'desc')
+                ->where('is_active', '1')
+                ->get($this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function searchCourse(string $text = null): Collection
     {
         if (is_null($text)) {
             return $this->model->get($this->columns);
         }
-        
+
         return $this->model->searchCourse($text)->get($this->columns);
     }
 
@@ -80,6 +98,16 @@ class CourseRepository implements CourseRepositoryInterface
     {
         try {
             return $this->model->findOrFail($id, $this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new CourseNotFoundException($e);
+        }
+    }
+
+    
+    public function findCourseBySlug($slug): Course
+    {
+        try {
+            return $this->model->where('slug', $slug)->first($this->columns);
         } catch (ModelNotFoundException $e) {
             throw new CourseNotFoundException($e);
         }

@@ -37,8 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
  */
 Route::namespace('Front')->group(function () {
 
-    Route::prefix('courses')->group(function () {
-        Route::get('courses', 'CoursesFrontController@index');
+    Route::namespace('Courses')->group(function () {
+        Route::get('/{course}', 'CoursesFrontController@show')->name('front.course');
     });
 
     Route::prefix('courseAttendances')->group(function () {

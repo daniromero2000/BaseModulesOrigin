@@ -35,9 +35,10 @@ class CoursesFrontController extends Controller
     }
 
 
-    public function show($id)
+    public function show($slug)
     {
-        return view('courses::show');
+        $course = $this->courseInterface->findCourseBySlug($slug);
+        return view('courses::front.courses.show', ['course' => $course]);
     }
 
 

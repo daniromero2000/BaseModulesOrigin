@@ -13,8 +13,14 @@ class Course extends Model
     use SearchableTrait, SoftDeletes;
 
     protected $fillable = [
+        'id',
         'name',
         'cover',
+        'img_welcome',
+        'img_footer',
+        'img_button',
+        'link',
+        'slug',
         'is_active'
     ];
 

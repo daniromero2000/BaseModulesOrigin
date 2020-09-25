@@ -20,11 +20,11 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if(!empty($courses))
+    @if(!empty($courses->toArray()))
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Cursos</h3>
-            @include('generals::layouts.search', ['route' => route('admin.Courses.index')])
+            @include('generals::layouts.search', ['route' => route('admin.courses.index')])
         </div>
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover text-center">
@@ -44,10 +44,10 @@
                         <td>@include('generals::layouts.status', ['status' => $course->is_active])</td>
         
                         <td class="table-actions">
-                            <form action="{{ route('admin.Courses.destroy', $course->id) }}" method="post"
+                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="post"
                                 class="form-horizontal">
                                 {{ csrf_field() }}
-                                <a href="{{ route('admin.Courses.edit', $course->id) }}" class="table-action table-action"
+                                <a href="{{ route('admin.courses.edit', $course->id) }}" class="table-action table-action"
                                     data-toggle="tooltip" data-original-title="Editar">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
