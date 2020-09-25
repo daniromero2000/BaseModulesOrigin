@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
 
-class CoursesController extends Controller
+class CoursesFrontController extends Controller
 {
     private $courseInterface;
 

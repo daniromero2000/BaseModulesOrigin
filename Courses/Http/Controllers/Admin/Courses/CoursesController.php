@@ -31,7 +31,7 @@ class CoursesController extends Controller
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->courseInterface->listCourses($skip * 30);
         }
-       
+
         return view('courses::admin.courses.list', [
             'courses'        => $list,
             'optionsRoutes'  => 'admin.' . (request()->segment(2)),

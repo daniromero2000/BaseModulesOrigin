@@ -32,5 +32,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
  * Frontend routes
  */
 Route::prefix('courses')->group(function () {
-    Route::get('/', 'CoursesController@index');
+    Route::get('/', 'CoursesFrontController@index');
 });
