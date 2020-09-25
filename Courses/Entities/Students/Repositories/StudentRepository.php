@@ -2,10 +2,10 @@
 
 namespace Modules\Courses\Entities\Students\Repositories;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
 use Modules\Courses\Entities\Students\Student;
+use Illuminate\Database\Eloquent\ModelNotFoundException;        
 use Modules\Courses\Entities\Students\Exceptions\CreateStudentErrorException;
 use Modules\Courses\Entities\Students\Exceptions\StudentNotFoundException;
 use Modules\Courses\Entities\Students\Exceptions\UpdateStudentErrorException;
@@ -16,18 +16,32 @@ class StudentRepository implements StudentRepositoryInterface
     protected $model;
     private $columns = [
         'id',
-        'cedula',
+        'id_type',
+        'identification',
         'name',
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'sesion_date',
         'is_active',
-        'created_at'
     ];
 
     private $listColumns = [
         'id',
-        'cedula',
+        'id_type',
+        'identification',
         'name',
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'sesion_date',
         'is_active',
-        'created_at'
     ];
 
     public function __construct(Student $student)
