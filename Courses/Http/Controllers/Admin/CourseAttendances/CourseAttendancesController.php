@@ -6,20 +6,36 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAttendanceRepositoryInterface;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class CourseAttendancesController extends Controller
 {
-    private $courseAttendanceInterface;
+    private $courseAttendanceInterface, $toolsInterface;
 
     public function __construct(
+        ToolRepositoryInterface $toolRepositoryInterface,
         CourseAttendanceRepositoryInterface $courseAttendanceRepositoryInterface
     ) {
         $this->courseAttendanceInterface = $courseAttendanceRepositoryInterface;
+        $this->toolsInterface  = $toolRepositoryInterface;
+        $this->middleware(['permission:courses, guard:employee']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('courses::index');
+        if (request()->has('q') && request()->input('q') != '') {
+            $skip = 0;
+            $list = $this->courseAttendanceInterface->searchCourseAttendance(request()->input('q'));
+        } else {
+            $skip = $this->toolsInterface->getSkip($request->input('skip'));
+            $list = $this->courseAttendanceInterface->listCourseAttendances($skip * 30);
+        }
+
+        return view('courses::admin.courseAttendances.list', [
+            'coursesAttendances'        => $list,
+            'optionsRoutes'  => 'admin.' . (request()->segment(2)),
+            'skip'           => $skip
+        ]);
     }
 
 

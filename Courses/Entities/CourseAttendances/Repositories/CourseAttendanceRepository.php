@@ -16,7 +16,12 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
     protected $model;
     private $columns = [];
 
-    private $listColumns = [];
+    private $listColumns = [
+        'id',
+        'course_id',
+        'student_id',
+        'created_at'
+    ];
 
     public function __construct(CourseAttendance $CourseAttendance)
     {
@@ -26,8 +31,7 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
     public function listCourseAttendances(int $totalView)
     {
         try {
-            return  $this->model
-                ->orderBy('name', 'desc')
+            return  $this->model->with(['student', 'course'])
                 ->skip($totalView)->take(30)
                 ->get($this->listColumns);
         } catch (QueryException $e) {

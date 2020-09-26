@@ -11,7 +11,7 @@ use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInt
 
 class CoursesController extends Controller
 {
-    private $courseInterface;
+    private $courseInterface, $toolsInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
@@ -19,7 +19,7 @@ class CoursesController extends Controller
     ) {
         $this->toolsInterface  = $toolRepositoryInterface;
         $this->courseInterface = $courseRepositoryInterface;
-        $this->middleware(['permission:products, guard:employee']);
+        $this->middleware(['permission:courses, guard:employee']);
     }
 
     public function index(Request $request)
