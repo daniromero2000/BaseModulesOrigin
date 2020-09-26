@@ -6,15 +6,21 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
+use Modules\Courses\Entities\Students\Repositories\Interfaces\StudentRepositoryInterface;
+use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAttendanceRepositoryInterface;
 
 class CoursesFrontController extends Controller
 {
-    private $courseInterface;
+    private $courseInterface, $studentInterface, $courseAttendanceInterface;
 
     public function __construct(
-        CourseRepositoryInterface $courseRepositoryInterface
+        CourseRepositoryInterface $courseRepositoryInterface,
+        StudentRepositoryInterface $studentRepositoryInterface,
+        CourseAttendanceRepositoryInterface $courseAttendanceRepositoryInterface
     ) {
-        $this->courseInterface = $courseRepositoryInterface;
+        $this->courseInterface  = $courseRepositoryInterface;
+        $this->studentInterface = $studentRepositoryInterface;
+        $this->courseAttendanceInterface = $courseAttendanceRepositoryInterface;
     }
 
     public function index()
@@ -37,8 +43,19 @@ class CoursesFrontController extends Controller
 
     public function show($slug)
     {
-        $course = $this->courseInterface->findCourseBySlug($slug);
-        return view('courses::front.courses.show', ['course' => $course]);
+        $student = $this->studentInterface->findStudentByIdentification(request()->input('id'));
+        if (!empty($student->toArray())) {
+            foreach ($student[0]->courses as $key => $value) {
+                if ($value->slug == $slug) {
+                    $course = $this->courseInterface->findCourseBySlug($slug);
+                    $this->courseAttendanceInterface->createCourseAttendance(['course_id' => $course->id, 'student_id' => $value->id]);
+                    return view('courses::front.courses.show', ['course' => $course]);
+                }
+            }
+        }
+
+        request()->session()->flash('error', config('messaging.delete'));
+        return redirect()->route('home');
     }
 
 

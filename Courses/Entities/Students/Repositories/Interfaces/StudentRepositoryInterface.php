@@ -17,6 +17,8 @@ interface StudentRepositoryInterface
 
     public function updateStudent(array $params): bool;
 
+    public function findStudentByIdentification(int $id);
+
     public function searchStudent(string $text = null): Collection;
 
     public function searchTrashedStudent(string $text = null): Collection;

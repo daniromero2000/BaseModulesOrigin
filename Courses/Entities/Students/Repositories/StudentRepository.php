@@ -5,7 +5,7 @@ namespace Modules\Courses\Entities\Students\Repositories;
 use Illuminate\Support\Collection;
 use Illuminate\Database\QueryException;
 use Modules\Courses\Entities\Students\Student;
-use Illuminate\Database\Eloquent\ModelNotFoundException;        
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Courses\Entities\Students\Exceptions\CreateStudentErrorException;
 use Modules\Courses\Entities\Students\Exceptions\StudentNotFoundException;
 use Modules\Courses\Entities\Students\Exceptions\UpdateStudentErrorException;
@@ -92,6 +92,15 @@ class StudentRepository implements StudentRepositoryInterface
     {
         try {
             return $this->model->findOrFail($id, $this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new StudentNotFoundException($e);
+        }
+    }
+
+    public function findStudentByIdentification(int $id)
+    {
+        try {
+            return $this->model->with('courses')->where('identification', $id)->get($this->columns);
         } catch (ModelNotFoundException $e) {
             throw new StudentNotFoundException($e);
         }
