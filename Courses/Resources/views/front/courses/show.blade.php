@@ -157,7 +157,9 @@
     </div>
 
     <div class="w-100 padding-x">
-        <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="">
+        <a href="https://forms.gle/5W1CqUDStdBGViGR8">
+            <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="">
+        </a>
     </div>
 </section>
 
