@@ -144,7 +144,7 @@
     </div>
 </section>
 
-<section>
+<section class="text-center">
     <div class="w-100 padding-x">
         <h2 class="tittle-principal">Verifica tus horarios y cada vez que tengas clase
         </h2>
