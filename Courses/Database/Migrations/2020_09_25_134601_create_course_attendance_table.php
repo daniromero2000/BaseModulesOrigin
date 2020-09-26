@@ -18,7 +18,7 @@ class CreateCourseAttendanceTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses');
             $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('stuents');
+            $table->foreign('student_id')->references('id')->on('students');
             $table->timestamps();
         });
     }
