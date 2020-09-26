@@ -144,17 +144,19 @@
     </div>
 </section>
 
-<section class="text-center">
-    <div class="w-100 padding-x">
+<section>
+
+    <div class="w-100 padding-x text-center">
         <h2 class="tittle-principal">Verifica tus horarios y cada vez que tengas clase
         </h2>
         <h1 class="tittle-secondary">Ingresa aqui para acceder al salón</h1>
     </div>
-    <div class="w-100 padding-x">
+    <div class="w-100 padding-x text-center">
         <a href="{{$course->link}}">
             <img src="{{asset("storage/$course->img_button")}}" class="img-fluid button-img" alt="">
         </a>
     </div>
+
 
     <div class="w-100 padding-x">
         <a href="https://forms.gle/5W1CqUDStdBGViGR8">
