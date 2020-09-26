@@ -838,8 +838,8 @@ class EmployeesTableSeeder extends Seeder
 
         // Módulo Asistencias
         $moduleCourseAttendances = factory(Permission::class)->create([
-            'name'                => 'students',
-            'display_name'        => 'Estudiantes',
+            'name'                => 'course_attendances',
+            'display_name'        => 'Asistencias Cursos',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => $permissionGroupCourses->id
         ]);
@@ -878,7 +878,7 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 19,
+            'permission_id' => 18,
             'name'          => 'Borrar Asistencia',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.course_attendances.destroy',
@@ -1352,28 +1352,54 @@ class EmployeesTableSeeder extends Seeder
             'role_id'   => 1
         ]);
 
+        // Permiso Módulo Cursos
+        $roleSuperRepo->attachToPermission($moduleCourseAttendances);
+        // Permisos Acciones Módulo Cursos
+        factory(ActionRole::class)->create([
+            'action_id' => 80,
+            'role_id'   => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 81,
+            'role_id'   => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 82,
+            'role_id'   => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 83,
+            'role_id'   => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 84,
+            'role_id'   => 1
+        ]);
+
         $employee->roles()->save($super);
 
 
 
 
 
-
-
         /*Creacion Usuario Super Admin Desarrollo*/
-        $employee2 = factory(Employee::class)->create([
-            'email' => 'gerencia@fvn.com.co'
+        $coursEemployee = factory(Employee::class)->create([
+            'email' => 'admin@educorp.com'
         ]);
 
-        $admin = factory(Role::class)->create([
-            'name'         => 'admin',
-            'display_name' => 'Administrador'
+        $courseadmin = factory(Role::class)->create([
+            'name'         => 'courses_admin',
+            'display_name' => 'Administador de Cursos'
         ]);
 
-        $roleAdminRepo = new RoleRepository($admin);
+        $rolecourseadmin = new RoleRepository($courseadmin);
 
         // Permiso Módulo Empleados
-        $roleAdminRepo->attachToPermission($moduleEmployees);
+        $rolecourseadmin->attachToPermission($moduleEmployees);
         // Permisos Acciones Módulo Empleados
         factory(ActionRole::class)->create([
             'action_id' => 1,
@@ -1400,239 +1426,90 @@ class EmployeesTableSeeder extends Seeder
             'role_id'   => 2
         ]);
 
-        // Permiso Módulo Ciudades
-        $roleAdminRepo->attachToPermission($moduleCities);
-        // Permisos Acciones Módulo Ciudades
+        // Permiso Módulo Cursos
+        $rolecourseadmin->attachToPermission($moduleCourses);
+        // Permisos Acciones Módulo Cursos
         factory(ActionRole::class)->create([
-            'action_id' => 6,
+            'action_id' => 70,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 7,
-            'role_id'   => 2
-        ]);
-
-        // Permiso Módulo Sucursales
-        $roleAdminRepo->attachToPermission($moduleSubsidiaries);
-        // Permisos Acciones Módulo Sucursales
-        factory(ActionRole::class)->create([
-            'action_id' => 8,
+            'action_id' => 71,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 9,
+            'action_id' => 72,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 10,
+            'action_id' => 73,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 11,
+            'action_id' => 74,
+            'role_id'   => 2
+        ]);
+
+        // Permiso Módulo Cursos
+        $rolecourseadmin->attachToPermission($moduleStudents);
+        // Permisos Acciones Módulo Cursos
+        factory(ActionRole::class)->create([
+            'action_id' => 75,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 12,
-            'role_id'   => 2
-        ]);
-
-
-        // Permiso Módulo Customers
-        $roleAdminRepo->attachToPermission($moduleCustomers);
-        // Permisos Acciones Módulo Customer
-        factory(ActionRole::class)->create([
-            'action_id' => 32,
+            'action_id' => 76,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 33,
+            'action_id' => 77,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 34,
+            'action_id' => 78,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 35,
+            'action_id' => 79,
+            'role_id'   => 2
+        ]);
+
+        // Permiso Módulo Cursos
+        $rolecourseadmin->attachToPermission($moduleCourseAttendances);
+        // Permisos Acciones Módulo Cursos
+        factory(ActionRole::class)->create([
+            'action_id' => 80,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 36,
-            'role_id'   => 2
-        ]);
-
-
-        // Permiso Módulo Customers Statuses
-        $roleAdminRepo->attachToPermission($moduleCustomerStatuses);
-        // Permisos Acciones Módulo Customer Statuses
-
-        factory(ActionRole::class)->create([
-            'action_id' => 37,
+            'action_id' => 81,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 38,
+            'action_id' => 82,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 39,
+            'action_id' => 83,
             'role_id'   => 2
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 40,
+            'action_id' => 84,
             'role_id'   => 2
         ]);
 
-
-        // Permiso Módulo Productos
-        $roleAdminRepo->attachToPermission($moduleProducts);
-        // Permisos Acciones Módulo Productos
-        factory(ActionRole::class)->create([
-            'action_id' => 46,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 47,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 48,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 49,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 50,
-            'role_id'   => 2
-        ]);
-
-
-        // Permiso Módulo Categorías
-        $roleAdminRepo->attachToPermission($moduleCategories);
-        // Permisos Acciones Módulo Categorías
-        factory(ActionRole::class)->create([
-            'action_id' => 51,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 52,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 53,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 54,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 55,
-            'role_id'   => 2
-        ]);
-
-        // Permiso Módulo marcas
-        $roleAdminRepo->attachToPermission($moduleAttributes);
-        // Permisos Acciones Módulo marcas
-        factory(ActionRole::class)->create([
-            'action_id' => 56,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 57,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 58,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 59,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 60,
-            'role_id'   => 2
-        ]);
-
-
-        // Permiso Módulo marcas
-        $roleAdminRepo->attachToPermission($moduleBrands);
-        // Permisos Acciones Módulo marcas
-        factory(ActionRole::class)->create([
-            'action_id' => 61,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 62,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 63,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 64,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 65,
-            'role_id'   => 2
-        ]);
-
-        // Permiso Módulo marcas
-        $roleAdminRepo->attachToPermission($moduleOrders);
-        // Permisos Acciones Módulo marcas
-        factory(ActionRole::class)->create([
-            'action_id' => 66,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 67,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 68,
-            'role_id'   => 2
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 69,
-            'role_id'   => 2
-        ]);
-
-        $employee2->roles()->save($admin);
+        $coursEemployee->roles()->save($courseadmin);
     }
 }
