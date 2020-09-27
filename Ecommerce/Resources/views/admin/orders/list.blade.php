@@ -20,7 +20,7 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if($orders)
+    @if(!empty($orders))
     <div class="card">
         <div class="card-header">
             <h2>Ordenes {{ config('app.name') }}</h2>
@@ -40,33 +40,38 @@
                 </thead>
                 <tbody>
                     @foreach ($orders as $order)
-                        {{-- @if ( $order->companyId == auth()->guard('employee')->user()->subsidiary->company_id) --}}
-                            <tr>
-                                <td>FVN0-{{$order->id}}</td>
-                                <td><a title="Show order"
-                                        href="{{ route('admin.orders.show', $order->id) }}">{{ date('M d, Y h:i a', strtotime($order->created_at)) }}</a>
-                                </td>
-                                <td>{{$order->customer->name}} {{$order->customer->last_name}}</td>
-                                <td>{{ $order->courier['name'] }}</td>
-                                <td>
-                                    <span
-                                        class="label @if($order->grand_total != $order->total_paid) label-danger @else label-success @endif">{{ config('cart.currency') }}
-                                        ${{ number_format($order->grand_total, 0) }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge"
-                                        style="color: #ffffff; background-color: {{ $order->orderStatus->color }}">
-                                        {{ $order->orderStatus->name }}
-                                    </span>
+                    {{-- @if ( $order->companyId == auth()->guard('employee')->user()->subsidiary->company_id) --}}
+                    <tr>
+                        <td>FVN0-{{$order->id}}</td>
+                        <td><a title="Show order"
+                                href="{{ route('admin.orders.show', $order->id) }}">{{ date('M d, Y h:i a', strtotime($order->created_at)) }}</a>
+                        </td>
+                        <td>{{$order->customer->name}} {{$order->customer->last_name}}</td>
+                        <td>{{ $order->courier['name'] }}</td>
+                        <td>
+                            <span
+                                class="label @if($order->grand_total != $order->total_paid) label-danger @else label-success @endif">{{ config('cart.currency') }}
+                                ${{ number_format($order->grand_total, 0) }}</span>
+                        </td>
+                        <td>
+                            <span class="badge"
+                                style="color: #ffffff; background-color: {{ $order->orderStatus->color }}">
+                                {{ $order->orderStatus->name }}
+                            </span>
 
-                                </td>
-                            </tr>
-                        {{-- @endif --}}
+                        </td>
+                    </tr>
+                    {{-- @endif --}}
                     @endforeach
                 </tbody>
             </table>
         </div>
+        <div class="card-footer py-2">
+            @include('generals::layouts.admin.pagination.pagination', [$skip])
+        </div>
     </div>
+    @else
+    @include('generals::layouts.admin.pagination.pagination_null', [$skip])
     @endif
 </section>
 @endsection
