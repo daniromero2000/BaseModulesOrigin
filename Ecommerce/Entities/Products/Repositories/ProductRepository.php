@@ -25,20 +25,28 @@ class ProductRepository implements ProductRepositoryInterface
     use ProductTransformable, UploadableTrait;
     protected $model;
     private $columns = [
-        'id',
-        'sku',
-        'name',
-        'description',
-        'cover',
-        'quantity',
-        'price',
-        'is_active',
-        'brand_id',
-        'sale_price',
-        'slug',
-        'company_id',
-        'tax_id'
-    ];
+            'id',
+            'sku',
+            'name',
+            'description',
+            'cover',
+            'quantity',
+            'price',
+            'is_active',
+            'brand_id',
+            'sale_price',
+            'slug',
+            'company_id',
+            'tax_id'
+        ],
+
+        $listColumns = [
+            'id',
+            'sku',
+            'name',
+            'price',
+            'is_active',
+        ];
 
     public function __construct(Product $product)
     {
@@ -51,7 +59,7 @@ class ProductRepository implements ProductRepositoryInterface
             return  $this->model
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
-                ->get($this->columns);
+                ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
