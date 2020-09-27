@@ -286,19 +286,23 @@ class ProductRepository implements ProductRepositoryInterface
     public function duplicateProduct(Int $id)
     {
         $product = $this->findProductByIdFull($id);
+        $productAttributes = $product->attributes;
         $newProduct = $product->replicate();
         $newProduct->sku = rand(0, 10000000);
+        $newProduct->setRelations([]);
         $newProduct->push();
 
         //re-sync everything
-        foreach ($newProduct->attributes as $attributes => $values) {
-            try {
-                $newProduct->attributes()->save($values);
-            } catch (QueryException $th) {
-                dd($th);
+        foreach ($productAttributes as $attributes => $attribute) {
+            $newAttribute = $attribute->replicate();
+            $newProduct->attributes()->save($newAttribute);
+            foreach ($attribute->attributesValues as $attributeValues => $attributeValue) {
+                foreach ($newProduct->attributes as $key => $value) {
+                    $relation = $attributeValue->replicate();
+                }
+                $newAttribute->attributesValues()->save($relation);
             }
         }
-
         return $newProduct;
     }
 }
