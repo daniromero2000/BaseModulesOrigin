@@ -90,7 +90,8 @@ class ProductRepository implements ProductRepositoryInterface
         $filtered = collect($data)->except('image')->all();
 
         try {
-            return $this->model->where('id', $this->model->id)->update($filtered);
+            return $this->model->where('id', $this->model->id)
+                ->update($filtered);
         } catch (QueryException $e) {
             throw new ProductUpdateErrorException($e);
         }
@@ -99,7 +100,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function updateSortOrder(array $data)
     {
         try {
-            return $this->model->where('id', $data['id'])->update($data);
+            return $this->model->where('id', $data['id'])
+                ->update($data);
         } catch (QueryException $e) {
             throw new ProductUpdateErrorException($e);
         }
@@ -108,7 +110,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductById(int $id): Product
     {
         try {
-            return $this->transformProduct($this->model->with(['reviews'])->findOrFail($id, $this->columns));
+            return $this->transformProduct($this->model->with(['reviews'])
+                ->findOrFail($id, $this->columns));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -117,7 +120,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductByIdFull(int $id): Product
     {
         try {
-            return $this->model->with(['attributes', 'reviews'])->findOrFail($id);
+            return $this->model->with(['attributes', 'reviews'])
+                ->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -131,7 +135,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function removeProduct(): bool
     {
-        return $this->model->where('id', $this->model->id)->delete();
+        return $this->model->where('id', $this->model->id)
+            ->delete();
     }
 
     public function detachCategories()
@@ -246,7 +251,8 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->whereHas('productGroups', function (Builder $query) use ($group) {
             $query->where('name', $group);
-        })->where('is_active', 1)->get($this->columns);;
+        })->where('is_active', 1)
+            ->get($this->columns);;
     }
 
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool
@@ -263,9 +269,10 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function listCombinations(): Collection
     {
-        return $this->model->attributes()->map(function (ProductAttribute $productAttribute) {
-            return $productAttribute->attributesValues;
-        });
+        return $this->model->attributes()
+            ->map(function (ProductAttribute $productAttribute) {
+                return $productAttribute->attributesValues;
+            });
     }
 
     public function findProductCombination(ProductAttribute $productAttribute)
@@ -298,7 +305,9 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function findOneByOrFail(array $data)
     {
-        return $this->model->with(['reviews'])->where($data)->firstOrFail($this->columns);
+        return $this->model->with(['reviews'])
+            ->where($data)
+            ->firstOrFail($this->columns);
     }
 
     public function duplicateProduct(Int $id)
