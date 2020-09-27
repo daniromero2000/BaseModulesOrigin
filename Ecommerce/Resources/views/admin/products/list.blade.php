@@ -50,7 +50,6 @@
     @else
     @include('generals::layouts.admin.pagination.pagination_null', [$skip])
     @endif
-
     <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default"
         aria-hidden="true">
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
@@ -63,7 +62,6 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-
                     <div class="modal-body">
                         <div class="row">
                             {{ csrf_field() }}
@@ -81,7 +79,6 @@
                         <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

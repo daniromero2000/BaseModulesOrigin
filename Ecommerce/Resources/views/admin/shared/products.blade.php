@@ -5,7 +5,6 @@
             <tr>
                 <td>Sku</td>
                 <td class="text-left">Nombre</td>
-                <td>Cantidad</td>
                 <td>Precio</td>
                 <td>Estado</td>
                 <td>Acciones</td>
@@ -18,10 +17,8 @@
                 <td class="text-left">
                     {{ $product->name }}
                 </td>
-                <td>{{ $product->quantity }}</td>
                 <td>{{ config('cart.currency') }} ${{ number_format($product->price, 0) }}</td>
                 <td>@include('generals::layouts.status', ['status' => $product->is_active])</td>
-
                 <td class="table-actions">
                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="post"
                         class="form-horizontal">
