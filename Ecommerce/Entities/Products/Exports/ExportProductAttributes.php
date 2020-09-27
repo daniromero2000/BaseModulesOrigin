@@ -15,7 +15,7 @@ class ExportProductAttributes implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'cantidad', 'precio', 'precio_oferta', 'product_id', 'sku', 'atributos'
+            'id', 'cantidad', 'precio', 'precio_oferta', 'product_id', 'sku', 'nombre', 'atributos'
         ];
     }
 
@@ -26,6 +26,7 @@ class ExportProductAttributes implements FromCollection, WithHeadings
         foreach ($productAttributes as $values => $value) {
             $atributos = '';
             $productAttributes[$values]->sku = $value->product->sku;
+            $productAttributes[$values]->name = $value->product->name;
 
             foreach ($value->attributesValuesForExport as $key => $value) {
                 $atributos = $atributos . ' ' .  $value->value;
