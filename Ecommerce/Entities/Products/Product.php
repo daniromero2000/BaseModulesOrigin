@@ -151,14 +151,10 @@ class Product extends Model implements Buyable
         return $this->belongsTo(Brand::class)
             ->select(['id', 'name', 'slug', 'logo', 'is_visible_on_front', 'is_active']);
     }
-    /**
-     * Get the product reviews.
-     *
-     * @param 
-     * @return 
-     */
+
     public function reviews()
     {
-        return $this->hasMany(ProductReview::class, 'product_id');
+        return $this->hasMany(ProductReview::class, 'product_id')
+            ->select(['id', 'name', 'title', 'rating', 'comment', 'status', 'product_id', 'customer_id']);
     }
 }

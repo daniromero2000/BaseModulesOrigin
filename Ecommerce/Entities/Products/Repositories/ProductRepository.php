@@ -100,7 +100,6 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductById(int $id): Product
     {
         try {
-            $data = $this->model->with(['reviews'])->findOrFail($id);
             return $this->transformProduct($this->model->with(['reviews'])->findOrFail($id, $this->columns));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
