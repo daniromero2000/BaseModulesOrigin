@@ -45,7 +45,6 @@ class EmployeesTableSeeder extends Seeder
             'group_order' => 1
         ]);
 
-
         // Módulo Empleados
         $moduleEmployees = factory(Permission::class)->create([
             'name'                => 'employees',
@@ -317,7 +316,6 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-
         // Módulo PQRS Statuses
         $modulePqrsStatuses = factory(Permission::class)->create([
             'name'                => 'pqrs-statuses',
@@ -449,7 +447,6 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-
         // Módulo Acciones
         $moduleActions = factory(Permission::class)->create([
             'name'                => 'actions',
@@ -498,7 +495,6 @@ class EmployeesTableSeeder extends Seeder
             'route'         => 'admin.actions.destroy',
             'principal'     => 0
         ]);
-
 
         // Módulo Productos
         $moduleProducts = factory(Permission::class)->create([
@@ -696,7 +692,6 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-
         // Módulo Brands
         $moduleOrders = factory(Permission::class)->create([
             'name'                => 'orders',
@@ -845,7 +840,7 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => $permissionGroupCourses->id
         ]);
 
-        // Acciones Módulo Empleados
+        // Acciones Módulo Asistencias Cursos
         factory(Action::class)->create([
             'permission_id' => 18,
             'name'          => 'Ver Asistencias',
@@ -853,7 +848,6 @@ class EmployeesTableSeeder extends Seeder
             'route'         => 'admin.course_attendances.index',
             'principal'     => 1
         ]);
-
 
         /*Creacion Usuario admin cursos*/
         $coursEemployee = factory(Employee::class)->create([
@@ -958,7 +952,6 @@ class EmployeesTableSeeder extends Seeder
             'action_id' => 80,
             'role_id'   => 1
         ]);
-
 
         $coursEemployee->roles()->save($courseadmin);
     }
