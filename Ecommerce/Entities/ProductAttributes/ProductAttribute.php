@@ -23,7 +23,7 @@ class ProductAttribute extends Model
     protected $hidden = [
         'deleted_at',
         'updated_at',
-        'id',
+
     ];
 
     protected $guarded = [
@@ -48,5 +48,11 @@ class ProductAttribute extends Model
     public function attributesValues()
     {
         return $this->belongsToMany(AttributeValue::class)->orderBy('value');
+    }
+
+    public function attributesValuesForExport()
+    {
+        return $this->belongsToMany(AttributeValue::class)->orderBy('value')
+            ->select(['value',]);
     }
 }

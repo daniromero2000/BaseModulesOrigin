@@ -13,6 +13,8 @@ interface ProductRepositoryInterface
 {
     public function listProducts(int $totalView);
 
+    public function listProductsForExport();
+
     public function createProduct(array $data): Product;
 
     public function updateProduct(array $data): bool;

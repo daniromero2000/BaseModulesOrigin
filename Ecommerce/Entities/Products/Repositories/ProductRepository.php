@@ -57,6 +57,17 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
+    public function listProductsForExport()
+    {
+        try {
+            return  $this->model->with('attributes')
+                ->orderBy('id', 'desc')
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function createProduct(array $data): Product
     {
         try {
