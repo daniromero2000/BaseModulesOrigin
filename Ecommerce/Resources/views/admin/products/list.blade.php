@@ -58,7 +58,7 @@
                 <form action="{{ route('admin.import.Products') }}" method="post" class="form"
                     enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h6 class="modal-title" id="modal-title-default">Cargar Estudiantes</h6>
+                        <h6 class="modal-title" id="modal-title-default">Cargar Inventario</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Crear</button>
+                        <button type="submit" class="btn btn-primary">Cargar</button>
                         <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
