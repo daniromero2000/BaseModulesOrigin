@@ -18,36 +18,44 @@ use Modules\Ecommerce\Entities\OrderShippings\Repositories\Interfaces\OrderShipp
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
 class OrderController extends Controller
 {
     private $orderRepo, $courierRepo, $customerRepo, $orderStatusRepo, $orderShippingRepo;
+    private $toolsInterface;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository,
-        OrderShippingInterface $orderShippingRepoInterfe
+        OrderShippingInterface $orderShippingRepoInterfe,
+        ToolRepositoryInterface $toolRepositoryInterface
     ) {
-        $this->orderRepo       = $orderRepository;
-        $this->courierRepo     = $courierRepository;
-        $this->customerRepo    = $customerRepository;
-        $this->orderStatusRepo = $orderStatusRepository;
+        $this->orderRepo         = $orderRepository;
+        $this->courierRepo       = $courierRepository;
+        $this->customerRepo      = $customerRepository;
+        $this->orderStatusRepo   = $orderStatusRepository;
         $this->orderShippingRepo = $orderShippingRepoInterfe;
+        $this->toolsInterface    = $toolRepositoryInterface;
         $this->middleware(['permission:orders, guard:employee']);
     }
 
     public function index()
     {
         if (request()->has('q')) {
+            $skip = 0;
             $list = $this->orderRepo->searchOrder(request()->input('q') ?? '');
         } else {
-            $list = $this->orderRepo->listOrders('created_at', 'desc');
+            $skip = $this->toolsInterface->getSkip(request()->input('skip'));
+            $list = $this->orderRepo->listOrders($skip * 30);
         }
         //dd($list);
         return view('ecommerce::admin.orders.list', [
-            'orders' => $list
+            'orders' => $list,
+            'optionsRoutes'  => 'admin.' . (request()->segment(2)),
+            'skip'           => $skip
         ]);
     }
 

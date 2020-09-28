@@ -20,45 +20,29 @@
 @section('content')
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    @if(!empty($courses->toArray()))
+    @if(!empty($coursesAttendances->toArray()))
     <div class="card">
         <div class="card-header border-0">
-            <h3 class="mb-0">Cursos</h3>
-            @include('generals::layouts.search', ['route' => route('admin.courses.index')])
+            <h3 class="mb-0">Asistencia a Cursos</h3>
+            @include('generals::layouts.search', ['route' => route('admin.course_attendances.index')])
         </div>
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover text-center">
                 <thead class="thead-light ">
                     <tr>
-                        <td>Nombre</td>
-                        <td>Estado</td>
-                        <td>Acciones</td>
+                        <td>Curso</td>
+                        <td>Nombre Estudiante</td>
+                        <td>Fecha</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($courses as $course)
+                    @foreach ($coursesAttendances as $coursesAttendance)
                     <tr>
+                        <td>{{ $coursesAttendance->course->name }}</td>
                         <td>
-                            {{ $course->name }}
+                            {{ $coursesAttendance->student->name }} {{ $coursesAttendance->student->last_name }}
                         </td>
-                        <td>@include('generals::layouts.status', ['status' => $course->is_active])</td>
-
-                        <td class="table-actions">
-                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="post"
-                                class="form-horizontal">
-                                {{ csrf_field() }}
-                                <a href="{{ route('admin.courses.edit', $course->id) }}" class="table-action table-action"
-                                    data-toggle="tooltip" data-original-title="Editar">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                                <button onclick="return confirm('¿Estás Seguro?')" type="submit"
-                                    class="table-action table-action-delete button-reset" data-toggle="tooltip"
-                                    data-original-title="Borrar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                                <input type="hidden" name="_method" value="delete">
-                            </form>
-                        </td>
+                        <td>{{ $coursesAttendance->created_at }}</td>
                     </tr>
                     @endforeach
                 </tbody>

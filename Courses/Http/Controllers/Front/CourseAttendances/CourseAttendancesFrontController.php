@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Courses\Http\Controllers\Front\Courses;
+namespace Modules\Courses\Http\Controllers\Front\CourseAttendances;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
+use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAttendanceRepositoryInterface;
 
-class CoursesController extends Controller
+class CourseAttendancesFrontController extends Controller
 {
-    private $courseInterface;
+    private $courseAttendanceInterface;
 
     public function __construct(
-        CourseRepositoryInterface $courseRepositoryInterface
+        CourseAttendanceRepositoryInterface $courseAttendanceRepositoryInterface
     ) {
-        $this->courseInterface = $courseRepositoryInterface;
+        $this->courseAttendanceInterface = $courseAttendanceRepositoryInterface;
     }
 
     public function index()

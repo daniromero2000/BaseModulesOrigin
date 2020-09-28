@@ -11,7 +11,7 @@ use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInt
 
 class CoursesController extends Controller
 {
-    private $courseInterface;
+    private $courseInterface, $toolsInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
@@ -19,7 +19,7 @@ class CoursesController extends Controller
     ) {
         $this->toolsInterface  = $toolRepositoryInterface;
         $this->courseInterface = $courseRepositoryInterface;
-        $this->middleware(['permission:products, guard:employee']);
+        $this->middleware(['permission:courses, guard:employee']);
     }
 
     public function index(Request $request)
@@ -31,7 +31,7 @@ class CoursesController extends Controller
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->courseInterface->listCourses($skip * 30);
         }
-       
+
         return view('courses::admin.courses.list', [
             'courses'        => $list,
             'optionsRoutes'  => 'admin.' . (request()->segment(2)),
@@ -49,15 +49,27 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token', '_method');
-        // $data['slug'] = str_slug($request->input('name'));
+        $data['slug'] = str_slug($request->input('name'));
 
         if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
             $data['cover'] = $this->courseInterface->saveCoverImage($request->file('cover'));
         }
 
+        if ($request->hasFile('img_welcome')) {
+            $data['img_welcome'] =  $this->courseInterface->saveCoverImage($request->file('img_welcome'));
+        }
+
+        if ($request->hasFile('img_footer')) {
+            $data['img_footer'] =  $this->courseInterface->saveCoverImage($request->file('img_footer'));
+        }
+
+        if ($request->hasFile('img_button')) {
+            $data['img_button'] =  $this->courseInterface->saveCoverImage($request->file('img_button'));
+        }
+
         $course = $this->courseInterface->createCourse($data);
 
-        return redirect()->route('admin.Courses.edit', $course->id)
+        return redirect()->route('admin.courses.edit', $course->id)
             ->with('message', config('messaging.create'));
     }
 
@@ -87,15 +99,27 @@ class CoursesController extends Controller
             '_token',
             '_method',
         );
-        // $data['slug'] = str_slug($request->input('name'));
+        $data['slug'] = str_slug($request->input('name'));
 
         if ($request->hasFile('cover')) {
             $data['cover'] = $courseRepo->saveCoverImage($request->file('cover'));
         }
 
+        if ($request->hasFile('img_welcome')) {
+            $data['img_welcome'] = $courseRepo->saveCoverImage($request->file('img_welcome'));
+        }
+
+        if ($request->hasFile('img_footer')) {
+            $data['img_footer'] = $courseRepo->saveCoverImage($request->file('img_footer'));
+        }
+
+        if ($request->hasFile('img_button')) {
+            $data['img_button'] = $courseRepo->saveCoverImage($request->file('img_button'));
+        }
+
         $courseRepo->updateCourse($data);
 
-        return redirect()->route('admin.Courses.edit', $id);
+        return redirect()->route('admin.courses.edit', $id);
     }
 
 
@@ -105,6 +129,6 @@ class CoursesController extends Controller
         $course->delete();
 
         request()->session()->flash('message', config('messaging.delete'));
-        return redirect()->route('admin.Courses.index');
+        return redirect()->route('admin.courses.index');
     }
 }

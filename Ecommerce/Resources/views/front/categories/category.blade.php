@@ -12,6 +12,11 @@
 <link rel="stylesheet" href="{{ asset('css/front/carousel/glider.css')}}">
 <script src="{{ asset('js/front/carousel/glider.js')}}"></script>
 <script src="{{ asset('js/front/carousel/carousel.js')}}"></script>
+<style>
+    .page-link{
+        padding: 12px 16px !important;
+    }
+</style>
 @endsection
 @section('content')
 <div class="w-100 mt-4">
@@ -44,6 +49,28 @@
                     </div>
                 </div>
                 <div class="col-lg-9 px-1 mx-auto">
+                    <nav class="mt-4" aria-label="...">
+                        <ul class="pagination d-flex justify-content-center">
+                            <li class="page-item @if(request()->input('skip') < 1) disabled @endif">
+                                <a class="page-link"
+                                    href="{{ route("front.category.slug", [ $category->slug, 'skip' => (request()->input('skip') - 1), 'q' => request()->input('q') ] ) }}"
+                                    tabindex="-1" aria-disabled="true"><i class="fas fa-angle-left"></i></a>
+                            </li>
+                            @for ($i = 0; $i < $paginate; $i++) <li
+                                class="page-item @if(request()->input('skip') == $i) active @endif"><a
+                                    class="page-link "
+                                    href="{{ route("front.category.slug", [ $category->slug, 'skip' => ($skip = $i), 'q' => request()->input('q') ] ) }}">{{$i + 1}}</a>
+                                </li>
+                                @endfor
+                                @if ($paginate > 1)
+                                <li class="page-item" @if((request()->input('skip') + 1) == $paginate) hidden @endif>
+                                    <a class="page-link"
+                                        href="{{ route("front.category.slug", [ $category->slug, 'skip' => (request()->input('skip') + 1), 'q' => request()->input('q') ] ) }}"><i
+                                            class="fas fa-angle-right"></i></a>
+                                </li>
+                                @endif
+                        </ul>
+                    </nav>
                     @include('ecommerce::front.products.product-list', ['products' => $products])
                     <nav class="mt-4" aria-label="...">
                         <ul class="pagination d-flex justify-content-center">

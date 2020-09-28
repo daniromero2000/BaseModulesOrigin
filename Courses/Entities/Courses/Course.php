@@ -6,14 +6,21 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Courses\Entities\CourseAttendances\CourseAttendance;
 
 class Course extends Model
 {
     use SearchableTrait, SoftDeletes;
 
     protected $fillable = [
+        'id',
         'name',
         'cover',
+        'img_welcome',
+        'img_footer',
+        'img_button',
+        'link',
+        'slug',
         'is_active'
     ];
 
@@ -47,4 +54,8 @@ class Course extends Model
         return self::search($term)->get();
     }
 
+    public function courseAttendances()
+    {
+        return $this->hasMany(CourseAttendance::class);
+    }
 }

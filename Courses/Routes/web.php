@@ -19,11 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
         Route::namespace('Courses')->group(function () {
-            Route::resource('Courses', 'CoursesController');
+            Route::resource('courses', 'CoursesController');
         });
 
         Route::namespace('Students')->group(function () {
             Route::resource('students', 'StudentsController');
+        });
+
+        Route::namespace('CourseAttendances')->group(function () {
+            Route::resource('course_attendances', 'CourseAttendancesController');
         });
     });
 });
@@ -31,6 +35,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 /**
  * Frontend routes
  */
-Route::prefix('courses')->group(function () {
-    Route::get('/', 'CoursesController@index');
+Route::namespace('Front')->group(function () {
+
+    Route::namespace('Courses')->group(function () {
+        Route::get('/{course}', 'CoursesFrontController@show')->name('front.course');
+    });
+
+    Route::prefix('CourseAttendances')->group(function () {
+        Route::get('course_attendances', 'CourseAttendancesFrontController@index');
+    });
 });

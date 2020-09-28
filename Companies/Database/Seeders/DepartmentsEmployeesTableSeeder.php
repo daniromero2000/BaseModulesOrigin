@@ -14,9 +14,9 @@ class DepartmentsEmployeesTableSeeder extends Seeder
 			'employee_id' => '1',
 		]);
 
-		factory(DepartmentEmployee::class)->create([
-			'department_id' => '1',
-			'employee_id' => '2',
-		]);
+		// factory(DepartmentEmployee::class)->create([
+		// 	'department_id' => '1',
+		// 	'employee_id' => '2',
+		// ]);
 	}
 }

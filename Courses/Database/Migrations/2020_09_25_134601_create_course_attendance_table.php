@@ -16,9 +16,7 @@ class CreateCourseAttendanceTable extends Migration
         Schema::create('course_attendances', function (Blueprint $table) {
             $table->id();
             $table->integer('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
             $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('stuents');
             $table->timestamps();
         });
     }

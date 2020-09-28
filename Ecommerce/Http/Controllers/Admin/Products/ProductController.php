@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Ecommerce\Entities\Products\Product;
 use Modules\Generals\Entities\Tools\UploadableTrait;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
@@ -22,6 +23,9 @@ use Modules\Ecommerce\Entities\AttributeValues\Repositories\AttributeValueReposi
 use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Exports\ExportProductAttributes;
+use Modules\Ecommerce\Entities\Products\Exports\ExportProducts;
+use Modules\Ecommerce\Entities\Products\Imports\ImportProductAttributes;
 
 class ProductController extends Controller
 {
@@ -384,5 +388,20 @@ class ProductController extends Controller
             $res = $this->productRepo->updateSortOrder($value);
         }
         return $res;
+    }
+
+    public function exportProducts()
+    {
+        return Excel::download(new ExportProductAttributes(), 'products.xlsx');
+    }
+
+    public function importProducts(Request $request)
+    {
+        if ($request->hasFile('cover')) {
+
+            Excel::import(new ImportProductAttributes, $request->file('cover'));
+        }
+
+        return redirect()->back()->with('message', 'Datos Cargados Satisfactoriamente!');
     }
 }
