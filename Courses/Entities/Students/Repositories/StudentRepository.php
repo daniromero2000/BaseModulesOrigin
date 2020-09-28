@@ -25,7 +25,8 @@ class StudentRepository implements StudentRepositoryInterface
         'phone',
         'hotel_name',
         'hotel_city',
-        'sesion_date',
+        'start_date',
+        'end_date',
         'is_active',
     ];
 
@@ -40,7 +41,8 @@ class StudentRepository implements StudentRepositoryInterface
         'phone',
         'hotel_name',
         'hotel_city',
-        'sesion_date',
+        'start_date',
+        'end_date',
         'is_active',
     ];
 
@@ -97,10 +99,10 @@ class StudentRepository implements StudentRepositoryInterface
         }
     }
 
-    public function findStudentByIdentification(int $id)
+    public function findStudentByIdentification(int $id): Student
     {
         try {
-            return $this->model->with('courses')->where('identification', $id)->get($this->columns);
+            return $this->model->with('courses')->where('identification', $id)->first($this->columns);
         } catch (ModelNotFoundException $e) {
             throw new StudentNotFoundException($e);
         }

@@ -44,11 +44,13 @@ class CoursesFrontController extends Controller
     public function show($slug)
     {
         $student = $this->studentInterface->findStudentByIdentification(request()->input('id'));
+
+
         if (!empty($student->toArray())) {
-            foreach ($student[0]->courses as $key => $value) {
+            foreach ($student->courses as $key => $value) {
                 if ($value->slug == $slug) {
                     $course = $this->courseInterface->findCourseBySlug($slug);
-                    $this->courseAttendanceInterface->createCourseAttendance(['course_id' => $course->id, 'student_id' => $value->id]);
+                    $this->courseAttendanceInterface->createCourseAttendance(['course_name' => $course->name, 'identification' => $student->identification, 'name' => $student->name, 'last_name' => $student->last_name]);
                     return view('courses::front.courses.show', ['course' => $course]);
                 }
             }

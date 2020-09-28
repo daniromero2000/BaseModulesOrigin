@@ -18,8 +18,10 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
 
     private $listColumns = [
         'id',
-        'course_id',
-        'student_id',
+        'course_name',
+        'identification',
+        'name',
+        'last_name',
         'created_at'
     ];
 
