@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Courses\Entities\CourseAttendance\Exports;
+namespace Modules\Courses\Entities\CourseAttendances\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
