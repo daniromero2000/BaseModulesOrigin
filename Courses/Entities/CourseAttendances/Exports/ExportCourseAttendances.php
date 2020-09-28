@@ -20,7 +20,8 @@ class ExportCourseAttendances implements FromCollection, WithHeadings
         'hotel_name',
         'hotel_city',
         'start_date',
-        'end_date'
+        'end_date',
+        'created_at'
     ];
 
     public function headings(): array
@@ -37,7 +38,8 @@ class ExportCourseAttendances implements FromCollection, WithHeadings
             'Hotel',
             'Ciudad',
             'inicio',
-            'cierre'
+            'cierre',
+            'asistencia'
         ];
     }
 
