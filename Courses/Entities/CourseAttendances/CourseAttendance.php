@@ -9,8 +9,10 @@ use Modules\Courses\Entities\Students\Student;
 class CourseAttendance extends Model
 {
     protected $fillable = [
-        'course_id',
-        'student_id'
+        'course_name',
+        'identification',
+        'name',
+        'last_name'
     ];
 
     protected $hidden = [

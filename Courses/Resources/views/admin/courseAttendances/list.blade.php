@@ -31,6 +31,7 @@
                 <thead class="thead-light ">
                     <tr>
                         <td>Curso</td>
+                        <td>Cedula</td>
                         <td>Nombre Estudiante</td>
                         <td>Fecha</td>
                     </tr>
@@ -38,9 +39,10 @@
                 <tbody>
                     @foreach ($coursesAttendances as $coursesAttendance)
                     <tr>
-                        <td>{{ $coursesAttendance->course->name }}</td>
+                        <td>{{ $coursesAttendance->course_name }}</td>
+                        <td>{{ $coursesAttendance->identification }}</td>
                         <td>
-                            {{ $coursesAttendance->student->name }} {{ $coursesAttendance->student->last_name }}
+                            {{ $coursesAttendance->name }} {{ $coursesAttendance->last_name }}
                         </td>
                         <td>{{ $coursesAttendance->created_at }}</td>
                     </tr>

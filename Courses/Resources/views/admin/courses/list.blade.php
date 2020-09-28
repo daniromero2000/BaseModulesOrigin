@@ -30,6 +30,7 @@
             <table class="table align-items-center table-flush table-hover text-center">
                 <thead class="thead-light ">
                     <tr>
+                        <td>#</td>
                         <td>Nombre</td>
                         <td>Estado</td>
                         <td>Acciones</td>
@@ -39,21 +40,20 @@
                     @foreach ($courses as $course)
                     <tr>
                         <td>
+                            {{ $course->id }}
+                        </td>
+                        <td>
                             {{ $course->name }}
                         </td>
                         <td>@include('generals::layouts.status', ['status' => $course->is_active])</td>
 
                         <td class="table-actions">
-                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="post"
-                                class="form-horizontal">
+                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="post" class="form-horizontal">
                                 {{ csrf_field() }}
-                                <a href="{{ route('admin.courses.edit', $course->id) }}" class="table-action table-action"
-                                    data-toggle="tooltip" data-original-title="Editar">
+                                <a href="{{ route('admin.courses.edit', $course->id) }}" class="table-action table-action" data-toggle="tooltip" data-original-title="Editar">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
-                                <button onclick="return confirm('¿Estás Seguro?')" type="submit"
-                                    class="table-action table-action-delete button-reset" data-toggle="tooltip"
-                                    data-original-title="Borrar">
+                                <button onclick="return confirm('¿Estás Seguro?')" type="submit" class="table-action table-action-delete button-reset" data-toggle="tooltip" data-original-title="Borrar">
                                     <i class="fas fa-trash"></i>
                                 </button>
                                 <input type="hidden" name="_method" value="delete">
