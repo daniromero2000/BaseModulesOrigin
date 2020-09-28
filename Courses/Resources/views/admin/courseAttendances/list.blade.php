@@ -22,6 +22,14 @@
     @include('generals::layouts.errors-and-messages')
     @if(!empty($coursesAttendances->toArray()))
     <div class="card">
+        <div class="ml-auto justify-content-end d-flex" style=" position: absolute; top: 22px; right: 9%; z-index: 99; ">
+            <p>
+                <a class="btn btn-primary btn-sm" href="{{route('admin.export.attendances')}}" aria-expanded="false"
+                    aria-controls="contentId">
+                    Exportar Asistencias
+                </a>
+            </p>
+        </div>
         <div class="card-header border-0">
             <h3 class="mb-0">Asistencia a Cursos</h3>
             @include('generals::layouts.search', ['route' => route('admin.course_attendances.index')])

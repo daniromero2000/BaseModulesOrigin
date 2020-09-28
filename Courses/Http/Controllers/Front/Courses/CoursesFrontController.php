@@ -50,7 +50,20 @@ class CoursesFrontController extends Controller
             foreach ($student[0]->courses as $key => $value) {
                 if ($value->slug == $slug) {
                     $course = $this->courseInterface->findCourseBySlug($slug);
-                    $this->courseAttendanceInterface->createCourseAttendance(['course_name' => $course->name, 'identification' => $student[0]->identification, 'name' => $student[0]->name, 'last_name' => $student[0]->last_name]);
+                    $this->courseAttendanceInterface->createCourseAttendance([
+                        'course_name'    => $course->name,
+                        'id_type'        => $student[0]->id_type,
+                        'identification' => $student[0]->identification,
+                        'name'           => $student[0]->name,
+                        'last_name'      => $student[0]->last_name,
+                        'position'       => $student[0]->position,
+                        'email'          => $student[0]->email,
+                        'phone'          => $student[0]->phone,
+                        'hotel_name'     => $student[0]->hotel_name,
+                        'hotel_city'     => $student[0]->hotel_city,
+                        'start_date'     => $student[0]->start_date,
+                        'end_date'       => $student[0]->end_date
+                    ]);
                     return view('courses::front.courses.show', ['course' => $course]);
                 }
             }
