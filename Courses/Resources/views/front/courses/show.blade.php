@@ -135,6 +135,7 @@
             max-width: 42%;
         }
     }
+
 </style>
 @endsection
 @section('content')
@@ -152,7 +153,7 @@
         <h1 class="tittle-secondary">Ingresa aqui para acceder al salón</h1>
     </div>
     <div class="w-100 padding-x text-center">
-        <a href="{{$course->link}}">
+        <a target="_blank" href="{{$course->link}}">
             <img src="{{asset("storage/$course->img_button")}}" class="img-fluid button-img" alt="">
         </a>
     </div>
