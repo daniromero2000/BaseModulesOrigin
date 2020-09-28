@@ -10,13 +10,20 @@ class CourseAttendance extends Model
 {
     protected $fillable = [
         'course_name',
+        'id_type',
         'identification',
         'name',
-        'last_name'
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'start_date',
+        'end_date'
     ];
 
     protected $hidden = [
-        'created_at',
         'deleted_at',
         'updated_at',
         'relevance',

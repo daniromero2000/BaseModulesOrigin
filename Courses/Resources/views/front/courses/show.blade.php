@@ -160,7 +160,7 @@
 
 
     <div class="w-100 padding-x">
-        <a href="https://forms.gle/5W1CqUDStdBGViGR8">
+        <a target="_blank" href="https://forms.gle/5W1CqUDStdBGViGR8">
             <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="">
         </a>
     </div>
