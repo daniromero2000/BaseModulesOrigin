@@ -9,7 +9,7 @@ class CreateCoursesTable extends Migration
     /**
      * Run the migrations.
      *
-     
+
      * @return void
      */
     public function up()
@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
-            $table->string('link');
+            $table->text('link');
             $table->string('cover')->nullable();
             $table->string('img_welcome')->nullable();
             $table->string('img_footer')->nullable();
