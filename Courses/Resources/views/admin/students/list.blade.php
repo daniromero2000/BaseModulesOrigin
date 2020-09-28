@@ -34,7 +34,7 @@
             <table class="table align-items-center table-flush table-hover text-center">
                 <thead class="thead-light ">
                     <tr>
-                        <td>Cedula</td>
+                        <td>Cédula</td>
                         <td>Nombres</td>
                         <td>Apellidos</td>
                         <td>Estado</td>

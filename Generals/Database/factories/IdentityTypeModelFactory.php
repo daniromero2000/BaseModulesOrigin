@@ -17,6 +17,6 @@ use Modules\Generals\Entities\IdentityTypes\IdentityType;
 
 $factory->define(IdentityType::class, function () {
     return [
-        'identity_type'   => 'Cedula de Ciudadanía',
+        'identity_type'   => 'Cédula de Ciudadanía',
     ];
 });
