@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Courses\Entities\CourseAttendance\Exports\ExportCourseAttendances;
+use Modules\Courses\Entities\CourseAttendances\Exports\ExportCourseAttendances;
 use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAttendanceRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
