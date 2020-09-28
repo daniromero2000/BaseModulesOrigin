@@ -37,7 +37,7 @@ class CourseAttendance extends Model
 
     protected $dates = [
         'deleted_at',
-
+        'created_at',
         'updated_at',
     ];
 
