@@ -99,10 +99,10 @@ class StudentRepository implements StudentRepositoryInterface
         }
     }
 
-    public function findStudentByIdentification(int $id): Student
+    public function findStudentByIdentification(int $id)
     {
         try {
-            return $this->model->with('courses')->where('identification', $id)->first($this->columns);
+            return $this->model->with('courses')->where('identification', $id)->get($this->columns);
         } catch (ModelNotFoundException $e) {
             throw new StudentNotFoundException($e);
         }
