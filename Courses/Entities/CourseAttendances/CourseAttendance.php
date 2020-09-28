@@ -24,7 +24,6 @@ class CourseAttendance extends Model
     ];
 
     protected $hidden = [
-        'created_at',
         'deleted_at',
         'updated_at',
         'relevance',
@@ -38,7 +37,7 @@ class CourseAttendance extends Model
 
     protected $dates = [
         'deleted_at',
-        'created_at',
+
         'updated_at',
     ];
 
