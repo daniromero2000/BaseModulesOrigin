@@ -34,6 +34,7 @@
             <table class="table align-items-center table-flush table-hover text-center">
                 <thead class="thead-light ">
                     <tr>
+                        <td>#</td>
                         <td>Cédula</td>
                         <td>Nombres</td>
                         <td>Apellidos</td>
@@ -44,6 +45,9 @@
                 <tbody>
                     @foreach ($students as $student)
                     <tr>
+                        <td>
+                            {{ $student->id }}
+                        </td>
                         <td>
                             {{ $student->identification }}
                         </td>
