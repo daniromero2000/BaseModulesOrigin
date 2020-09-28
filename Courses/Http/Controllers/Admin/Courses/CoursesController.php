@@ -97,7 +97,7 @@ class CoursesController extends Controller
 
         $data = $request->except(
             '_token',
-            '_method',
+            '_method'
         );
         $data['slug'] = str_slug($request->input('name'));
 

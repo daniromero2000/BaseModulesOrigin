@@ -25,7 +25,8 @@ class StudentRepository implements StudentRepositoryInterface
         'phone',
         'hotel_name',
         'hotel_city',
-        'sesion_date',
+        'start_date',
+        'end_date',
         'is_active',
     ];
 
@@ -40,7 +41,8 @@ class StudentRepository implements StudentRepositoryInterface
         'phone',
         'hotel_name',
         'hotel_city',
-        'sesion_date',
+        'start_date',
+        'end_date',
         'is_active',
     ];
 
@@ -53,7 +55,7 @@ class StudentRepository implements StudentRepositoryInterface
     {
         try {
             return  $this->model
-                ->orderBy('name', 'desc')
+                ->orderBy('id', 'asc')
                 ->skip($totalView)->take(30)
                 ->get($this->listColumns);
         } catch (QueryException $e) {

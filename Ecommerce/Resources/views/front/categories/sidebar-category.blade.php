@@ -1,7 +1,7 @@
-<div class="category-top col-md-12">
+{{-- <div class="category-top col-md-12">
     <h2>{{ $category->name }}</h2>
     <hr>
-</div>
+</div> --}}
 <form action="{{route('front.category.slug',$category->slug)}}" class="px-2" method="get">
     @foreach($attributes as $attribute)
     <div class="accordion card mt-1 card-reset" id="accordionExample{{$attribute->id}}">
@@ -32,7 +32,7 @@
     </div>
     @endforeach
     <div class="ml-2">
-        <button class="btn btn-primary my-4">Buscar</button>
+        <button class="btn btn-tws my-4">Buscar</button>
         @if (request()->input('q'))
         <a href="{{route('front.category.slug',$category->slug)}}" class="btn btn-secondary my-4">Restaurar</a>
         @endif

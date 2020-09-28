@@ -10,6 +10,7 @@ class FirstSheetImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+
         return new Student([
             'id_type'        => $row['tipo_documento'],
             'identification' => $row['documento'],
@@ -20,7 +21,10 @@ class FirstSheetImport implements ToModel, WithHeadingRow
             'phone'          => $row['telefono'],
             'hotel_name'     => $row['hotel'],
             'hotel_city'     => $row['ciudad'],
-            'sesion_date'    => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['sesion'])
+            'start_date'    => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['inicio']),
+            'end_date'    => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['cierre'])
+
+
         ]);
     }
 }

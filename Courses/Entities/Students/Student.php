@@ -23,7 +23,8 @@ class Student extends Model
         'phone',
         'hotel_name',
         'hotel_city',
-        'sesion_date',
+        'start_date',
+        'end_date',
         'is_active',
     ];
 

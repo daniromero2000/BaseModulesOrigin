@@ -24,7 +24,8 @@ class CreateStudentsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('hotel_name');
             $table->string('hotel_city');
-            $table->date('sesion_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

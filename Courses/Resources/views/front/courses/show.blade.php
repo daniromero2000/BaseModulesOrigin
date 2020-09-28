@@ -135,6 +135,7 @@
             max-width: 42%;
         }
     }
+
 </style>
 @endsection
 @section('content')
@@ -152,14 +153,14 @@
         <h1 class="tittle-secondary">Ingresa aqui para acceder al salón</h1>
     </div>
     <div class="w-100 padding-x text-center">
-        <a href="{{$course->link}}">
+        <a target="_blank" href="{{$course->link}}">
             <img src="{{asset("storage/$course->img_button")}}" class="img-fluid button-img" alt="">
         </a>
     </div>
 
 
     <div class="w-100 padding-x">
-        <a href="https://forms.gle/5W1CqUDStdBGViGR8">
+        <a target="_blank" href="https://forms.gle/5W1CqUDStdBGViGR8">
             <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="">
         </a>
     </div>

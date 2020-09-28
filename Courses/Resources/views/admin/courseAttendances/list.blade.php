@@ -22,6 +22,14 @@
     @include('generals::layouts.errors-and-messages')
     @if(!empty($coursesAttendances->toArray()))
     <div class="card">
+        <div class="ml-auto justify-content-end d-flex" style=" position: absolute; top: 22px; right: 9%; z-index: 99; ">
+            <p>
+                <a class="btn btn-primary btn-sm" href="{{route('admin.export.attendances')}}" aria-expanded="false"
+                    aria-controls="contentId">
+                    Exportar Asistencias
+                </a>
+            </p>
+        </div>
         <div class="card-header border-0">
             <h3 class="mb-0">Asistencia a Cursos</h3>
             @include('generals::layouts.search', ['route' => route('admin.course_attendances.index')])
@@ -31,6 +39,7 @@
                 <thead class="thead-light ">
                     <tr>
                         <td>Curso</td>
+                        <td>Cedula</td>
                         <td>Nombre Estudiante</td>
                         <td>Fecha</td>
                     </tr>
@@ -38,9 +47,10 @@
                 <tbody>
                     @foreach ($coursesAttendances as $coursesAttendance)
                     <tr>
-                        <td>{{ $coursesAttendance->course->name }}</td>
+                        <td>{{ $coursesAttendance->course_name }}</td>
+                        <td>{{ $coursesAttendance->identification }}</td>
                         <td>
-                            {{ $coursesAttendance->student->name }} {{ $coursesAttendance->student->last_name }}
+                            {{ $coursesAttendance->name }} {{ $coursesAttendance->last_name }}
                         </td>
                         <td>{{ $coursesAttendance->created_at }}</td>
                     </tr>

@@ -6,7 +6,7 @@
     <div class="row m-auto">
         <div class="col-12">
             <div class="text-center">
-                <img style="width: 100px;" src="{{ asset('img/fvn/logo.png') }}" class="" alt="user login">
+                <img style="width: 100px;" src="{{ asset('img/tws/logo.png') }}" class="" alt="user login">
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <label for="email" class="control-label" style="color: gray;">Email</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><i style="color: #4F98B9" class="fas fa-at"></i></div>
+                        <div class="input-group-text"><i style="color: #831448" class="fas fa-at"></i></div>
                     </div>
                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                     class="form-control" placeholder="su@correo.com" autofocus>
@@ -31,7 +31,7 @@
                 <label for="password" style="color: gray;">Contraseña</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><i style="color: #4F98B9" class="fas fa-key"></i></div>
+                        <div class="input-group-text"><i style="color: #831448" class="fas fa-key"></i></div>
                     </div>
                     <input type="password" name="password" id="password" value="" class="form-control"
                     placeholder="****">

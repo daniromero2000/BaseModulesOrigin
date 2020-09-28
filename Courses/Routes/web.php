@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
         Route::namespace('CourseAttendances')->group(function () {
             Route::resource('course_attendances', 'CourseAttendancesController');
+            Route::get('attendances-export', 'CourseAttendancesController@exportCourseAttendances')->name('export.attendances');
         });
     });
 });
