@@ -47,7 +47,7 @@ class CourseRepository implements CourseRepositoryInterface
     {
         try {
             return  $this->model
-                ->orderBy('name', 'desc')
+                ->orderBy('id', 'asc')
                 ->skip($totalView)->take(30)
                 ->get($this->listColumns);
         } catch (QueryException $e) {
@@ -59,7 +59,7 @@ class CourseRepository implements CourseRepositoryInterface
     {
         try {
             return  $this->model
-                ->orderBy('name', 'desc')
+                ->orderBy('name', 'asc')
                 ->where('is_active', '1')
                 ->get($this->listColumns);
         } catch (QueryException $e) {
@@ -103,7 +103,7 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
-    
+
     public function findCourseBySlug($slug): Course
     {
         try {
