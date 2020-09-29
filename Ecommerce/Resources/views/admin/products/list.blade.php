@@ -27,7 +27,7 @@
             <div class="ml-auto justify-content-end d-flex"
                 style=" position: absolute; top: 22px; right: 22%; z-index: 99; ">
                 <p>
-                    <a data-toggle="modal" data-target="#modal-default" class="btn btn-success btn-sm text-white">Cargar
+                    <a data-toggle="modal" data-target="#modal-default" class="btn btn-success btn-sm text-white">Actualizar
                         Inventario</a>
                 </p>
             </div>

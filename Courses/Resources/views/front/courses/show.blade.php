@@ -150,7 +150,7 @@
     <div class="w-100 padding-x text-center">
         <h2 class="tittle-principal">Verifica tus horarios y cada vez que tengas clase
         </h2>
-        <h1 class="tittle-secondary">Ingresa aqui para acceder al salón</h1>
+        <h1 class="tittle-secondary">Ingresa aquí para acceder al salón</h1>
     </div>
     <div class="w-100 padding-x text-center">
         <a target="_blank" href="{{$course->link}}">
