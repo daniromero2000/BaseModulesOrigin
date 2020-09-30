@@ -446,7 +446,7 @@
                 <div class="card-header text-center">
                     <div class="row">
                         <div class="col-md-4 text-left mr-auto">
-                            <img class="mb-2 w-100" src="http://www.fvn.com.co/img/fvn/logo.png" alt="feel-very-nice"
+                            <img class="mb-2 w-100" src="https://www.fvn.com.co/img/fvn/logo.png" alt="feel-very-nice"
                                 style=" max-width: 110px; ">
                             <h6>
                                 Feels Very Nice, Cl. 10 #15 - 94, Pereira, Risaralda
@@ -544,6 +544,18 @@
                             email:
                             <small class="text-muted">gerencia@fvn.com.co</small>
                         </h6>
+
+                    </div>
+                    <div class="w-100">
+                        <br>
+                        <p class="description">Recuerde que si su metodo de pago es <b>BALOTO</b> debe de hacer una
+                            consignación a la cuenta de ahorros Colpatria <b>#5782004631</b> a nombre de Emilia Estrada.
+                        </p>
+                        <p class="description">O si su metodo de pago es <b>EFECTY O GANA</b> debe de realisar un giro a
+                            nombre de Juliana Jaramillo <b>CC 42.138.544</b> Pereira.
+                        </p>
+                        <p class="description">Y enviar el correspondiente comprobante de pago al Wharsapp 3117192436
+                        </p>
                     </div>
                 </div>
             </div>

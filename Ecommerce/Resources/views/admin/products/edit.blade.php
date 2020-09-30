@@ -249,7 +249,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="cover">Cover</label>
                                             <div class="row">
-                                                <img src="{{ $product->cover }}" alt=""
+                                                <img src="{{ $product->cover }}" alt="{{$product->slug}}"
                                                     style="max-height: 170px; margin: 0px auto;">
                                             </div>
                                         </div>

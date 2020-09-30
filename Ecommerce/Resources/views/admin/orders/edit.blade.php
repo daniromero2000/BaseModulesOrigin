@@ -46,7 +46,11 @@
                                     @endif</strong></span>
                             <br>
                             Número Identificación: <span>
-                                <b>{{ $customer->customerIdentities[0]->identity_number}}</b></span>
+                                @if ($customer->customerIdentities->toArray())
+                                <b>{{  $customer->customerIdentities[0]->identity_number}}</b>
+                                @else
+                                <b>NA</b>
+                                @endif</span>
                             <br>
                             Número Teléfono: <span> <b>{{ $customer->customerPhones[0]->phone}}</b></span>
                         </div>

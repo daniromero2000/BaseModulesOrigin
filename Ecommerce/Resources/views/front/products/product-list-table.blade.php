@@ -29,7 +29,7 @@
                             <img src="{{$cartItem->cover}}" alt="{{ $cartItem->name }}"
                                 class="img-responsive img-thumbnail">
                             @else
-                            <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
+                            <img src="https://placehold.it/120x120" alt="default" class="img-responsive img-thumbnail">
                             @endif
                         </a>
                     </div>

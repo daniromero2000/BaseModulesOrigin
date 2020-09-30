@@ -36,7 +36,7 @@
                                 @if(isset($cartItem->cover))
                                 <img src="{{$cartItem->cover}}" alt="{{ $cartItem->name }}" class="cover">
                                 @else
-                                <img src="https://placehold.it/120x120" alt="" class="cover">
+                                <img src="https://placehold.it/120x120" alt="default" class="cover">
                                 @endif
                             </a>
                         </div>

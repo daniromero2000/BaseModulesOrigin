@@ -135,13 +135,12 @@
             max-width: 42%;
         }
     }
-
 </style>
 @endsection
 @section('content')
 <section class="header">
     <div class="w-100">
-        <img src="{{asset("storage/$course->img_welcome")}}" class="img-fluid" alt="">
+        <img src="{{asset("storage/$course->img_welcome")}}" class="img-fluid" alt="{{$course->slug}}">
     </div>
 </section>
 
@@ -154,14 +153,14 @@
     </div>
     <div class="w-100 padding-x text-center">
         <a target="_blank" href="{{$course->link}}">
-            <img src="{{asset("storage/$course->img_button")}}" class="img-fluid button-img" alt="">
+            <img src="{{asset("storage/$course->img_button")}}" class="img-fluid button-img" alt="{{$course->slug}}">
         </a>
     </div>
 
 
     <div class="w-100 padding-x">
         <a target="_blank" href="https://forms.gle/5W1CqUDStdBGViGR8">
-            <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="">
+            <img src="{{asset("storage/$course->img_footer")}}" class="img-fluid" alt="footer">
         </a>
     </div>
 </section>

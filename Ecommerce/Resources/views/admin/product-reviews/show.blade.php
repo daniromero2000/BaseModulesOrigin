@@ -21,7 +21,8 @@
                         <td>{{ $product->description }}</td>
                         <td>
                             @if(isset($product->cover))
-                            <img src="{{ asset("storage/$product->cover") }}" class="img-responsive" alt="">
+                            <img src="{{ asset("storage/$product->cover") }}" class="img-responsive"
+                                alt="{{$product->slug}}">
                             @endif
                         </td>
                         <td>{{ $product->quantity }}</td>
