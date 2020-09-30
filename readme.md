@@ -67,7 +67,7 @@ Edit composer.json adding the following pakages:
 * **nwidart/laravel-modules**: composer require nwidart/laravel-modules (https://nwidart.com/laravel-modules/v6/introduction).
 * **santigarcor/laratrust**: composer require santigarcor/laratrust THEN php artisan vendor:publish --tag="laratrust" (https://laratrust.santigarcor.me/).
 * **barryvdh/laravel-debugbar**: composer require barryvdh/laravel-debugbar --dev (https://github.com/barryvdh/laravel-debugbar).
-* **laravel/ui**: composer require laravel/ui (https://laravel.com/docs/7.x/authentication).
+* **laravel/ui**: composer require laravel/ui:^2.4 (https://laravel.com/docs/7.x/authentication).
 * **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.*" (https://github.com/nicolaslopezj/searchable).
 * **maatwebsite/excel**: composer require maatwebsite/excel (https://docs.laravel-excel.com/3.1/getting-started/installation.html).
 
