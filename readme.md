@@ -116,7 +116,8 @@ Edit composer.json adding the following pakages:
 
 1. Run php artisan module:enable Ecommerce.
 2. Run php artisan vendor:publish and publish the module content.
-3. Run php artisan optimize for config recognition.
+3. php artisan module:publish Ecommerce
+4. Run php artisan optimize for config recognition.
 
 ##### i. setting up Pqrs module:
 

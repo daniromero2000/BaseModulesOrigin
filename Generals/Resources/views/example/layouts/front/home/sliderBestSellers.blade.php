@@ -1,6 +1,6 @@
 @if ($bestSellers->isNotEmpty())
 <div>
-    @include('ecommerce::layouts.front.card-product',['title' => 'LOS MAS VENDIDOS',
+    @include('ecommerce::front.products.layouts.cards.card_product_option_one',['title' => 'LOS MAS VENDIDOS',
     'background'=>'carrousel-reset-home'])
 </div>
 @endif

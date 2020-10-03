@@ -22,7 +22,7 @@ class ThankUPagePayUController extends Controller
 
     public function index()
     {
-        return view('ecommerce::front.thank_u_page_payu', [
+        return view('layouts.front.thank_you_pages.payu', [
             'order' =>  request()->input('order'),
             'total' => request()->input('total')
         ]);

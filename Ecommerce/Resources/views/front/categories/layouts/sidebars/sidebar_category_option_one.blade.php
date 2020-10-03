@@ -1,6 +1,6 @@
 {{-- <div class="category-top col-md-12">
     <h2>{{ $category->name }}</h2>
-    <hr>
+<hr>
 </div> --}}
 <form action="{{route('front.category.slug',$category->slug)}}" class="px-2" method="get">
     @foreach($attributes as $attribute)

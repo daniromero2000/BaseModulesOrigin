@@ -55,15 +55,14 @@ class ProductController extends Controller
         $total_rating   =   0;
         $cant_reviews   =   count($reviews);
         $ratings        =   [];
-        if($cant_reviews>0){
+        if ($cant_reviews > 0) {
             foreach ($reviews as $item) {
                 $total_rating   +=  $item->rating;
                 $ratings[]  =   $item->rating;
             }
             // para el promedio se toma el total de ratings y se divide entre la cantidad de reviews
-            $promedio = round(($total_rating/$cant_reviews), 1);
-        }
-        else{
+            $promedio = round(($total_rating / $cant_reviews), 1);
+        } else {
             $promedio = 0;
         }
         // variable para mostrar que cantidad de voto por estrella se ha dado
@@ -84,35 +83,35 @@ class ProductController extends Controller
         $x4 = 0;
         $x5 = 0;
         // if 1 exist en raitings
-        if (array_key_exists(1,$contador)) {
+        if (array_key_exists(1, $contador)) {
             $cant_1 = $contador[1];
         }
         // if 2 exist en raitings
-        if (array_key_exists(2,$contador)) {
+        if (array_key_exists(2, $contador)) {
             $cant_2 = $contador[2];
         }
         // if 3 exist en raitings
-        if (array_key_exists(3,$contador)) {
+        if (array_key_exists(3, $contador)) {
             $cant_3 = $contador[3];
         }
         // if 4 exist en raitings
-        if (array_key_exists(4,$contador)) {
+        if (array_key_exists(4, $contador)) {
             $cant_4 = $contador[4];
         }
         // if 5 exist en raitings
-        if (array_key_exists(5,$contador)) {
+        if (array_key_exists(5, $contador)) {
             $cant_5 = $contador[5];
         }
         // porcentajes de votos por estrella en variables
-        if($cant_reviews>0){
-            $x1 = round((($cant_1*100)/$cant_reviews), 1);
-            $x2 = round((($cant_2*100)/$cant_reviews), 1);
-            $x3 = round((($cant_3*100)/$cant_reviews), 1);
-            $x4 = round((($cant_4*100)/$cant_reviews), 1);
-            $x5 = round((($cant_5*100)/$cant_reviews), 1);
+        if ($cant_reviews > 0) {
+            $x1 = round((($cant_1 * 100) / $cant_reviews), 1);
+            $x2 = round((($cant_2 * 100) / $cant_reviews), 1);
+            $x3 = round((($cant_3 * 100) / $cant_reviews), 1);
+            $x4 = round((($cant_4 * 100) / $cant_reviews), 1);
+            $x5 = round((($cant_5 * 100) / $cant_reviews), 1);
         }
         // agrego el promedio al objeto producto
-        return view('ecommerce::front.products.product', [
+        return view('layouts.front.products.show_product', [
             'product'               =>  $product,
             'images'                =>  $product->images()->get(),
             'bestSellers'           =>  $this->productRepo->listProductGroups('Nuevos'),

@@ -55,7 +55,7 @@ class CategoryController extends Controller
 
         $values = $this->categoryInterface->getCategoryProductAttributes($products);
 
-        return view('ecommerce::front.categories.category', [
+        return view('layouts.front.categories.show_category', [
             'category'    => $category,
             'products'    => $products,
             'attributes'  => $this->attributeInterface->listCategoryAttributes($values),
