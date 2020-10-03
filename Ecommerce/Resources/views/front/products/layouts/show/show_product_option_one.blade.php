@@ -1,7 +1,7 @@
 <div class="container-reset product">
     <div class="row mx-0 py-3 justify-content-center" style="margin-bottom: 10%;">
         <div class="col-xl-8 col-lg-7 mb-3">
-            @include('ecommerce::layouts.front.product-slider')
+            @include('ecommerce::front.products.layouts.sliders.product_slider_option_one')
         </div>
         <div class="col-xl-4 col-lg-5 col-md-8 col-sm-11 d-flex">
             <div class="product-description text-center w-100 p-2 my-auto">
@@ -48,18 +48,22 @@
                         <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                             {{ csrf_field() }}
 
+                            @if (!empty($sizes))
+                            <div class="w-100 justify-content-between d-flex">
+                                <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Elige tu
+                                            talla</b></span></label>
+
+                                <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
+                                    <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Ver
+                                                tabla de tallas</b></span></label></a>
+                            </div>
+                            @endif
+
                             @if(isset($productAttributes) && !$productAttributes->isEmpty())
                             <div class="w-100">
                                 <div class="form-group  mb-2">
-                                    <div class="w-100 justify-content-between d-flex" id="table-sizes"
-                                        style="display: none">
-                                        <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Elige tu
-                                                    talla</b></span></label>
 
-                                        <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
-                                            <label class=" mb-2" for="productAttribute"><span class="mr-auto"><b>Ver
-                                                        tabla de tallas</b></span></label></a>
-                                    </div>
+
 
                                     <div class="container-sizes w-100" id="sizes">
                                         <input type="hidden" required name="productAttribute" id="productAttribute">
@@ -118,7 +122,7 @@
                                         <span>Agregar a lista de deseos</span>
                                     </button>
                                 </div>
-                                @include('ecommerce::layouts.front.reviews')
+                                @include('ecommerce::front.products.layouts.reviews.reviews_option_one')
                             </div>
 
                         </form>
@@ -129,11 +133,11 @@
     </div>
 </div>
 
-@include('ecommerce::layouts.front.modal_size_guide')
+@include('ecommerce::front.products.layouts.modals.modal_size_guide_option_one')
 
 @if (!empty($bestSellers))
 <div class="my-4">
-    @include('ecommerce::layouts.front.card-product',['title' => 'También te puede interesar',
+    @include('ecommerce::front.products.layouts.cards.card_product_option_one',['title' => 'También te puede interesar',
     'background'=>'carrousel-reset'])
 </div>
 @endif

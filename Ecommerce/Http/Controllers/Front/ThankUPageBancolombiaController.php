@@ -22,7 +22,7 @@ class ThankUPageBancolombiaController extends Controller
 
     public function index()
     {
-        return view('ecommerce::front.thank_u_page_bank', [
+        return view('layouts.front.thank_you_pages.bank', [
             'order' =>  request()->input('order'),
             'total' => request()->input('total'),
             'customer' => auth()->user()->name

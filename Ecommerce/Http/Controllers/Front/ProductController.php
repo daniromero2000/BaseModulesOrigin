@@ -68,7 +68,7 @@ class ProductController extends Controller
         // variable para mostrar que cantidad de voto por estrella se ha dado
         $contador = array_count_values($ratings);
         //dd($contador);
-        // para obtener el % de voto por estrella hay q almacenar en varias variables la cantidad de voto por cada estrella 
+        // para obtener el % de voto por estrella hay q almacenar en varias variables la cantidad de voto por cada estrella
         // (cant_1,cant_2,cant_3,cant_4,cant_5),
         // luego para obtener cada porcentaje se debe tomar  cant_? multiplicarlo por 100 y dividirlo por el total de reviews
         // esto nos da el procentaje de votos por estrella
@@ -110,7 +110,8 @@ class ProductController extends Controller
             $x4 = round((($cant_4 * 100) / $cant_reviews), 1);
             $x5 = round((($cant_5 * 100) / $cant_reviews), 1);
         }
-        return view('ecommerce::front.products.product', [
+        // agrego el promedio al objeto producto
+        return view('layouts.front.products.show_product', [
             'product'               =>  $product,
             'images'                =>  $product->images()->get(),
             'bestSellers'           =>  $this->productRepo->listProductGroups('Nuevos'),

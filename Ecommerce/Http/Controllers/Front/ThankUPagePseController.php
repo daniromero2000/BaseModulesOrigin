@@ -22,7 +22,7 @@ class ThankUPagePseController extends Controller
 
     public function index()
     {
-        return view('ecommerce::front.thank_u_page_pse', [
+        return view('layouts.front.thank_you_pages.pse', [
             'order' =>  request()->input('order'),
             'total' => request()->input('total'),
             'customer' => auth()->user()->name

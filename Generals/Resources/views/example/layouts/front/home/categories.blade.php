@@ -18,9 +18,5 @@
         @endforeach
     </div>
     @endif
-    <div class="row row-reset my-5">
-        <div class="col-12 col-md-12">
-            <img class="w-100" src="{{ asset('img/tws/packs.png') }}">
-        </div>
-    </div>
+
 </div>

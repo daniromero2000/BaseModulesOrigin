@@ -34,7 +34,7 @@ class CartController extends Controller
         $courier = $this->courierRepo->getCourier();
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
-        return view('ecommerce::front.carts.cart', [
+        return view('layouts.front.carts.cart', [
             'cartItems'     => $this->cartRepo->getCartItemsTransformed(),
             'subtotal'      => $this->cartRepo->getSubTotal(),
             'tax'           => $this->cartRepo->getTax(),
