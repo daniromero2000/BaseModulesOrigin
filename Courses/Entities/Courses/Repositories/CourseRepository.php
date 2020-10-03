@@ -2,32 +2,38 @@
 
 namespace Modules\Courses\Entities\Courses\Repositories;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
 use Modules\Courses\Entities\Courses\Course;
-use Modules\Courses\Entities\Courses\Exceptions\CreateCourseErrorException;
+use Modules\Generals\Entities\Tools\UploadableTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Courses\Entities\Courses\Exceptions\CourseNotFoundException;
-use Modules\Courses\Entities\Courses\Exceptions\UpdateCourseErrorException;
+use Modules\Courses\Entities\Courses\Exceptions\CreateCourseErrorException;
 use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
 
 class CourseRepository implements CourseRepositoryInterface
 {
+    use UploadableTrait;
     protected $model;
     private $columns = [
         'id',
         'name',
         'cover',
-        'last_name',
+        'img_welcome',
+        'img_footer',
+        'img_button',
+        'slug',
+        'link',
         'is_active',
         'created_at'
     ];
 
     private $listColumns = [
         'id',
-        'cedula',
         'name',
-        'last_name',
+        'cover',
+        'slug',
         'is_active',
         'created_at'
     ];
@@ -41,8 +47,20 @@ class CourseRepository implements CourseRepositoryInterface
     {
         try {
             return  $this->model
-                ->orderBy('name', 'desc')
+                ->orderBy('id', 'asc')
                 ->skip($totalView)->take(30)
+                ->get($this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function listCoursesFront()
+    {
+        try {
+            return  $this->model
+                ->orderBy('name', 'asc')
+                ->where('is_active', '1')
                 ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -85,6 +103,16 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
+
+    public function findCourseBySlug($slug): Course
+    {
+        try {
+            return $this->model->where('slug', $slug)->first($this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new CourseNotFoundException($e);
+        }
+    }
+
     public function findTrashedCourseById(int $id): Course
     {
         try {
@@ -94,12 +122,19 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
-    public function updateCourse(array $params): bool
+    public function saveCoverImage(UploadedFile $file): string
     {
+        return $file->store('products', ['disk' => 'public']);
+    }
+
+    public function updateCourse(array $data): bool
+    {
+        $filtered = collect($data)->except('image')->all();
+
         try {
-            return $this->model->update($params);
+            return $this->model->where('id', $this->model->id)->update($filtered);
         } catch (QueryException $e) {
-            throw new UpdateCourseErrorException($e);
+            abort(503, $e->getMessage());
         }
     }
 

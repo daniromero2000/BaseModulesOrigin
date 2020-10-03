@@ -14,7 +14,7 @@ interface OrderRepositoryInterface
 
     public function findOrderById(int $id): Order;
 
-    public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection;
+    public function listOrders(int $totalView): Collection;
 
     public function findProducts(Order $order): Collection;
 

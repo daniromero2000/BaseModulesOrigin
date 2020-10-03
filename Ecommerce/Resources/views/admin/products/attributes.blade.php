@@ -82,11 +82,11 @@
                                                     <label for="pAattributeValue{{$pa->id}}{{ $attribute->id }}"
                                                         style="display: none; visibility: hidden"></label>
                                                     @if(!$attribute->values->isEmpty())
-                                                    <select name="pAattributeValue[]" id="pAattributeValue{{$pa->id}}{{ 
-                                                                                                $attribute->id }}"
+                                                    <select name="pAattributeValue[]"
+                                                        id="pAattributeValue{{$pa->id}}{{$attribute->id }}"
                                                         class="form-control select2" style="width: 100%" disabled>
                                                         @foreach($attribute->values as $attr)
-                                                        <option {{ $pa->attributes_values }} value="{{ $attr->id }}">
+                                                        <option value="{{ $attr->id }}">
                                                             {{ $attr->value }}</option>
                                                         @endforeach
                                                     </select>

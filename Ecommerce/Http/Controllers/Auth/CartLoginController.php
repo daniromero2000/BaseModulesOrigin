@@ -45,7 +45,7 @@ class CartLoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('ecommerce::front.carts.login');
+        return view('layouts.auth.login_customer');
     }
 
     /**

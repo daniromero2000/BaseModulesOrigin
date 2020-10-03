@@ -2,10 +2,10 @@
 
 namespace Modules\Courses\Entities\Students\Repositories;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
 use Modules\Courses\Entities\Students\Student;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Courses\Entities\Students\Exceptions\CreateStudentErrorException;
 use Modules\Courses\Entities\Students\Exceptions\StudentNotFoundException;
 use Modules\Courses\Entities\Students\Exceptions\UpdateStudentErrorException;
@@ -16,18 +16,34 @@ class StudentRepository implements StudentRepositoryInterface
     protected $model;
     private $columns = [
         'id',
-        'cedula',
+        'id_type',
+        'identification',
         'name',
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'start_date',
+        'end_date',
         'is_active',
-        'created_at'
     ];
 
     private $listColumns = [
         'id',
-        'cedula',
+        'id_type',
+        'identification',
         'name',
+        'last_name',
+        'position',
+        'email',
+        'phone',
+        'hotel_name',
+        'hotel_city',
+        'start_date',
+        'end_date',
         'is_active',
-        'created_at'
     ];
 
     public function __construct(Student $student)
@@ -39,7 +55,7 @@ class StudentRepository implements StudentRepositoryInterface
     {
         try {
             return  $this->model
-                ->orderBy('name', 'desc')
+                ->orderBy('id', 'asc')
                 ->skip($totalView)->take(30)
                 ->get($this->listColumns);
         } catch (QueryException $e) {
@@ -78,6 +94,15 @@ class StudentRepository implements StudentRepositoryInterface
     {
         try {
             return $this->model->findOrFail($id, $this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new StudentNotFoundException($e);
+        }
+    }
+
+    public function findStudentByIdentification(int $id)
+    {
+        try {
+            return $this->model->with('courses')->where('identification', $id)->get($this->columns);
         } catch (ModelNotFoundException $e) {
             throw new StudentNotFoundException($e);
         }

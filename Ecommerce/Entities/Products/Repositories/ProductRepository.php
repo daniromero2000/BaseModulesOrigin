@@ -25,20 +25,28 @@ class ProductRepository implements ProductRepositoryInterface
     use ProductTransformable, UploadableTrait;
     protected $model;
     private $columns = [
-        'id',
-        'sku',
-        'name',
-        'description',
-        'cover',
-        'quantity',
-        'price',
-        'is_active',
-        'brand_id',
-        'sale_price',
-        'slug',
-        'company_id',
-        'tax_id'
-    ];
+            'id',
+            'sku',
+            'name',
+            'description',
+            'cover',
+            'quantity',
+            'price',
+            'is_active',
+            'brand_id',
+            'sale_price',
+            'slug',
+            'company_id',
+            'tax_id'
+        ],
+
+        $listColumns = [
+            'id',
+            'sku',
+            'name',
+            'price',
+            'is_active',
+        ];
 
     public function __construct(Product $product)
     {
@@ -51,6 +59,17 @@ class ProductRepository implements ProductRepositoryInterface
             return  $this->model
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
+                ->get($this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function listProductsForExport()
+    {
+        try {
+            return  $this->model->with('attributes')
+                ->orderBy('id', 'desc')
                 ->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -71,7 +90,8 @@ class ProductRepository implements ProductRepositoryInterface
         $filtered = collect($data)->except('image')->all();
 
         try {
-            return $this->model->where('id', $this->model->id)->update($filtered);
+            return $this->model->where('id', $this->model->id)
+                ->update($filtered);
         } catch (QueryException $e) {
             throw new ProductUpdateErrorException($e);
         }
@@ -80,7 +100,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function updateSortOrder(array $data)
     {
         try {
-            return $this->model->where('id', $data['id'])->update($data);
+            return $this->model->where('id', $data['id'])
+                ->update($data);
         } catch (QueryException $e) {
             throw new ProductUpdateErrorException($e);
         }
@@ -89,8 +110,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductById(int $id): Product
     {
         try {
-            $data = $this->model->with(['reviews'])->findOrFail($id);
-            return $this->transformProduct($this->model->with(['reviews'])->findOrFail($id, $this->columns));
+            return $this->transformProduct($this->model->with(['reviews'])
+                ->findOrFail($id, $this->columns));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -99,7 +120,8 @@ class ProductRepository implements ProductRepositoryInterface
     public function findProductByIdFull(int $id): Product
     {
         try {
-            return $this->model->with(['attributes', 'reviews'])->findOrFail($id);
+            return $this->model->with(['attributes', 'reviews'])
+                ->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -113,7 +135,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function removeProduct(): bool
     {
-        return $this->model->where('id', $this->model->id)->delete();
+        return $this->model->where('id', $this->model->id)
+            ->delete();
     }
 
     public function detachCategories()
@@ -228,7 +251,8 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->whereHas('productGroups', function (Builder $query) use ($group) {
             $query->where('name', $group);
-        })->where('is_active', 1)->get($this->columns);;
+        })->where('is_active', 1)
+            ->get($this->columns);;
     }
 
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool
@@ -245,9 +269,10 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function listCombinations(): Collection
     {
-        return $this->model->attributes()->map(function (ProductAttribute $productAttribute) {
-            return $productAttribute->attributesValues;
-        });
+        return $this->model->attributes()
+            ->map(function (ProductAttribute $productAttribute) {
+                return $productAttribute->attributesValues;
+            });
     }
 
     public function findProductCombination(ProductAttribute $productAttribute)
@@ -280,25 +305,31 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function findOneByOrFail(array $data)
     {
-        return $this->model->with(['reviews'])->where($data)->firstOrFail($this->columns);
+        return $this->model->with(['reviews'])
+            ->where($data)
+            ->firstOrFail($this->columns);
     }
 
     public function duplicateProduct(Int $id)
     {
         $product = $this->findProductByIdFull($id);
+        $productAttributes = $product->attributes;
         $newProduct = $product->replicate();
         $newProduct->sku = rand(0, 10000000);
+        $newProduct->setRelations([]);
         $newProduct->push();
 
         //re-sync everything
-        foreach ($newProduct->attributes as $attributes => $values) {
-            try {
-                $newProduct->attributes()->save($values);
-            } catch (QueryException $th) {
-                dd($th);
+        foreach ($productAttributes as $attributes => $attribute) {
+            $newAttribute = $attribute->replicate();
+            $newProduct->attributes()->save($newAttribute);
+            foreach ($attribute->attributesValues as $attributeValues => $attributeValue) {
+                foreach ($newProduct->attributes as $key => $value) {
+                    $relation = $attributeValue->replicate();
+                }
+                $newAttribute->attributesValues()->save($relation);
             }
         }
-
         return $newProduct;
     }
 }

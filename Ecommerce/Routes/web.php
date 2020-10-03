@@ -29,6 +29,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
             Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
             Route::get('duplicate-product', 'ProductController@duplicateProduct')->name('product.duplicate');
+            Route::get('products-export', 'ProductController@exportProducts')->name('export.Products');
+            Route::post('products-import', 'ProductController@importProducts')->name('import.Products');
         });
 
         Route::namespace('Categories')->group(function () {

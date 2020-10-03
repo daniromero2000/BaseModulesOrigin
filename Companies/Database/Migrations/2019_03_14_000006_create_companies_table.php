@@ -23,9 +23,9 @@ class CreateCompaniesTable extends Migration
             $table->foreign('country_id')->references('id')->on('countries');
             $table->string('logo')->nullable()->default('Sin Logo');
             $table->string('timezone')->nullable();
+            $table->integer('currency_id')->unsigned();
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->tinyInteger('is_active')->unsigned()->default(1);
-            $table->integer('base_currency_id')->unsigned();
-            $table->foreign('base_currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

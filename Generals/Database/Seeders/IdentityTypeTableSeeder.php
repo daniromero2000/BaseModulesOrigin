@@ -10,7 +10,7 @@ class IdentityTypeTableSeeder extends Seeder
     public function run()
     {
         factory(IdentityType::class)->create([
-            'identity_type'  => 'Cedula de Ciudadanía',
+            'identity_type'  => 'Cédula de Ciudadanía',
         ]);
 
         factory(IdentityType::class)->create([

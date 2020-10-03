@@ -2,27 +2,30 @@
 
 namespace Modules\Ecommerce\Http\Controllers\Admin\Products;
 
-use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;
-use Modules\Ecommerce\Entities\AttributeValues\Repositories\AttributeValueRepositoryInterface;
-use Modules\Ecommerce\Entities\Brands\Repositories\Interfaces\BrandRepositoryInterface;
-use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute;
-use Modules\Ecommerce\Entities\Products\Product;
-use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
-use Modules\Ecommerce\Entities\Products\Requests\CreateProductRequest;
-use Modules\Ecommerce\Entities\Products\Requests\UpdateProductRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Database\QueryException;
-use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
-use Modules\Generals\Entities\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Ecommerce\Entities\Products\Product;
+use Modules\Generals\Entities\Tools\UploadableTrait;
+use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
+use Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute;
+use Modules\Ecommerce\Entities\Products\Requests\CreateProductRequest;
+use Modules\Ecommerce\Entities\Products\Repositories\ProductRepository;
+use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
+use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;
+use Modules\Ecommerce\Entities\Brands\Repositories\Interfaces\BrandRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use Modules\Ecommerce\Entities\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductGroups\Repositories\Interfaces\ProductGroupRepositoryInterface;
 use Modules\Ecommerce\Entities\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
-use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
+use Modules\Ecommerce\Entities\Products\Exports\ExportProductAttributes;
+use Modules\Ecommerce\Entities\Products\Exports\ExportProducts;
+use Modules\Ecommerce\Entities\Products\Imports\ImportProductAttributes;
 
 class ProductController extends Controller
 {
@@ -31,25 +34,25 @@ class ProductController extends Controller
     private $productAttribute, $brandRepo, $productGroupInterface, $productAttributeInterface;
 
     public function __construct(
-        ToolRepositoryInterface $toolRepositoryInterface,
-        ProductRepositoryInterface $productRepository,
-        CategoryRepositoryInterface $categoryRepository,
-        AttributeRepositoryInterface $attributeRepository,
-        AttributeValueRepositoryInterface $attributeValueRepository,
         ProductAttribute $productAttribute,
         BrandRepositoryInterface $brandRepository,
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ToolRepositoryInterface $toolRepositoryInterface,
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeValueRepositoryInterface $attributeValueRepository,
         ProductGroupRepositoryInterface $productGroupRepositoryInterface,
         ProductAttributeRepositoryInterface $productAttributeRepositoryInterface
     ) {
-        $this->toolsInterface           = $toolRepositoryInterface;
-        $this->productRepo              = $productRepository;
-        $this->categoryRepo             = $categoryRepository;
-        $this->attributeRepo            = $attributeRepository;
-        $this->attributeValueRepository = $attributeValueRepository;
-        $this->productAttribute         = $productAttribute;
-        $this->brandRepo                = $brandRepository;
-        $this->productGroupInterface    = $productGroupRepositoryInterface;
-        $this->productAttributeInterface         = $productAttributeRepositoryInterface;
+        $this->brandRepo                 = $brandRepository;
+        $this->productAttribute          = $productAttribute;
+        $this->productRepo               = $productRepository;
+        $this->categoryRepo              = $categoryRepository;
+        $this->attributeRepo             = $attributeRepository;
+        $this->toolsInterface            = $toolRepositoryInterface;
+        $this->attributeValueRepository  = $attributeValueRepository;
+        $this->productGroupInterface     = $productGroupRepositoryInterface;
+        $this->productAttributeInterface = $productAttributeRepositoryInterface;
         $this->middleware(['permission:products, guard:employee']);
     }
 
@@ -385,5 +388,20 @@ class ProductController extends Controller
             $res = $this->productRepo->updateSortOrder($value);
         }
         return $res;
+    }
+
+    public function exportProducts()
+    {
+        return Excel::download(new ExportProductAttributes(), 'products.xlsx');
+    }
+
+    public function importProducts(Request $request)
+    {
+        if ($request->hasFile('cover')) {
+
+            Excel::import(new ImportProductAttributes, $request->file('cover'));
+        }
+
+        return redirect()->back()->with('message', 'Datos Cargados Satisfactoriamente!');
     }
 }

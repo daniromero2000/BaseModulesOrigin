@@ -2,18 +2,25 @@
 
 namespace Modules\Courses\Entities\Courses\Repositories\Interfaces;
 
-use Modules\Courses\Entities\Courses\Course;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Modules\Courses\Entities\Courses\Course;
 
 interface CourseRepositoryInterface
 {
     public function listCourses(int $totalView);
 
+    public function listCoursesFront();
+
     public function createCourse(array $params): Course;
 
     public function findCourseById(int $id): Course;
 
+    public function findCourseBySlug($id): Course;
+
     public function findTrashedCourseById(int $id): Course;
+
+    public function saveCoverImage(UploadedFile $file): string;
 
     public function updateCourse(array $params): bool;
 

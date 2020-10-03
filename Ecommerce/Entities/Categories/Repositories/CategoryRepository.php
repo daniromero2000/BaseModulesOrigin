@@ -2,18 +2,17 @@
 
 namespace Modules\Ecommerce\Entities\Categories\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
-use Modules\Ecommerce\Entities\Categories\Category;
-use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryInvalidArgumentException;
-use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryNotFoundException;
-use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use Modules\Ecommerce\Entities\Products\Product;
-use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
-use Modules\Generals\Entities\Tools\UploadableTrait;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
+use Modules\Ecommerce\Entities\Products\Product;
+use Modules\Ecommerce\Entities\Categories\Category;
+use Modules\Generals\Entities\Tools\UploadableTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Modules\Ecommerce\Entities\Products\Transformations\ProductTransformable;
+use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryNotFoundException;
+use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryInvalidArgumentException;
+use Modules\Ecommerce\Entities\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {

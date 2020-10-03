@@ -17,8 +17,9 @@ class CreateCustomerReferencesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('customer_id')->unsigned()->index();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->integer('customer_phone_id')->unsigned()->index();
-            $table->foreign('customer_phone_id')->references('id')->on('customer_phones');
+            $table->string('name');
+            $table->string('last_name');
+            $table->string('phone');
             $table->integer('relationship_id')->unsigned()->index();
             $table->foreign('relationship_id')->references('id')->on('relationships');
             $table->tinyInteger('is_active')->unsigned()->default(1);

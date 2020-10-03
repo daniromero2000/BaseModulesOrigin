@@ -11,7 +11,7 @@
         <div class="scrollbar-inner scroll-content scroll-scrollx_visible scroll-scrolly_visible">
             <div class="sidenav-header d-flex align-items-center">
                 <a class="navbar-brand" href="/admin">
-                    <img src="{{asset('modules/generals/argonTemplate/img/brand/logo.png')}}"
+                    <img src="{{asset('modules/generals/argonTemplate/img/brand/logo_smart.png')}}"
                         class="navbar-brand-img" alt="Logo">
                 </a>
                 <div class="ml-auto">
