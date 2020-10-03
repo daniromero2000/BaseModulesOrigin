@@ -2,7 +2,6 @@
 
 namespace Modules\Ecommerce\Entities\Products;
 
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Ecommerce\Entities\Brands\Brand;
 use Modules\Ecommerce\Entities\Categories\Category;
 use Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute;

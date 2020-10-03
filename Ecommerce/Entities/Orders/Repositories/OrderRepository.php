@@ -115,6 +115,14 @@ class OrderRepository implements OrderRepositoryInterface
             'product_price' => $product->price,
             'product_attribute_id' => isset($data['product_attribute_id']) ? $data['product_attribute_id'] : null,
         ]);
+
+        if (isset($data['product_attribute_id'])) {
+            $attribute = $product->attributes->where('id', $data['product_attribute_id'])->first();
+            $product->attributes->where('id', $data['product_attribute_id'])->first();
+            $attribute->quantity = $attribute->quantity - $quantity;
+            $attribute->save();
+        }
+
         $product->quantity = ($product->quantity - $quantity);
         $product->save();
     }

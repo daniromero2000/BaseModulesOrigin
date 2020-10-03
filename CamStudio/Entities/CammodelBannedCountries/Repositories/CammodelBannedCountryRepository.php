@@ -8,7 +8,6 @@ use Modules\CamStudio\Entities\CammodelBannedCountries\Repositories\Interfaces\C
 use Modules\CamStudio\Entities\CammodelBannedCountries\Exceptions\CreateCammodelBannedCountryErrorException;
 use Illuminate\Support\Collection;
 
-
 class CammodelBannedCountryRepository implements CammodelBannedCountryInterface
 {
     protected $model;
@@ -34,18 +33,16 @@ class CammodelBannedCountryRepository implements CammodelBannedCountryInterface
 
     public function listCammodelBannedCountryies(): Collection
     {
-        return $this->model->with(['country','cammodel'])->get($this->columns);
+        return $this->model->with(['country', 'cammodel'])->get($this->columns);
     }
 
     public function searchParam(string $text): Collection
     {
-        
+
         if (!empty($text)) {
             return $this->model->searchParam($text);
         } else {
             return $this->listCammodelBannedCountryies(0);
         }
     }
-
-
 }

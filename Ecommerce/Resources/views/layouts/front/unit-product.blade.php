@@ -64,18 +64,10 @@
                                     <div class="container-sizes w-100" id="sizes">
                                         <input type="hidden" required name="productAttribute" id="productAttribute">
                                         @foreach($productAttributes as $productAttribute)
-                                        {{-- <input type="hidden" required value="{{$productAttribute->sale_price}}"
-                                        id="saleprice{{$productAttribute->id}}">sale
-
-                                        <input type="hidden" required value="{{$productAttribute->price}}"
-                                            id="price{{$productAttribute->id}}">price --}}
-
+                                        @if ($productAttribute->quantity > 0)
                                         @foreach($productAttribute->attributesValues as $key => $value)
                                         @if ($value->attribute->name == 'Talla')
                                         <input type="hidden" id="table" name="table" value="1">
-                                        {{-- <input type="hidden" required value="{{$product->id}}"
-                                        id="productId{{$productAttribute->id}}">product --}}
-
                                         <div class="sizes" id="sizes{{$productAttribute->id}}"
                                             onclick="addValue({{$productAttribute->id}})">
                                             <span class="m-auto" onclick="addValue({{$productAttribute->id}})">
@@ -84,6 +76,7 @@
                                         </div>
                                         @endif
                                         @endforeach
+                                        @endif
                                         @endforeach
                                     </div>
 
