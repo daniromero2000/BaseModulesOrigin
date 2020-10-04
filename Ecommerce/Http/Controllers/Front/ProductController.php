@@ -130,7 +130,7 @@ class ProductController extends Controller
 
     public function outlet()
     {
-        return view('ecommerce::front.products.outlet', [
+        return view('layouts.front.outlet.outlet', [
             'products' => $this->productRepo->listProductGroups('Outlet'),
             'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
         ]);
