@@ -23,7 +23,7 @@
                                 class="card-products-img lazy" alt="{{ $product->slug }}">
                         </a>
                         <div class="w-100">
-                            <h3 class="title-products"> {{$product->name}} </h3>
+                            <h3 style="text-transform: uppercase; padding: 0px 10%;" class="title-products"> {{$product->name}} </h3>
                         </div>
                         @if ($product->sale_price > 0)
                         <p class="price-old">

@@ -1,4 +1,4 @@
-<div class="{{ $background }}" id="carrousel-reset" style="display: none">
+<div class="{{ $background }}" id="carrousel-reset text-uppercase" style="display: none">
     <div class="text-center content-title-banner-products">
         <h3 class="title-interesing">
             {{$title}}

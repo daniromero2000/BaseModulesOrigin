@@ -37,6 +37,4 @@
         <a href="{{route('front.category.slug',$category->slug)}}" class="btn btn-secondary my-4">Restaurar</a>
         @endif
     </div>
-
-
 </form>

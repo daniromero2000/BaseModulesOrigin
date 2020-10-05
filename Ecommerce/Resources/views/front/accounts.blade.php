@@ -12,7 +12,7 @@
             @include('generals::layouts.errors-and-messages')
         </div>
         <div class="col-md-12">
-            <h5 style=" color: gray; "><i class="fas fa-user-circle"></i> Perfil - {{$customer->name}} </h5>
+            <h5 class="text-uppercase" style=" color: gray; "><i class="fas fa-user-circle"></i> Perfil </h5>
             <hr>
         </div>
     </div>
@@ -20,22 +20,22 @@
         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
             <li class="nav-item">
                 <a class="nav-link mb-sm-3 mb-md-0 @if(!request()->has('address2')) active @endif" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                    aria-controls="profile" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Perfil
+                    aria-controls="profile" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i> <i class="fas fa-id-card-alt"></i> Perfil
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mb-sm-3 mb-md-0" id="orders-tab" data-toggle="tab" href="#orders" role="tab"
-                    aria-controls="orders" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Pedidos
+                    aria-controls="orders" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i> <i class="fas fa-folder-open"></i> Pedidos
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mb-sm-3 mb-md-0" id="address-tab" data-toggle="tab" href="#address" role="tab"
-                    aria-controls="address" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Direcciones
+                    aria-controls="address" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i><i class="fas fa-map-marker-alt"></i> Direcciones
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link mb-sm-3 mb-md-0 @if (request()->has('address2')) active @endif" id="address-tab2" data-toggle="tab" href="#address2" role="tab"
-                    aria-controls="address2" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Lista de deseos
+                    aria-controls="address2" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i><i class="fab fa-gratipay"></i> Lista de deseos
                 </a>
             </li>
         </ul>
