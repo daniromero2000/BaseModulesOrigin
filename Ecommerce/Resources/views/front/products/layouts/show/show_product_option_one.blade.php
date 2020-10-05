@@ -62,9 +62,6 @@
                             @if(isset($productAttributes) && !$productAttributes->isEmpty())
                             <div class="w-100">
                                 <div class="form-group  mb-2">
-
-
-
                                     <div class="container-sizes w-100" id="sizes">
                                         <input type="hidden" required name="productAttribute" id="productAttribute">
                                         @foreach($productAttributes as $productAttribute)
