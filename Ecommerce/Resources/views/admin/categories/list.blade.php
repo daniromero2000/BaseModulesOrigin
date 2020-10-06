@@ -73,7 +73,8 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         @if(isset($category->cover))
-                        <img src="{{ asset("storage/$category->cover") }}" alt="" class=" img-fluid img-responsive">
+                        <img src="{{ asset("storage/$category->cover") }}" alt="$category->slug"
+                            class=" img-fluid img-responsive">
                         @endif
                     </div>
                 </div>

@@ -94,7 +94,7 @@
 <section class="content">
     @include('generals::layouts.errors-and-messages')
     <div class="card">
-      
+
         <div class="card-header">
             <div class="row w-100 mx-0 mt-3">
                 <div class="col-12">
@@ -118,7 +118,12 @@
                             </span>
                             <br>
                             Número Identificación: <span>
-                                <b>{{ $customer->customerIdentities[0]->identity_number}}</b></span>
+                                @if ($customer->customerIdentities->toArray())
+                                <b>{{  $customer->customerIdentities[0]->identity_number}}</b>
+                                @else
+                                <b>NA</b>
+                                @endif
+                            </span>
                             <br>
                             Número Teléfono: <span> <b>{{ $customer->customerPhones[0]->phone}}</b></span>
                             <br>
@@ -126,56 +131,60 @@
                         </div>
                         <div class="d-flex align-items-center flex-wrap col-md-6 text-right mb-3 ml-auto">
 
-                            <a href="{{route('admin.orders.invoice.generate', $order['id'])}}" class="flex-fill btn btn-primary btn-sm ">Descargar Factura</a>
+                            <a href="{{route('admin.orders.invoice.generate', $order['id'])}}"
+                                class="flex-fill btn btn-primary btn-sm ">Descargar Factura</a>
                             @if($currentStatus->id == 1)
-                                @if(!$orderShipment->isEmpty() && $orderShipment[0]->company_id == $user->subsidiary->company_id )
-                                    <a href="{{route('admin.order-shipments.show', $orderShipment[0]['id'])}}" class="flex-fill btn btn-primary btn-sm ">Ver Despacho </a>
-                                @else
-                                    <!-- Generar Despacho Button -->
-                                    <button type="button" class="flex-fill btn btn-primary btn-sm " data-toggle="modal"
-                                        data-target="#staticBackdrop">Crear Despacho</button>
-                                    <!-- Generar Despacho Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1"
-                                        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Crear Despacho</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {!! Form::open(['method' => 'POST','route' =>
-                                                    ['admin.order-shipments.store'],'style'=>'display:inline']) !!}
-                                                    {!! Form::hidden('order_id', $order['id']); !!}
-                                                    {!! Form::label('courier_id', 'Courier:', ['class' => 'control-label']) !!}
-                                                    {!! Form::select('courier_id', $couriers, $order['courier_id'],
-                                                    array('class' => 'form-control', 'multiple')) !!}
-                                                    <br>
-                                                    {!! Form::label('track_number', 'Numero de Guia:', ['class' =>
-                                                    'control-label']) !!}
-                                                    {!! Form::text('track_number', $order['tracking_number'], array('class' =>
-                                                    'form-control')); !!}
-                                                    {!! Form::hidden('total_qty', $cant); !!}
-                                                    {!! Form::hidden('total_weight', $weight); !!}
-                                                    <br>
-                                                    {!! Form::submit('Crear Despacho', ['class' => 'flex-fill btn btn-primary
-                                                    btn-sm']) !!}
-                                                    {!! Form::close() !!}
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
+                            @if(!$orderShipment->isEmpty() && $orderShipment[0]->company_id ==
+                            $user->subsidiary->company_id )
+                            <a href="{{route('admin.order-shipments.show', $orderShipment[0]['id'])}}"
+                                class="flex-fill btn btn-primary btn-sm ">Ver Despacho </a>
+                            @else
+                            <!-- Generar Despacho Button -->
+                            <button type="button" class="flex-fill btn btn-primary btn-sm " data-toggle="modal"
+                                data-target="#staticBackdrop">Crear Despacho</button>
+                            <!-- Generar Despacho Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1"
+                                role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Crear Despacho</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {!! Form::open(['method' => 'POST','route' =>
+                                            ['admin.order-shipments.store'],'style'=>'display:inline']) !!}
+                                            {!! Form::hidden('order_id', $order['id']); !!}
+                                            {!! Form::label('courier_id', 'Courier:', ['class' => 'control-label']) !!}
+                                            {!! Form::select('courier_id', $couriers, $order['courier_id'],
+                                            array('class' => 'form-control', 'multiple')) !!}
+                                            <br>
+                                            {!! Form::label('track_number', 'Numero de Guia:', ['class' =>
+                                            'control-label']) !!}
+                                            {!! Form::text('track_number', $order['tracking_number'], array('class' =>
+                                            'form-control')); !!}
+                                            {!! Form::hidden('total_qty', $cant); !!}
+                                            {!! Form::hidden('total_weight', $weight); !!}
+                                            <br>
+                                            {!! Form::submit('Crear Despacho', ['class' => 'flex-fill btn btn-primary
+                                            btn-sm']) !!}
+                                            {!! Form::close() !!}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                            </div>
                             @endif
-                            
+                            @endif
 
-                            <a href="{{ route('admin.customers.show', $customer->id) }}" class="flex-fill btn btn-primary btn-sm ">Ver cliente</a>
+
+                            <a href="{{ route('admin.customers.show', $customer->id) }}"
+                                class="flex-fill btn btn-primary btn-sm ">Ver cliente</a>
                         </div>
                     </div>
                 </div>

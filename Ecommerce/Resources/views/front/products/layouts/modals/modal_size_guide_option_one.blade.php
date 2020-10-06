@@ -158,14 +158,14 @@
                         pared:
                     </p>
                     <div class="mb-5" style=" max-width: 300px; margin: auto; ">
-                        <img class="img-fluid" src="{{ asset('img/FVN/paso1.png')}}" alt="">
+                        <img class="img-fluid" src="{{ asset('img/FVN/paso1.png')}}" alt="paso 1">
                     </div>
                     <p>
                         <b>2.</b> Marca con un lápiz (¡O pide ayuda!) desde tu talón hasta dónde llega el dedo más
                         largo:
                     </p>
                     <div class="mb-5" style=" max-width: 300px; margin: auto; ">
-                        <img class="img-fluid" src="{{ asset('img/FVN/paso2.png')}}" alt="">
+                        <img class="img-fluid" src="{{ asset('img/FVN/paso2.png')}}" alt="paso 2">
                     </div>
                     <p>
                         <b>3.</b> Mide la distancia del pie marcada en la hoja, desde el borde de la hoja hasta la punta
@@ -173,7 +173,7 @@
                         pie en centímetros (cm):
                     </p>
                     <div class="mb-5" style=" max-width: 300px; margin: auto; ">
-                        <img class="img-fluid" src="{{ asset('img/FVN/paso3.png')}}" alt="">
+                        <img class="img-fluid" src="{{ asset('img/FVN/paso3.png')}}" alt="paso 3">
                     </div>
                 </div>
             </div>

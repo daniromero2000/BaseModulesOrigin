@@ -325,7 +325,7 @@ class ProductRepository implements ProductRepositoryInterface
             $newProduct->attributes()->save($newAttribute);
             foreach ($attribute->attributesValues as $attributeValues => $attributeValue) {
                 foreach ($newProduct->attributes as $key => $value) {
-                    $relation = $attributeValue->replicate();
+                    $relation = $attributeValue;
                 }
                 $newAttribute->attributesValues()->save($relation);
             }

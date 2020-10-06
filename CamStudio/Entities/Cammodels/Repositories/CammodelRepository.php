@@ -49,16 +49,19 @@ class CammodelRepository implements CammodelInterface
             return $this->model->get($this->columns);
         }
 
-        return $this->model->searchEmployee($text)->get($this->columns);
+        return $this->model->searchEmployee($text)
+            ->get($this->columns);
     }
 
     public function searchTrashedCammodel(string $text = null): Collection
     {
         if (is_null($text)) {
-            return $this->model->onlyTrashed($text)->get($this->columns);
+            return $this->model->onlyTrashed($text)
+                ->get($this->columns);
         }
 
-        return $this->model->onlyTrashed()->get($this->columns);
+        return $this->model->onlyTrashed()
+            ->get($this->columns);
     }
 
     public function listCammodels(int $totalView)
@@ -111,7 +114,8 @@ class CammodelRepository implements CammodelInterface
         $filtered = collect($data)->except('image')->all();
 
         try {
-            return $this->model->where('id', $this->model->id)->update($filtered);
+            return $this->model->where('id', $this->model->id)
+                ->update($filtered);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
@@ -126,8 +130,6 @@ class CammodelRepository implements CammodelInterface
 
     public function syncCategories(array $params)
     {
-
-        // dd($this->model->categories()->sync($params));
         try {
             $this->model->categories()->sync($params);
         } catch (QueryException $e) {

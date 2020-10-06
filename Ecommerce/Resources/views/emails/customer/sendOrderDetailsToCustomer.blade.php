@@ -446,7 +446,7 @@
                 <div class="card-header text-center">
                     <div class="row">
                         <div class="col-md-4 text-left mr-auto">
-                            <img class="mb-2 w-100" src="http://www.fvn.com.co/img/fvn/logo.png" alt="feel-very-nice"
+                            <img class="mb-2 w-100" src="https://www.fvn.com.co/img/fvn/logo.png" alt="feel-very-nice"
                                 style=" max-width: 110px; ">
                             <h6>
                                 Feels Very Nice, Cl. 10 #15 - 94, Pereira, Risaralda
@@ -469,89 +469,96 @@
                         </div>
                         <div class="col-lg-4 col-md-5 ml-auto">
                             <div class="row mt-5">
-                                <div class="col-12">Fecha de la orden: {{$order->created_at}}</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-5 ml-auto">
-                            <div class="row mt-5">
-                                <div class="col-12">Método de pago: {{$order->payment_method}}</div>
+                                <div class="col-md-6">Fecha de la orden:</div>
+                                <div class="col-md-6">{{$order->created_at}}
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="table-responsive">
-                            <table class="table text-center">
-                                <thead class="bg-default">
-                                    <tr>
-                                        <th scope="col" class="text-center text-white">SKU</th>
-                                        <th scope="col" class="text-center text-white">Nompre Producto</th>
-                                        <th scope="col" class="text-center text-white">Descripción</th>
-                                        <th scope="col" class="text-center text-white">Cantidad</th>
-                                        <th scope="col" class="text-center text-white">Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($products as $product)
-                                    <tr>
-                                        <td>{{$product->sku}}</td>
-                                        <td>{{$product->name}}</td>
-                                        <td>
-                                            @php($pattr =
-                                            \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($product->pivot->product_attribute_id))
-                                            @if(!is_null($pattr))<br>
-                                            @foreach($pattr->attributesValues as $it)
-                                            <p class="label label-primary mb-1">{{ $it->attribute->name }} :
-                                                {{ $it->value }}</p>
-                                            @endforeach
-                                            @endif
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table text-center">
+                                    <thead class="bg-default">
+                                        <tr>
+                                            <th scope="col" class="text-center text-white">SKU</th>
+                                            <th scope="col" class="text-center text-white">Nompre Producto</th>
+                                            <th scope="col" class="text-center text-white">Descripción</th>
+                                            <th scope="col" class="text-center text-white">Cantidad</th>
+                                            <th scope="col" class="text-center text-white">Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($products as $product)
+                                        <tr>
+                                            <td>{{$product->sku}}</td>
+                                            <td>{{$product->name}}</td>
+                                            <td>
+                                                @php($pattr =
+                                                \Modules\Ecommerce\Entities\ProductAttributes\ProductAttribute::find($product->pivot->product_attribute_id))
+                                                @if(!is_null($pattr))<br>
+                                                @foreach($pattr->attributesValues as $it)
+                                                <p class="label label-primary mb-1">{{ $it->attribute->name }} :
+                                                    {{ $it->value }}</p>
+                                                @endforeach
+                                                @endif
 
-                                        </td>
-                                        <td>{{$product->pivot->quantity}}</td>
-                                        <td>{{config('cart.currency')}}
-                                            {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="4" class=" text-right h4">Subtotal <br><br>Envío <br><br>
-                                            Descuentos
-                                            <br><br>Impuestos <br><br>
-                                            Total </th>
-                                        <th class="text-right h4">{{config('cart.currency')}}
-                                            {{number_format($order->sub_total, 2)}} <br><br>
-                                            {{config('cart.currency')}} {{number_format($order->total_shipping, 2)}}
-                                            <br><br>
-                                            {{config('cart.currency')}} {{number_format($order->discounts, 2)}}
-                                            <br><br>
-                                            {{config('cart.currency')}} {{number_format($order->tax, 2)}} <br><br>
-                                            <strong>{{config('cart.currency')}}
-                                                {{number_format($order->grand_total, 2)}}</strong> </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                            </td>
+                                            <td>{{$product->pivot->quantity}}</td>
+                                            <td>{{config('cart.currency')}}
+                                                {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class=" text-right h4">Subtotal <br><br>Envío <br><br>
+                                                Descuentos
+                                                <br><br>Impuestos <br><br>
+                                                Total </th>
+                                            <th class="text-right h4">{{config('cart.currency')}}
+                                                {{number_format($order->sub_total, 2)}} <br><br>
+                                                {{config('cart.currency')}} {{number_format($order->total_shipping, 2)}}
+                                                <br><br>
+                                                {{config('cart.currency')}} {{number_format($order->discounts, 2)}}
+                                                <br><br>
+                                                {{config('cart.currency')}} {{number_format($order->tax, 2)}} <br><br>
+                                                <strong>{{config('cart.currency')}}
+                                                    {{number_format($order->grand_total, 2)}}</strong> </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer text-right">
-                <div class="col-md-5 ml-auto">
-                    <h5>¡Gracias!</h5>
-                    <p class="description">Si encuentra algún problema relacionado con la orden, puede contactarnos
-                        en:
-                    </p>
-                    <h6 class="d-block">
-                        email:
-                        <small class="text-muted">gerencia@fvn.com.co</small>
-                    </h6>
+                <div class="card-footer text-right">
+                    <div class="col-md-5 ml-auto">
+                        <h5>¡Gracias!</h5>
+                        <p class="description">Si encuentra algún problema relacionado con la orden, puede contactarnos
+                            en:
+                        </p>
+                        <h6 class="d-block">
+                            email:
+                            <small class="text-muted">gerencia@fvn.com.co</small>
+                        </h6>
+
+                    </div>
+                    <div class="w-100">
+                        <br>
+                        <p class="description">Recuerde que si su metodo de pago es <b>BALOTO</b> debe de hacer una
+                            consignación a la cuenta de ahorros Colpatria <b>#5782004631</b> a nombre de Emilia Estrada.
+                        </p>
+                        <p class="description">O si su metodo de pago es <b>EFECTY O GANA</b> debe de realisar un giro a
+                            nombre de Juliana Jaramillo <b>CC 42.138.544</b> Pereira.
+                        </p>
+                        <p class="description">Y enviar el correspondiente comprobante de pago al Wharsapp 3117192436
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 </body>

@@ -64,9 +64,11 @@
                                     @csrf
                                     <input type="hidden" name="_method" value="put">
                                     <div class="modal-body">
+
                                         <div class="form-group text-left">
                                             <div class="row">
                                                 @foreach($attributes as $attribute)
+
                                                 <div class="col-sm-6">
                                                     <div class="custom-control custom-checkbox mb-3">
                                                         <input class="custom-control-input pAattribute"
@@ -86,7 +88,13 @@
                                                         id="pAattributeValue{{$pa->id}}{{$attribute->id }}"
                                                         class="form-control select2" style="width: 100%" disabled>
                                                         @foreach($attribute->values as $attr)
-                                                        <option value="{{ $attr->id }}">
+                                                        @php $data = ''; foreach ($pa->attributesValues as $key =>
+                                                        $value) {
+                                                        $value->value == $attr->value ? $data = $attr->value : '';
+                                                        }
+                                                        @endphp
+                                                        <option value="{{ $attr->id }}"
+                                                            {{$data == $attr->value ? 'selected' : '' }}>
                                                             {{ $attr->value }}</option>
                                                         @endforeach
                                                     </select>

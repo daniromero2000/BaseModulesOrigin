@@ -88,7 +88,7 @@ class CheckoutController extends Controller
 
         $this->checkoutinterface->updateOrCreateCheckout($data);
 
-        return view('ecommerce::front.checkout', [
+        return view('layouts.front.checkout.checkout', [
             'customer'           => $customer,
             'countries'          => $this->countryRepo->listCountries(),
             'cities'             => $this->cityRepo->listCities(),

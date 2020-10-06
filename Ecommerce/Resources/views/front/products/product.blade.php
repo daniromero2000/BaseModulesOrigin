@@ -25,7 +25,7 @@
         </ol>
     </nav>
 </div>
-@include('ecommerce::layouts.front.unit-product')
+@include('ecommerce::front.products.layouts.show.show_product_option_one')
 @endsection
 @section('scripts')
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"

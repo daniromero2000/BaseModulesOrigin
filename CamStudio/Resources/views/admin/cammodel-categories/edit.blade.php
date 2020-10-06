@@ -83,8 +83,8 @@
                         @if(isset($category->cover))
                         <div class="card-body">
                             <div class="d-flex" style=" position: relative; ">
-                                <img src="{{ asset("storage/$category->cover") }}" alt="" class=" mx-auto img-fluid"
-                                    style="border-radius: 15px;max-height: 330px;">
+                                <img src="{{ asset("storage/$category->cover") }}" alt="{{$category->cover}}"
+                                    class=" mx-auto img-fluid" style="border-radius: 15px;max-height: 330px;">
                                 <br />
                                 <a onclick="return confirm('¿Estás Seguro?')"
                                     href="{{ route('admin.cammodel-categories.remove.image', ['category' => $category->id]) }}"

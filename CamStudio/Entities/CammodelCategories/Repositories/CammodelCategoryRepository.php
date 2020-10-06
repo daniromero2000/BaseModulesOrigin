@@ -53,7 +53,6 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
             ->get($this->columns)->except($except);
     }
 
-    
     public function listCammodelCategoriesSkip(int $totalView): Collection
     {
         try {
@@ -160,13 +159,16 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
 
     public function findCammodelsSkip($totalviews): Collection
     {
-        return $this->model->products->skip($totalviews)->take(30);
+        return $this->model->products
+            ->skip($totalviews)
+            ->take(30);
     }
 
     public function updateSortOrder(array $data)
     {
         try {
-            return $this->model->where('id', $data['id'])->update($data);
+            return $this->model->where('id', $data['id'])
+                ->update($data);
         } catch (QueryException $e) {
             dd($e);
         }
@@ -184,13 +186,15 @@ class CammodelCategoryRepository implements CammodelCategoryRepositoryInterface
 
     public function deleteFile(array $file, $disk = null): bool
     {
-        return $this->model->where('id',  $file['category'])->update(['cover' => null]);
+        return $this->model->where('id',  $file['category'])
+            ->update(['cover' => null]);
     }
 
     public function findCammodelCategoryBySlug(array $slug): CammodelCategory
     {
         try {
-            return $this->model->where('slug', $slug)->first($this->columns);
+            return $this->model->where('slug', $slug)
+                ->first($this->columns);
         } catch (ModelNotFoundException $e) {
             dd($e);
         }

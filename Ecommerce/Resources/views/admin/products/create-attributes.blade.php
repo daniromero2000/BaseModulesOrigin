@@ -33,8 +33,8 @@
         <div class="form-group">
             <label for="productAttributePrice" class="form-control-label">Precio Normal</label>
             <div class="input-group">
-                <input type="text" name="productAttributePrice" id="productAttributePrice" class="form-control"
-                    placeholder="Precio Normal" disabled>
+                <input type="text" name="productAttributePrice" id="productAttributePrice" value="{{$product->price}}"
+                    class="form-control" placeholder="Precio Normal" disabled>
             </div>
         </div>
     </div>

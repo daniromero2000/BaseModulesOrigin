@@ -11,7 +11,6 @@
 
   @yield('og')
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{asset('img/tws/favicon.png')}}" type="image/png">
   <link rel="stylesheet" href="{{ asset('css/front/app.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')}}">
@@ -68,4 +67,5 @@
           });
 </script>
 @include('layouts.front.footer')
+
 </html>

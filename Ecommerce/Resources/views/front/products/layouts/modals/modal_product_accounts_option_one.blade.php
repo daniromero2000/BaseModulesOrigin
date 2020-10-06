@@ -93,7 +93,7 @@
                                         <input type="text" id="qty_input{{$product->id}}" name="quantity"
                                             class="form-control form-control-sm text-center" value="1" min="1">
                                         <div class="input-group-prepend">
-                                            <button type="button" class="bg-white btn-sm plus-btn"
+                                            <button type="button" class="btn btn-sm plus-btn"
                                                 onclick="sumId({{$product->id}})"><i class="fa fa-plus"></i></button>
                                         </div>
                                         <input type="hidden" id="qty_input_real{{$product->id}}" class="" value="1"
@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="col-xl-12">
-                                <button type="button" onclick="addCart({{$product->id}},'2')"
+                                <button type="button" onclick="addCartWishlist({{$product->id}},{{  $data->id }},'2')"
                                     class="btn button-reset btn-block mx-auto mt-2">
                                     <i class="fas fa-cart-plus"></i> Agregar a carrito
                                 </button>
