@@ -2,9 +2,12 @@
 
 namespace Modules\Courses\Entities\CourseAttendances\Exports;
 
+use Carbon\Carbon;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Modules\Courses\Entities\CourseAttendances\CourseAttendance;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ExportCourseAttendances implements FromCollection, WithHeadings
 {
@@ -43,8 +46,26 @@ class ExportCourseAttendances implements FromCollection, WithHeadings
         ];
     }
 
+    /**
+     * @var Invoice $invoice
+     */
+    public function map($collection)
+    {
+        foreach ($collection as $key => $value) {
+            $date =  $value->created_at;
+            $date = (string) $date;
+            unset($value->created_at);
+            $value->date = (string) strval($date);
+        }
+
+        return $collection;
+    }
+
     public function collection()
     {
-        return CourseAttendance::get($this->columns);
+        $collection = CourseAttendance::get($this->columns);
+
+
+        return $this->map($collection);
     }
 }
