@@ -33,20 +33,6 @@ class EcommerceServiceProvider extends ServiceProvider
         } catch (\Exception $e) {
             //throw $th;
         }
-
-        // try {
-        //     $categories = Category::where('is_active', 1)->orderby('name', 'ASC')->get([
-        //         'id',
-        //         'name',
-        //         'slug',
-        //         'description',
-        //         'cover',
-        //         'is_active',
-        //     ]);
-        //     view()->share('categories', $categories);
-        // } catch (\Exception $e) {
-        //     //throw $th;
-        // }
     }
 
     /**

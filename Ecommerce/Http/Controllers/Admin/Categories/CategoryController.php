@@ -17,8 +17,9 @@ class CategoryController extends Controller
         CategoryRepositoryInterface $categoryRepository
     ) {
         $this->categoryRepo = $categoryRepository;
-        $this->middleware(['permission:categories, guard:employee']);
+        // $this->middleware(['permission:categories, guard:employee']);
     }
+
 
     public function index()
     {
