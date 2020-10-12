@@ -124,7 +124,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                @include('ecommerce::layouts.front.modal-product')
+                                                @include('ecommerce::front.products.layouts.modals.modal-product_option_one')
                                             </div>
                                         </div>
                                     </div>

@@ -86,12 +86,29 @@ class Product extends Model implements Buyable
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)
+            ->select([
+                'categories.id',
+                'categories.name',
+                'categories.slug',
+                'categories.description',
+                'categories.cover',
+                'categories.is_visible_on_front',
+                'categories.is_active',
+                'category_product.category_id'
+            ]);
     }
 
     public function productGroups()
     {
-        return $this->belongsToMany(ProductGroup::class);
+        return $this->belongsToMany(ProductGroup::class)
+            ->select([
+                'product_groups.id',
+                'product_groups.name',
+                'product_groups.is_visible_on_front',
+                'product_groups.is_active',
+                'product_product_group.product_group_id'
+            ]);
     }
 
     /**

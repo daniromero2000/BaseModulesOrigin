@@ -45,7 +45,7 @@ class CartLoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('layouts.auth.login_customer');
+        return view('layouts.front.auth.login_customer');
     }
 
     /**

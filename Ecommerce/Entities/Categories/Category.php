@@ -47,11 +47,27 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class)
             ->with('attributes:id,quantity,price,sale_price,default,product_id')
-            ->orderBy('sort_order', 'asc');
+            ->orderBy('sort_order', 'asc')
+            ->select([
+                'products.id',
+                'products.company_id',
+                'products.brand_id',
+                'products.sku',
+                'products.name',
+                'products.slug',
+                'products.cover',
+                'products.quantity',
+                'products.price',
+                'products.is_visible_on_front',
+                'products.sort_order',
+                'products.is_active'
+            ]);
     }
     public function countProducts()
     {
-        return $this->belongsToMany(Product::class)->select(DB::raw('products.id', 'is_active'))->where('is_active', 1);
+        return $this->belongsToMany(Product::class)
+            ->select(DB::raw('products.id', 'is_active'))
+            ->where('is_active', 1);
     }
 
     public function productsOrder()
@@ -62,11 +78,12 @@ class Category extends Model
 
     public function productsFilter($select, $totalviews)
     {
-        $data = $this->belongsToMany(Product::class)->whereHas('attributes', function (Builder $query) use ($select) {
-            $query->whereHas('attributesValues', function (Builder $query) use ($select) {
-                $query->whereIn('value', $select);
-            });
-        })->where('is_active', 1)->get();
+        $data = $this->belongsToMany(Product::class)
+            ->whereHas('attributes', function (Builder $query) use ($select) {
+                $query->whereHas('attributesValues', function (Builder $query) use ($select) {
+                    $query->whereIn('value', $select);
+                });
+            })->where('is_active', 1)->get();
 
         return [$data->skip($totalviews)->take(30), $data];
     }
