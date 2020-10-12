@@ -12,10 +12,12 @@
     "devDependencies": {
         "cross-env": "^5.1.4",
         "laravel-mix": "^4.0.7",
-        "laravel-mix-merge-manifest": "^0.1.2"
+        "laravel-mix-merge-manifest": "^0.1.2",
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "colorette": "^1.2.1",
-        "v8-compile-cache": "^2.1.1"
+        "v8-compile-cache": "^2.1.1",
+        "vue-agile": "^1.1.3"
     }
 }
