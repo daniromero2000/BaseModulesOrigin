@@ -20,8 +20,8 @@
                         @include('ecommerce::front.categories.layouts.sidebars.sidebar_category_option_one')
                     </nav>
                     <div class="sidebar-responsive">
-                        {{-- @include('ecommerce::front.categories.layouts.sidebars.sidebar_category_option_one',
-                        ['attributes' => $attributes]) --}}
+                        @include('ecommerce::front.categories.layouts.sidebars.sidebar_category_option_one',
+                        ['attributes' => $attributes])
                     </div>
                 </div>
                 <div class="col-lg-9 px-1 mx-auto">
