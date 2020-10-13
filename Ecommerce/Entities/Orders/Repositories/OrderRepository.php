@@ -147,7 +147,7 @@ class OrderRepository implements OrderRepositoryInterface
         if (!empty($text)) {
             return $this->model->searchForOrder($text)->get();
         } else {
-            return $this->listOrders();
+            return $this->listOrders(30);
         }
     }
 

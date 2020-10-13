@@ -19,7 +19,7 @@
 </style>
 @endsection
 @section('content')
-@include('ecommerce::front.categories.layouts.banners.banner_option_one')
+@include('ecommerce::front.categories.layouts.banners.banner_option_two')
 @include('ecommerce::front.categories.layouts.category_option_one')
 
 @if (!empty($bestSellers))
@@ -28,10 +28,10 @@
     interesar','background'=>'carrousel-reset'])
 </div>
 @endif
+@endsection
 
 @section('scripts')
 <script src="{{ asset('js/front/sidebar/sidebar.js') }}"></script>
-@endsection
 
 <script type="text/javascript">
     window.onload = (function(){

@@ -94,7 +94,19 @@ class Order extends Model
                 'product_description',
                 'product_price',
                 'product_attribute_id'
-            ])->where('company_id', auth()->guard('employee')->user()->subsidiary->company_id);
+            ])->where('company_id', auth()->guard('employee')->user()->subsidiary->company_id)
+            ->select([
+                'order_product.id',
+                'order_product.order_id',
+                'order_product.product_id',
+                'order_product.product_attribute_id',
+                'order_product.quantity',
+                'order_product.product_name',
+                'order_product.product_sku',
+                'order_product.product_description',
+                'order_product.product_price',
+                'order_product.coupon_code'
+            ]);
     }
 
     public function customer()
@@ -148,6 +160,7 @@ class Order extends Model
 
     public function orderShipment()
     {
-        return $this->hasMany(OrderShipping::class);
+        return $this->hasMany(OrderShipping::class)
+            ->select(['id', 'order_id', 'courier_id', 'employee_id', 'company_id', 'subsidiary_id', 'total_qty', 'total_weight', 'track_number', 'email_sent', 'created_at']);
     }
 }

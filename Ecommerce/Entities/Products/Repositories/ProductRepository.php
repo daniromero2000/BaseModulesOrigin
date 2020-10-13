@@ -252,7 +252,7 @@ class ProductRepository implements ProductRepositoryInterface
         return $this->model->whereHas('productGroups', function (Builder $query) use ($group) {
             $query->where('name', $group);
         })->where('is_active', 1)
-            ->get($this->columns);;
+            ->get($this->columns);
     }
 
     public function removeProductAttribute(ProductAttribute $productAttribute): ?bool
