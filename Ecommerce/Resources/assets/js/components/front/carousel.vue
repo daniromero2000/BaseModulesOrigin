@@ -122,12 +122,12 @@
   opacity: 0.75;
 }
 .slide img {
-  height: 100%;
+  max-height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
-  /* width: 100%; */
+  max-width: 100%;
 }
 </style>
     <script>
@@ -139,38 +139,49 @@ export default {
       asNavFor2: [],
       options1: {
         dots: false,
-        fade: true,
+        fade: false,
         navButtons: false,
       },
 
       options2: {
-        autoplay: true,
-        centerMode: true,
+        autoplay: false,
+        centerMode: false,
         dots: false,
         navButtons: false,
         slidesToShow: 3,
-        responsive: [
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 5,
-            },
-          },
+        infinito: false,
+        navButtons: true,
+        // responsive: [
+        //   {
+        //     breakpoint: 600,
+        //     settings: {
+        //       slidesToShow: 5,
+        //     },
+        //   },
 
-          {
-            breakpoint: 1000,
-            settings: {
-              navButtons: true,
-            },
-          },
-        ],
+        //   {
+        //     breakpoint: 1000,
+        //     settings: {
+        //       navButtons: true,
+        //     },
+        //   },
+        // ],
       },
 
       slides: [],
     };
   },
   created() {
-    this.slides = [this.cover];
+    var imagenes;
+    var data = this.slides;
+    data.push(this.cover);
+    var datas = [];
+    axios.get("api/getImages/44").then((response) => {
+      imagenes = response.data;
+      $.each(imagenes, function (key, value) {
+        data.push("http://192.168.0.17:8080/storage/" + value.src);
+      });
+    });
   },
   mounted() {
     this.asNavFor1.push(this.$refs.thumbnails);
