@@ -14,7 +14,7 @@ class AddBirthPlaceToCustomerTable extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->integer('birth_place_id')->unsigned()->index()->after('birthday')->default(1);
+            $table->integer('birth_place_id')->unsigned()->default(1)->nullable()->after('birthday');
             $table->foreign('birth_place_id')->references('id')->on('cities');
         });
     }
