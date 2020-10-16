@@ -134,6 +134,10 @@ class ProductController extends Controller
     public function getImages($id)
     {
         $product        =   $this->productRepo->findProductBySlug(['id' => $id]);
-        return json_encode($product->images);
+        $imagenes[0] =  'storage/' . $product->cover;
+        foreach ($product->images as $key => $value) {
+            $imagenes[$key + 1] =  'storage/' . $value->src;
+        }
+        return $imagenes;
     }
 }

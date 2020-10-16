@@ -132,7 +132,7 @@
 </style>
     <script>
 export default {
-  props: ["cover", "images"],
+  props: ["product"],
   data() {
     return {
       asNavFor1: [],
@@ -151,41 +151,39 @@ export default {
         slidesToShow: 3,
         infinito: false,
         navButtons: true,
-        // responsive: [
-        //   {
-        //     breakpoint: 600,
-        //     settings: {
-        //       slidesToShow: 5,
-        //     },
-        //   },
+        responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 5,
+            },
+          },
 
-        //   {
-        //     breakpoint: 1000,
-        //     settings: {
-        //       navButtons: true,
-        //     },
-        //   },
-        // ],
+          {
+            breakpoint: 1000,
+            settings: {
+              navButtons: true,
+            },
+          },
+        ],
       },
-
       slides: [],
     };
   },
   created() {
-    var imagenes;
     var data = this.slides;
-    data.push(this.cover);
-    var datas = [];
-    axios.get("api/getImages/44").then((response) => {
-      imagenes = response.data;
-      $.each(imagenes, function (key, value) {
-        data.push("http://192.168.0.17:8080/storage/" + value.src);
+    axios.get("api/getImages/" + this.product).then((response) => {
+      console.log(response.data);
+      $.each(response.data, function (key, value) {
+        data.push(value);
       });
     });
   },
   mounted() {
-    this.asNavFor1.push(this.$refs.thumbnails);
-    this.asNavFor2.push(this.$refs.main);
+    console.log(this.slides);
+
+    // this.asNavFor1.push(this.$refs.thumbnails);
+    // this.asNavFor2.push(this.$refs.main);
   },
 };
 </script>
