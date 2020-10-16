@@ -14,6 +14,9 @@ class AddEmailToCustomerReferencesTable extends Migration
     public function up()
     {
         Schema::table('customer_references', function (Blueprint $table) {
+            $table->string('name')->after('customer_id');
+            $table->string('last_name')->after('name');
+            $table->string('phone')->nullable()->after('name');
             $table->string('email')->nullable()->after('phone');
         });
     }
