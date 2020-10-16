@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPrefixToCustomerPhonesTable extends Migration
+class AddBirthPlaceToCustomerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddPrefixToCustomerPhonesTable extends Migration
      */
     public function up()
     {
-        Schema::table('customer_phones', function (Blueprint $table) {
-            $table->tinyInteger('prefix')->default(57)->nullable()->after('phone_type');
+        Schema::table('customers', function (Blueprint $table) {
+            $table->integer('birth_place_id')->unsigned()->index()->after('birthday');
+            $table->foreign('birth_place_id')->references('id')->on('cities');
         });
     }
 
@@ -25,7 +26,7 @@ class AddPrefixToCustomerPhonesTable extends Migration
      */
     public function down()
     {
-        Schema::table('customer_phones', function (Blueprint $table) {
+        Schema::table('customers', function (Blueprint $table) {
             //
         });
     }

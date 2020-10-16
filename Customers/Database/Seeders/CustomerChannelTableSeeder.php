@@ -50,6 +50,18 @@ class CustomerChannelTableSeeder extends Seeder
         ]);
 
         factory(CustomerChannel::class)->create([
+            'channel'  => 'XisfoPay',
+        ]);
+
+        factory(CustomerChannel::class)->create([
+            'channel'  => 'Lefemme',
+        ]);
+
+        factory(CustomerChannel::class)->create([
+            'channel'  => 'Nuevo',
+        ]);
+
+        factory(CustomerChannel::class)->create([
             'channel'  => 'Otro',
         ]);
     }

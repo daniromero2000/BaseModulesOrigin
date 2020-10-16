@@ -16,6 +16,7 @@ class CreateIdentityTypesTable extends Migration
         Schema::create('identity_types', function (Blueprint $table) {
             $table->Increments('id');
             $table->string('identity_type')->unique();
+            $table->string('initials')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

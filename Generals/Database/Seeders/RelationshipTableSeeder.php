@@ -75,8 +75,18 @@ class RelationshipTableSeeder extends Seeder
         ]);
 
         factory(Relationship::class)->create([
-            'relationship'  => 'Otro',
-            'reference_type_id' => 1
+            'relationship'  => 'Administrador',
+            'reference_type_id' => 3
+        ]);
+
+        factory(Relationship::class)->create([
+            'relationship'  => 'Contador',
+            'reference_type_id' => 3
+        ]);
+
+        factory(Relationship::class)->create([
+            'relationship'  => 'Representante Legal',
+            'reference_type_id' => 3
         ]);
     }
 }

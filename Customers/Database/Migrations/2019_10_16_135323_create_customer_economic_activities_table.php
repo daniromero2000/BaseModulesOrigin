@@ -17,12 +17,12 @@ class CreateCustomerEconomicActivitiesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('customer_id')->unsigned()->index();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->integer('economic_activity_type_id')->unsigned()->index();
+            $table->integer('economic_activity_type_id')->unsigned()->nullable();
             $table->foreign('economic_activity_type_id')->references('id')->on('economic_activity_types');
             $table->string('entity_name');
-            $table->integer('professions_list_id')->unsigned()->index();
+            $table->integer('professions_list_id')->unsigned()->nullable();
             $table->foreign('professions_list_id')->references('id')->on('professions_lists');
-            $table->date('start_date');
+            $table->date('start_date')->nullable();
             $table->integer('incomes')->default(0);
             $table->integer('other_incomes')->default(0);
             $table->text('other_incomes_source');
