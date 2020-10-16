@@ -65,7 +65,6 @@ class CustomerReferenceController extends Controller
         $customerReference = array(
             'customer_id'       => $requestData['customer_id'],
             'relationship_id'   => $requestData['relationship_id'],
-            'customer_phone_id' => $customerPhone->id
         );
 
         $reference = $this->customerReferenceInterface->createCustomerReference($customerReference);
