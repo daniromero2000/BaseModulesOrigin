@@ -2,6 +2,7 @@ require('./bootstrap');
 import Vuex from 'vuex'
 import Vue from 'vue'
 import VueAgile from 'vue-agile'
+import 'vueperslides/dist/vueperslides.css'
 import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

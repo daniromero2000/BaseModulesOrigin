@@ -111,6 +111,10 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="billing_address" value="{{ $billingAddress->id }}">
+            @if(request()->has('courier'))
+            <input type="hidden" name="courier" value="{{ request()->input('courier') }}">
+            @endif
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -127,9 +131,6 @@
                 <iframe style="width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;"
                     src="https://maf.pagosonline.net/ws/fp/tags.js?id=${{$deviceSessionId}}80200"></iframe>
             </noscript>
-            @if(!empty($address))
-            <input type="hidden" name="billingAddress" value="{{ $address->id }}" id="addressId">
-            @endif
             <div class="row mt-4">
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary btn-block">Pagar</button>
