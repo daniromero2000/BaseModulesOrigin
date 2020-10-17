@@ -150,7 +150,7 @@ class Customer extends Authenticatable
         return $this->hasMany(CustomerReference::class)
             ->whereIsActive(true)
             ->with(['customerPhone', 'relationship'])
-            ->select(['id', 'customer_id', 'customer_phone_id', 'relationship_id', 'is_active', 'created_at']);
+            ->select(['id', 'customer_id', 'relationship_id', 'is_active', 'created_at']);
     }
 
     public function customerEconomicActivities()

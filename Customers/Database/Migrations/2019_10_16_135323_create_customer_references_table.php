@@ -20,6 +20,7 @@ class CreateCustomerReferencesTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('phone');
+            $table->string('email')->nullable();
             $table->integer('relationship_id')->unsigned()->index();
             $table->foreign('relationship_id')->references('id')->on('relationships');
             $table->tinyInteger('is_active')->unsigned()->default(1);
