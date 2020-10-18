@@ -13,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::namespace('Front')->group(function () {
+    Route::get('getImages/{id}', 'ProductController@getImages');
+});

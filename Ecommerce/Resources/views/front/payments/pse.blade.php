@@ -70,7 +70,7 @@
             <iframe style="width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;"
                 src="https://maf.pagosonline.net/ws/fp/tags.js?id=${{$deviceSessionId}}80200"></iframe>
         </noscript>
-        <input type="hidden" name="billingAddress" value="{{ $billingAddress->id }}">
+        <input type="hidden" name="billing_address" value="{{ $billingAddress->id }}">
         @if(request()->has('courier'))
         <input type="hidden" name="courier" value="{{ request()->input('courier') }}">
         @endif

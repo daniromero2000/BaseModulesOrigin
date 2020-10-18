@@ -50,6 +50,7 @@ class ProductController extends Controller
         if (request()->has('item')) {
             dd(request()->input());
         }
+
         $product        =   $this->productRepo->findProductBySlug(['slug' => $slug]);
         $reviews        =   $product->reviews;
         $total_rating   =   0;
@@ -111,9 +112,10 @@ class ProductController extends Controller
             $x5 = round((($cant_5 * 100) / $cant_reviews), 1);
         }
         // agrego el promedio al objeto producto
+
         return view('layouts.front.products.show_product', [
             'product'               =>  $product,
-            'images'                =>  $product->images()->get(),
+            'images'                =>  $product->images,
             'bestSellers'           =>  $this->productRepo->listProductGroups('Nuevos'),
             'productAttributes'     =>  $product->attributes,
             'category'              =>  $product->categories()->first(),
@@ -124,15 +126,18 @@ class ProductController extends Controller
             'x2'                    =>  $x2,
             'x3'                    =>  $x3,
             'x4'                    =>  $x4,
-            'x5'                    =>  $x5
+            'x5'                    =>  $x5,
+            'imagenes'              => $product->images->toArray()
         ]);
     }
 
-    public function outlet()
+    public function getImages($id)
     {
-        return view('layouts.front.outlet.outlet', [
-            'products' => $this->productRepo->listProductGroups('Outlet'),
-            'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
-        ]);
+        $product        =   $this->productRepo->findProductBySlug(['id' => $id]);
+        $imagenes[0] =  'storage/' . $product->cover;
+        foreach ($product->images as $key => $value) {
+            $imagenes[$key + 1] =  'storage/' . $value->src;
+        }
+        return $imagenes;
     }
 }
