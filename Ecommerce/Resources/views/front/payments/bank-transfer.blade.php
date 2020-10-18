@@ -14,7 +14,7 @@
     @if ($billingAddress)
     <td>
         <form action="{{ route('bank-transfer.index') }}">
-            <input type="hidden" class="billing_address" name="billing_address" value=" {{$billingAddress->id}}">
+            <input type="hidden" class="billingAddress" name="billingAddress" value=" {{$billingAddress->id}}">
             <input type="hidden" class="rate" name="rate" value="">
             <input type="hidden" name="shipment_obj_id" value="{{ $shipment_object_id }}">
             <button type="submit" class="btn btn-warning pull-right">Pay with {{ ucwords($payment['name']) }} <i
@@ -23,7 +23,7 @@
     </td>
     <td>
         <form action="{{ route('bank-transfer.index') }}">
-            <input type="hidden" class="billing_address" name="billing_address" value=" {{$billingAddress->id}}">
+            <input type="hidden" class="billingAddress" name="billingAddress" value=" {{$billingAddress->id}}">
             <input type="hidden" class="rate" name="rate" value="">
             <input type="hidden" name="shipment_obj_id" value="{{ $shipment_object_id }}">
             <button type="submit" class="btn btn-warning pull-right">Pay with {{ ucwords($payment['name']) }} <i
