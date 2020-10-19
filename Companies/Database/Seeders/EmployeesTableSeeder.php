@@ -55,8 +55,8 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $modulePqrsStatuses       =  factory(Permission::class)->create([
-            'name'                => 'pqrs-statuses',
-            'display_name'        => 'Estados PQRS',
+            'name'                => 'pqrs_statuses',
+            'display_name'        => 'Estados_Pqrs',
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 3
         ]);
@@ -69,8 +69,8 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $moduleCustomerStatuses   =  factory(Permission::class)->create([
-            'name'                => 'customer-statuses',
-            'display_name'        => 'Estados Clientes',
+            'name'                => 'customer_statuses',
+            'display_name'        => 'Estados_Clientes',
             'icon'                => 'ni ni-favourite-28 text-purple',
             'permission_group_id' => 4
         ]);
@@ -89,9 +89,9 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 2
         ]);
 
-        $moduleCategories         =  factory(Permission::class)->create([
-            'name'                => 'categories',
-            'display_name'        => 'Categorías',
+        $moduleProductCategories  =  factory(Permission::class)->create([
+            'name'                => 'product_categories',
+            'display_name'        => 'Categorías_Productos',
             'icon'                => 'ni ni-books text-info',
             'permission_group_id' => 2
         ]);
@@ -166,21 +166,19 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 2
         ]);
 
-        $moduleCamModelCategories    =  factory(Permission::class)->create([
+        $moduleCamModelCategories =  factory(Permission::class)->create([
             'name'                => 'cam_model_categories',
             'display_name'        => 'Categorías_Modelos',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => 9
         ]);
 
-        $moduleCamModels    =  factory(Permission::class)->create([
+        $moduleCamModels          =  factory(Permission::class)->create([
             'name'                => 'cam_models',
             'display_name'        => 'Modelos',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => 9
         ]);
-
-
 
 
         /*Creacion Usuario Super Admin Desarrollo*/
@@ -204,7 +202,7 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleCustomerStatuses);
         $roleSuperRepo->attachToPermission($moduleActions);
         $roleSuperRepo->attachToPermission($moduleProducts);
-        $roleSuperRepo->attachToPermission($moduleCategories);
+        $roleSuperRepo->attachToPermission($moduleProductCategories);
         $roleSuperRepo->attachToPermission($moduleAttributes);
         $roleSuperRepo->attachToPermission($moduleBrands);
         $roleSuperRepo->attachToPermission($moduleOrders);
@@ -236,7 +234,7 @@ class EmployeesTableSeeder extends Seeder
         $roleAdminRepo->attachToPermission($moduleSubsidiaries);
         $roleAdminRepo->attachToPermission($moduleCustomerStatuses);
         $roleAdminRepo->attachToPermission($moduleProducts);
-        $roleAdminRepo->attachToPermission($moduleCategories);
+        $roleAdminRepo->attachToPermission($moduleProductCategories);
         $roleAdminRepo->attachToPermission($moduleAttributes);
         $roleAdminRepo->attachToPermission($moduleBrands);
         $roleAdminRepo->attachToPermission($moduleOrders);
