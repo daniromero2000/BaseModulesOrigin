@@ -121,7 +121,8 @@
 </div>
 <div class="col-xl-12 px-1">
     <button type="button" @auth data-toggle="modal" data-target="#produtcReviewModal" @endauth data-backdrop="static"
-        data-keyboard="false" id="triggerProductReviewModal" class="btn button-reset btn-block mx-auto mt-2 ">
+        data-keyboard="false" id="triggerProductReviewModal"
+        class="btn button-reset btn-block bg-warning-reset mx-auto mt-2 ">
         Calificar Producto @auth - <span class="selected-rating valid" ata-attr="">0</span><small> / 5</small>@endauth
     </button>
 </div>

@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Front')->group(function () {
     Route::get('getImages/{id}', 'ProductController@getImages');
+    Route::get('getAtributes/{id}', 'ProductController@getAtributes');
 });

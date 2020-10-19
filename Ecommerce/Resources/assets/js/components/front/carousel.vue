@@ -51,12 +51,14 @@
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   opacity: 0.7;
+  max-width: 100px;
 }
 .vueperslides--2 .vueperslide--active {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   opacity: 1;
   border-color: #000;
 }
+
 .vueperslides:not(.no-shadow):not(.vueperslides--3d)
   .vueperslides__parallax-wrapper:after,
 .vueperslides:not(.no-shadow):not(.vueperslides--3d)
@@ -77,16 +79,12 @@ export default {
   created() {
     var images = this.slider;
     axios.get("api/getImages/" + this.product).then((response) => {
-      console.log(response.data);
       $.each(response.data, function (key, value) {
-        console.log(response.data[key]);
         images.push(value);
       });
     });
   },
   mounted() {
-    console.log(this.slider);
-
     // this.asNavFor1.push(this.$refs.thumbnails);
     // this.asNavFor2.push(this.$refs.main);
   },

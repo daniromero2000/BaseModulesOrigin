@@ -14,6 +14,8 @@ Vue.use(VueAgile)
 Vue.component('list-category', require('./components/Generals/dragSortProducts.vue').default);
 Vue.component('sort-category', require('./components/Generals/dragSortCategory.vue').default);
 Vue.component('carrosel-template', require('./components/front/carousel.vue').default);
+Vue.component('atribute-component', require('./components/front/atributeComponent.vue').default);
+
 
 const app = new Vue({
     el: '#app',

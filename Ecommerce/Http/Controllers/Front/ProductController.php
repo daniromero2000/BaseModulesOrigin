@@ -140,4 +140,20 @@ class ProductController extends Controller
         }
         return $imagenes;
     }
+
+    public function getAtributes($id)
+    {
+        $product =  $this->productRepo->findProductBySlug(['id' => $id]);
+        $result = array();
+
+        foreach ($product->attributes as $key => $atribute) {
+            foreach ($atribute->attributesValues as $key => $attributes_value) {
+                if ($attributes_value->attribute->name == 'Color') {
+                    $atribute->color = $attributes_value->description;
+                    $result[$attributes_value->value][] = $atribute;
+                }
+            }
+        }
+        return $result;
+    }
 }

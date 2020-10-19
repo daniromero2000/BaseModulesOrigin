@@ -1,52 +1,44 @@
-<div class="col-md-12">@include('generals::layouts.errors-and-messages')</div>
-<div class="col-12 text-center mb-3">
-    <h2 style=" font-size: 20px; color: gray; ">Inicia sesión</h2>
-</div>
-<div class="col-xl-4 col-lg-5 col-md-7 col-sm-10 col-11">
-    <div class="row m-auto">
-        <div class="col-12">
-            <div class="text-center">
-                <img style="width: 100px;" src="{{ asset('img/tws/logo.png') }}" class="" alt="user login">
+@extends('layouts.front.app')
+@section('content')
+<section class="container content content-empty">
+    <div class="row my-5 mx-0 justify-content-between">
+        <div class="col-md-12">@include('generals::layouts.errors-and-messages')</div>
+        <div class="col-12 text-center mb-5">
+            <h2 style=" font-size: 22px; color: gray; ">Ingresa tu email para continuar la compra</h2>
+        </div>
+        <div class="col-md-6">
+            <form action="{{ route('cart.login') }}" method="post" class="form-horizontal">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="email" class="control-label">Email</label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control"
+                        placeholder="su@correo.com" autofocus>
+                </div>
+                <div class="row mx-0">
+                    <button class="btn btn-primary btn-block" type="submit">Continuar</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5">
+            <div class="my-4 my-md-1">
+                <h3 style=" font-size: 16px; color: gray; ">Guardamos tu email
+                    de manera 100% segura
+                    para:
+                </h3>
+                <ul style=" list-style: none; padding-left: 0; color: gray;font-size: 15px; ">
+                    <li class="my-2"><i class="far fa-user mx-2"></i> <span>Identificar cuando
+                            regreses</span>
+                    </li>
+                    <li class="my-2"><i class="far fa-bell mx-2"></i> <span>Notificar sobre tus
+                            pedidos</span> </li>
+                    <li class="my-2"><i class="fas fa-list-ul mx-2"></i> <span>Guardar el historial de
+                            compras</span> </li>
+                    <li class="my-2"><i class="far fa-envelope mx-2"></i> <span>Ofrecerte los productos
+                            que más te gustan</span> </li>
+                </ul> <i class="icon-lock"></i>
             </div>
         </div>
-    </div>
-    <form action="{{ route('login') }}" method="post" class="form-horizontal">
-        {{ csrf_field() }}
-        <div class="form-group">
-            {{-- <label for="email" class="control-label">Email</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control"
-                placeholder="su@correo.com" autofocus> --}}
-                <label for="email" class="control-label" style="color: gray;">Email</label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i style="color: #831448" class="fas fa-at"></i></div>
-                    </div>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}"
-                    class="form-control" placeholder="su@correo.com" autofocus>
-                </div>
-                {{-- <input type="email" id="email" name="email" value="{{ old('email') }}"
-                    class="form-control" placeholder="su@correo.com" autofocus> --}}
-        </div>
-        <div class="form-group">
-                <label for="password" style="color: gray;">Contraseña</label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i style="color: #831448" class="fas fa-key"></i></div>
-                    </div>
-                    <input type="password" name="password" id="password" value="" class="form-control"
-                    placeholder="****">
-                </div>
-                {{-- <input type="password" name="password" id="password" value="" class="form-control"
-                    placeholder="****"> --}}
-            </div>
-            <div class="row mx-0">
-                <button class="btn buton-login-modal btn-block" type="submit">Ingresar</button>
-            </div>
-    </form>
-    <div class="row mx-0 mt-3 justify-content-center">
-        {{-- <a href="{{ route('password.request') }}">I forgot my
-            password</a><br> --}}
-        <a class="link-register" href="{{ route('register') }}" class="text-center">¿No tienes cuenta? ¡Registrate!</a>
-    </div>
-</div>
 
+    </div>
+</section>
+@endsection
