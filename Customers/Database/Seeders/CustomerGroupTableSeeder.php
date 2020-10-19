@@ -27,7 +27,37 @@ class CustomerGroupTableSeeder extends Seeder
                 'code'            => 'wholesale',
                 'name'            => 'Wholesale',
                 'is_user_defined' => 0,
+            ], [
+                'id'              => 4,
+                'code'            => 'modelo',
+                'name'            => 'modelo',
+                'is_user_defined' => 0,
+            ],
+            [
+                'id'              => 5,
+                'code'            => 'estudio',
+                'name'            => 'estudio',
+                'is_user_defined' => 0,
+            ],
+            [
+                'id'              => 6,
+                'code'            => 'satelite_estudio',
+                'name'            => 'satelite_estudio',
+                'is_user_defined' => 0,
+            ],
+            [
+                'id'              => 7,
+                'code'            => 'empleado',
+                'name'            => 'empleado',
+                'is_user_defined' => 0,
+            ],
+            [
+                'id'              => 8,
+                'code'            => 'ecommerce',
+                'name'            => 'ecommerce',
+                'is_user_defined' => 0,
             ]
+
         ]);
     }
 }

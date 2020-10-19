@@ -15,7 +15,7 @@
         <form action="{{ route('checkout.store') }}" method="post" class="pull-right" id="payPalForm">
             {{ csrf_field() }}
             <input type="hidden" name="payment" value="{{ config('paypal.name') }}">
-            <input type="hidden" class="billing_address" name="billing_address" value="">
+            <input type="hidden" class="billingAddress" name="billingAddress" value="">
             <input type="hidden" class="delivery_address_id" name="delivery_address" value="">
             <input type="hidden" class="courier" name="courier" value="">
             <button onclick="return confirm('¿Estás Seguro?')" type="submit" class="btn btn-success pull-right">Pay with
@@ -25,12 +25,12 @@
 </tr>
 <script type="text/javascript">
     $(document).ready(function () {
-        let billingAddressId = $('input[name="billing_address"]:checked').val();
-        $('.billing_address').val(billingAddressId);
+        let billingAddressId = $('input[name="billingAddress"]:checked').val();
+        $('.billingAddress').val(billingAddressId);
 
-        $('input[name="billing_address"]').on('change', function () {
-          billingAddressId = $('input[name="billing_address"]:checked').val();
-          $('.billing_address').val(billingAddressId);
+        $('input[name="billingAddress"]').on('change', function () {
+          billingAddressId = $('input[name="billingAddress"]:checked').val();
+          $('.billingAddress').val(billingAddressId);
         });
 
         let courierRadioBtn = $('input[name="rate"]');

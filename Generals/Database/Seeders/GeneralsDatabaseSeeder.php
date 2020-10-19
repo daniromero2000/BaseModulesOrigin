@@ -32,6 +32,7 @@ class GeneralsDatabaseSeeder extends Seeder
         $this->call(MyProvincesTableSeeder::class);
         $this->call(MyCitiesTableSeeder::class);
         $this->call(EpsTableSeeder::class);
+        $this->call(BanksTableSeeder::class);
         $this->call(CurrencyTableSeeder::class);
     }
 }

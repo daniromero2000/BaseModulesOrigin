@@ -20,6 +20,8 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->date('birthday')->nullable();
+            $table->integer('birth_place_id')->unsigned()->default(1)->nullable();
+            $table->foreign('birth_place_id')->references('id')->on('cities');
             $table->integer('city_id')->unsigned()->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             $table->integer('scholarity_id')->unsigned()->default(4);

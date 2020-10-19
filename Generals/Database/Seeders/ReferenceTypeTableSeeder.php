@@ -18,6 +18,10 @@ class ReferenceTypeTableSeeder extends Seeder
         ]);
 
         factory(ReferenceType::class)->create([
+            'reference_type'  => 'Empresarial',
+        ]);
+
+        factory(ReferenceType::class)->create([
             'reference_type'  => 'Codeudor',
         ]);
 

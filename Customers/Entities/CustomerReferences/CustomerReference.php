@@ -15,7 +15,6 @@ class CustomerReference extends Model
 
     protected $fillable = [
         'customer_id',
-        'customer_phone_id',
         'relationship_id'
     ];
 

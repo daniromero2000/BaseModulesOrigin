@@ -16,7 +16,7 @@
         <form action="{{ route('checkout.execute') }}" method="post" class="pull-right" id="stripeForm">
             <input type="hidden" name="payment" value="{{ config('stripe.name') }}">
             <input type="hidden" name="stripeToken" value="">
-            <input type="hidden" class="billing_address" name="billing_address" value="">
+            <input type="hidden" class="billingAddress" name="billingAddress" value="">
             <input type="hidden" class="delivery_address_id" name="delivery_address" value="">
             <input type="hidden" class="courier" name="courier" value="">
             {{ csrf_field() }}
