@@ -252,5 +252,74 @@ class EcommerceOperativeActionsTableSeeder extends Seeder
             'action_id' => 69,
             'role_id' => 2
         ]);
+
+        // Permisos Acciones Módulo Wishlists
+        factory(ActionRole::class)->create([
+            'action_id' => 81,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 82,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 83,
+            'role_id' => 2
+        ]);
+
+        // Permisos Acciones Módulo Checkouts
+        factory(ActionRole::class)->create([
+            'action_id' => 84,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 85,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 86,
+            'role_id' => 2
+        ]);
+
+        // Permisos Acciones Módulo despachos
+        factory(ActionRole::class)->create([
+            'action_id' => 87,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 88,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 89,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 90,
+            'role_id' => 2
+        ]);
+
+        // Permisos Acciones Módulo Calificacion de productos
+        factory(ActionRole::class)->create([
+            'action_id' => 91,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 92,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 93,
+            'role_id' => 2
+        ]);
     }
 }

@@ -575,7 +575,7 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Acciones Módulo Empleados
+        // Acciones Módulo cursos
         factory(Action::class)->create([
             'permission_id' => 16,
             'name'          => 'Ver Cursos',
@@ -616,7 +616,7 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Acciones Módulo Empleados
+        // Acciones Módulo estudiantes
         factory(Action::class)->create([
             'permission_id' => 17,
             'name'          => 'Ver Estudiantes',
@@ -665,5 +665,114 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.course_attendances.index',
             'principal'     => 1
         ]);
+
+        // Acciones Módulo wishlists
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Ver Wishlists',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.wishlists.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Ver Wishlist',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.wishlists.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Borrar Wishlist',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.wishlists.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo Checkouts
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Ver Checkouts',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.checkouts.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Ver Checkout',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.checkouts.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Borrar Checkout',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.checkouts.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo despacho de ordenes
+        factory(Action::class)->create([
+            'permission_id' => 21,
+            'name'          => 'Ver Despachos',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.order-shipments.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 21,
+            'name'          => 'Editar Despacho',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.order-shipments.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 21,
+            'name'          => 'Ver Despacho',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.order-shipments.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 21,
+            'name'          => 'Borrar Despacho',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.order-shipments.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo calificacion de producto
+        factory(Action::class)->create([
+            'permission_id' => 22,
+            'name'          => 'Ver Calificaciones',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.product-reviews.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 22,
+            'name'          => 'Ver Calificacion',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.product-reviews.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 22,
+            'name'          => 'Borrar Calificacion',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.product-reviews.destroy',
+            'principal'     => 0
+        ]);
+
     }
 }

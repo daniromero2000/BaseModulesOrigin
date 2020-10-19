@@ -138,6 +138,34 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 5
         ]);
 
+        $moduleWishlists          =  factory(Permission::class)->create([
+            'name'                => 'wishlist',
+            'display_name'        => 'Wishlist',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleCheckouts          =  factory(Permission::class)->create([
+            'name'                => 'checkouts',
+            'display_name'        => 'Checkouts',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleOrderShipments     =  factory(Permission::class)->create([
+            'name'                => 'order_shipments',
+            'display_name'        => 'Despachos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleProductReviews     =  factory(Permission::class)->create([
+            'name'                => 'product_reviews',
+            'display_name'        => 'Calificación_Productos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
 
 
 
@@ -169,6 +197,10 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleCourses);
         $roleSuperRepo->attachToPermission($moduleStudents);
         $roleSuperRepo->attachToPermission($moduleCourseAttendances);
+        $roleSuperRepo->attachToPermission($moduleWishlists);
+        $roleSuperRepo->attachToPermission($moduleCheckouts);
+        $roleSuperRepo->attachToPermission($moduleOrderShipments);
+        $roleSuperRepo->attachToPermission($moduleProductReviews);
         $employee->roles()->save($super);
 
 
@@ -192,6 +224,10 @@ class EmployeesTableSeeder extends Seeder
         $roleAdminRepo->attachToPermission($moduleAttributes);
         $roleAdminRepo->attachToPermission($moduleBrands);
         $roleAdminRepo->attachToPermission($moduleOrders);
+        $roleAdminRepo->attachToPermission($moduleWishlists);
+        $roleAdminRepo->attachToPermission($moduleCheckouts);
+        $roleAdminRepo->attachToPermission($moduleOrderShipments);
+        $roleAdminRepo->attachToPermission($moduleProductReviews);
         $employee2->roles()->save($ecommerceOperative);
 
 
