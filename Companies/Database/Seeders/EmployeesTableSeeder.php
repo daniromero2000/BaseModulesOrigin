@@ -3,10 +3,7 @@
 namespace Modules\Companies\Database\Seeders;
 
 use Modules\Companies\Entities\Employees\Employee;
-use Modules\Companies\Entities\PermissionGroups\PermissionGroup;
 use Modules\Companies\Entities\Permissions\Permission;
-use Modules\Companies\Entities\Actions\Action;
-use Modules\Companies\Entities\ActionRole\ActionRole;
 use Modules\Companies\Entities\Roles\Repositories\RoleRepository;
 use Modules\Companies\Entities\Roles\Role;
 use Illuminate\Database\Seeder;
@@ -15,944 +12,254 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
-        $permissionGroupCamStudio = factory(PermissionGroup::class)->create([
-            'name'        => 'CamStudio',
-            'group_order' => 6
-        ]);
-
-        $permissionGroupCourses = factory(PermissionGroup::class)->create([
-            'name'        => 'Cursos',
-            'group_order' => 5
-        ]);
-
-        $permissionGroupAdmon = factory(PermissionGroup::class)->create([
-            'name'        => 'Administrativos',
-            'group_order' => 4
-        ]);
-
-        $permissionGroupCatalog = factory(PermissionGroup::class)->create([
-            'name'        => 'Ecommerce',
-            'group_order' => 2
-        ]);
-
-        $permissionGroupPqrs = factory(PermissionGroup::class)->create([
-            'name'        => 'Pqrs',
-            'group_order' => 3
-        ]);
-
-        $permissionGroupCustomers = factory(PermissionGroup::class)->create([
-            'name'        => 'Clientes',
-            'group_order' => 1
-        ]);
-
-        // Módulo Empleados
-        $moduleEmployees = factory(Permission::class)->create([
+        $moduleEmployees          =  factory(Permission::class)->create([
             'name'                => 'employees',
             'display_name'        => 'Empleados',
             'icon'                => 'ni ni-single-02 text-orange',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Empleados
-        factory(Action::class)->create([
-            'permission_id' => 1,
-            'name'          => 'Ver Empleados',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.employees.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 1,
-            'name'      => 'Crear Empleado',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.employees.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 1,
-            'name'          => 'Editar Empleado',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.employees.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 1,
-            'name'          => 'Ver Empleado',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.employees.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 1,
-            'name'          => 'Borrar Empleado',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.employees.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Ciudades
-        $moduleCities = factory(Permission::class)->create([
+        $moduleCities             =  factory(Permission::class)->create([
             'name'                => 'countries',
             'display_name'        => 'Ciudades',
             'icon'                => 'fas fa-flag',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Ciudades
-        factory(Action::class)->create([
-            'permission_id' => 2,
-            'name'          => 'Ver Ciudades',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.countries.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 2,
-            'name'          => 'Ver Ciudad',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.countries.show',
-            'principal'     => 0
-        ]);
-
-
-        // Módulo Sucursales
-        $moduleSubsidiaries = factory(Permission::class)->create([
+        $moduleSubsidiaries       =  factory(Permission::class)->create([
             'name'                => 'subsidiaries',
             'display_name'        => 'Sucursales',
             'icon'                => 'fas fa-map-marker',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Sucursales
-        factory(Action::class)->create([
-            'permission_id' => 3,
-            'name'          => 'Ver Sucursales',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.subsidiaries.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 3,
-            'name'          => 'Crear Sucursal',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.subsidiaries.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 3,
-            'name'          => 'Editar Sucursal',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.subsidiaries.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 3,
-            'name'          => 'Ver Sucursal',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.subsidiaries.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 3,
-            'name'          => 'Borrar Sucursal',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.subsidiaries.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Roles
-        $moduleRoles = factory(Permission::class)->create([
+        $moduleRoles              =  factory(Permission::class)->create([
             'name'                => 'roles',
             'display_name'        => 'Roles',
             'icon'                => 'fas fa-user-tag',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Roles
-        factory(Action::class)->create([
-            'permission_id' => 4,
-            'name'          => 'Ver Roles',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.roles.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 4,
-            'name'          => 'Crear Rol',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.roles.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 4,
-            'name'          => 'Editar Rol',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.roles.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 4,
-            'name'          => 'Ver Rol',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.roles.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 4,
-            'name'          => 'Borrar Rol',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.roles.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Permisos
-        $modulePermission = factory(Permission::class)->create([
+        $modulePermission         =  factory(Permission::class)->create([
             'name'                => 'permissions',
             'display_name'        => 'Permisos',
             'icon'                => 'fas fa-check-double',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Permisos
-        factory(Action::class)->create([
-            'permission_id' => 5,
-            'name'          => 'Ver Permisos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.permissions.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 5,
-            'name'          => 'Crear Permisos',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.permissions.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 5,
-            'name'          => 'Editar Permisos',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.permissions.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 5,
-            'name'          => 'Ver Permiso',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.permissions.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 5,
-            'name'          => 'Borrar Permiso',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.permissions.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo PQRS
-        $modulePqrs = factory(Permission::class)->create([
+        $modulePqrs               =  factory(Permission::class)->create([
             'name'                => 'pqrs',
             'display_name'        => 'PQR´s',
             'icon'                => 'fas fa-headset',
-            'permission_group_id' => $permissionGroupPqrs->id
+            'permission_group_id' => 3
         ]);
 
-        // Acciones Módulo PQRs
-        factory(Action::class)->create([
-            'permission_id' => 6,
-            'name'          => 'Ver PQR´s',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.pqrsdashboard',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 6,
-            'name'          => 'Crear PQR´s',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.pqrs.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 6,
-            'name'          => 'Editar PQR´s',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.pqrs.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 6,
-            'name'          => 'Ver PQR´s',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.pqrs.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 6,
-            'name'          => 'Borrar PQR´s',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.pqrs.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo PQRS Statuses
-        $modulePqrsStatuses = factory(Permission::class)->create([
-            'name'                => 'pqrs-statuses',
-            'display_name'        => 'Estados PQRS',
+        $modulePqrsStatuses       =  factory(Permission::class)->create([
+            'name'                => 'pqrs_statuses',
+            'display_name'        => 'Estados_Pqrs',
             'icon'                => 'fas fa-headset',
-            'permission_group_id' => $permissionGroupPqrs->id
+            'permission_group_id' => 3
         ]);
 
-        // Acciones Módulo PQRs
-        factory(Action::class)->create([
-            'permission_id' => 7,
-            'name'          => 'Ver Estados PQR´s',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.pqr-statuses.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 7,
-            'name'          => 'Crear Estado PQR',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.pqr-statuses.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 7,
-            'name'          => 'Editar Estado PQR',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.pqr-statuses.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 7,
-            'name'          => 'Borrar Estado PQR',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.pqr-statuses.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Customers
-        $moduleCustomers = factory(Permission::class)->create([
+        $moduleCustomers          =  factory(Permission::class)->create([
             'name'                => 'customers',
             'display_name'        => 'Clientes',
             'icon'                => 'ni ni-headphones text-blue',
-            'permission_group_id' => $permissionGroupCustomers->id
+            'permission_group_id' => 4
         ]);
 
-        // Acciones Módulo PQRs
-        factory(Action::class)->create([
-            'permission_id' => 8,
-            'name'          => 'Ver Clientes',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.customers.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 8,
-            'name'          => 'Crear Cliente',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.customers.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 8,
-            'name'          => 'Editar Cliente',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.customers.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 8,
-            'name'          => 'Ver Cliente',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.customers.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 8,
-            'name'          => 'Borrar Cliente',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.customers.destroy',
-            'principal'     => 0
-        ]);
-
-
-        // Módulo Customers Statuses
-        $moduleCustomerStatuses = factory(Permission::class)->create([
-            'name'                => 'customer-statuses',
-            'display_name'        => 'Estados Clientes',
+        $moduleCustomerStatuses   =  factory(Permission::class)->create([
+            'name'                => 'customer_statuses',
+            'display_name'        => 'Estados_Clientes',
             'icon'                => 'ni ni-favourite-28 text-purple',
-            'permission_group_id' => $permissionGroupCustomers->id
+            'permission_group_id' => 4
         ]);
 
-        factory(Action::class)->create([
-            'permission_id' => 9,
-            'name'          => 'Ver Estados Cliente',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.customer-statuses.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 9,
-            'name'          => 'Crear Estado Ciente',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.customer-statuses.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 9,
-            'name'          => 'Editar Estado Cliente',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.customer-statuses.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 9,
-            'name'          => 'Borrar Estado Cliente',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.customer-statuses.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Acciones
-        $moduleActions = factory(Permission::class)->create([
+        $moduleActions            =  factory(Permission::class)->create([
             'name'                => 'actions',
             'display_name'        => 'Acciones',
             'icon'                => 'ni ni-favourite-28 text-purple',
-            'permission_group_id' => $permissionGroupAdmon->id
+            'permission_group_id' => 1
         ]);
 
-        // Acciones Módulo Acciones
-        factory(Action::class)->create([
-            'permission_id' => 10,
-            'name'          => 'Ver Acciones',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.actions.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 10,
-            'name'          => 'Crear Acción',
-            'icon'          => 'fas fa-plus',
-            'route'         => 'admin.actions.create',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 10,
-            'name'          => 'Editar Acción',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.actions.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 10,
-            'name'          => 'Ver Acción',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.actions.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 10,
-            'name'          => 'Borrar Acción',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.actions.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Productos
-        $moduleProducts = factory(Permission::class)->create([
+        $moduleProducts           =  factory(Permission::class)->create([
             'name'                => 'products',
             'display_name'        => 'Productos',
             'icon'                => 'ni ni-shop text-red',
-            'permission_group_id' => $permissionGroupCatalog->id
+            'permission_group_id' => 2
         ]);
 
-        // Acciones Módulo Productos
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Ver Productos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.products.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'      => 'Crear Producto',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.products.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Editar Producto',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.products.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Ver Producto',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.Products.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Borrar Producto',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.product.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Categorías
-        $moduleCategories = factory(Permission::class)->create([
-            'name'                => 'categories',
-            'display_name'        => 'Categorías',
+        $moduleProductCategories  =  factory(Permission::class)->create([
+            'name'                => 'product_categories',
+            'display_name'        => 'Categorías_Productos',
             'icon'                => 'ni ni-books text-info',
-            'permission_group_id' => $permissionGroupCatalog->id
+            'permission_group_id' => 2
         ]);
 
-        // Acciones Módulo Categorías
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Ver Categorías',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.categories.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'      => 'Crear Categoría',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.categories.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Editar Categoría',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.categories.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Ver Categoría',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.categories.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Borrar Categoría',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.categories.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Atributos
-        $moduleAttributes = factory(Permission::class)->create([
+        $moduleAttributes         =  factory(Permission::class)->create([
             'name'                => 'attributes',
             'display_name'        => 'Atributos',
             'icon'                => 'fas fa-user',
-            'permission_group_id' => $permissionGroupCatalog->id
+            'permission_group_id' => 2
         ]);
 
-        // Acciones Módulo Atributos
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Ver Atributos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.attributes.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'      => 'Crear Atributo',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.attributes.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Editar Atributo',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.attributes.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Ver Atributo',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.attributes.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Borrar Atributo',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.attributes.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Brands
-        $moduleBrands = factory(Permission::class)->create([
+        $moduleBrands             =  factory(Permission::class)->create([
             'name'                => 'brands',
             'display_name'        => 'Marcas',
             'icon'                => 'fas fa-user',
-            'permission_group_id' => $permissionGroupCatalog->id
+            'permission_group_id' => 2
         ]);
 
-        // Acciones Módulo Atributos
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Ver Marcas',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.brands.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'      => 'Crear Marca',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.brands.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Editar Marca',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.brands.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Ver Marca',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.brands.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Borrar Marca',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.brands.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Brands
-        $moduleOrders = factory(Permission::class)->create([
+        $moduleOrders             =  factory(Permission::class)->create([
             'name'                => 'orders',
             'display_name'        => 'Ordenes',
             'icon'                => 'fas fa-user',
-            'permission_group_id' => $permissionGroupCatalog->id
+            'permission_group_id' => 2
         ]);
 
-        // Acciones Módulo Atributos
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Ver Ordenes',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.orders.index',
-            'principal'     => 1
-        ]);
-
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Editar Orden',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.orders.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Ver Orden',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.orders.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Borrar Orden',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.orders.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Cursos
-        $moduleCourses = factory(Permission::class)->create([
+        $moduleCourses            =  factory(Permission::class)->create([
             'name'                => 'courses',
             'display_name'        => 'Cursos',
             'icon'                => 'ni ni-single-02 text-orange',
-            'permission_group_id' => $permissionGroupCourses->id
+            'permission_group_id' => 5
         ]);
 
-        // Acciones Módulo Empleados
-        factory(Action::class)->create([
-            'permission_id' => 16,
-            'name'          => 'Ver Cursos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.courses.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 16,
-            'name'      => 'Crear Curso',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.courses.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 16,
-            'name'          => 'Editar Curso',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.courses.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 16,
-            'name'          => 'Ver Curso',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.courses.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 16,
-            'name'          => 'Borrar Curso',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.courses.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Estudiantes
-        $moduleStudents = factory(Permission::class)->create([
+        $moduleStudents           =  factory(Permission::class)->create([
             'name'                => 'students',
             'display_name'        => 'Estudiantes',
             'icon'                => 'ni ni-single-02 text-orange',
-            'permission_group_id' => $permissionGroupCourses->id
+            'permission_group_id' => 5
         ]);
 
-        // Acciones Módulo Empleados
-        factory(Action::class)->create([
-            'permission_id' => 17,
-            'name'          => 'Ver Estudiantes',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.students.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 17,
-            'name'      => 'Crear Estudiante',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.students.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 17,
-            'name'          => 'Editar Estudiante',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.students.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 17,
-            'name'          => 'Ver Estudiante',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.students.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 17,
-            'name'          => 'Borrar Estudiante',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.students.destroy',
-            'principal'     => 0
-        ]);
-
-        // Módulo Asistencias
-        $moduleCourseAttendances = factory(Permission::class)->create([
+        $moduleCourseAttendances  =  factory(Permission::class)->create([
             'name'                => 'course_attendances',
             'display_name'        => 'Asistencias',
             'icon'                => 'ni ni-single-02 text-orange',
-            'permission_group_id' => $permissionGroupCourses->id
+            'permission_group_id' => 5
         ]);
 
-        // Acciones Módulo Asistencias Cursos
-        factory(Action::class)->create([
-            'permission_id' => 18,
-            'name'          => 'Ver Asistencias',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.course_attendances.index',
-            'principal'     => 1
+        $moduleWishlists          =  factory(Permission::class)->create([
+            'name'                => 'wishlist',
+            'display_name'        => 'Wishlist',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
         ]);
+
+        $moduleCheckouts          =  factory(Permission::class)->create([
+            'name'                => 'checkouts',
+            'display_name'        => 'Checkouts',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleOrderShipments     =  factory(Permission::class)->create([
+            'name'                => 'order_shipments',
+            'display_name'        => 'Despachos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleProductReviews     =  factory(Permission::class)->create([
+            'name'                => 'product_reviews',
+            'display_name'        => 'Calificación_Productos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 2
+        ]);
+
+        $moduleCamModelCategories =  factory(Permission::class)->create([
+            'name'                => 'cam_model_categories',
+            'display_name'        => 'Categorías_Modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
+        $moduleCamModels          =  factory(Permission::class)->create([
+            'name'                => 'cam_models',
+            'display_name'        => 'Modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
+
+        /*Creacion Usuario Super Admin Desarrollo*/
+        $employee          =  factory(Employee::class)->create([
+            'email'        => 'desarrollo@smartcommerce.com.co'
+        ]);
+
+        $super             =  factory(Role::class)->create([
+            'name'         => 'superadmin',
+            'display_name' => 'Super Admin'
+        ]);
+
+        $roleSuperRepo =  new RoleRepository($super);
+        $roleSuperRepo->attachToPermission($moduleEmployees);
+        $roleSuperRepo->attachToPermission($moduleCities);
+        $roleSuperRepo->attachToPermission($moduleRoles);
+        $roleSuperRepo->attachToPermission($modulePermission);
+        $roleSuperRepo->attachToPermission($modulePqrs);
+        $roleSuperRepo->attachToPermission($modulePqrsStatuses);
+        $roleSuperRepo->attachToPermission($moduleCustomers);
+        $roleSuperRepo->attachToPermission($moduleCustomerStatuses);
+        $roleSuperRepo->attachToPermission($moduleActions);
+        $roleSuperRepo->attachToPermission($moduleProducts);
+        $roleSuperRepo->attachToPermission($moduleProductCategories);
+        $roleSuperRepo->attachToPermission($moduleAttributes);
+        $roleSuperRepo->attachToPermission($moduleBrands);
+        $roleSuperRepo->attachToPermission($moduleOrders);
+        $roleSuperRepo->attachToPermission($moduleCourses);
+        $roleSuperRepo->attachToPermission($moduleStudents);
+        $roleSuperRepo->attachToPermission($moduleCourseAttendances);
+        $roleSuperRepo->attachToPermission($moduleWishlists);
+        $roleSuperRepo->attachToPermission($moduleCheckouts);
+        $roleSuperRepo->attachToPermission($moduleOrderShipments);
+        $roleSuperRepo->attachToPermission($moduleProductReviews);
+        $roleSuperRepo->attachToPermission($moduleCamModelCategories);
+        $roleSuperRepo->attachToPermission($moduleCamModels);
+        $employee->roles()->save($super);
+
+
+        /*Creacion Usuario Administracion Ecommerce*/
+        $employee2          = factory(Employee::class)->create([
+            'email'         => 'gerencia@fvn.com.co'
+        ]);
+
+        $ecommerceOperative = factory(Role::class)->create([
+            'name'          => 'ecommerce_admin',
+            'display_name'  => 'Admin Ecommerce'
+        ]);
+
+        $roleAdminRepo = new RoleRepository($ecommerceOperative);
+        $roleAdminRepo->attachToPermission($moduleEmployees);
+        $roleAdminRepo->attachToPermission($moduleCities);
+        $roleAdminRepo->attachToPermission($moduleSubsidiaries);
+        $roleAdminRepo->attachToPermission($moduleCustomerStatuses);
+        $roleAdminRepo->attachToPermission($moduleProducts);
+        $roleAdminRepo->attachToPermission($moduleProductCategories);
+        $roleAdminRepo->attachToPermission($moduleAttributes);
+        $roleAdminRepo->attachToPermission($moduleBrands);
+        $roleAdminRepo->attachToPermission($moduleOrders);
+        $roleAdminRepo->attachToPermission($moduleWishlists);
+        $roleAdminRepo->attachToPermission($moduleCheckouts);
+        $roleAdminRepo->attachToPermission($moduleOrderShipments);
+        $roleAdminRepo->attachToPermission($moduleProductReviews);
+        $employee2->roles()->save($ecommerceOperative);
+
 
         /*Creacion Usuario admin cursos*/
-        $coursEemployee = factory(Employee::class)->create([
-            'email' => 'admin@educorp.com'
+        $coursEemployee    =  factory(Employee::class)->create([
+            'email'        => 'admin@educorp.com'
         ]);
 
-        $courseadmin = factory(Role::class)->create([
+        $courseadmin       =  factory(Role::class)->create([
             'name'         => 'courses_admin',
             'display_name' => 'Administador de Cursos'
         ]);
 
         $rolecourseadmin = new RoleRepository($courseadmin);
-
-        // Permiso Módulo Empleados
         $rolecourseadmin->attachToPermission($moduleEmployees);
-        // Permisos Acciones Módulo Empleados
-        factory(ActionRole::class)->create([
-            'action_id' => 1,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 2,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 3,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 4,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 5,
-            'role_id'   => 1
-        ]);
-
-        // Permiso Módulo Cursos
         $rolecourseadmin->attachToPermission($moduleCourses);
-        // Permisos Acciones Módulo Cursos
-        factory(ActionRole::class)->create([
-            'action_id' => 70,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 71,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 72,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 73,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 74,
-            'role_id'   => 1
-        ]);
-
-        // Permiso Módulo Cursos
         $rolecourseadmin->attachToPermission($moduleStudents);
-        // Permisos Acciones Módulo Cursos
-        factory(ActionRole::class)->create([
-            'action_id' => 75,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 76,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 77,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 78,
-            'role_id'   => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 79,
-            'role_id'   => 1
-        ]);
-
-        // Permiso Módulo Cursos
         $rolecourseadmin->attachToPermission($moduleCourseAttendances);
-        // Permisos Acciones Módulo Cursos
-        factory(ActionRole::class)->create([
-            'action_id' => 80,
-            'role_id'   => 1
-        ]);
-
         $coursEemployee->roles()->save($courseadmin);
     }
 }

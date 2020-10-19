@@ -2,18 +2,13 @@
 
 namespace Modules\Ecommerce\Entities\Orders\Repositories;
 
-use Modules\Ecommerce\Entities\Carts\Repositories\CartRepository;
-use Modules\Ecommerce\Entities\Carts\ShoppingCart;
 use Modules\Ecommerce\Entities\Shoppingcart\Facades\Cart;
 use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
-use Modules\Ecommerce\Events\OrderCreateEvent;
 use Modules\Ecommerce\Mail\SendEmailNotificationToAdminMailable;
 use Modules\Ecommerce\Mail\SendOrderToCustomerMailable;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderInvalidArgumentException;
 use Modules\Ecommerce\Entities\Orders\Exceptions\OrderNotFoundException;
-use Modules\Ecommerce\Entities\Addresses\Address;
-use Modules\Ecommerce\Entities\Couriers\Courier;
 use Modules\Ecommerce\Entities\Orders\Order;
 use Modules\Ecommerce\Entities\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use Modules\Ecommerce\Entities\Orders\Transformers\OrderTransformable;

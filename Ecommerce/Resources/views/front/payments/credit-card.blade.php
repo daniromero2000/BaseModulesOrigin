@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="billing_address" value="{{ $billingAddress->id }}">
+            <input type="hidden" name="billingAddress" value="{{ $billingAddress->id }}">
             @if(request()->has('courier'))
             <input type="hidden" name="courier" value="{{ request()->input('courier') }}">
             @endif
