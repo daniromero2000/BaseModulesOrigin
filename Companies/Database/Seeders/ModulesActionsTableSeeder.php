@@ -774,5 +774,87 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
+        // Acciones Módulo Categorias modelos
+        factory(Action::class)->create([
+            'permission_id' => 23,
+            'name'          => 'Ver Categorías Modelos',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.cammodel-categories.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 23,
+            'name'      => 'Crear Categoría Modelo',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.cammodel-categories.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 23,
+            'name'          => 'Editar Categoría Modelo',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.cammodel-categories.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 23,
+            'name'          => 'Ver Categoría Modelo',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.cammodel-categories.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 23,
+            'name'          => 'Borrar Categoría Modelo',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.cammodel-categories.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo modelos
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'          => 'Ver Modelos',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.cammodels.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'      => 'Crear Modelo',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.cammodels.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'          => 'Editar Modelo',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.cammodels.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'          => 'Ver Modelo',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.cammodels.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'          => 'Borrar Modelo',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.cammodels.destroy',
+            'principal'     => 0
+        ]);
+
     }
 }
