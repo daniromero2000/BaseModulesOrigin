@@ -141,7 +141,6 @@ class EmployeesTableSeeder extends Seeder
 
 
 
-
         /*Creacion Usuario Super Admin Desarrollo*/
         $employee          =  factory(Employee::class)->create([
             'email'        => 'desarrollo@smartcommerce.com.co'
@@ -179,8 +178,8 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $ecommerceOperative = factory(Role::class)->create([
-            'name'          => 'ecommerce_operative',
-            'display_name'  => 'Operativo Ecommerce'
+            'name'          => 'ecommerce_admin',
+            'display_name'  => 'Admin Ecommerce'
         ]);
 
         $roleAdminRepo = new RoleRepository($ecommerceOperative);
