@@ -15,16 +15,6 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
-        $permissionGroupCamStudio = factory(PermissionGroup::class)->create([
-            'name'        => 'CamStudio',
-            'group_order' => 6
-        ]);
-
-        $permissionGroupCourses = factory(PermissionGroup::class)->create([
-            'name'        => 'Cursos',
-            'group_order' => 5
-        ]);
-
         $permissionGroupAdmon = factory(PermissionGroup::class)->create([
             'name'        => 'Administrativos',
             'group_order' => 4
@@ -43,6 +33,16 @@ class EmployeesTableSeeder extends Seeder
         $permissionGroupCustomers = factory(PermissionGroup::class)->create([
             'name'        => 'Clientes',
             'group_order' => 1
+        ]);
+
+        $permissionGroupCourses = factory(PermissionGroup::class)->create([
+            'name'        => 'Cursos',
+            'group_order' => 5
+        ]);
+
+        $permissionGroupCamStudio = factory(PermissionGroup::class)->create([
+            'name'        => 'CamStudio',
+            'group_order' => 6
         ]);
 
         // Módulo Empleados
@@ -709,7 +709,6 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 1
         ]);
 
-
         factory(Action::class)->create([
             'permission_id' => 15,
             'name'          => 'Editar Orden',
@@ -1324,28 +1323,7 @@ class EmployeesTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 81,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 82,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 83,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 84,
-            'role_id' => 1
-        ]);
-
         $employee->roles()->save($super);
-
 
 
         /*Creacion Usuario Administracion Ecommerce*/
