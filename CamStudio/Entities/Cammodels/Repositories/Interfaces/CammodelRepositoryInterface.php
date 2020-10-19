@@ -6,11 +6,13 @@ use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
-interface CammodelInterface
+interface CammodelRepositoryInterface
 {
     public function searchCammodel(string $text = null): Collection;
 
     public function searchTrashedCammodel(string $text = null): Collection;
+
+    public function createCamModel($data): Cammodel;
 
     public function listCammodels(int $totalView);
 

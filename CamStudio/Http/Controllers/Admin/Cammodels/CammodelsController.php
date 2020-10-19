@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\CamStudio\Entities\CammodelCategories\Repositories\Interfaces\CammodelCategoryRepositoryInterface;
 use Modules\CamStudio\Entities\Cammodels\Repositories\CammodelRepository;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 
@@ -17,12 +17,12 @@ class CammodelsController extends Controller
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
-        CammodelInterface $CammodelInterface,
+        CammodelRepositoryInterface $CammodelRepositoryInterface,
         CammodelCategoryRepositoryInterface $cammodelCategoryInterface,
         CityRepositoryInterface $cityRepositoryInterface
     ) {
         $this->toolsInterface          = $toolRepositoryInterface;
-        $this->cammodelInterf          = $CammodelInterface;
+        $this->cammodelInterf          = $CammodelRepositoryInterface;
         $this->toolsInterface          = $toolRepositoryInterface;
         $this->cityInterface           = $cityRepositoryInterface;
         $this->cammodelCategoryInterf  = $cammodelCategoryInterface;
@@ -60,7 +60,7 @@ class CammodelsController extends Controller
 
     public function show($id)
     {
-        $cammodel = $this->cammodelInterf->findCammodelById($id); 
+        $cammodel = $this->cammodelInterf->findCammodelById($id);
         return view('camstudio::admin.cammodels.show', [
             'cammodel'    => $cammodel,
             'images'      => $cammodel->images()->get(['src']),

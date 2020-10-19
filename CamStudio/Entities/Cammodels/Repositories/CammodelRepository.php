@@ -10,9 +10,9 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 use Modules\Generals\Entities\Tools\UploadableTrait;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
 
-class CammodelRepository implements CammodelInterface
+class CammodelRepository implements CammodelRepositoryInterface
 {
     use SearchableTrait, UploadableTrait;
     protected $model;
@@ -51,6 +51,15 @@ class CammodelRepository implements CammodelInterface
 
         return $this->model->searchEmployee($text)
             ->get($this->columns);
+    }
+
+    public function createCamModel($data): Cammodel
+    {
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 
     public function searchTrashedCammodel(string $text = null): Collection
