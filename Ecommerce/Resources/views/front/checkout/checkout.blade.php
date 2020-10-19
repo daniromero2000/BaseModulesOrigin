@@ -126,7 +126,7 @@
                                         </td>
                                         <td>
                                             <label class="col-md-6 col-md-offset-3">
-                                                <input type="radio" value="{{ $address->id }}" name="billing_address"
+                                                <input type="radio" value="{{ $address->id }}" name="billingAddress"
                                                     @if($billingAddress->id ==
                                                 $address->id) checked="checked" @endif>
                                             </label>
@@ -262,7 +262,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" name="billing_address"
+                                                            <input type="hidden" name="billingAddress"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -295,7 +295,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" name="billing_address"
+                                                            <input type="hidden" name="billingAddress"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -326,7 +326,7 @@
                                                                 class="btn btn-primary btn-sm mx-auto">Continuar con
                                                                 este
                                                                 método de pago</button>
-                                                            <input type="hidden" name="billing_address"
+                                                            <input type="hidden" name="billingAddress"
                                                                 value="{{ $billingAddress->id }}">
                                                             @if(request()->has('courier'))
                                                             <input type="hidden" name="courier"
@@ -470,7 +470,7 @@
                 }
             });
 
-            let billingAddress = 'input[name="billing_address"]';
+            let billingAddress = 'input[name="billingAddress"]';
 
             $(billingAddress).on('change', function () {
                 let chosenAddressId = $(this).val();

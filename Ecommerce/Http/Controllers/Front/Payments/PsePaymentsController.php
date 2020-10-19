@@ -35,7 +35,6 @@ class PsePaymentsController extends Controller
 
     public function store(Request $request)
     {
-
         if (!empty($this->cartRepo->getCartItems()->toArray())) {
             $paymentDataRequest = $request->input();
             $paymentDataRequest = $this->toolInterface->getClientServerData($paymentDataRequest);
