@@ -166,6 +166,20 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 2
         ]);
 
+        $moduleCamModelCategories    =  factory(Permission::class)->create([
+            'name'                => 'cam_model_categories',
+            'display_name'        => 'Categorías_Modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
+        $moduleCamModels    =  factory(Permission::class)->create([
+            'name'                => 'cam_models',
+            'display_name'        => 'Modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
 
 
 
@@ -201,6 +215,8 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleCheckouts);
         $roleSuperRepo->attachToPermission($moduleOrderShipments);
         $roleSuperRepo->attachToPermission($moduleProductReviews);
+        $roleSuperRepo->attachToPermission($moduleCamModelCategories);
+        $roleSuperRepo->attachToPermission($moduleCamModels);
         $employee->roles()->save($super);
 
 
