@@ -5,38 +5,58 @@ namespace Modules\Companies\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Companies\Entities\PermissionGroups\PermissionGroup;
 
-class CompanyTableSeeder extends Seeder
+class PermissionsGroupsTableSeeder extends Seeder
 {
     public function run()
     {
-        $permissionGroupAdmon = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'Administrativos',
             'group_order' => 4
         ]);
 
-        $permissionGroupCatalog = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'Ecommerce',
             'group_order' => 2
         ]);
 
-        $permissionGroupPqrs = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'Pqrs',
             'group_order' => 3
         ]);
 
-        $permissionGroupCustomers = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'Clientes',
             'group_order' => 1
         ]);
 
-        $permissionGroupCourses = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'Cursos',
             'group_order' => 5
         ]);
 
-        $permissionGroupCamStudio = factory(PermissionGroup::class)->create([
+        factory(PermissionGroup::class)->create([
             'name'        => 'CamStudio',
             'group_order' => 6
+        ]);
+
+        factory(PermissionGroup::class)->create([
+            'name'        => 'Sislef',
+            'group_order' => 7
+        ]);
+
+        factory(PermissionGroup::class)->create([
+            'name'        => 'XisfoPay',
+            'group_order' => 8
+        ]);
+
+        factory(PermissionGroup::class)->create([
+            'name'        => 'LefemmeCams',
+            'group_order' => 9
+        ]);
+
+        factory(PermissionGroup::class)->create([
+            'name'        => 'TWS',
+            'group_order' => 10
         ]);
     }
 }
