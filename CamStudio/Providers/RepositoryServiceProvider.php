@@ -8,7 +8,7 @@ use Modules\CamStudio\Entities\CammodelBannedCountries\Repositories\Interfaces\C
 use Modules\CamStudio\Entities\CammodelCategories\Repositories\CammodelCategoryRepository;
 use Modules\CamStudio\Entities\CammodelCategories\Repositories\Interfaces\CammodelCategoryRepositoryInterface;
 use Modules\CamStudio\Entities\Cammodels\Repositories\CammodelRepository;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            CammodelInterface::class,
+            CammodelRepositoryInterface::class,
             CammodelRepository::class
         );
 

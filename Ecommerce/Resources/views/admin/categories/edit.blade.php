@@ -97,6 +97,19 @@
                             <label for="cover">Cover </label>
                             <input type="file" name="cover" id="cover" class="form-control">
                         </div>
+
+                        @if(isset($category->banner))
+                        <div class="card-body">
+                            <div class="d-flex" style=" position: relative; ">
+                                <img src="{{ asset("storage/$category->banner") }}" alt="{{$category->slug}}"
+                                    class=" mx-auto img-fluid" style="border-radius: 15px;max-height: 330px;">
+                            </div>
+                        </div>
+                        @endif
+                        <div class="form-group">
+                            <label for="banner">Banner </label>
+                            <input type="file" name="banner" id="banner" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>

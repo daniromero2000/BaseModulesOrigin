@@ -25,6 +25,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         'description',
         'cover',
         'is_active',
+        'banner'
     ];
 
     public function __construct(Category $category)
@@ -64,7 +65,11 @@ class CategoryRepository implements CategoryRepositoryInterface
                 $cover = $this->uploadOne($params['cover'], 'categories');
             }
 
-            $merge = $collection->merge(compact('slug', 'cover'));
+            if (isset($params['banner']) && ($params['banner'] instanceof UploadedFile)) {
+                $banner = $this->uploadOne($params['banner'], 'categories');
+            }
+
+            $merge = $collection->merge(compact('slug', 'cover', 'banner'));
             $category = new Category($merge->all());
 
             if (isset($params['parent'])) {
@@ -84,12 +89,17 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = $this->findCategoryById($this->model->id);
         $collection = collect($params)->except('_token');
         $slug = str_slug($collection->get('name'));
-
+        $cover = $category->cover;
+        $banner = $category->banner;
         if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
             $cover = $this->uploadOne($params['cover'], 'categories');
         }
 
-        $merge = $collection->merge(compact('slug', 'cover'));
+        if (isset($params['banner']) && ($params['banner'] instanceof UploadedFile)) {
+            $banner = $this->uploadOne($params['banner'], 'categories');
+        }
+
+        $merge = $collection->merge(compact('slug', 'cover', 'banner'));
 
         // set parent attribute default value if not set
         $params['parent'] = $params['parent'] ?? 0;
