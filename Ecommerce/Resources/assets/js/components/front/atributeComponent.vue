@@ -6,7 +6,39 @@
       name="productAttribute"
       id="productAttribute"
     />
+    <div class="w-100 justify-content-between d-flex">
+      <label class="mb-2"
+        ><span class="mr-auto"><b>Elige un color</b></span></label
+      >
+    </div>
+    <div class="d-flex mb-3">
+      <div v-for="(color, key) in colors" :key="key">
+        <span
+          class="badge badge-reset mr-2"
+          v-bind:class="{
+            active: colorActive == key ? true : false,
+            shadow: colorActive == key ? true : false,
+          }"
+          v-on:click="changeColor(key)"
+          v-bind:style="{
+            background: '#' + color[0].color,
+          }"
+          >.
+        </span>
+      </div>
+    </div>
 
+    <div class="w-100 justify-content-between d-flex">
+      <label class="mb-2" for="productAttribute"
+        ><span class="mr-auto"><b>Elige tu talla</b></span></label
+      >
+
+      <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
+        <label class="mb-2" for="productAttribute"
+          ><span class="mr-auto"><b>Ver tabla de tallas</b></span></label
+        ></a
+      >
+    </div>
     <div class="container-sizes w-100 mb-3" id="sizes">
       <div class="d-flex" v-for="(color, key) in colors" :key="key">
         <div
@@ -34,27 +66,6 @@
             <div v-else></div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="w-100 justify-content-between d-flex">
-      <label class="mb-2"
-        ><span class="mr-auto"><b>Elige un color</b></span></label
-      >
-    </div>
-    <div class="d-flex mb-3">
-      <div v-for="(color, key) in colors" :key="key">
-        <span
-          class="badge badge-reset mr-2"
-          v-bind:class="{
-            active: colorActive == key ? true : false,
-            shadow: colorActive == key ? true : false,
-          }"
-          v-on:click="changeColor(key)"
-          v-bind:style="{
-            background: '#' + color[0].color,
-          }"
-          >.
-        </span>
       </div>
     </div>
   </div>
