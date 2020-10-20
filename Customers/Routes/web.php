@@ -77,6 +77,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('CustomerCommentaries')->group(function () {
             Route::resource('customer-commentaries', 'CustomerCommentaryController');
         });
+
+        Route::namespace('NewsletterSubscriptions')->group(function () {
+            Route::resource('newsletter-subscription', 'NewsletterSubscriptionController');
+        });
     });
 });
 
@@ -84,3 +88,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 /**
  * Frontend routes
  */
+Route::namespace('Front')->group(function () {
+    Route::namespace('NewsletterSubscriptions')->group(function () {
+        Route::resource('newsletter-subscription', 'NewsletterSubscriptionFrontController');
+    });
+});

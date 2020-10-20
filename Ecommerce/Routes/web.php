@@ -78,7 +78,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
  * Frontend routes
  */
 Route::namespace('Auth')->group(function () {
-    Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
+    Route::get('cart/loginform', 'CartLoginController@showLoginForm')->name('cart.loginform');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::resource('wishlist', 'WishlistController');
     Route::resource('product-reviews', 'ProductReviewController');
@@ -103,7 +103,7 @@ Route::namespace('Front')->group(function () {
 
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
-        Route::get('checkout/execute', 'CheckoutController@executePayPalPayment')->name('checkout.execute');
+        //Route::get('checkout/execute', 'CheckoutController@executePayPalPayment')->name('checkout.execute');
         Route::post('checkout/execute', 'CheckoutController@charge')->name('checkout.execute');
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
