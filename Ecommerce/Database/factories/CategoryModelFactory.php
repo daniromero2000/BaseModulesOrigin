@@ -28,6 +28,7 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
         'name' => $name,
         'slug' => str_slug($name),
         'description' => $faker->paragraph,
+        'banner' => 'Sin Banner',
         'cover' => $file->store('categories', ['disk' => 'public']),
         'is_active' => 1
     ];
