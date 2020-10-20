@@ -229,9 +229,9 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $roleAdminRepo = new RoleRepository($ecommerceOperative);
-        $roleAdminRepo->attachToPermission($moduleEmployees);
         $roleAdminRepo->attachToPermission($moduleCities);
         $roleAdminRepo->attachToPermission($moduleSubsidiaries);
+        $roleAdminRepo->attachToPermission($moduleCustomers);
         $roleAdminRepo->attachToPermission($moduleCustomerStatuses);
         $roleAdminRepo->attachToPermission($moduleProducts);
         $roleAdminRepo->attachToPermission($moduleProductCategories);
