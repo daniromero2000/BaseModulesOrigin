@@ -62,6 +62,8 @@ class CammodelsController extends Controller
     public function show($id)
     {
         $cammodel = $this->cammodelInterf->findCammodelById($id);
+
+        dd($cammodel);
         return view('camstudio::admin.cammodels.show', [
             'cammodel'    => $cammodel,
             'images'      => $cammodel->images()->get(['src']),
@@ -79,7 +81,6 @@ class CammodelsController extends Controller
     public function update(Request $request, $id)
     {
         $data         = $request->except('_token', '_method');
-        $data['slug'] = str_slug($request->input('nickname'));
         $cammodel     = $this->cammodelInterf->findCammodelById($id);
         $cammodelRepo = new CammodelRepository($cammodel);
 
@@ -88,6 +89,8 @@ class CammodelsController extends Controller
             '_token',
             '_method',
         );
+
+        $data['slug'] = str_slug($request->input('nickname'));
 
         if ($request->hasFile('cover_page')) {
             $data['cover_page'] = $cammodelRepo->saveCoverPageImage($request->file('cover_page'));

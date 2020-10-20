@@ -113,7 +113,7 @@ class CammodelRepository implements CammodelRepositoryInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->findOrFail($id, $this->columns);
+            return $this->model->with('productCategory')->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
