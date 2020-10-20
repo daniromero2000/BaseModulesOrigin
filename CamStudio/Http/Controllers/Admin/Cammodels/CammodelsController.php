@@ -26,6 +26,7 @@ class CammodelsController extends Controller
         $this->toolsInterface          = $toolRepositoryInterface;
         $this->cityInterface           = $cityRepositoryInterface;
         $this->cammodelCategoryInterf  = $cammodelCategoryInterface;
+        $this->middleware(['permission:cam_models, guard:employee']);
     }
 
     public function index(Request $request)
