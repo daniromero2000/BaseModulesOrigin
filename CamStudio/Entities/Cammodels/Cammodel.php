@@ -121,6 +121,16 @@ class Cammodel extends Model
 
     public function productCategory()
     {
-        return $this->belongsTo(Category::class, 'slug', 'slug');
+        return $this->belongsTo(Category::class, 'slug', 'slug')
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'description',
+                'cover',
+                'is_visible_on_front',
+                'is_active',
+
+            ]);
     }
 }
