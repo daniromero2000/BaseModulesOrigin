@@ -99,7 +99,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             $banner = $this->uploadOne($params['banner'], 'categories');
         }
 
-        $merge = $collection->merge(compact('slug', 'cover'));
+        $merge = $collection->merge(compact('slug', 'cover', 'banner'));
 
         // set parent attribute default value if not set
         $params['parent'] = $params['parent'] ?? 0;
