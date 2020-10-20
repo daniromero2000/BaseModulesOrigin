@@ -855,5 +855,22 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.cammodels.destroy',
             'principal'     => 0
         ]);
+
+        // Acciones Módulo Newsletters Subscriptions
+        factory(Action::class)->create([
+            'permission_id' => 25,
+            'name'          => 'Ver Subscripciones',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.newsletter-subscription.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 25,
+            'name'          => 'Borrar Subscripción',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.newsletter-subscription.destroy',
+            'principal'     => 0
+        ]);
     }
 }

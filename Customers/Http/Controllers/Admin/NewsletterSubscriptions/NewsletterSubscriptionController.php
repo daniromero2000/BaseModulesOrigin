@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Customers\Http\Controllers;
+namespace Modules\Customers\Http\Controllers\Admin\NewsletterSubscriptions;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;

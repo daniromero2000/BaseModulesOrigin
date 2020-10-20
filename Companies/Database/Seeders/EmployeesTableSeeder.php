@@ -180,6 +180,13 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 9
         ]);
 
+        $moduleNewsletterSubscriptions         =  factory(Permission::class)->create([
+            'name'                => 'newsletter_subscriptions',
+            'display_name'        => 'Subscripciones',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 4
+        ]);
+
 
         /*Creacion Usuario Super Admin Desarrollo*/
         $employee          =  factory(Employee::class)->create([
@@ -215,6 +222,7 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleProductReviews);
         $roleSuperRepo->attachToPermission($moduleCamModelCategories);
         $roleSuperRepo->attachToPermission($moduleCamModels);
+        $roleSuperRepo->attachToPermission($moduleNewsletterSubscriptions);
         $employee->roles()->save($super);
 
 
@@ -242,6 +250,7 @@ class EmployeesTableSeeder extends Seeder
         $roleAdminRepo->attachToPermission($moduleCheckouts);
         $roleAdminRepo->attachToPermission($moduleOrderShipments);
         $roleAdminRepo->attachToPermission($moduleProductReviews);
+        $roleAdminRepo->attachToPermission($moduleNewsletterSubscriptions);
         $employee2->roles()->save($ecommerceOperative);
 
 
@@ -260,6 +269,7 @@ class EmployeesTableSeeder extends Seeder
         $rolecourseadmin->attachToPermission($moduleCourses);
         $rolecourseadmin->attachToPermission($moduleStudents);
         $rolecourseadmin->attachToPermission($moduleCourseAttendances);
+        $rolecourseadmin->attachToPermission($moduleNewsletterSubscriptions);
         $coursEemployee->roles()->save($courseadmin);
     }
 }
