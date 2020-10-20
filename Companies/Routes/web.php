@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::namespace('Admin')->group(function () {
-    Route::get('admin/login', 'LoginController@showLoginForm')->name('admin.login');
+    Route::get('admin/loginform', 'LoginController@showLoginForm')->name('admin.loginform');
     Route::post('admin/login', 'LoginController@login')->name('admin.login');
     Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
     Route::view('admin/prueba', 'welcome');

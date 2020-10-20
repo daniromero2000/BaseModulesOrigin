@@ -78,7 +78,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
  * Frontend routes
  */
 Route::namespace('Auth')->group(function () {
-    Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
+    Route::get('cart/loginform', 'CartLoginController@showLoginForm')->name('cart.loginform');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::resource('wishlist', 'WishlistController');
     Route::resource('product-reviews', 'ProductReviewController');

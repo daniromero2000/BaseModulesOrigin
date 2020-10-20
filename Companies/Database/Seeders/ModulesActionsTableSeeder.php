@@ -264,7 +264,7 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Acciones Módulo PQRs
+        // Acciones Módulo Clientes
         factory(Action::class)->create([
             'permission_id' => 8,
             'name'          => 'Ver Clientes',
@@ -855,6 +855,5 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.cammodels.destroy',
             'principal'     => 0
         ]);
-
     }
 }
