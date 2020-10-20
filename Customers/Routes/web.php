@@ -84,3 +84,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 /**
  * Frontend routes
  */
+Route::namespace('Front')->group(function () {
+    Route::resource('newsletter-subscription', 'NewsletterSubscriptionFrontController');
+});

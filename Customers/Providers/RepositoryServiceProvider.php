@@ -30,12 +30,19 @@ use Modules\Customers\Entities\CustomerEpss\Repositories\CustomerEpsRepository;
 use Modules\Customers\Entities\CustomerEpss\Repositories\Interfaces\CustomerEpsRepositoryInterface;
 use Modules\Customers\Entities\CustomerEconomicActivities\Repositories\CustomerEconomicActivityRepository;
 use Modules\Customers\Entities\CustomerEconomicActivities\Repositories\Interfaces\CustomerEconomicActivityRepositoryInterface;
+use Modules\Customers\Entities\NewsletterSubscriptions\Repositories\NewsletterSubscriptionRepository;
+use Modules\Customers\Entities\NewsletterSubscriptions\Repositories\Interfaces\NewsletterSubscriptionRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            NewsletterSubscriptionRepositoryInterface::class,
+            NewsletterSubscriptionRepository::class
+        );
+
         $this->app->bind(
             CustomerRepositoryInterface::class,
             CustomerRepository::class

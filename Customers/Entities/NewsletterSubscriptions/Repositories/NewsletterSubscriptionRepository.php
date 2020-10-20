@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Customers\Entities\Customers\Repositories;
+namespace Modules\Customers\Entities\NewsletterSubscriptions\Repositories;
 
 use Modules\Customers\Entities\NewsletterSubscriptions\NewsletterSubscription;
 use Illuminate\Database\QueryException;
