@@ -88,7 +88,7 @@ class EmployeeController extends Controller
             'employees' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
+            'headers' => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
             'roles' => $this->roleInterface->getAllRoleNames(),
             'all_departments' => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),

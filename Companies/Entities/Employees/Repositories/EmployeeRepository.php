@@ -101,7 +101,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function createEmployee(array $data): Employee
     {
         try {
-            $data['password'] = Hash::make($data['password']);
+            //$data['password'] = Hash::make($data['password']);
 
             return $this->model->create($data);
         } catch (QueryException $e) {

@@ -18,7 +18,7 @@ use Modules\Generals\Entities\Cities\City;
 
 $factory->define(Subsidiary::class, function (Faker\Generator $faker) {
     $name = $faker->randomElement([
-        'La 19',
+        'Principal',
     ]);
 
     return [
