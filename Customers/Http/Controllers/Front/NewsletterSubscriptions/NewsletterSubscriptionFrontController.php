@@ -32,8 +32,10 @@ class NewsletterSubscriptionFrontController extends Controller
     public function store(Request $request)
     {
 
-        dd('entre a store');
+        dd($request->input());
         $this->newsletterSubscriptionInterface->createNewsletterSubscription($request->input());
+
+        return redirect()->back()->with('message', 'Gracias por subscribirte');
     }
 
 
