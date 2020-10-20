@@ -110,7 +110,7 @@ class EmployeeController extends Controller
         $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
         $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
 
-        if ($request->input('employee_position_id') == 9) {
+        if ($request->input('employee_position_id') == 8) {
             $modelData = [
                 'employee_id' => $employee->id,
                 'manager_id' => $employee->id,

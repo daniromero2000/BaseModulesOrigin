@@ -68,18 +68,6 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div id="cities" class="form-group">
-                            <label class="form-control-label" for="department_id">Departamento</label>
-                            <div class="input-group">
-                                <select name="department_id" id="department_id" class="form-control" enabled>
-                                    @foreach($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
                         <div id="subsidiaries" class="form-group">
                             <label class="form-control-label" for="department_id">Sucursal</label>
                             <div class="input-group">
