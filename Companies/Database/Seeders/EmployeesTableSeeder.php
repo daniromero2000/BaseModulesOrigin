@@ -275,7 +275,7 @@ class EmployeesTableSeeder extends Seeder
         $coursEemployee->roles()->save($courseadmin);
 
 
-        /*Creacion Usuario admin cursos*/
+        /*Creacion Usuario sin acceso*/
         $noAccessEemployee    =  factory(Employee::class)->create([
             'email'        => 'admin@sycgroup.com'
         ]);
@@ -285,7 +285,22 @@ class EmployeesTableSeeder extends Seeder
             'display_name' => 'Sin Acceso'
         ]);
 
-        $rolecourseadmin = new RoleRepository($noAccess);
+        $roleNoAccess = new RoleRepository($noAccess);
         $noAccessEemployee->roles()->save($noAccess);
+
+        /*Creacion Usuario Cam_model*/
+        $camModelEmployee    =  factory(Employee::class)->create([
+            'email'        => 'modelo@sycgroup.com'
+        ]);
+
+        $camModel       =  factory(Role::class)->create([
+            'name'         => 'cam_model',
+            'display_name' => 'CamModel'
+        ]);
+
+        $roleCamModel = new RoleRepository($camModel);
+        $roleCamModel->attachToPermission($moduleCities);
+        $roleCamModel->attachToPermission($moduleCamModels);
+        $camModelEmployee->roles()->save($camModel);
     }
 }
