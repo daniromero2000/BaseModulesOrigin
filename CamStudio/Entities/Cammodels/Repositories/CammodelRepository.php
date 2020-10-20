@@ -77,11 +77,12 @@ class CammodelRepository implements CammodelRepositoryInterface
     {
         try {
             return  $this->model
-                ->with('manager')
+                ->with('manager', 'employee')
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
                 ->get([
                     'id',
+                    'employee_id',
                     'manager_id',
                     'fake_age',
                     'nickname',

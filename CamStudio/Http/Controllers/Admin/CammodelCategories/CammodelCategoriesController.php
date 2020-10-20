@@ -59,13 +59,12 @@ class CammodelCategoriesController extends Controller
     public function show($id)
     {
         $category = $this->cammodelCategoryInterf->findCammodelCategoryById($id);
-
         $cat = new CammodelCategoryRepository($category);
 
         return view('camstudio::admin.cammodel-categories.show', [
             'category'    => $category,
             'categories'  => $category->children,
-            'products'    => $cat->findCammodelOrder()
+            'models'    => $cat->findCammodelOrder()
         ]);
     }
 

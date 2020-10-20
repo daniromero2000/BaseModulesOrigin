@@ -46,7 +46,7 @@ class CammodelsController extends Controller
             'cammodels' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Edad', 'Meta', 'Manager', 'Opciones'],
+            'headers' => ['Id', 'Nombre', 'Nickname', 'Edad', 'Manager', 'Opciones'],
         ]);
     }
 
