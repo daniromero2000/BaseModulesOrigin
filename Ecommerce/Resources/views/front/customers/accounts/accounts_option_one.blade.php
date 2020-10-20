@@ -6,7 +6,7 @@
 
 @endsection
 @section('content')
-<section class="container-reset content-empty content">
+<section class="container-reset px-2 content-empty content">
     <div class="row row-reset">
         <div class="card-body">
             @include('generals::layouts.errors-and-messages')

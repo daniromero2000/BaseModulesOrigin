@@ -22,7 +22,8 @@ class Category extends Model
         'cover',
         'is_active',
         'sort_order',
-        'parent_id'
+        'parent_id',
+        'banner'
     ];
 
     protected $hidden = [
@@ -54,10 +55,12 @@ class Category extends Model
                 'products.brand_id',
                 'products.sku',
                 'products.name',
+                'products.description',
                 'products.slug',
                 'products.cover',
                 'products.quantity',
                 'products.price',
+                'products.sale_price',
                 'products.is_visible_on_front',
                 'products.sort_order',
                 'products.is_active'
