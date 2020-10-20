@@ -7,6 +7,7 @@
             max-height: 146px;
         }
     }
+
 </style>
 @endsection
 @section('content')
@@ -186,7 +187,7 @@
                 <img src="{{ asset('img/logos/cart.png')}}" alt="carrito">
                 <h3>Tu carrito está vacío</h3>
                 <p>En nuestra tienda tenemos una gran variedad de productos para que elijas los que más te gusten!</p>
-                <a href="{{ route('home') }}" class="btn">Sigue comprando</a>
+                <a href="{{ route('home') }}" class="btn bg-warning-reset">Sigue comprando</a>
             </div>
 
         </div>
