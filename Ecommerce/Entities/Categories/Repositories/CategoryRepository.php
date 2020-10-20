@@ -89,9 +89,14 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = $this->findCategoryById($this->model->id);
         $collection = collect($params)->except('_token');
         $slug = str_slug($collection->get('name'));
-
+        $cover = $category->cover;
+        $banner = $category->banner;
         if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
             $cover = $this->uploadOne($params['cover'], 'categories');
+        }
+
+        if (isset($params['banner']) && ($params['banner'] instanceof UploadedFile)) {
+            $banner = $this->uploadOne($params['banner'], 'categories');
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));
