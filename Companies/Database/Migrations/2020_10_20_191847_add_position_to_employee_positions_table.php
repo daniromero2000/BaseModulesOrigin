@@ -14,7 +14,7 @@ class AddPositionToEmployeePositionsTable extends Migration
     public function up()
     {
         Schema::table('employee_positions', function (Blueprint $table) {
-            $table->integer('department_id')->unsigned()->index()->after('position');
+            $table->integer('department_id')->unsigned()->index()->default(1)->after('position');
             $table->foreign('department_id')->references('id')->on('departments');
         });
     }
