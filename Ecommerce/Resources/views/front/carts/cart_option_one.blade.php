@@ -185,7 +185,7 @@
             <div class="text-center alert-shop p-sm-5">
                 <img src="{{ asset('img/fvn/carrito.svg')}}" alt="carrito">
                 <h3>Tu carrito está vacío</h3>
-                <p>En fvn tenemos una gran variedad de productos para que elijas los que más te gusten!</p>
+                <p>En nuestra tienda tenemos una gran variedad de productos para que elijas los que más te gusten!</p>
                 <a href="{{ route('home') }}" class="btn">Sigue comprando</a>
             </div>
 
