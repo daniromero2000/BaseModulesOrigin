@@ -14,7 +14,7 @@ class AddBannerToCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('banner')->default('Sin Banner');
+            $table->string('banner')->default('Sin Banner')->after('cover');
         });
     }
 
