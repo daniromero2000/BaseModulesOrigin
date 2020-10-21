@@ -92,13 +92,13 @@
         </div>
     </div>
     @endif
-    @if(!$products->isEmpty())
-    <list-category :data="{{$products}}"></list-category>
+    @if(!$models->isEmpty())
+    <list-category :data="{{$models}}"></list-category>
     {{-- <div class="box-body">
         <div class="card-body">
             <div class="box-body">
                 <h2>Productos</h2>
-                @include('ecommerce::admin.shared.products', ['products' => $products])
+                @include('ecommerce::admin.shared.models', ['models' => $models])
             </div>
         </div>
     </div> --}}

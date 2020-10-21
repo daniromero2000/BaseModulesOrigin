@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::resource('couriers', 'Couriers\CourierController');
 
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
+        Route::put('attributesValues/{id}', 'Attributes\AttributeValueController@update')->name('attributesValues');
     });
 });
 

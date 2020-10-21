@@ -195,12 +195,14 @@ class EmployeesTableSeeder extends Seeder
 
         $super             =  factory(Role::class)->create([
             'name'         => 'superadmin',
-            'display_name' => 'Super Admin'
+            'display_name' => 'Super Admin',
+            'status'       => 0
         ]);
 
         $roleSuperRepo =  new RoleRepository($super);
         $roleSuperRepo->attachToPermission($moduleEmployees);
         $roleSuperRepo->attachToPermission($moduleCities);
+        $roleSuperRepo->attachToPermission($moduleSubsidiaries);
         $roleSuperRepo->attachToPermission($moduleRoles);
         $roleSuperRepo->attachToPermission($modulePermission);
         $roleSuperRepo->attachToPermission($modulePqrs);
@@ -271,5 +273,33 @@ class EmployeesTableSeeder extends Seeder
         $rolecourseadmin->attachToPermission($moduleCourseAttendances);
         $rolecourseadmin->attachToPermission($moduleNewsletterSubscriptions);
         $coursEemployee->roles()->save($courseadmin);
+
+
+        /*Creacion Usuario sin acceso*/
+        $noAccessEemployee    =  factory(Employee::class)->create([
+            'email'        => 'admin@sycgroup.com'
+        ]);
+
+        $noAccess       =  factory(Role::class)->create([
+            'name'         => 'no_access',
+            'display_name' => 'Sin Acceso'
+        ]);
+
+        $roleNoAccess = new RoleRepository($noAccess);
+        $noAccessEemployee->roles()->save($noAccess);
+
+        /*Creacion Usuario Cam_model*/
+        $camModelEmployee    =  factory(Employee::class)->create([
+            'email'        => 'modelo@sycgroup.com'
+        ]);
+
+        $camModel       =  factory(Role::class)->create([
+            'name'         => 'cam_model',
+            'display_name' => 'CamModel'
+        ]);
+
+        $roleCamModel = new RoleRepository($camModel);
+        $roleCamModel->attachToPermission($moduleCamModels);
+        $camModelEmployee->roles()->save($camModel);
     }
 }

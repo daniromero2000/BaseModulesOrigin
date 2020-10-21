@@ -12,24 +12,22 @@
 */
 
 
-use Modules\Ecommerce\Entities\Categories\Category;
 use Illuminate\Http\UploadedFile;
+use Modules\CamStudio\Entities\CammodelCategories\CammodelCategory;
 
-$factory->define(Category::class, function (Faker\Generator $faker) {
+$factory->define(CammodelCategory::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([
-        'Recien Nacido',
-        'Baby',
-        'Mini'
+        'Latinas',
     ]);
 
-    $file = UploadedFile::fake()->image('category.png', 600, 600);
+    $file = UploadedFile::fake()->image('cammodel_category.png', 600, 600);
 
     return [
         'name' => $name,
         'slug' => str_slug($name),
         'description' => $faker->paragraph,
         'banner' => 'Sin Banner',
-        'cover' => $file->store('categories', ['disk' => 'public']),
+        'cover' => $file->store('cammodel_categories', ['disk' => 'public']),
         'is_active' => 1
     ];
 });

@@ -45,5 +45,13 @@ class DepartmentsTableSeeder extends Seeder
         factory(Department::class)->create([
             'name' => 'Comercial',
         ]);
+
+        factory(Department::class)->create([
+            'name' => 'Desarrollo',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Mantenimiento',
+        ]);
     }
 }

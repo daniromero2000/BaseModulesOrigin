@@ -3,6 +3,7 @@
 namespace Modules\Ecommerce\Http\Controllers\Admin\Attributes;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Modules\Ecommerce\Entities\Attributes\Repositories\AttributeRepositoryInterface;
 use Modules\Ecommerce\Entities\AttributeValues\AttributeValue;
 use Modules\Ecommerce\Entities\AttributeValues\Repositories\AttributeValueRepository;
@@ -38,6 +39,13 @@ class AttributeValueController extends Controller
         $request->session()->flash('message', config('messaging.create'));
 
         return redirect()->route('admin.attributes.show', $attribute->id);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->merge(['id' => $id]);
+        $data = $this->attributeValueRepo->updateAttributeValue($request->except('_token', '_method'));
+        return redirect()->back();
     }
 
     public function destroy($attributeId, $attributeValueId)

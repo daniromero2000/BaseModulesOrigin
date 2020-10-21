@@ -77,11 +77,12 @@ class CammodelRepository implements CammodelRepositoryInterface
     {
         try {
             return  $this->model
-                ->with('manager')
+                ->with('manager', 'employee')
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
                 ->get([
                     'id',
+                    'employee_id',
                     'manager_id',
                     'fake_age',
                     'nickname',
@@ -112,7 +113,7 @@ class CammodelRepository implements CammodelRepositoryInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->findOrFail($id, $this->columns);
+            return $this->model->with('productCategory')->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

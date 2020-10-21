@@ -46,7 +46,7 @@ class CammodelsController extends Controller
             'cammodels' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Edad', 'Meta', 'Manager', 'Opciones'],
+            'headers' => ['Id', 'Nombre', 'Nickname', 'Edad', 'Manager', 'Opciones'],
         ]);
     }
 
@@ -62,6 +62,7 @@ class CammodelsController extends Controller
     public function show($id)
     {
         $cammodel = $this->cammodelInterf->findCammodelById($id);
+
         return view('camstudio::admin.cammodels.show', [
             'cammodel'    => $cammodel,
             'images'      => $cammodel->images()->get(['src']),
@@ -79,7 +80,6 @@ class CammodelsController extends Controller
     public function update(Request $request, $id)
     {
         $data         = $request->except('_token', '_method');
-        $data['slug'] = str_slug($request->input('nickname'));
         $cammodel     = $this->cammodelInterf->findCammodelById($id);
         $cammodelRepo = new CammodelRepository($cammodel);
 
@@ -88,6 +88,8 @@ class CammodelsController extends Controller
             '_token',
             '_method',
         );
+
+        $data['slug'] = str_slug($request->input('nickname'));
 
         if ($request->hasFile('cover_page')) {
             $data['cover_page'] = $cammodelRepo->saveCoverPageImage($request->file('cover_page'));
@@ -114,7 +116,7 @@ class CammodelsController extends Controller
 
         $cammodelRepo->updateCammodel($data);
 
-        return redirect()->route('admin.cammodels.show', $id)->with('message', config('messaging.update'));
+        return redirect()->back()->with('message', config('messaging.update'));
     }
 
     public function destroy($id)
@@ -125,5 +127,12 @@ class CammodelsController extends Controller
     {
         $this->cammodelInterf->deleteThumb($request->input('src'));
         return redirect()->back()->with('message', config('messaging.delete'));
+    }
+
+    public function getProfile()
+    {
+        $id = auth()->guard('employee')->user()->cammodels[0]->id;
+
+        return $this->show($id);
     }
 }
