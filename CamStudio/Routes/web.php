@@ -41,7 +41,5 @@ Route::namespace('Front')->group(function () {
     Route::group(['middleware' => ['auth', 'web']], function () {
     });
 
-    Route::get("{cammodel}", 'ProductController@show')->name('front.get.product');
+    Route::get("{cammodel}", 'ProfileModelController@index')->name('profile-model');
 });
-
-Route::get('profile-model', 'ProfileModelController@index')->name('profile-model');
