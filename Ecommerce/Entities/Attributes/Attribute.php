@@ -40,12 +40,12 @@ class Attribute extends Model
     public function values()
     {
         return $this->hasMany(AttributeValue::class)
-            ->select(['id', 'value', 'attribute_id']);
+            ->select(['id', 'value', 'description', 'attribute_id']);
     }
 
     public function attributeValue()
     {
         return $this->hasMany(AttributeValue::class)
-            ->select(['id', 'value', 'attribute_id'])->orderBy('value');
+            ->select(['id', 'value', 'description', 'attribute_id'])->orderBy('value');
     }
 }

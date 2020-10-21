@@ -49,7 +49,7 @@ class AttributeController extends Controller
 
             return view('ecommerce::admin.attributes.show', [
                 'attribute' => $attribute,
-                'values' => $attributeRepo->listAttributeValues()
+                'values'    => $attributeRepo->listAttributeValues()
             ]);
         } catch (AttributeNotFoundException $e) {
             request()->session()->flash('error', 'El atributo que estás buscando no se encuentra');

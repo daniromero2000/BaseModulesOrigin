@@ -21,7 +21,7 @@
           }"
           v-on:click="changeColor(key)"
           v-bind:style="{
-            background: '#' + color[0].color,
+            background: color[0].color,
           }"
           >.
         </span>

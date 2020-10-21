@@ -2,6 +2,7 @@
 
 namespace Modules\Ecommerce\Entities\AttributeValues\Repositories;
 
+use Illuminate\Database\QueryException;
 use Modules\Ecommerce\Entities\Attributes\Attribute;
 use Modules\Ecommerce\Entities\AttributeValues\AttributeValue;
 use Illuminate\Support\Collection;
@@ -43,5 +44,14 @@ class AttributeValueRepository implements AttributeValueRepositoryInterface
     public function find($id)
     {
         return $this->model->find($id);
+    }
+
+    public function updateAttributeValue(array $data): bool
+    {
+        try {
+            return $this->model->where('id', $data['id'])->update($data);
+        } catch (QueryException $e) {
+            dd($e);
+        }
     }
 }

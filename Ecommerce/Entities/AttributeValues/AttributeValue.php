@@ -14,7 +14,8 @@ class AttributeValue extends Model
 
     protected $fillable = [
         'value',
-        'sort_order'
+        'sort_order',
+        'description'
     ];
 
     protected $hidden = [
