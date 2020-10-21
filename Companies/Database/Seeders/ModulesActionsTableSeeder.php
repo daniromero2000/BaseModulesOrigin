@@ -860,7 +860,7 @@ class ModulesActionsTableSeeder extends Seeder
             'permission_id' => 24,
             'name'          => 'Ver perfil',
             'icon'          => 'fas fa-times',
-            'route'         => 'admin.cammodels.show',
+            'route'         => 'admin.cammodels.profile',
             'principal'     => 1
         ]);
 
