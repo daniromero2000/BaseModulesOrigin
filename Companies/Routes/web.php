@@ -40,6 +40,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('employee-emails', 'EmployeeEmailController');
         });
 
+        Route::namespace('Interviews')->group(function () {
+            Route::resource('interviews', 'InterviewsController');
+        });
+
+        Route::namespace('InterviewStatuses')->group(function () {
+            Route::resource('interview-statuses', 'InterviewStatusesController');
+        });
+
         Route::namespace('EmployeePhones')->group(function () {
             Route::resource('employee-phones', 'EmployeePhoneController');
         });
