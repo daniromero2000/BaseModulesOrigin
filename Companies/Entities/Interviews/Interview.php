@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Companies\Entities\InterViewStatuses;
+namespace Modules\Companies\Entities\Interviews;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class InterviewStatus extends Model
+class Interview extends Model
 {
     use SoftDeletes;
-    protected $table = 'interview_statuses';
+    protected $table = 'interviews';
 
     protected $fillable = [];
 
