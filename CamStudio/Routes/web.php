@@ -34,11 +34,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
     });
 });
 
-
 /**
  * Frontend routes
  */
 Route::namespace('Front')->group(function () {
     Route::group(['middleware' => ['auth', 'web']], function () {
     });
+
+    Route::get("{cammodel}", 'ProductController@show')->name('front.get.product');
 });
