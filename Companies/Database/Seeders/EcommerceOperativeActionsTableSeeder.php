@@ -9,6 +9,32 @@ class EcommerceOperativeActionsTableSeeder extends Seeder
 {
     public function run()
     {
+        // Permisos Acciones Módulo Empleados
+        factory(ActionRole::class)->create([
+            'action_id' => 1,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 2,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 3,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 4,
+            'role_id' => 2
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 5,
+            'role_id' => 2
+        ]);
+
         // Permisos Acciones Módulo Ciudades
         factory(ActionRole::class)->create([
             'action_id' => 6,
