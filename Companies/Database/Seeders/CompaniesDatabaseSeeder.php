@@ -17,6 +17,7 @@ class CompaniesDatabaseSeeder extends Seeder
         $this->call(PermissionsGroupsTableSeeder::class);
         $this->call(EmployeesTableSeeder::class);
         $this->call(ModulesActionsTableSeeder::class);
+        $this->call(ModuleInterviewsActionsTableSeeder::class);
         $this->call(SuperAdminActionsTableSeeder::class);
         $this->call(EcommerceOperativeActionsTableSeeder::class);
         $this->call(CoursesAdminActionsTableSeeder::class);
