@@ -184,7 +184,7 @@
     <div class="row mx-0 ">
         <div class="col-md-12 ">
             <div class="text-center alert-shop p-sm-5">
-                <img src="{{ asset('img/fvn/carrito.svg')}}" alt="carrito">
+                <img src="{{ asset('img/logos/cart.png')}}" alt="carrito">
                 <h3>Tu carrito está vacío</h3>
                 <p>En nuestra tienda tenemos una gran variedad de productos para que elijas los que más te gusten!</p>
                 <a href="{{ route('home') }}" class="btn bg-warning-reset">Sigue comprando</a>

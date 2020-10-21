@@ -20,8 +20,8 @@
             <input type="hidden" class="delivery_address_id" name="delivery_address" value="">
             <input type="hidden" class="courier" name="courier" value="">
             {{ csrf_field() }}
-            <button id="paywithstripe" class="btn btn-primary">Pay with {{ ucwords($payment['name']) }} <i
-                    class="fa fa-cc-stripe"></i></button>
+            <button id="paywithstripe" class="btn btn-primary">Pay with {{ ucwords($payment['name']) }} 
+                <i class="fa fa-cc-stripe"></i></button>
         </form>
         @endif
     </td>

@@ -62,6 +62,24 @@
                             @if(isset($productAttributes) && !$productAttributes->isEmpty())
                             <div class="w-100">
                                 <div class="form-group  mb-2">
+                                    <div class="w-100 justify-content-between d-flex" id="table-sizes"
+                                        style="display: none">
+                                        <label class=" mb-2" for="productAttribute">
+                                            <span class="mr-auto">
+                                                <b>Elige tu talla</b>
+                                            </span>
+                                        </label>
+                                        <a data-toggle="modal" data-target="#sizeGuide" class="text-dark" href="">
+                                            <label class=" mb-2" for="productAttribute">
+                                                <span class="mr-auto">
+                                                    <b style="background-color: #282727;padding: 11px 20px; border-radius: 5px; color: white; font-weight: 100; font-size: 13px;">
+                                                        Ver tabla de tallas
+                                                    </b>
+                                                </span>
+                                            </label>
+                                        </a>
+                                    </div>
+
                                     <div class="container-sizes w-100" id="sizes">
                                         <input type="hidden" required name="productAttribute" id="productAttribute">
                                         @foreach($productAttributes as $productAttribute)
