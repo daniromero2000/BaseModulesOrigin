@@ -584,5 +584,57 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 106,
             'role_id' => 1
         ]);
+
+        // Permisos Acciones Módulo Entrevistas
+        factory(ActionRole::class)->create([
+            'action_id' => 107,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 108,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 109,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 110,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 111,
+            'role_id' => 1
+        ]);
+
+        // Permisos Acciones Módulo Estados Entrevistas
+        factory(ActionRole::class)->create([
+            'action_id' => 112,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 113,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 114,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 115,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 116,
+            'role_id' => 1
+        ]);
     }
 }

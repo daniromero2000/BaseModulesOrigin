@@ -187,6 +187,20 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 4
         ]);
 
+        $moduleInterviews        =  factory(Permission::class)->create([
+            'name'                => 'interviews',
+            'display_name'        => 'Entrevistas',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 1
+        ]);
+
+        $moduleInterviewStatuses        =  factory(Permission::class)->create([
+            'name'                => 'interview_statuses',
+            'display_name'        => 'Estados_Entrevistas',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 1
+        ]);
+
 
         /*Creacion Usuario Super Admin Desarrollo*/
         $employee          =  factory(Employee::class)->create([
@@ -225,6 +239,8 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleCamModelCategories);
         $roleSuperRepo->attachToPermission($moduleCamModels);
         $roleSuperRepo->attachToPermission($moduleNewsletterSubscriptions);
+        $roleSuperRepo->attachToPermission($moduleInterviews);
+        $roleSuperRepo->attachToPermission($moduleInterviewStatuses);
         $employee->roles()->save($super);
 
 
