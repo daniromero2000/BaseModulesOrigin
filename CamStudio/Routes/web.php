@@ -43,3 +43,5 @@ Route::namespace('Front')->group(function () {
 
     Route::get("{cammodel}", 'ProductController@show')->name('front.get.product');
 });
+
+Route::get('profile-model', 'ProfileModelController@index')->name('profile-model');

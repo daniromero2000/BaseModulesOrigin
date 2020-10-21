@@ -96,7 +96,6 @@ Route::namespace('Front')->group(function () {
         });
 
         Route::get('accounts', 'AccountsController@index')->name('accounts');
-        Route::get('profile-model', 'ProfileModelController@index')->name('profile-model');
         Route::get('thankupage_bancolombia', 'ThankUPageBancolombiaController@index')->name('thankupage_bancolombia');
         Route::get('thankupage_payu', 'ThankUPagePayUController@index')->name('thankupage_payu');
         Route::get('thankupage_efecty', 'ThankUPageEfectyController@index')->name('thankupage_efecty');
