@@ -2,6 +2,7 @@
 
 namespace Modules\CamStudio\Entities\Cammodels\Repositories;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use Modules\Generals\Entities\Tools\UploadableTrait;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
 use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
+use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryNotFoundException;
 
 class CammodelRepository implements CammodelRepositoryInterface
 {
@@ -113,9 +115,21 @@ class CammodelRepository implements CammodelRepositoryInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->with('productCategory')->findOrFail($id, $this->columns);
+            return $this->model->with('productCategory')
+                ->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
+        }
+    }
+
+    public function findCammodelBySlug($slug): Cammodel
+    {
+        try {
+            return $this->model
+                ->where('slug', $slug)
+                ->first($this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new CategoryNotFoundException($e);
         }
     }
 

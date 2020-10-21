@@ -40,4 +40,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 Route::namespace('Front')->group(function () {
     Route::group(['middleware' => ['auth', 'web']], function () {
     });
+
+    Route::get('model/{slug}', 'CamModelFrontController@getCamModel')->name('front.model.slug');
 });
