@@ -69,6 +69,7 @@ class EmployeeController extends Controller
         $this->customerInterface            = $customerRepositoryInterface;
         $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
         $this->cammodelInterface            = $cammodelRepositoryInterface;
+        $this->middleware(['permission:employees, guard:employee']);
     }
 
     public function index(Request $request)

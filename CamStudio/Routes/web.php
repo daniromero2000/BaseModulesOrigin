@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Cammodels')->group(function () {
             Route::resource('cammodels', 'CammodelsController');
             Route::get('remove-thumb', 'CammodelsController@removeThumbnail')->name('cammodels.remove.thumb');
+            Route::get('cammodels/cammodel/profile', 'CammodelsController@getProfile')->name('cammodels.profile');
         });
         Route::namespace('CammodelCategories')->group(function () {
             Route::resource('cammodel-categories', 'CammodelCategoriesController');

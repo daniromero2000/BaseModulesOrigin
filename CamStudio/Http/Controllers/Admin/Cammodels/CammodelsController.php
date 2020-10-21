@@ -116,7 +116,7 @@ class CammodelsController extends Controller
 
         $cammodelRepo->updateCammodel($data);
 
-        return redirect()->route('admin.cammodels.show', $id)->with('message', config('messaging.update'));
+        return redirect()->back()->with('message', config('messaging.update'));
     }
 
     public function destroy($id)
@@ -127,5 +127,12 @@ class CammodelsController extends Controller
     {
         $this->cammodelInterf->deleteThumb($request->input('src'));
         return redirect()->back()->with('message', config('messaging.delete'));
+    }
+
+    public function getProfile()
+    {
+        $id = auth()->guard('employee')->user()->cammodels[0]->id;
+
+        return $this->show($id);
     }
 }

@@ -856,6 +856,14 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
+        factory(Action::class)->create([
+            'permission_id' => 24,
+            'name'          => 'Ver perfil',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.cammodels.show',
+            'principal'     => 1
+        ]);
+
         // Acciones Módulo Newsletters Subscriptions
         factory(Action::class)->create([
             'permission_id' => 25,

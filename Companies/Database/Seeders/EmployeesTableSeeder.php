@@ -299,7 +299,6 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $roleCamModel = new RoleRepository($camModel);
-        $roleCamModel->attachToPermission($moduleCities);
         $roleCamModel->attachToPermission($moduleCamModels);
         $camModelEmployee->roles()->save($camModel);
     }
