@@ -22,5 +22,6 @@ class CompaniesDatabaseSeeder extends Seeder
         $this->call(CoursesAdminActionsTableSeeder::class);
         $this->call(CamModelActionsTableSeeder::class);
         $this->call(DepartmentsEmployeesTableSeeder::class);
+        $this->call(InterviewStatusTableSeeder::class);
     }
 }
