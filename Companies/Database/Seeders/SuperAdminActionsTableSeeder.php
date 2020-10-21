@@ -576,12 +576,12 @@ class SuperAdminActionsTableSeeder extends Seeder
 
         // Permisos Acciones Módulo modelos
         factory(ActionRole::class)->create([
-            'action_id' => 104,
+            'action_id' => 105,
             'role_id' => 1
         ]);
 
         factory(ActionRole::class)->create([
-            'action_id' => 105,
+            'action_id' => 106,
             'role_id' => 1
         ]);
     }

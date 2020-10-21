@@ -69,6 +69,7 @@ class EmployeeController extends Controller
         $this->customerInterface            = $customerRepositoryInterface;
         $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
         $this->cammodelInterface            = $cammodelRepositoryInterface;
+        $this->middleware(['permission:employees, guard:employee']);
     }
 
     public function index(Request $request)
@@ -88,7 +89,7 @@ class EmployeeController extends Controller
             'employees' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
+            'headers' => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
             'roles' => $this->roleInterface->getAllRoleNames(),
             'all_departments' => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
@@ -110,7 +111,7 @@ class EmployeeController extends Controller
         $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
         $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
 
-        if ($request->input('employee_position_id') == 9) {
+        if ($request->input('employee_position_id') == 8) {
             $modelData = [
                 'employee_id' => $employee->id,
                 'manager_id' => $employee->id,

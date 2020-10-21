@@ -19,11 +19,13 @@ class CreateCammodelCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->text('description')->nullable();
-            $table->string('cover')->nullable();
+            $table->string('cover')->nullable()->default('Sin Banner');
+            $table->string('banner')->default('Sin Banner');
             $table->boolean('is_visible_on_front')->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->unsignedInteger('sort_order')->default(0);
             NestedSet::columns($table);
+            $table->integer('depth')->default('0');
             $table->timestamps();
             $table->softDeletes();
         });

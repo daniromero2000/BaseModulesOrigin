@@ -54,18 +54,6 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="form-control-label" for="email">Email Usuario</label>
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                </div>
-                                <input type="text" name="email" id="email" validation-pattern="email"
-                                    placeholder="Email" class="form-control" value="{{ old('email') }}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
                         <div id="cities" class="form-group">
                             <label class="form-control-label" for="employee_position_id">Cargo</label>
                             <div class="input-group">
@@ -74,18 +62,6 @@
                                     @foreach($employee_positions as $employee_position)
                                     <option value="{{ $employee_position->id }}">{{ $employee_position->position }}
                                     </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div id="cities" class="form-group">
-                            <label class="form-control-label" for="department_id">Departamento</label>
-                            <div class="input-group">
-                                <select name="department_id" id="department_id" class="form-control" enabled>
-                                    @foreach($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -103,58 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div id="rh" class="form-group">
-                            <label class="form-control-label" for="password">Password</label>
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                </div>
-                                <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="form-control-label" for="password">Tipo Sangre</label>
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                </div>
-                                <input type="text" name="rh" id="rh" placeholder="Rh"
-                                    class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div id="bank_account" class="form-group">
-                            <label class="form-control-label" for="password">Cuenta Bancaria</label>
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                </div>
-                                <input type="text" name="bank_account" id="bank_account" placeholder="xxxxx" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="form-control-label" for="password">Rol</label>
-                        <ul class="list-unstyled list-inline">
-                            @foreach($roles as $role)
-                            <li>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" @if(isset($selectedIds) && in_array($role->id,
-                                        $selectedIds))checked="checked" @endif
-                                        name="role" id="role"
-                                        value="{{ $role->id }}">
-                                        {{ $role->display_name }}
-                                    </label>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
+
                 </div>
             </div>
             <div class="card-footer text-right">

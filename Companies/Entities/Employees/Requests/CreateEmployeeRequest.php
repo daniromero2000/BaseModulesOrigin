@@ -18,12 +18,7 @@ class CreateEmployeeRequest extends FormRequest
         return [
             'name'                 => ['required', 'max:255', 'bail'],
             'last_name'            => ['required', 'max:255', 'bail'],
-            'email'                => ['required', 'max:255', 'email', 'unique:employees', 'bail'],
-            'password'             => ['required', 'min:8', 'max:255', 'bail'],
-            'role'                 => ['required'],
             'phone'                => ['max:255'],
-            'rh'                   => ['required', 'bail'],
-            'bank_account'         => ['required', 'bail'],
             'is_active'            => ['max:3'],
             'employee_position_id' => ['required'],
         ];
