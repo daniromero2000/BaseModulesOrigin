@@ -10,7 +10,22 @@ class Interview extends Model
     use SoftDeletes;
     protected $table = 'interviews';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'subsidiary_id',
+        'name',
+        'last_name',
+        'identification_number',
+        'birthday',
+        'phone',
+        'email',
+        'address',
+        'calification',
+        'employee_position_id',
+        'english_knowledge',
+        'facebook',
+        'interview_status_id',
+        'picture'
+    ];
 
     protected $hidden = [
         'created_at',

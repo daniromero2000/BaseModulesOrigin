@@ -1,18 +1,20 @@
 <?php
 
-namespace Modules\Companies\Entities\InterViewStatuses;
+namespace Modules\Companies\Entities\InterviewCommentaries;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class InterviewStatus extends Model
+class InterviewCommentary extends Model
 {
     use SoftDeletes;
-    protected $table = 'interview_statuses';
+    protected $table = 'interview_commentaries';
 
     protected $fillable = [
-        'name',
-        'color'
+        'commentary',
+        'user',
+        'customer_notified',
+        'interview_id'
     ];
 
     protected $hidden = [

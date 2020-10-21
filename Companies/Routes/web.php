@@ -48,6 +48,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('interview-statuses', 'InterviewStatusesController');
         });
 
+        Route::namespace('InterviewCommentaries')->group(function () {
+            Route::resource('interview-commentaries', 'InterviewCommentariesController');
+        });
+
         Route::namespace('EmployeePhones')->group(function () {
             Route::resource('employee-phones', 'EmployeePhoneController');
         });
