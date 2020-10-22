@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\CamStudio\Entities\Streamings;
+namespace Modules\CamStudio\Entities\CammodelSocialMedias;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Streaming extends Model
+class CammodelSocialMedia extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'streamings';
+    protected $table = 'cammodel_social_media';
 
     protected $fillable = [];
 

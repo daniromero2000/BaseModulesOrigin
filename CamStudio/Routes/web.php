@@ -28,8 +28,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::put('api/update-cammodel-categories-order/{id}', 'CammodelCategoriesController@updateSortOrder');
             Route::get('remove-image-cammodel-categories', 'CammodelCategoriesController@removeImage')->name('cammodel-categories.remove.image');
         });
+
         Route::namespace('CammodelBannedCountries')->group(function () {
             Route::resource('banned-countries', 'CammodelBannedCountryController');
+        });
+
+        Route::namespace('CammodelSocialMedias')->group(function () {
+            Route::resource('cammodel-social', 'CammodelSocialMediaController');
+        });
+
+        Route::namespace('CammodelStreamAccounts')->group(function () {
+            Route::resource('cammodel-streamings', 'CammodelStreamAccountsController');
         });
     });
 });
