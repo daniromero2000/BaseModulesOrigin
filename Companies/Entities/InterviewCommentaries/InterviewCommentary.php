@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InterviewCommentary extends Model
 {
-    use SoftDeletes;
+
     protected $table = 'interview_commentaries';
 
     protected $fillable = [
@@ -20,18 +20,15 @@ class InterviewCommentary extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
-        'deleted_at'
     ];
 
     protected $guarded = [
         'id',
         'created_at',
         'deleted_at',
-        'updated_at',
     ];
 
     protected $dates  = [
-        'deleted_at',
         'created_at',
         'updated_at'
     ];

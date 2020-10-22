@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Companies\Entities\EmployeePositions\Repositories\Interfaces\EmployeePositionRepositoryInterface;
 use Modules\Companies\Entities\Employees\Repositories\EmployeeRepository;
+use Modules\Companies\Entities\Interviews\Exceptions\InterviewNotFoundException;
 use Modules\Companies\Entities\Interviews\Repositories\Interfaces\InterviewRepositoryInterface;
 use Modules\Companies\Entities\InterviewStatuses\Repositories\Interfaces\InterviewStatusRepositoryInterface;
 use Modules\Companies\Entities\Subsidiaries\Repositories\Interfaces\SubsidiaryRepositoryInterface;
@@ -74,7 +75,16 @@ class InterviewsController extends Controller
 
     public function show($id)
     {
-        return view('companies::show');
+        try {
+            return view('companies::admin.interviews.show', [
+                'interview'           => $this->interviewsInterface->findInterviewById($id),
+                'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
+            ]);
+        } catch (InterviewNotFoundException $e) {
+            request()->session()->flash('error', 'El Empleado que estás buscando no se encuentra');
+
+            return redirect()->route('admin.interviews.index');
+        }
     }
 
     public function edit($id)

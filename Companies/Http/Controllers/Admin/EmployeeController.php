@@ -139,6 +139,8 @@ class EmployeeController extends Controller
 
     public function show(int $id)
     {
+
+        dd($this->employeeInterface->findEmployeeById($id));
         try {
             return view('companies::admin.employees.show', [
                 'employee'           => $this->employeeInterface->findEmployeeById($id),

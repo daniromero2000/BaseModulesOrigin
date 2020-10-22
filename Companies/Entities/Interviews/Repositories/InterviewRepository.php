@@ -59,7 +59,7 @@ class InterviewRepository implements InterviewRepositoryInterface
     public function findInterviewById(int $id): Interview
     {
         try {
-            return $this->model
+            return $this->model->with(['interviewStatus', 'employeePosition', 'subsidiary', 'interviewCommentaries'])
                 ->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new InterviewNotFoundException($e);
