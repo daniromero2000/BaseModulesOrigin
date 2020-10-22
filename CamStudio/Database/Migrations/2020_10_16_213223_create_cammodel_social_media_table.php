@@ -16,6 +16,8 @@ class CreateCammodelSocialMediaTable extends Migration
         Schema::create('cammodel_social_media', function (Blueprint $table) {
             $table->increments('id');
             $table->string('profile');
+            $table->string('user');
+            $table->string('password');
             $table->integer('cammodel_id')->unsigned();
             $table->foreign('cammodel_id')->references('id')->on('cammodels')->onDelete('cascade');
             $table->integer('social_media_id')->unsigned();

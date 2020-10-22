@@ -636,5 +636,57 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 116,
             'role_id' => 1
         ]);
+
+        // Permisos Acciones Módulo Cammodel Socials
+        factory(ActionRole::class)->create([
+            'action_id' => 117,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 118,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 119,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 120,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 121,
+            'role_id' => 1
+        ]);
+
+        // Permisos Acciones Módulo Cammodel Streamings
+        factory(ActionRole::class)->create([
+            'action_id' => 122,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 123,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 124,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 125,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 126,
+            'role_id' => 1
+        ]);
     }
 }

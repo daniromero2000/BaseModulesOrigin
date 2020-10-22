@@ -20,6 +20,8 @@ class CreateCammodelStreamAccountsTable extends Migration
             $table->integer('streaming_id')->unsigned()->index();
             $table->foreign('streaming_id')->references('id')->on('streamings')->onDelete('cascade');
             $table->string('profile');
+            $table->string('user');
+            $table->string('password');
             $table->tinyInteger('set_up')->unsigned()->default(0);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();

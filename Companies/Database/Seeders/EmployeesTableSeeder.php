@@ -201,6 +201,20 @@ class EmployeesTableSeeder extends Seeder
             'permission_group_id' => 1
         ]);
 
+        $moduleCamModelSocial        =  factory(Permission::class)->create([
+            'name'                => 'cammodel_social',
+            'display_name'        => 'Redes_modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
+        $moduleCamModelStreaming        =  factory(Permission::class)->create([
+            'name'                => 'cammodel_streamings',
+            'display_name'        => 'Streamings_modelos',
+            'icon'                => 'ni ni-single-02 text-orange',
+            'permission_group_id' => 9
+        ]);
+
 
         /*Creacion Usuario Super Admin Desarrollo*/
         $employee          =  factory(Employee::class)->create([
@@ -241,6 +255,8 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($moduleNewsletterSubscriptions);
         $roleSuperRepo->attachToPermission($moduleInterviews);
         $roleSuperRepo->attachToPermission($moduleInterviewStatuses);
+        $roleSuperRepo->attachToPermission($moduleCamModelSocial);
+        $roleSuperRepo->attachToPermission($moduleCamModelStreaming);
         $employee->roles()->save($super);
 
 
@@ -318,5 +334,22 @@ class EmployeesTableSeeder extends Seeder
         $roleCamModel = new RoleRepository($camModel);
         $roleCamModel->attachToPermission($moduleCamModels);
         $camModelEmployee->roles()->save($camModel);
+
+
+
+        /*Creacion Usuario Cam_model*/
+        $CommunityEmployee    =  factory(Employee::class)->create([
+            'email'        => 'community@sycgroup.com'
+        ]);
+
+        $community       =  factory(Role::class)->create([
+            'name'         => 'community_manager',
+            'display_name' => 'Community Manager'
+        ]);
+
+        $roleCommunity = new RoleRepository($community);
+        $roleCommunity->attachToPermission($moduleCamModelSocial);
+        $roleCommunity->attachToPermission($moduleCamModelStreaming);
+        $CommunityEmployee->roles()->save($community);
     }
 }
