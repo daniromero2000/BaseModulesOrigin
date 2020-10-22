@@ -4,6 +4,7 @@ namespace Modules\Companies\Entities\Interviews;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\InterViewStatuses\InterviewStatus;
 
 class Interview extends Model
 {
@@ -45,4 +46,23 @@ class Interview extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected $searchable = [
+        'columns' => [
+            'interviews.name' => 10,
+            'interviews.email' => 5,
+            'interviews.last_name' => 5,
+            'interviews.identification_number' => 5,
+        ],
+    ];
+
+    public function searchInterview($term)
+    {
+        return self::search($term);
+    }
+
+    public function interviewStatus()
+    {
+        return $this->belongsTo(InterviewStatus::class);
+    }
 }

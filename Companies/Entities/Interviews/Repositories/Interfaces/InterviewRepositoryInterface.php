@@ -16,4 +16,8 @@ interface InterviewRepositoryInterface
     public function listInterviews(int $totalView): Collection;
 
     public function removeInterview(): bool;
+
+    public function searchInterview(string $text = null): Collection;
+
+    public function searchTrashedInterview(string $text = null): Collection;
 }

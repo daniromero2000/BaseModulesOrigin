@@ -68,8 +68,8 @@ class InterviewRepository implements InterviewRepositoryInterface
 
     public function listInterviews(int $totalView): Collection
     {
-        return $this->model->with(['InterviewStatus'])
-            ->InterviewBy('id', 'desc')
+        return $this->model->with(['interviewStatus'])
+            ->orderBy('id', 'desc')
             ->skip($totalView)->take(30)
             ->get($this->columns);
     }
@@ -83,5 +83,23 @@ class InterviewRepository implements InterviewRepositoryInterface
         } catch (QueryException $e) {
             dd($e);
         }
+    }
+
+    public function searchInterview(string $text = null): Collection
+    {
+        if (is_null($text)) {
+            return $this->model->get($this->columns);
+        }
+
+        return $this->model->searchInterview($text)->get($this->columns);
+    }
+
+    public function searchTrashedInterview(string $text = null): Collection
+    {
+        if (is_null($text)) {
+            return $this->model->onlyTrashed($text)->get($this->columns);
+        }
+
+        return $this->model->onlyTrashed()->get($this->columns);
     }
 }
