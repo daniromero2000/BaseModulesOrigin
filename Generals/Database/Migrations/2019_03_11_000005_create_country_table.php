@@ -19,7 +19,7 @@ class CreateCountryTable extends Migration
             $table->string('iso')->unique()->default(1);
             $table->string('iso3')->nullable()->default(1);
             $table->string('numcode')->nullable()->default(1);
-            $table->string('phonecode');
+            $table->string('phonecode')->default('No Code');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

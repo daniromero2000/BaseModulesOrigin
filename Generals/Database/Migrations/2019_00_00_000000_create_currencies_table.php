@@ -16,8 +16,8 @@ class CreateCurrenciesTable extends Migration
         Schema::create('currencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->string('iso')->unique();
-            $table->string('symbol')->nullable();
+            $table->string('iso')->unique()->default('No Iso');
+            $table->string('symbol')->nullable()->default('No Symbol');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

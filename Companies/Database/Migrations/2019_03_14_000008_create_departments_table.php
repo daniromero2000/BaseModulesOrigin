@@ -17,7 +17,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('phone')->nullable();
+            $table->string('phone')->nullable()->default('No Phone');
             $table->unsignedInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->tinyInteger('is_active')->unsigned()->default(1);

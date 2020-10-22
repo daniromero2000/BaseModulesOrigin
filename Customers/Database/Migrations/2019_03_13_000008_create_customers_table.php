@@ -26,7 +26,7 @@ class CreateCustomersTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             $table->integer('scholarity_id')->unsigned()->default(4);
             $table->foreign('scholarity_id')->references('id')->on('scholarities');
-            $table->string('email')->nullable();
+            $table->string('email')->nullable()->default('No Email');
             $table->string('password')->nullable();
             $table->integer('customer_channel_id')->unsigned()->nullable()->default(11);
             $table->foreign('customer_channel_id')->references('id')->on('customer_channels')->onDelete('set null');
@@ -39,7 +39,7 @@ class CreateCustomersTable extends Migration
             $table->boolean('data_politics')->nullable()->default(0);
             $table->boolean('is_verified')->default(0);
             $table->boolean('subscribed_to_news_letter')->default(0);
-            $table->string('avatar')->nullable()->default('Sin Avatar');
+            $table->string('avatar')->nullable()->default('No Avatar');
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->rememberToken();
             $table->timestamps();

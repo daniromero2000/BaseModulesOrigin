@@ -19,8 +19,8 @@ class CreateCustomerBankAccountsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
             $table->integer('bank_id')->unsigned()->nullable();
             $table->foreign('bank_id')->references('id')->on('banks')->onDelete('set null');
-            $table->string('account_type');
-            $table->string('account_number');
+            $table->string('account_type')->default('No Data');
+            $table->string('account_number')->default('No Data');
             $table->string('account_certificate');
             $table->timestamps();
             $table->softDeletes();

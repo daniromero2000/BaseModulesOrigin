@@ -18,7 +18,7 @@ class CreateCustomerAddressesTable extends Migration
             $table->integer('housing_id')->unsigned()->index()->default(4);
             $table->foreign('housing_id')->references('id')->on('housings')->default(4);
             $table->string('customer_address');
-            $table->string('neighborhood')->nullable();
+            $table->string('neighborhood')->nullable()->default('No Data');
             $table->integer('time_living')->unsigned()->default(0);
             $table->integer('stratum_id')->unsigned()->index()->default(1);
             $table->foreign('stratum_id')->references('id')->on('stratums');

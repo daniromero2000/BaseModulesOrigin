@@ -21,10 +21,10 @@ class CreateOrderProductsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedInteger('product_attribute_id')->nullable();
             $table->integer('quantity')->unsigned()->default(0);
-            $table->integer('qty_shipped')->default(0)->nullable();
-            $table->integer('qty_invoiced')->default(0)->nullable();
-            $table->integer('qty_canceled')->default(0)->nullable();
-            $table->integer('qty_refunded')->default(0)->nullable();
+            $table->integer('qty_shipped')->unsigned()->default(0)->nullable();
+            $table->integer('qty_invoiced')->unsigned()->default(0)->nullable();
+            $table->integer('qty_canceled')->unsigned()->default(0)->nullable();
+            $table->integer('qty_refunded')->unsigned()->default(0)->nullable();
             $table->string('product_name')->nullable();
             $table->string('product_sku')->nullable();
             $table->text('product_description')->nullable();

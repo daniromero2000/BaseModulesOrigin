@@ -17,7 +17,7 @@ class CreateCompanyReviewsTable extends Migration
             $table->increments('id');
             $table->string('name')->default('');
             $table->string('title');
-            $table->integer('rating');
+            $table->integer('rating')->unsigned()->default(0);
             $table->text('comment')->nullable();
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

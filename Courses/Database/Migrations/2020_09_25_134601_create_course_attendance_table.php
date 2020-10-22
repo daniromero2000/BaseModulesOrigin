@@ -20,11 +20,11 @@ class CreateCourseAttendanceTable extends Migration
             $table->string('identification');
             $table->string('name');
             $table->string('last_name');
-            $table->string('position')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('hotel_name');
-            $table->string('hotel_city');
+            $table->string('position')->nullable()->default('No Position');
+            $table->string('email')->nullable()->default('No Email');
+            $table->string('phone')->nullable()->default('No Phone');
+            $table->string('hotel_name')->default('No Name');
+            $table->string('hotel_city')->default('No City');
             $table->String('start_date');
             $table->String('end_date');
             $table->timestamps();

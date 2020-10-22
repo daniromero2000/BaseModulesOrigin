@@ -20,7 +20,7 @@ class CreateWishlistsTable extends Migration
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->date('moved_to_cart')->nullable();
-            $table->boolean('shared')->nullable();
+            $table->boolean('shared')->nullable()->default(0);
             $table->date('time_of_moving')->nullable();
             $table->timestamps();
             $table->softDeletes();

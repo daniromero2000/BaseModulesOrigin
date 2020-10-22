@@ -18,7 +18,7 @@ class CreateOrderStatusesLogsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->string('status');
+            $table->string('status')->default('No Status');
             $table->integer('employee_id')->unsigned()->index();
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->timestamps();

@@ -16,8 +16,8 @@ class CreateProductReviewsTable extends Migration
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->default('');
-            $table->string('title');
-            $table->integer('rating');
+            $table->string('title')->default('No Title');
+            $table->integer('rating')->unsigned()->default(0);
             $table->text('comment')->nullable();
             $table->string('status');
             $table->integer('product_id')->unsigned();

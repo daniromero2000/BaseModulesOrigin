@@ -17,8 +17,8 @@ class CreateSubsidiariesTable extends Migration
         Schema::create('subsidiaries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('address')->nullable()->default('No Address');
+            $table->string('phone')->nullable()->default('No Phone');
             $table->string('opening_hours')->nullable();
             $table->unsignedInteger('city_id')->index();
             $table->foreign('city_id')->references('id')->on('cities');

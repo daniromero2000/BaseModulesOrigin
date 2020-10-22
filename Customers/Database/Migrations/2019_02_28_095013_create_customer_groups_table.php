@@ -16,7 +16,7 @@ class CreateCustomerGroupsTable extends Migration
         Schema::create('customer_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->default('No Code');
             $table->boolean('is_user_defined')->default(1);
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();

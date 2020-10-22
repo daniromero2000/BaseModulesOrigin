@@ -17,7 +17,7 @@ class CreateEmployeeIdentitiesTable extends Migration
             $table->increments('id');
             $table->integer('identity_type_id')->unsigned()->index();
             $table->foreign('identity_type_id')->references('id')->on('identity_types');
-            $table->string('identity_number');
+            $table->string('identity_number')->default('No ID');
             $table->date('expedition_date');
             $table->integer('city_id')->unsigned()->index();
             $table->foreign('city_id')->references('id')->on('cities');

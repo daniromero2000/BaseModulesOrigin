@@ -19,7 +19,7 @@ class CreateInterviewsTable extends Migration
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->string('name');
             $table->string('last_name');
-            $table->string('identification_number');
+            $table->string('identification_number')->default('No ID');
             $table->date('birthday');
             $table->string('phone')->default('No Phone');
             $table->string('email')->default('No Email');

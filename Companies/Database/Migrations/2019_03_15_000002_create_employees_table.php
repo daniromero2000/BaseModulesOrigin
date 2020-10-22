@@ -22,14 +22,14 @@ class CreateEmployeesTable extends Migration
             $table->date('birthday')->nullable();
             $table->integer('genre_id')->unsigned()->nullable();
             $table->foreign('genre_id')->references('id')->on('genres');
-            $table->string('avatar')->nullable()->default('Sin Avatar');
+            $table->string('avatar')->nullable()->default('No Avatar');
             $table->integer('subsidiary_id')->unsigned();
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
-            $table->char('rh')->nullable()->default('Sin RH');
-            $table->string('bank_account')->unique()->nullable()->default('Sin Cuenta');
-            $table->string('work_schedule')->nullable()->default('Sin Turno');
+            $table->char('rh')->nullable()->default('No RH');
+            $table->string('bank_account')->unique()->nullable()->default('No Cuenta');
+            $table->string('work_schedule')->nullable()->default('No Turno');
             $table->date('admission_date')->nullable();
             $table->tinyInteger('is_rotative')->unsigned()->default(0);
             $table->integer('customer_id')->unsigned()->nullable();
