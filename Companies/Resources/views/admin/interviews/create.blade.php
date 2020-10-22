@@ -117,6 +117,19 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
+                        <div id="cities" class="form-group">
+                            <label class="form-control-label" for="interview_status_id">Estado</label>
+                            <div class="input-group">
+                                <select name="interview_status_id" id="interview_status_id" class="form-control" enabled>
+                                    @foreach($interview_statuses as $interview_status)
+                                    <option value="{{ $interview_status->id }}">{{ $interview_status->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div id="subsidiaries" class="form-group">
                             <label class="form-control-label" for="department_id">Sucursal</label>
                             <div class="input-group">

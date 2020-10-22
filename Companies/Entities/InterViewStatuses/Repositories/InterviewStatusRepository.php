@@ -52,6 +52,15 @@ class InterviewStatusRepository implements InterviewStatusRepositoryInterface
         return $this->model->all($this->columns);
     }
 
+    public function getAllInterviewStatusesNames(): Collection
+    {
+        try {
+            return $this->model->orderBy('name', 'desc')->get(['id', 'name']);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function deleteInterviewStatus(): bool
     {
         return $this->model->delete();

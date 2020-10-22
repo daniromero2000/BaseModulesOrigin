@@ -15,6 +15,8 @@ interface InterviewStatusRepositoryInterface
 
     public function listInterviewStatuses();
 
+    public function getAllInterviewStatusesNames(): Collection;
+
     public function deleteInterviewStatus(): bool;
 
     public function findOrders(): Collection;

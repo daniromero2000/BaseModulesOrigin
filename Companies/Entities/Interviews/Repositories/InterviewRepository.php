@@ -68,7 +68,7 @@ class InterviewRepository implements InterviewRepositoryInterface
 
     public function listInterviews(int $totalView): Collection
     {
-        return $this->model->with(['interviewStatus'])
+        return $this->model->with(['interviewStatus', 'employeePosition'])
             ->orderBy('id', 'desc')
             ->skip($totalView)->take(30)
             ->get($this->columns);

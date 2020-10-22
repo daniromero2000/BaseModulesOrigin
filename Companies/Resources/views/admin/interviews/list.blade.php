@@ -43,7 +43,11 @@
                         <td class="text-center">{{ $data->email }}</td>
                         <td class="text-center">{{ $data->employeePosition->position }}</td>
                         <td class="text-center">
-                            @include('generals::layouts.status', ['status' => $data->is_active])</td>
+                            <span class="badge"
+                                style="color: #ffffff; background-color: {{ $data->interviewStatus->color }}">
+                                {{ $data->interviewStatus->name }}
+                            </span>
+                        </td>
                         <td class="text-center">
                             @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
                             $optionsRoutes])

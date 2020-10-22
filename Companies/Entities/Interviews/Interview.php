@@ -4,6 +4,7 @@ namespace Modules\Companies\Entities\Interviews;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\InterViewStatuses\InterviewStatus;
 
 class Interview extends Model
@@ -64,5 +65,10 @@ class Interview extends Model
     public function interviewStatus()
     {
         return $this->belongsTo(InterviewStatus::class);
+    }
+
+    public function employeePosition()
+    {
+        return $this->belongsTo(EmployeePosition::class);
     }
 }
