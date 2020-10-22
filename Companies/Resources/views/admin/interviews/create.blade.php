@@ -60,8 +60,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="email" id="email" validation-pattern="email" placeholder="Email"
-                                    class="form-control" value="{{ old('email') }}" required>
+                                <input type="text" name="email" id="email" validation-pattern="email"
+                                    placeholder="Email" class="form-control" value="{{ old('email') }}" required>
                             </div>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="phone" id="phone" validation-pattern="phone" placeholder="Teléfono"
-                                    class="form-control" value="{{ old('phone') }}" required>
+                                <input type="text" name="phone" id="phone" validation-pattern="phone"
+                                    placeholder="Teléfono" class="form-control" value="{{ old('phone') }}" required>
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="identification_number" id="identification_number" validation-pattern="text" placeholder="Número Identificación"
-                                    class="form-control" value="{{ old('identification_number') }}" required>
+                                <input type="text" name="identification_number" id="identification_number"
+                                    validation-pattern="text" placeholder="Número Identificación" class="form-control"
+                                    value="{{ old('identification_number') }}" required>
                             </div>
                         </div>
                     </div>
@@ -116,32 +117,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div id="cities" class="form-group">
-                            <label class="form-control-label" for="interview_status_id">Estado</label>
-                            <div class="input-group">
-                                <select name="interview_status_id" id="interview_status_id" class="form-control" enabled>
-                                    @foreach($interview_statuses as $interview_status)
-                                    <option value="{{ $interview_status->id }}">{{ $interview_status->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div id="subsidiaries" class="form-group">
-                            <label class="form-control-label" for="department_id">Sucursal</label>
-                            <div class="input-group">
-                                <select name="subsidiary_id" id="subsidiary_id" class="form-control" enabled>
-                                    @foreach($subsidiaries as $subsidiary)
-                                    <option value="{{ $subsidiary->id }}">{{ $subsidiary->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="card-footer text-right">

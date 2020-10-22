@@ -16,7 +16,6 @@ class InterviewRepository implements InterviewRepositoryInterface
     protected $model;
     private $columns = [
         'id',
-        'subsidiary_id',
         'name',
         'last_name',
         'identification_number',
@@ -27,7 +26,6 @@ class InterviewRepository implements InterviewRepositoryInterface
         'calification',
         'employee_position_id',
         'english_knowledge',
-        'facebook',
         'interview_status_id',
         'picture',
         'created_at'
@@ -59,7 +57,7 @@ class InterviewRepository implements InterviewRepositoryInterface
     public function findInterviewById(int $id): Interview
     {
         try {
-            return $this->model->with(['interviewStatus', 'employeePosition', 'subsidiary', 'interviewCommentaries'])
+            return $this->model->with(['interviewStatus', 'employeePosition', 'interviewCommentaries'])
                 ->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
             throw new InterviewNotFoundException($e);

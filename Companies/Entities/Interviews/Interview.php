@@ -15,7 +15,6 @@ class Interview extends Model
     protected $table = 'interviews';
 
     protected $fillable = [
-        'subsidiary_id',
         'name',
         'last_name',
         'identification_number',
@@ -26,7 +25,6 @@ class Interview extends Model
         'calification',
         'employee_position_id',
         'english_knowledge',
-        'facebook',
         'interview_status_id',
         'picture'
     ];
@@ -72,11 +70,6 @@ class Interview extends Model
     public function employeePosition()
     {
         return $this->belongsTo(EmployeePosition::class);
-    }
-
-    public function subsidiary()
-    {
-        return $this->belongsTo(Subsidiary::class);
     }
 
     public function interviewCommentaries()

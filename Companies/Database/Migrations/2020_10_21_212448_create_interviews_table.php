@@ -15,8 +15,6 @@ class CreateInterviewsTable extends Migration
     {
         Schema::create('interviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('subsidiary_id')->unsigned();
-            $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->string('name');
             $table->string('last_name');
             $table->string('identification_number')->default('No ID');
@@ -28,8 +26,7 @@ class CreateInterviewsTable extends Migration
             $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->tinyInteger('english_knowledge')->nullable()->default(0);
-            $table->string('facebook')->nullable()->default('No Facebook');
-            $table->integer('interview_status_id')->unsigned()->index();
+            $table->integer('interview_status_id')->unsigned()->index()->default(4);
             $table->foreign('interview_status_id')->references('id')->on('interview_statuses');
             $table->string('picture')->nullable()->default('No Photo');
             $table->timestamps();

@@ -33,7 +33,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link mb-sm-3 mb-md-0 active" id="home-tab" data-toggle="tab" href="#home"
-                            role="tab" aria-controls="home" aria-selected="true">Empleado</a>
+                            role="tab" aria-controls="home" aria-selected="true">Candidato</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link mb-sm-3 mb-md-0" id="contact-tab" data-toggle="tab" href="#contact"
