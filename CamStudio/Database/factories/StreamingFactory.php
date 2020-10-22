@@ -5,7 +5,7 @@
 
 use Modules\CamStudio\Entities\Streamings\Streaming;
 
-$factory->define(SocialMedia::class, function () {
+$factory->define(Streaming::class, function () {
 
     return [
         'streaming' => 'Chaturbate',

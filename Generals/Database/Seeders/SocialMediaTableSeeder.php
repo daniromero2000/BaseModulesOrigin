@@ -28,5 +28,15 @@ class SocialMediaTableSeeder extends Seeder
             'social' => 'Linkedin',
             'url'    => 'www.linkedin.com'
         ]);
+
+        factory(SocialMedia::class)->create([
+            'social' => 'Skype',
+            'url'    => 'www.Skype.com'
+        ]);
+
+        factory(SocialMedia::class)->create([
+            'social' => 'SnapChat',
+            'url'    => 'www.SnapChat.com'
+        ]);
     }
 }

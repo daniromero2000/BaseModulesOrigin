@@ -15,7 +15,7 @@ class CreateStreamingsTable extends Migration
     {
         Schema::create('streamings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('streaming')->unique();
             $table->string('url')->nullable()->default('No URL');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
