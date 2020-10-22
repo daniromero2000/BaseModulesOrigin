@@ -37,11 +37,25 @@ use Modules\Companies\Entities\Roles\Repositories\Interfaces\RoleRepositoryInter
 use Modules\Companies\Entities\Roles\Repositories\RoleRepository;
 use Modules\Companies\Entities\Subsidiaries\Repositories\Interfaces\SubsidiaryRepositoryInterface;
 use Modules\Companies\Entities\Subsidiaries\Repositories\SubsidiaryRepository;
+use Modules\Companies\Entities\InterviewStatuses\Repositories\Interfaces\InterviewStatusRepositoryInterface;
+use Modules\Companies\Entities\InterviewStatuses\Repositories\InterviewStatusRepository;
+use Modules\Companies\Entities\Interviews\Repositories\Interfaces\InterviewRepositoryInterface;
+use Modules\Companies\Entities\Interviews\Repositories\InterviewRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            InterviewRepositoryInterface::class,
+            InterviewRepository::class
+        );
+
+        $this->app->bind(
+            InterviewStatusRepositoryInterface::class,
+            InterviewStatusRepository::class
+        );
+
         $this->app->bind(
             EmployeeRepositoryInterface::class,
             EmployeeRepository::class
