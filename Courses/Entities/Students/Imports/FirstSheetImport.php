@@ -21,10 +21,8 @@ class FirstSheetImport implements ToModel, WithHeadingRow
             'phone'          => $row['telefono'],
             'hotel_name'     => $row['hotel'],
             'hotel_city'     => $row['ciudad'],
-            'start_date'    => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['inicio']),
-            'end_date'    => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['cierre'])
-
-
+            'start_date'     => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['inicio']),
+            'end_date'       => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['cierre'])
         ]);
     }
 }
