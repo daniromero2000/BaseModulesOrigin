@@ -37,6 +37,7 @@
         @yield('header')
         <div class="container-fluid" id="reset">
             @yield('content')
+            {{-- <img style="border-radius: 50px 50px 0px 0px;" class="w-100" src="{{asset('modules/generals/argonTemplate/img/theme/welcome.png')}}" --}}
             @include('generals::layouts.admin.footer')
         </div>
     </div>
