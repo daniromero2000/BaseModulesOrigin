@@ -17,7 +17,7 @@ class CreateEmployeeAddressesTable extends Migration
             $table->increments('id');
             $table->integer('housing_id')->unsigned()->index();
             $table->foreign('housing_id')->references('id')->on('housings');
-            $table->string('address');
+            $table->string('address')->default('No Address');
             $table->integer('time_living')->unsigned()->default(0);
             $table->integer('stratum_id')->unsigned()->index();
             $table->foreign('stratum_id')->references('id')->on('stratums');

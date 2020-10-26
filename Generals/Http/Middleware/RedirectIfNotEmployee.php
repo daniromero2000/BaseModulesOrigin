@@ -18,7 +18,7 @@ class RedirectIfNotEmployee
     {
         if (!auth()->guard($guard)->check()) {
             $request->session()->flash('error', 'Debes ser un empleado para ver esta página');
-            return redirect(route('admin.login'));
+            return redirect(route('admin.loginform'));
         }
 
         return $next($request);

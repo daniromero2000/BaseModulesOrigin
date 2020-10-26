@@ -40,7 +40,6 @@ class CustomerReferenceController extends Controller
 
     public function store(CreateCustomerReferenceRequest $request)
     {
-        // dd($request);
         $requestData = $request->except('_token', '_method');
 
         if (empty($customerPhone  = $this->customerPhoneInterface->checkIfExists($request['phone']))) {
@@ -65,7 +64,6 @@ class CustomerReferenceController extends Controller
         $customerReference = array(
             'customer_id'       => $requestData['customer_id'],
             'relationship_id'   => $requestData['relationship_id'],
-            'customer_phone_id' => $customerPhone->id
         );
 
         $reference = $this->customerReferenceInterface->createCustomerReference($customerReference);

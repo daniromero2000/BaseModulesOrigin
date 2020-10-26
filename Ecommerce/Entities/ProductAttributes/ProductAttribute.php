@@ -23,7 +23,6 @@ class ProductAttribute extends Model
     protected $hidden = [
         'deleted_at',
         'updated_at',
-
     ];
 
     protected $guarded = [
@@ -42,12 +41,30 @@ class ProductAttribute extends Model
     public function product()
     {
         return $this->belongsTo(Product::class)
-            ->select(['id', 'company_id', 'brand_id', 'sku', 'name', 'slug', 'description', 'cover', 'quantity', 'price', 'base_price', 'sale_price', 'special_price', 'tax_id', 'is_visible_on_front', 'is_active', 'created_at']);
+            ->select([
+                'id',
+                'company_id',
+                'brand_id',
+                'sku',
+                'name',
+                'slug',
+                'description',
+                'cover',
+                'quantity',
+                'price',
+                'base_price',
+                'sale_price',
+                'special_price',
+                'tax_id',
+                'is_visible_on_front',
+                'is_active',
+                'created_at'
+            ]);
     }
 
     public function attributesValues()
     {
-        return $this->belongsToMany(AttributeValue::class)->orderBy('value')
+        return $this->belongsToMany(AttributeValue::class)->orderBy('value')->with('attribute')
             ->select(['id', 'value', 'description', 'sort_order', 'attribute_id']);
     }
 

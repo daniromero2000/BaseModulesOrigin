@@ -22,7 +22,7 @@ class RoleRepository implements RoleRepositoryInterface
     public function getAllRoleNames(): Collection
     {
         try {
-            return $this->model->orderBy('name', 'desc')
+            return $this->model->where('status', 1)->orderBy('name', 'desc')
                 ->get(['id', 'display_name']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -97,7 +97,6 @@ class RoleRepository implements RoleRepositoryInterface
     {
         $this->model->attachPermission($permission);
     }
-
 
     public function attachToPermissions(...$permissions)
     {

@@ -38,6 +38,9 @@
                 <thead class="thead-light ">
                     <tr>
                         <td>Valores de Atributo</td>
+                        @if ($attribute->name == 'Color' )
+                        <td>Color</td>
+                        @endif
                         <td>Acciones</td>
                     </tr>
                 </thead>
@@ -45,17 +48,60 @@
                     @foreach($values as $item)
                     <tr>
                         <td>{{ $item->value }}</td>
+                        @if ($attribute->name == 'Color' )
+                        <td>{{ $item->description }}</td>
+                        @endif
                         <td>
-                            <form action="{{ route('admin.attributes.values.destroy', [$attribute->id, $item->id]) }}"
-                                class="form-horizontal" method="post">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="delete">
-                                <div class="btn-group">
+                            <div class="btn-group">
+                                <button data-toggle="modal" data-target="#update{{$item->id}}"
+                                    class="btn btn-primary btn-sm mr-2"><i class="fas fa-user-edit"></i></button>
+                                <form
+                                    action="{{ route('admin.attributes.values.destroy', [$attribute->id, $item->id]) }}"
+                                    class="form-horizontal" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="delete">
                                     <button onclick="return confirm('¿Estás Seguro?')" type="submit"
                                         class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                         Remover</button>
+                                </form>
+
+                                <div id="update{{$item->id}}" class="modal fade" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="{{ route('admin.attributesValues', $item->id) }}"
+                                                method="post" enctype="multipart/form-data" class="form">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="_method" value="put">
+                                                        <div class="col-md-12 text-left">
+                                                            <label class="form-control-label" for="value">Valor
+                                                                de Atributo<span class="text-danger">*</span></label>
+                                                            <input type="text" name="value" id="value"
+                                                                placeholder="Valor Atributo" class="form-control"
+                                                                value="{{ $item->value}}">
+                                                            @if ($attribute->name == 'Color')
+                                                            <label class="form-control-label mt-2"
+                                                                for="description">Color<span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="color" name="description" class="form-control"
+                                                                value="{{ $item->description}}">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-right">
+                                                    <button type="submit"
+                                                        class="btn btn-primary btn-sm">Actualizar</button>
+                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -91,6 +137,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card-footer text-right">
             <a href="{{ route('admin.attributes.index') }}" class="btn btn-default btn-sm">Regresar</a>
         </div>

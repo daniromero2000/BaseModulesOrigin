@@ -42,16 +42,12 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    {{-- @php
-                        dd($employee)
-                    @endphp --}}
                     <div class="text-center">
                         <h5 class="h3">
                             {{$employee->name}} {{$employee->last_name}}
                         </h5>
                         <div class="h5 font-weight-300">
-                            <i class="ni location_pin mr-2"></i>{{$employee->employeePosition->position}},
-                            {{$employee->department[0]->name}}
+                            <i class="ni location_pin mr-2"></i>{{$employee->employeePosition->position}}
                         </div>
                         <div class="h5 mt-3">
                             <i class="ni business_briefcase-24 mr-2"></i>{{$employee->email}}

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::namespace('Admin')->group(function () {
-    Route::get('admin/login', 'LoginController@showLoginForm')->name('admin.login');
+    Route::get('admin/loginform', 'LoginController@showLoginForm')->name('admin.loginform');
     Route::post('admin/login', 'LoginController@login')->name('admin.login');
     Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
     Route::view('admin/prueba', 'welcome');
@@ -38,6 +38,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
         Route::namespace('EmployeeEmails')->group(function () {
             Route::resource('employee-emails', 'EmployeeEmailController');
+        });
+
+        Route::namespace('Interviews')->group(function () {
+            Route::resource('interviews', 'InterviewsController');
+        });
+
+        Route::namespace('InterviewStatuses')->group(function () {
+            Route::resource('interview-statuses', 'InterviewStatusesController');
+        });
+
+        Route::namespace('InterviewCommentaries')->group(function () {
+            Route::resource('interview-commentaries', 'InterviewCommentariesController');
         });
 
         Route::namespace('EmployeePhones')->group(function () {

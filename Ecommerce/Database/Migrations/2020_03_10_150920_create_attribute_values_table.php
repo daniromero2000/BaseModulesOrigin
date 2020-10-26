@@ -16,7 +16,7 @@ class CreateAttributeValuesTable extends Migration
         Schema::create('attribute_values', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value');
-            $table->string('description')->nullable();
+            $table->string('description')->nullable()->default('No Data');
             $table->unsignedInteger('sort_order')->default(0);
             $table->unsignedInteger('attribute_id')->index();
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');

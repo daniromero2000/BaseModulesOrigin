@@ -44,7 +44,7 @@
                         </td>
                         @endforeach
                         <td class="text-center">
-                            @include('generals::layouts.admin..tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])
+                            @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])
                         </td>
                     </tr>
                     <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog"

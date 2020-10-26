@@ -19,10 +19,10 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('link');
-            $table->string('cover')->nullable();
-            $table->string('img_welcome')->nullable();
-            $table->string('img_footer')->nullable();
-            $table->string('img_button')->nullable();
+            $table->string('cover')->nullable()->default('No Image');
+            $table->string('img_welcome')->nullable()->default('No Phone');
+            $table->string('img_footer')->nullable()->default('No Image');
+            $table->string('img_button')->nullable()->default('No Image');
             $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

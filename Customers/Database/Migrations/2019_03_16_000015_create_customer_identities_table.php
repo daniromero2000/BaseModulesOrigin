@@ -23,6 +23,7 @@ class CreateCustomerIdentitiesTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('customer_id')->unsigned()->index();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->string('file')->nullable()->default('No File');
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

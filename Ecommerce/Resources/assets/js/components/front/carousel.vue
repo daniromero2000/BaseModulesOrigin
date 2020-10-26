@@ -1,180 +1,92 @@
 <template>
-  <div class="container-fluid">
-    <b-row>
-      <b-col cols="6">
-        <agile
-          class="main"
-          ref="main"
-          :options="options1"
-          :as-nav-for="asNavFor1"
-        >
-          <div
-            class="slide"
-            v-for="(slide, index) in slides"
-            :key="index"
-            :class="`slide--${index}`"
-          >
-            <img :src="slide" />
-          </div>
-        </agile>
-        <agile
-          class="thumbnails"
-          ref="thumbnails"
-          :options="options2"
-          :as-nav-for="asNavFor2"
-        >
-          <div
-            class="slide slide--thumbniail"
-            v-for="(slide, index) in slides"
-            :key="index"
-            :class="`slide--${index}`"
-            @click="$refs.thumbnails.goTo(index)"
-          >
-            <img :src="slide" />
-          </div>
-          <template slot="prevButton"
-            ><i class="fas fa-chevron-left"></i
-          ></template>
-          <template slot="nextButton"
-            ><i class="fas fa-chevron-right"></i
-          ></template> </agile
-      ></b-col>
-      <b-col cols="6">3 of 3</b-col>
-    </b-row>
+  <div>
+    <vueper-slides
+      class="vueperslides--1"
+      ref="vueperslides1"
+      :touchable="false"
+      fade="fade"
+      :arrows="false"
+      :autoplay="false"
+      :bullets="false"
+      @slide="$refs.vueperslides2 &amp;&amp; $refs.vueperslides2.goToSlide($event.currentSlide.index, { emit: false })"
+      fixed-height="400px"
+    >
+      <vueper-slide
+        v-for="(slide, i) in slider"
+        :key="i"
+        :image="slide"
+        style="max-height: 400px"
+      >
+      </vueper-slide> </vueper-slides
+    ><br />
+    <vueper-slides
+      class="no-shadow vueperslides--2"
+      ref="vueperslides2"
+      @slide="$refs.vueperslides1 &amp;&amp; $refs.vueperslides1.goToSlide($event.currentSlide.index, { emit: false })"
+      :visible-slides="slider.length"
+      fixed-height="75px"
+      :bullets="false"
+      :touchable="false"
+      :gap="2.5"
+      :arrows="false"
+    >
+      <vueper-slide
+        v-for="(slide, i) in slider"
+        :key="i"
+        :image="slide"
+        @click.native="$refs.vueperslides2 &amp;&amp; $refs.vueperslides2.goToSlide(i)"
+      ></vueper-slide>
+    </vueper-slides>
   </div>
 </template>
    <style >
-.main {
-  margin-bottom: 30px;
+.vueperslides--fade .vueperslide {
+  max-height: 550px;
+  max-width: 550px;
+  margin: auto;
 }
-
-.thumbnails {
-  margin: 0 -5px;
-  width: calc(100% + 10px);
-}
-
-.agile__nav-button {
-  background: transparent;
-  border: none;
-  color: #ccc;
-  cursor: pointer;
-  font-size: 24px;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-.thumbnails .agile__nav-button {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-.thumbnails .agile__nav-button--prev {
-  left: -45px;
-}
-.thumbnails .agile__nav-button--next {
-  right: -45px;
-}
-.agile__nav-button:hover {
-  color: #888;
-}
-.agile__dot {
-  margin: 0 10px;
-}
-.agile__dot button {
-  background-color: #eee;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: block;
-  height: 10px;
-  font-size: 0;
-  line-height: 0;
-  margin: 0;
-  padding: 0;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  width: 10px;
-}
-.agile__dot--current button,
-.agile__dot:hover button {
-  background-color: #888;
-}
-
-.slide {
-  -webkit-box-align: center;
-  align-items: center;
+.vueperslides--2 .vueperslide {
   box-sizing: border-box;
-  color: #fff;
-  display: -webkit-box;
-  display: flex;
-  height: 450px;
-  -webkit-box-pack: center;
-  justify-content: center;
+  border: 1px solid #fff;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  opacity: 0.7;
+  max-width: 100px;
 }
-.slide--thumbniail {
-  cursor: pointer;
-  height: 100px;
-  padding: 0 5px;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
+.vueperslides--2 .vueperslide--active {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  border-color: #000;
 }
-.slide--thumbniail:hover {
-  opacity: 0.75;
-}
-.slide img {
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  -o-object-position: center;
-  object-position: center;
-  /* width: 100%; */
+
+.vueperslides:not(.no-shadow):not(.vueperslides--3d)
+  .vueperslides__parallax-wrapper:after,
+.vueperslides:not(.no-shadow):not(.vueperslides--3d)
+  .vueperslides__parallax-wrapper:before {
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 black;
 }
 </style>
     <script>
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
 export default {
-  props: ["cover", "images"],
-  data() {
-    return {
-      asNavFor1: [],
-      asNavFor2: [],
-      options1: {
-        dots: false,
-        fade: true,
-        navButtons: false,
-      },
-
-      options2: {
-        autoplay: true,
-        centerMode: true,
-        dots: false,
-        navButtons: false,
-        slidesToShow: 3,
-        responsive: [
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 5,
-            },
-          },
-
-          {
-            breakpoint: 1000,
-            settings: {
-              navButtons: true,
-            },
-          },
-        ],
-      },
-
-      slides: [],
-    };
-  },
+  components: { VueperSlides, VueperSlide },
+  props: ["product"],
+  data: () => ({
+    slider: [],
+  }),
   created() {
-    this.slides = [this.cover];
+    var images = this.slider;
+    axios.get("api/getImages/" + this.product).then((response) => {
+      $.each(response.data, function (key, value) {
+        images.push(value);
+      });
+    });
   },
   mounted() {
-    this.asNavFor1.push(this.$refs.thumbnails);
-    this.asNavFor2.push(this.$refs.main);
+    // this.asNavFor1.push(this.$refs.thumbnails);
+    // this.asNavFor2.push(this.$refs.main);
   },
 };
 </script>

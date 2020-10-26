@@ -40,10 +40,10 @@
                     @foreach($cammodels as $data)
                     <tr>
                         <td class="text-center">{{ $data->id }}</td>
+                        <td class="text-center">{{ $data->employee->name }} {{ $data->employee->last_name }}</td>
                         <td class="text-center">{{ $data->nickname }}</td>
                         <td class="text-center">{{ $data->fake_age }}</td>
-                        <td class="text-center">{{ $data->meta }}</td>
-                        <td class="text-center">{{ $data->manager->name }}</td>
+                        <td class="text-center">{{ $data->manager->name }} {{ $data->manager->last_name }}</td>
                         {{-- <td class="text-center">
                                         @include('generals::layouts.status', ['status' => $data->is_active])</td> --}}
                         <td class="text-center">

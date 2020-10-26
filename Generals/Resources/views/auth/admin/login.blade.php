@@ -15,7 +15,7 @@
     <title>{{ config('app.name') }}</title>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
         type='text/css'>
-    <link rel="icon" href="{{asset('modules/generals/argonTemplate/img/icons/shop.png')}}" type="image/png">
+    <link rel="icon" href="{{asset('modules/generals/argonTemplate/img/icons/favicon.ico')}}" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <link rel="stylesheet" href="{{asset('modules/generals/argonTemplate/resources/nucleo/css/nucleo.css')}}"
         type="text/css">
@@ -48,18 +48,17 @@
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="w-100 d-flex">
                                 <img src="{{asset('modules/generals/argonTemplate/img/brand/logo_smart.png')}}"
-                                    class="navbar-brand-img mx-auto mb-3" alt="Logo_smart"
-                                    style="max-width: 200px;">
+                                    class="navbar-brand-img mx-auto mb-3" alt="Logo_smart" style="max-width: 260px;">
                             </div>
                             <div class="text-center text-muted mb-4">
-                                <h2 class="">Inicia Sesión</h2>
+                                <h2 style="color:#434350" class="">Inicia sesión</h2>
                             </div>
                             <form action="{{ route('admin.login') }}" method="post">@csrf<div
                                     class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <div class="form-group mb-3">
                                         <div class="input-group input-group-merge input-group-alternative">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                                <span class="input-group-text"><i style="color:#434350" class="ni ni-email-83"></i></span>
                                             </div>
                                             <input class="form-control px-2" autocomplete="false" placeholder="Email"
                                                 type="email" name="email" value="{{ old('email') }}" required>
@@ -75,7 +74,7 @@
                                         class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                                         <div class="input-group input-group-merge input-group-alternative">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i
+                                                <span class="input-group-text"><i style="color:#434350"
                                                         class="ni ni-lock-circle-open"></i></span>
                                             </div>
                                             <input type="password" name="password" class="form-control px-2"

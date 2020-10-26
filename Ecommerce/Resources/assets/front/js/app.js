@@ -92,6 +92,16 @@ function getListWishlist() {
     });
 }
 
+jQuery(document).ready(function ($) {
+    var html = '<a class="text-white" data-toggle="dropdown" href="#" aria-expanded="false"> <div> <div id="container"> <div class="relative position-cart"> <i class="fas fa-heart text-white m-auto"></i> <div class="item" id="items" style="display: none"> <span class="badge text-white  navbar-badge badge-count" id="total">0</span> <div class="circle" style="animation-delay: -3s"></div> <div class="circle" style="animation-delay: -2s"></div> <div class="circle" style="animation-delay: -1s"></div> <div class="circle" style="animation-delay: 0s"> </div> </div> </div> </div> </div> </a> <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;" id="cartItems"> </div>'
+    if (screen.width > 1024) {
+        $('#wishlist').html(html);
+    } else {
+        $('#wishlistResponsive').html(html);
+    }
+    getListWishlist();
+});
+
 /**
  * Permite cambiar de estado la estrella del rating o prodoctReview
  * @param  {} // none
@@ -346,3 +356,5 @@ jQuery(document).ready(function ($) {
     getListWishlist();
     showRatingPorcents();
 });
+
+

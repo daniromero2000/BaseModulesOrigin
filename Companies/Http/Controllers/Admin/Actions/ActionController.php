@@ -29,8 +29,7 @@ class ActionController extends Controller
         } else if (request()->has('t')) {
             $list = $this->actionsInterface->searchTrashedAction(request()->input('t'));
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        }
-        else {
+        } else {
             $skip = $this->toolsInterface->getSkip($request->input('skip'));
             $list = $this->actionsInterface->listActions($skip * 30);
         }
@@ -81,7 +80,7 @@ class ActionController extends Controller
 
     public function recoverTrashedAction(int $id)
     {
-        $action  = $this->actionsInterface->findTrashedActionById($id);
+        $action  = $this->actionsInterface->searchTrashedAction($id);
         $actionRepo = new ActionRepository($action);
         $actionRepo->recoverTrashedAction();
 

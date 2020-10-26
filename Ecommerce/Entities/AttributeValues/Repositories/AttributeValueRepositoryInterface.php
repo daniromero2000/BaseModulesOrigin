@@ -16,5 +16,7 @@ interface AttributeValueRepositoryInterface
 
     public function findProductAttributes(): Collection;
 
+    public function updateAttributeValue(array $data): bool;
+
     public function find($id);
 }

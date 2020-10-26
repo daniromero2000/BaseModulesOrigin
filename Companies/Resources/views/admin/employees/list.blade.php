@@ -41,9 +41,7 @@
                         <td class="text-center">{{ $data->id }}</td>
                         <td class="text-center">{{ $data->name }} {{ $data->last_name }}</td>
                         <td class="text-center">{{ $data->email }}</td>
-                        @foreach ($data->department as $department )
-                        <td class="text-center">@if($department->name != ''){{ $department->name }}@else NA @endif</td>
-                        @endforeach
+                        <td class="text-center">{{ $data->employeePosition->position }}</td>
                         <td class="text-center">
                             @include('generals::layouts.status', ['status' => $data->is_active])</td>
                         <td class="text-center">

@@ -7,7 +7,7 @@
             <div class="product-description text-center w-100 p-2 my-auto">
                 <div class="w-100">
                     <div class="w-100">
-                        <h4 class="">{{ $product->name }}
+                        <h4 class="text-uppercase">{{ $product->name }} 
                         </h4>
                     </div>
                     <div id="priceProduct{{$product->id}} pl-2" style=" position: relative; ">
@@ -33,14 +33,14 @@
                         </p>
                         @else
                         <p class="text-center" style=" font-size: 30px;line-height: 24px;">
-                            <small>
+                            <small style="font-size: 130%; font-weight: 700;" >
                                 ${{ number_format($product->price, 0) }} </small>
                             <br>
                         </p>
                         @endif
                     </div>
                 </div>
-                <div class="description text-justify">{!! $product->description !!}</div>
+                <div style="font-weight: 200; font-size: 16px;" class="description text-justify">{!! $product->description !!}</div>
                 <br>
                 <div class="w-100">
                     <div class="w-100">

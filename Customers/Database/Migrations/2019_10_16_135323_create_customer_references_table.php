@@ -19,7 +19,8 @@ class CreateCustomerReferencesTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->string('name');
             $table->string('last_name');
-            $table->string('phone');
+            $table->string('phone')->default('No Phone');
+            $table->string('email')->nullable()->default('No Email');
             $table->integer('relationship_id')->unsigned()->index();
             $table->foreign('relationship_id')->references('id')->on('relationships');
             $table->tinyInteger('is_active')->unsigned()->default(1);

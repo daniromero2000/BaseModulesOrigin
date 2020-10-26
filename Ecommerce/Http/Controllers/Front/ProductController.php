@@ -50,6 +50,7 @@ class ProductController extends Controller
         if (request()->has('item')) {
             dd(request()->input());
         }
+
         $product        =   $this->productRepo->findProductBySlug(['slug' => $slug]);
         $reviews        =   $product->reviews;
         $total_rating   =   0;
@@ -67,7 +68,6 @@ class ProductController extends Controller
         }
         // variable para mostrar que cantidad de voto por estrella se ha dado
         $contador = array_count_values($ratings);
-        //dd($contador);
         // para obtener el % de voto por estrella hay q almacenar en varias variables la cantidad de voto por cada estrella
         // (cant_1,cant_2,cant_3,cant_4,cant_5),
         // luego para obtener cada porcentaje se debe tomar  cant_? multiplicarlo por 100 y dividirlo por el total de reviews
@@ -111,9 +111,10 @@ class ProductController extends Controller
             $x5 = round((($cant_5 * 100) / $cant_reviews), 1);
         }
         // agrego el promedio al objeto producto
+
         return view('layouts.front.products.show_product', [
             'product'               =>  $product,
-            'images'                =>  $product->images()->get(),
+            'images'                =>  $product->images,
             'bestSellers'           =>  $this->productRepo->listProductGroups('Nuevos'),
             'productAttributes'     =>  $product->attributes,
             'category'              =>  $product->categories()->first(),
@@ -124,15 +125,34 @@ class ProductController extends Controller
             'x2'                    =>  $x2,
             'x3'                    =>  $x3,
             'x4'                    =>  $x4,
-            'x5'                    =>  $x5
+            'x5'                    =>  $x5,
+            'imagenes'              => $product->images->toArray()
         ]);
     }
 
-    public function outlet()
+    public function getImages($id)
     {
-        return view('layouts.front.outlet.outlet', [
-            'products' => $this->productRepo->listProductGroups('Outlet'),
-            'bestSellers' => $this->productRepo->listProductGroups('Nuevos')
-        ]);
+        $product        =   $this->productRepo->findProductBySlug(['id' => $id]);
+        $imagenes[0] =  'storage/' . $product->cover;
+        foreach ($product->images as $key => $value) {
+            $imagenes[$key + 1] =  'storage/' . $value->src;
+        }
+        return $imagenes;
+    }
+
+    public function getAtributes($id)
+    {
+        $product =  $this->productRepo->findProductBySlug(['id' => $id]);
+        $result = array();
+
+        foreach ($product->attributes as $key => $atribute) {
+            foreach ($atribute->attributesValues as $key => $attributes_value) {
+                if ($attributes_value->attribute->name == 'Color') {
+                    $atribute->color = $attributes_value->description;
+                    $result[$attributes_value->value][] = $atribute;
+                }
+            }
+        }
+        return $result;
     }
 }

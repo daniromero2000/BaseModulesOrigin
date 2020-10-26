@@ -24,13 +24,15 @@ use Modules\Generals\Entities\IdentityTypes\Repositories\Interfaces\IdentityType
 use Modules\Generals\Entities\ProfessionsLists\Repositories\Interfaces\ProfessionsListRepositoryInterface;
 use Modules\Generals\Entities\Stratums\Repositories\Interfaces\StratumRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
+
 
 class EmployeeController extends Controller
 {
     private $employeeInterface, $roleInterface, $departmentInterface;
     private $employeePositionInterface, $employeeCommentaryInterface;
     private $employeeStatusesLogInterface, $cityInterface, $identityTypeInterface;
-    private $stratumInterface, $housingInterface, $epsInterface;
+    private $stratumInterface, $housingInterface, $epsInterface, $cammodelInterface;
     private $professionsListInterface, $toolsInterface, $subsidiaryInterface;
 
     public function __construct(
@@ -48,23 +50,26 @@ class EmployeeController extends Controller
         ProfessionsListRepositoryInterface $professionsListRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface,
         CustomerRepositoryInterface $customerRepositoryInterface,
-        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface
+        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface,
+        CammodelRepositoryInterface $cammodelRepositoryInterface
     ) {
-        $this->toolsInterface = $toolRepositoryInterface;
-        $this->employeeInterface = $employeeRepositoryInterface;
-        $this->roleInterface = $roleRepositoryInterface;
-        $this->departmentInterface = $departmentRepositoryInterface;
-        $this->employeePositionInterface = $employeePositionRepositoryInterface;
-        $this->employeeCommentaryInterface = $employeeCommentaryRepositoryInterface;
+        $this->toolsInterface               = $toolRepositoryInterface;
+        $this->employeeInterface            = $employeeRepositoryInterface;
+        $this->roleInterface                = $roleRepositoryInterface;
+        $this->departmentInterface          = $departmentRepositoryInterface;
+        $this->employeePositionInterface    = $employeePositionRepositoryInterface;
+        $this->employeeCommentaryInterface  = $employeeCommentaryRepositoryInterface;
         $this->employeeStatusesLogInterface = $employeeStatusesLogRepositoryInterface;
-        $this->cityInterface = $cityRepositoryInterface;
-        $this->identityTypeInterface = $identityTypeRepositoryInterface;
-        $this->stratumInterface = $stratumRepositoryInterface;
-        $this->housingInterface = $housingRepositoryInterface;
-        $this->epsInterface = $epsRepositoryInterface;
-        $this->professionsListInterface = $professionsListRepositoryInterface;
-        $this->customerInterface = $customerRepositoryInterface;
-        $this->subsidiaryInterface = $subsidiaryRepositoryInterface;
+        $this->cityInterface                = $cityRepositoryInterface;
+        $this->identityTypeInterface        = $identityTypeRepositoryInterface;
+        $this->stratumInterface             = $stratumRepositoryInterface;
+        $this->housingInterface             = $housingRepositoryInterface;
+        $this->epsInterface                 = $epsRepositoryInterface;
+        $this->professionsListInterface     = $professionsListRepositoryInterface;
+        $this->customerInterface            = $customerRepositoryInterface;
+        $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
+        $this->cammodelInterface            = $cammodelRepositoryInterface;
+        $this->middleware(['permission:employees, guard:employee']);
     }
 
     public function index(Request $request)
@@ -84,7 +89,7 @@ class EmployeeController extends Controller
             'employees' => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Email', 'Departamento', 'Estado', 'Opciones'],
+            'headers' => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
             'roles' => $this->roleInterface->getAllRoleNames(),
             'all_departments' => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
@@ -104,8 +109,16 @@ class EmployeeController extends Controller
     public function store(CreateEmployeeRequest $request)
     {
         $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
-
         $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
+
+        if ($request->input('employee_position_id') == 8) {
+            $modelData = [
+                'employee_id' => $employee->id,
+                'manager_id' => $employee->id,
+            ];
+
+            $this->cammodelInterface->createCamModel($modelData);
+        }
 
         $data = [
             'employee_id' => $employee->id,

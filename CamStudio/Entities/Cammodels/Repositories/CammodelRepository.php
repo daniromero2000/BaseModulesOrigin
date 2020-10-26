@@ -2,6 +2,7 @@
 
 namespace Modules\CamStudio\Entities\Cammodels\Repositories;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -10,9 +11,10 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 use Modules\Generals\Entities\Tools\UploadableTrait;
 use Modules\CamStudio\Entities\Cammodels\Cammodel;
 use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelInterface;
+use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
+use Modules\Ecommerce\Entities\Categories\Exceptions\CategoryNotFoundException;
 
-class CammodelRepository implements CammodelInterface
+class CammodelRepository implements CammodelRepositoryInterface
 {
     use SearchableTrait, UploadableTrait;
     protected $model;
@@ -53,6 +55,15 @@ class CammodelRepository implements CammodelInterface
             ->get($this->columns);
     }
 
+    public function createCamModel($data): Cammodel
+    {
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            dd($e);
+        }
+    }
+
     public function searchTrashedCammodel(string $text = null): Collection
     {
         if (is_null($text)) {
@@ -68,11 +79,12 @@ class CammodelRepository implements CammodelInterface
     {
         try {
             return  $this->model
-                ->with('manager')
+                ->with('manager', 'employee')
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
                 ->get([
                     'id',
+                    'employee_id',
                     'manager_id',
                     'fake_age',
                     'nickname',
@@ -103,9 +115,21 @@ class CammodelRepository implements CammodelInterface
     public function findCammodelById(int $id)
     {
         try {
-            return $this->model->findOrFail($id, $this->columns);
+            return $this->model->with('productCategory')
+                ->findOrFail($id, $this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
+        }
+    }
+
+    public function findCammodelBySlug($slug): Cammodel
+    {
+        try {
+            return $this->model
+                ->where('slug', $slug)
+                ->first($this->columns);
+        } catch (ModelNotFoundException $e) {
+            throw new CategoryNotFoundException($e);
         }
     }
 

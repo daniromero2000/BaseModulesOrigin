@@ -18,14 +18,13 @@ class CreateOrdersTable extends Migration
             $table->string('reference')->unique();
             $table->integer('courier_id')->unsigned()->index();
             $table->foreign('courier_id')->references('id')->on('couriers');
-            $table->string('courier')->nullable();
             $table->integer('customer_id')->unsigned()->index();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->integer('address_id')->unsigned()->index();
             $table->foreign('address_id')->references('id')->on('customer_addresses');
             $table->integer('order_status_id')->unsigned()->index();
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
-            $table->string('payment');
+            $table->string('payment')->default('No Payment');
             $table->decimal('discounts', 12, 2)->default(0);
             $table->decimal('discount_percent', 12, 2)->default(0)->nullable();
             $table->decimal('discount_amount', 12, 2)->default(0)->nullable();
@@ -61,9 +60,8 @@ class CreateOrdersTable extends Migration
             $table->decimal('grand_total_refunded', 12, 2)->default(0)->nullable();
             $table->decimal('base_grand_total_refunded', 12, 2)->default(0)->nullable();
             $table->decimal('total_paid', 12, 2)->default(0)->nullable();
-            $table->string('invoice')->nullable();
-            $table->string('label_url')->nullable();
-            $table->string('tracking_number')->nullable();
+            $table->string('invoice')->nullable()->default('No Invoice');
+            $table->string('label_url')->nullable()->default('No URL');
             $table->string('coupon_code')->nullable();
             $table->boolean('is_gift')->default(0);
             $table->string('base_currency_code')->nullable();

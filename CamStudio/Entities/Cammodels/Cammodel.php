@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\CamStudio\Entities\CammodelCategories\CammodelCategory;
 use Modules\CamStudio\Entities\CammodelImages\CammodelImage;
 use Modules\Companies\Entities\Employees\Employee;
+use Modules\Ecommerce\Entities\Categories\Category;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Cammodel extends Model
@@ -116,5 +117,20 @@ class Cammodel extends Model
     {
         return $this->hasMany(CammodelImage::class)
             ->select(['id', 'cammodel_id', 'src']);
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(Category::class, 'slug', 'slug')
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'description',
+                'cover',
+                'is_visible_on_front',
+                'is_active',
+
+            ]);
     }
 }
