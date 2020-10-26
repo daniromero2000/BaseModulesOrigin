@@ -56,7 +56,7 @@ class EmployeesTableSeeder extends Seeder
 
         $modulePqrsStatuses       =  factory(Permission::class)->create([
             'name'                => 'pqrs_statuses',
-            'display_name'        => 'Estados PQR´s',
+            'display_name'        => 'Estados_PQR´s',
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 3
         ]);
@@ -70,7 +70,7 @@ class EmployeesTableSeeder extends Seeder
 
         $moduleCustomerStatuses   =  factory(Permission::class)->create([
             'name'                => 'customer_statuses',
-            'display_name'        => 'Estados clientes',
+            'display_name'        => 'Estados_clientes',
             'icon'                => 'ni ni-favourite-28',
             'permission_group_id' => 4
         ]);
@@ -91,7 +91,7 @@ class EmployeesTableSeeder extends Seeder
 
         $moduleProductCategories  =  factory(Permission::class)->create([
             'name'                => 'product_categories',
-            'display_name'        => 'Categorías productos',
+            'display_name'        => 'Categorías_productos',
             'icon'                => 'ni ni-books',
             'permission_group_id' => 2
         ]);
@@ -140,7 +140,7 @@ class EmployeesTableSeeder extends Seeder
 
         $moduleWishlists          =  factory(Permission::class)->create([
             'name'                => 'wishlist',
-            'display_name'        => 'Lista de deseos',
+            'display_name'        => 'Wishlists',
             'icon'                => 'fas fa-heart',
             'permission_group_id' => 2
         ]);
@@ -161,7 +161,7 @@ class EmployeesTableSeeder extends Seeder
 
         $moduleProductReviews     =  factory(Permission::class)->create([
             'name'                => 'product_reviews',
-            'display_name'        => 'Calificación productos',
+            'display_name'        => 'Calificación_productos',
             'icon'                => 'fas fa-star',
             'permission_group_id' => 2
         ]);
@@ -190,28 +190,28 @@ class EmployeesTableSeeder extends Seeder
         $moduleInterviews        =  factory(Permission::class)->create([
             'name'                => 'interviews',
             'display_name'        => 'Entrevistas',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-address-card',
             'permission_group_id' => 1
         ]);
 
         $moduleInterviewStatuses        =  factory(Permission::class)->create([
             'name'                => 'interview_statuses',
-            'display_name'        => 'Estados entrevistas',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Estados_entrevistas',
+            'icon'                => 'fas fa-vote-yea',
             'permission_group_id' => 1
         ]);
 
         $moduleCamModelSocial        =  factory(Permission::class)->create([
             'name'                => 'cammodel_social',
-            'display_name'        => 'Redes modelos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Redes_modelos',
+            'icon'                => 'fas fa-share-alt',
             'permission_group_id' => 9
         ]);
 
         $moduleCamModelStreaming        =  factory(Permission::class)->create([
             'name'                => 'cammodel_streamings',
-            'display_name'        => 'Streamings modelos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Streamings_modelos',
+            'icon'                => 'fas fa-satellite-dish',
             'permission_group_id' => 9
         ]);
 
