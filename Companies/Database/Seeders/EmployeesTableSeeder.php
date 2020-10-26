@@ -15,14 +15,14 @@ class EmployeesTableSeeder extends Seeder
         $moduleEmployees          =  factory(Permission::class)->create([
             'name'                => 'employees',
             'display_name'        => 'Empleados',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-user-tie',
             'permission_group_id' => 1
         ]);
 
         $moduleCities             =  factory(Permission::class)->create([
             'name'                => 'countries',
             'display_name'        => 'Ciudades',
-            'icon'                => 'fas fa-flag',
+            'icon'                => 'fas fa-city',
             'permission_group_id' => 1
         ]);
 
@@ -56,7 +56,7 @@ class EmployeesTableSeeder extends Seeder
 
         $modulePqrsStatuses       =  factory(Permission::class)->create([
             'name'                => 'pqrs_statuses',
-            'display_name'        => 'Estados_Pqrs',
+            'display_name'        => 'Estados PQR´s',
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 3
         ]);
@@ -64,49 +64,49 @@ class EmployeesTableSeeder extends Seeder
         $moduleCustomers          =  factory(Permission::class)->create([
             'name'                => 'customers',
             'display_name'        => 'Clientes',
-            'icon'                => 'ni ni-headphones text-blue',
+            'icon'                => 'ni ni-headphones',
             'permission_group_id' => 4
         ]);
 
         $moduleCustomerStatuses   =  factory(Permission::class)->create([
             'name'                => 'customer_statuses',
-            'display_name'        => 'Estados_Clientes',
-            'icon'                => 'ni ni-favourite-28 text-purple',
+            'display_name'        => 'Estados clientes',
+            'icon'                => 'ni ni-favourite-28',
             'permission_group_id' => 4
         ]);
 
         $moduleActions            =  factory(Permission::class)->create([
             'name'                => 'actions',
             'display_name'        => 'Acciones',
-            'icon'                => 'ni ni-favourite-28 text-purple',
+            'icon'                => 'fas fa-chalkboard-teacher',
             'permission_group_id' => 1
         ]);
 
         $moduleProducts           =  factory(Permission::class)->create([
             'name'                => 'products',
             'display_name'        => 'Productos',
-            'icon'                => 'ni ni-shop text-red',
+            'icon'                => 'ni ni-shop',
             'permission_group_id' => 2
         ]);
 
         $moduleProductCategories  =  factory(Permission::class)->create([
             'name'                => 'product_categories',
-            'display_name'        => 'Categorías_Productos',
-            'icon'                => 'ni ni-books text-info',
+            'display_name'        => 'Categorías productos',
+            'icon'                => 'ni ni-books',
             'permission_group_id' => 2
         ]);
 
         $moduleAttributes         =  factory(Permission::class)->create([
             'name'                => 'attributes',
             'display_name'        => 'Atributos',
-            'icon'                => 'fas fa-user',
+            'icon'                => 'fas fa-award',
             'permission_group_id' => 2
         ]);
 
         $moduleBrands             =  factory(Permission::class)->create([
             'name'                => 'brands',
             'display_name'        => 'Marcas',
-            'icon'                => 'fas fa-user',
+            'icon'                => 'fas fa-tags',
             'permission_group_id' => 2
         ]);
 
@@ -120,70 +120,70 @@ class EmployeesTableSeeder extends Seeder
         $moduleCourses            =  factory(Permission::class)->create([
             'name'                => 'courses',
             'display_name'        => 'Cursos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-book-reader',
             'permission_group_id' => 5
         ]);
 
         $moduleStudents           =  factory(Permission::class)->create([
             'name'                => 'students',
             'display_name'        => 'Estudiantes',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-user-graduate',
             'permission_group_id' => 5
         ]);
 
         $moduleCourseAttendances  =  factory(Permission::class)->create([
             'name'                => 'course_attendances',
             'display_name'        => 'Asistencias',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-user-check',
             'permission_group_id' => 5
         ]);
 
         $moduleWishlists          =  factory(Permission::class)->create([
             'name'                => 'wishlist',
-            'display_name'        => 'Wishlist',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Lista de deseos',
+            'icon'                => 'fas fa-heart',
             'permission_group_id' => 2
         ]);
 
         $moduleCheckouts          =  factory(Permission::class)->create([
             'name'                => 'checkouts',
             'display_name'        => 'Checkouts',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-shopping-bag',
             'permission_group_id' => 2
         ]);
 
         $moduleOrderShipments     =  factory(Permission::class)->create([
             'name'                => 'order_shipments',
             'display_name'        => 'Despachos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-share-square',
             'permission_group_id' => 2
         ]);
 
         $moduleProductReviews     =  factory(Permission::class)->create([
             'name'                => 'product_reviews',
-            'display_name'        => 'Calificación_Productos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Calificación productos',
+            'icon'                => 'fas fa-star',
             'permission_group_id' => 2
         ]);
 
         $moduleCamModelCategories =  factory(Permission::class)->create([
             'name'                => 'cam_model_categories',
-            'display_name'        => 'Categorías_Modelos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'display_name'        => 'Categorías modelos',
+            'icon'                => 'ni ni-books',
             'permission_group_id' => 9
         ]);
 
         $moduleCamModels          =  factory(Permission::class)->create([
             'name'                => 'cam_models',
             'display_name'        => 'Modelos',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'fas fa-female',
             'permission_group_id' => 9
         ]);
 
         $moduleNewsletterSubscriptions         =  factory(Permission::class)->create([
             'name'                => 'newsletter_subscriptions',
             'display_name'        => 'Subscripciones',
-            'icon'                => 'ni ni-single-02 text-orange',
+            'icon'                => 'ni ni-single-02',
             'permission_group_id' => 4
         ]);
 
@@ -196,21 +196,21 @@ class EmployeesTableSeeder extends Seeder
 
         $moduleInterviewStatuses        =  factory(Permission::class)->create([
             'name'                => 'interview_statuses',
-            'display_name'        => 'Estados_Entrevistas',
+            'display_name'        => 'Estados entrevistas',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => 1
         ]);
 
         $moduleCamModelSocial        =  factory(Permission::class)->create([
             'name'                => 'cammodel_social',
-            'display_name'        => 'Redes_modelos',
+            'display_name'        => 'Redes modelos',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => 9
         ]);
 
         $moduleCamModelStreaming        =  factory(Permission::class)->create([
             'name'                => 'cammodel_streamings',
-            'display_name'        => 'Streamings_modelos',
+            'display_name'        => 'Streamings modelos',
             'icon'                => 'ni ni-single-02 text-orange',
             'permission_group_id' => 9
         ]);
