@@ -880,5 +880,169 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.newsletter-subscription.destroy',
             'principal'     => 0
         ]);
+
+        // Acciones Módulo Entrevistas
+        factory(Action::class)->create([
+            'permission_id' => 26,
+            'name'          => 'Ver Entrevistas',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.interviews.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 26,
+            'name'      => 'Crear Entrevista',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.interviews.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 26,
+            'name'          => 'Editar Entrevista',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.interviews.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 26,
+            'name'          => 'Ver Entrevista',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.interviews.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 26,
+            'name'          => 'Borrar Entrevista',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.interviews.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo esstados Entrevistas
+        factory(Action::class)->create([
+            'permission_id' => 27,
+            'name'          => 'Ver Estados Entrevistas',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.interview-statuses.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 27,
+            'name'      => 'Crear Estado Entrevista',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.interview-statuses.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 27,
+            'name'          => 'Editar Estado Entrevista',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.interview-statuses.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 27,
+            'name'          => 'Ver Estado Entrevista',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.interview-statuses.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 27,
+            'name'          => 'Borrar Estado Entrevista',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.interview-statuses.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo CamModel Social
+        factory(Action::class)->create([
+            'permission_id' => 28,
+            'name'          => 'Ver Redes Sociales',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.cammodel-social.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 28,
+            'name'      => 'Crear Red Social',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.cammodel-social.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 28,
+            'name'          => 'Editar Red Social',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.cammodel-social.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 28,
+            'name'          => 'Ver Red Social',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.cammodel-social.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 28,
+            'name'          => 'Borrar Red Social',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.cammodel-social.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo CamModel Social
+        factory(Action::class)->create([
+            'permission_id' => 29,
+            'name'          => 'Ver Streamings',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.cammodel-streamings.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 29,
+            'name'      => 'Crear Streaming',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.cammodel-streamings.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 29,
+            'name'          => 'Editar Streaming',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.cammodel-streamings.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 29,
+            'name'          => 'Ver Streaming',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.cammodel-streamings.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 29,
+            'name'          => 'Borrar Streaming',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.cammodel-streamings.destroy',
+            'principal'     => 0
+        ]);
     }
 }
