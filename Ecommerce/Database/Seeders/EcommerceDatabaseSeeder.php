@@ -24,5 +24,6 @@ class EcommerceDatabaseSeeder extends Seeder
         $this->call(CourierTableSeeder::class);
         $this->call(OrderStatusTableSeeder::class);
         $this->call(AttributeTableSeeder::class);
+        $this->call(EcommerceOperativeActionsTableSeeder::class);
     }
 }

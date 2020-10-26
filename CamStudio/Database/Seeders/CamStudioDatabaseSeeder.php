@@ -17,5 +17,7 @@ class CamStudioDatabaseSeeder extends Seeder
         Model::unguard();
         $this->call(CamModelCategoriesTableSeeder::class);
         $this->call(StreamingTableSeeder::class);
+        $this->call(CamModelActionsTableSeeder::class);
+        $this->call(CommunityActionsTableSeeder::class);
     }
 }

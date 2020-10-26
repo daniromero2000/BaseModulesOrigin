@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Companies\Database\Seeders;
+namespace Modules\Courses\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Companies\Entities\ActionRole\ActionRole;
