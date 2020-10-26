@@ -50,7 +50,7 @@ class PermissionsGroupsTableSeeder extends Seeder
         ]);
 
         factory(PermissionGroup::class)->create([
-            'name'        => 'LefemmeCams',
+            'name'        => 'Studio',
             'group_order' => 9
         ]);
 
