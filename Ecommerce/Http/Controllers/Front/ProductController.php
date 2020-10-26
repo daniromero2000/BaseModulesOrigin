@@ -68,7 +68,6 @@ class ProductController extends Controller
         }
         // variable para mostrar que cantidad de voto por estrella se ha dado
         $contador = array_count_values($ratings);
-        //dd($contador);
         // para obtener el % de voto por estrella hay q almacenar en varias variables la cantidad de voto por cada estrella
         // (cant_1,cant_2,cant_3,cant_4,cant_5),
         // luego para obtener cada porcentaje se debe tomar  cant_? multiplicarlo por 100 y dividirlo por el total de reviews

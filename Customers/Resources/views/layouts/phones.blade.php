@@ -13,9 +13,6 @@
           </tr>
         </thead>
         <tbody>
-          @php
-          dd($customer->customerPhones)
-          @endphp
           @include('generals::layouts.admin.tables.noheaders_table', ['datas' => $customer->customerPhones])
         </tbody>
       </table>
