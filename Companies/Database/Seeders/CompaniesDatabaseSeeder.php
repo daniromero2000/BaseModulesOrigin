@@ -21,7 +21,6 @@ class CompaniesDatabaseSeeder extends Seeder
         $this->call(ModuleCammodelSocialActionsTableSeeder::class);
         $this->call(ModuleCammodelStreamingActionsTableSeeder::class);
         $this->call(SuperAdminActionsTableSeeder::class);
-
         $this->call(DepartmentsEmployeesTableSeeder::class);
         $this->call(InterviewStatusTableSeeder::class);
     }

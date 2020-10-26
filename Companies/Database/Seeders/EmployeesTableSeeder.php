@@ -260,54 +260,6 @@ class EmployeesTableSeeder extends Seeder
         $employee->roles()->save($super);
 
 
-        /*Creacion Usuario Administracion Ecommerce*/
-        $employee2          = factory(Employee::class)->create([
-            'email'         => 'gerencia@fvn.com.co'
-        ]);
-
-        $ecommerceOperative = factory(Role::class)->create([
-            'name'          => 'ecommerce_admin',
-            'display_name'  => 'Admin Ecommerce'
-        ]);
-
-        $roleAdminRepo = new RoleRepository($ecommerceOperative);
-        $roleAdminRepo->attachToPermission($moduleEmployees);
-        $roleAdminRepo->attachToPermission($moduleCities);
-        $roleAdminRepo->attachToPermission($moduleSubsidiaries);
-        $roleAdminRepo->attachToPermission($moduleCustomers);
-        $roleAdminRepo->attachToPermission($moduleCustomerStatuses);
-        $roleAdminRepo->attachToPermission($moduleProducts);
-        $roleAdminRepo->attachToPermission($moduleProductCategories);
-        $roleAdminRepo->attachToPermission($moduleAttributes);
-        $roleAdminRepo->attachToPermission($moduleBrands);
-        $roleAdminRepo->attachToPermission($moduleOrders);
-        $roleAdminRepo->attachToPermission($moduleWishlists);
-        $roleAdminRepo->attachToPermission($moduleCheckouts);
-        $roleAdminRepo->attachToPermission($moduleOrderShipments);
-        $roleAdminRepo->attachToPermission($moduleProductReviews);
-        $roleAdminRepo->attachToPermission($moduleNewsletterSubscriptions);
-        $employee2->roles()->save($ecommerceOperative);
-
-
-        /*Creacion Usuario admin cursos*/
-        $coursEemployee    =  factory(Employee::class)->create([
-            'email'        => 'admin@educorp.com'
-        ]);
-
-        $courseadmin       =  factory(Role::class)->create([
-            'name'         => 'courses_admin',
-            'display_name' => 'Administador de Cursos'
-        ]);
-
-        $rolecourseadmin = new RoleRepository($courseadmin);
-        $rolecourseadmin->attachToPermission($moduleEmployees);
-        $rolecourseadmin->attachToPermission($moduleCourses);
-        $rolecourseadmin->attachToPermission($moduleStudents);
-        $rolecourseadmin->attachToPermission($moduleCourseAttendances);
-        $rolecourseadmin->attachToPermission($moduleNewsletterSubscriptions);
-        $coursEemployee->roles()->save($courseadmin);
-
-
         /*Creacion Usuario sin acceso*/
         $noAccessEemployee    =  factory(Employee::class)->create([
             'email'        => 'admin@sycgroup.com'
@@ -320,36 +272,5 @@ class EmployeesTableSeeder extends Seeder
 
         $roleNoAccess = new RoleRepository($noAccess);
         $noAccessEemployee->roles()->save($noAccess);
-
-        /*Creacion Usuario Cam_model*/
-        $camModelEmployee    =  factory(Employee::class)->create([
-            'email'        => 'modelo@sycgroup.com'
-        ]);
-
-        $camModel       =  factory(Role::class)->create([
-            'name'         => 'cam_model',
-            'display_name' => 'CamModel'
-        ]);
-
-        $roleCamModel = new RoleRepository($camModel);
-        $roleCamModel->attachToPermission($moduleCamModels);
-        $camModelEmployee->roles()->save($camModel);
-
-
-
-        /*Creacion Usuario Cam_model*/
-        $CommunityEmployee    =  factory(Employee::class)->create([
-            'email'        => 'community@sycgroup.com'
-        ]);
-
-        $community       =  factory(Role::class)->create([
-            'name'         => 'community_manager',
-            'display_name' => 'Community Manager'
-        ]);
-
-        $roleCommunity = new RoleRepository($community);
-        $roleCommunity->attachToPermission($moduleCamModelSocial);
-        $roleCommunity->attachToPermission($moduleCamModelStreaming);
-        $CommunityEmployee->roles()->save($community);
     }
 }

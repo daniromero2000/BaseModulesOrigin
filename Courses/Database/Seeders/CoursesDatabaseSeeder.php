@@ -16,5 +16,6 @@ class CoursesDatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call(CoursesAdminActionsTableSeeder::class);
+        $this->call(EmployeesTableSeeder::class);
     }
 }

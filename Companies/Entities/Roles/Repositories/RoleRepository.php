@@ -98,7 +98,6 @@ class RoleRepository implements RoleRepositoryInterface
         $this->model->attachPermission($permission);
     }
 
-
     public function attachToPermissions(...$permissions)
     {
         $this->model->attachPermissions($permissions);
