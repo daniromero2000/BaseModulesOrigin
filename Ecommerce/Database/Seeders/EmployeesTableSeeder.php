@@ -3,7 +3,6 @@
 namespace Modules\Ecommerce\Database\Seeders;
 
 use Modules\Companies\Entities\Employees\Employee;
-use Modules\Companies\Entities\Permissions\Permission;
 use Modules\Companies\Entities\Roles\Repositories\RoleRepository;
 use Modules\Companies\Entities\Roles\Role;
 use Illuminate\Database\Seeder;
@@ -22,7 +21,10 @@ class EmployeesTableSeeder extends Seeder
             'display_name'  => 'Admin Ecommerce'
         ]);
 
-        $moduleEcommerceOperative = ['1', '3', '8', '9', '11', '12', '13', '14', '15', '19', '20', '21', '22', '25'];
+        $moduleEcommerceOperative = [
+            '1', '3', '8', '9', '11', '12', '13', '14',
+            '15', '19', '20', '21', '22', '25'
+        ];
 
         $roleAdminRepo = new RoleRepository($ecommerceOperative);
         $roleAdminRepo->syncPermissions($moduleEcommerceOperative);

@@ -3,7 +3,6 @@
 namespace Modules\Companies\Database\Seeders;
 
 use Modules\Companies\Entities\Employees\Employee;
-use Modules\Companies\Entities\Permissions\Permission;
 use Modules\Companies\Entities\Roles\Repositories\RoleRepository;
 use Modules\Companies\Entities\Roles\Role;
 use Illuminate\Database\Seeder;

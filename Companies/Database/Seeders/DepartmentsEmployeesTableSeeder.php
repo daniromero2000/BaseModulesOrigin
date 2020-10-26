@@ -7,16 +7,11 @@ use Illuminate\Database\Seeder;
 
 class DepartmentsEmployeesTableSeeder extends Seeder
 {
-	public function run()
-	{
-		factory(DepartmentEmployee::class)->create([
-			'department_id' => '1',
-			'employee_id' => '1',
-		]);
-
-		// factory(DepartmentEmployee::class)->create([
-		// 	'department_id' => '1',
-		// 	'employee_id' => '2',
-		// ]);
-	}
+    public function run()
+    {
+        factory(DepartmentEmployee::class)->create([
+            'department_id' => '1',
+            'employee_id' => '1',
+        ]);
+    }
 }
