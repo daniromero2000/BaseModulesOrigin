@@ -4,6 +4,7 @@ namespace Modules\Companies\Entities\Actions;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\Permissions\Permission;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Action extends Model
@@ -59,6 +60,13 @@ class Action extends Model
 
     public function role()
     {
-        return $this->belongsToMany(Action::class, 'action_role', 'action_id', 'role_id')->select(['action_id', 'role_id', 'status']);
+        return $this->belongsToMany(Action::class, 'action_role', 'action_id', 'role_id')
+            ->select(['action_id', 'role_id', 'status']);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class)
+            ->select(['id', 'name', 'display_name', 'icon', 'description', 'status', 'created_at']);
     }
 }

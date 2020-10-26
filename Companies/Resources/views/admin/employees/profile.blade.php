@@ -42,9 +42,6 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    {{-- @php
-                        dd($employee)
-                    @endphp --}}
                     <div class="text-center">
                         <h5 class="h3">
                             {{$employee->name}} {{$employee->last_name}}

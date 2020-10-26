@@ -40,7 +40,6 @@ class CustomerReferenceController extends Controller
 
     public function store(CreateCustomerReferenceRequest $request)
     {
-        // dd($request);
         $requestData = $request->except('_token', '_method');
 
         if (empty($customerPhone  = $this->customerPhoneInterface->checkIfExists($request['phone']))) {

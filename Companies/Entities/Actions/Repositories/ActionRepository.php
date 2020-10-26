@@ -60,7 +60,7 @@ class ActionRepository implements ActionRepositoryInterface
     public function listActions(int $totalView): Collection
     {
         try {
-            return $this->model->orderBy('permission_id', 'asc')
+            return $this->model->with('permission')->orderBy('permission_id', 'asc')
                 ->skip($totalView)->take(30)
                 ->get($this->columns);
         } catch (QueryException $e) {
