@@ -1,0 +1,14 @@
+{
+    "name": "CreditFactory",
+    "alias": "creditfactory",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\CreditFactory\\Providers\\CreditFactoryServiceProvider"
+    ],
+    "aliases": [],
+    "files": [],
+    "requires": []
+}

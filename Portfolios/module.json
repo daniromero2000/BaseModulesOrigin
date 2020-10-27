@@ -1,0 +1,14 @@
+{
+    "name": "Portfolios",
+    "alias": "portfolios",
+    "description": "",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\Portfolios\\Providers\\PortfoliosServiceProvider"
+    ],
+    "aliases": [],
+    "files": [],
+    "requires": []
+}
