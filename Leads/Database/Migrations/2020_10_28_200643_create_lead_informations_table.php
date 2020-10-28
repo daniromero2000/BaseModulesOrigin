@@ -23,8 +23,8 @@ class CreateLeadInformationsTable extends Migration
             $table->string('expiration_date_soat')->nullable();
             $table->integer('subsidiary_id')->unsigned()->nullable();
 
-            $table->foreign('lead_id')->references('id')->on('leads')->onDelete('set null');
-            $table->foreign('subsidiary_id')->references('id')->on('subsidiaries')->onDelete('set null');
+            $table->foreign('lead_id')->references('id')->on('leads');
+            $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->timestamps();
         });
     }
