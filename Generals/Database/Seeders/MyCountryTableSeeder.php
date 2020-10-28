@@ -15,7 +15,7 @@ class MyCountryTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('countries')->insert(array(
+        DB::table('countries')->insert(array(
             0 =>
             array(
                 'id'         => '1',

@@ -1,0 +1,13 @@
+{
+    "name": "Libranza",
+    "alias": "libranza",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Libranza\\Providers\\LibranzaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
