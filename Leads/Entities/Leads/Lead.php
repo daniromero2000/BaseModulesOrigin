@@ -3,7 +3,7 @@
 namespace Modules\Leads\Entities\Leads;
 
 // use Modules\Leads\Entities\Comments\Comment;
-use Modules\Leads\Entities\LeadAreas\LeadArea;
+// use Modules\Leads\Entities\LeadAreas\LeadArea;
 use Modules\Leads\Entities\LeadProducts\LeadProduct;
 use Modules\Leads\Entities\LeadStatuses\LeadStatus;
 use Illuminate\Database\Eloquent\Model;
@@ -21,26 +21,19 @@ class Lead extends Model
     protected $table = 'leads';
 
     protected $fillable = [
+        'identification_number',
         'name',
-        'lastName',
+        'last_name',
         'email',
         'telephone',
-        'city',
-        'typeService',
-        'typeProduct',
-        'state',
-        'channel',
-        'termsAndConditions',
-        'typeDocument',
-        'identificationNumber',
-        'assessor',
-        'nearbyCity',
-        'assessor_id',
-        'description',
+        'city_id',
+        'lead_status_id',
         'lead_area_id',
-        'expirationDateSoat',
-        'subsidiary_id',
-        'statusManagement'
+        'lead_service_id',
+        'lead_product_id',
+        'lead_channel_id',
+        'management_status_id',
+        'terms_and_conditions'
     ];
 
     protected $guarded = [
@@ -57,9 +50,9 @@ class Lead extends Model
     protected $searchable = [
         'columns' => [
             'leads.name'      => 10,
-            'leads.lastName'  => 10,
+            'leads.last_name'  => 10,
             'leads.telephone' => 10,
-            'leads.identificationNumber' => 10,
+            'leads.identification_number' => 10,
         ],
     ];
 
@@ -119,10 +112,10 @@ class Lead extends Model
         return $this->belongsTo(LeadProduct::class, 'typeProduct');
     }
 
-    public function LeadArea()
-    {
-        return $this->belongsTo(LeadArea::class);
-    }
+    // public function LeadArea()
+    // {
+    //     return $this->belongsTo(LeadArea::class);
+    // }
 
     public function subsidiary()
     {

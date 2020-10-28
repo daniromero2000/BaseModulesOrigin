@@ -38,6 +38,7 @@ class LeadsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(RepositoryServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
     }
 
@@ -52,7 +53,8 @@ class LeadsServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 
@@ -97,7 +99,7 @@ class LeadsServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (!app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
         }
     }

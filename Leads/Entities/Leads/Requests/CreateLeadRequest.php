@@ -2,7 +2,7 @@
 
 namespace Modules\Leads\Entities\Leads\Requests;
 
-use Modules\Leads\Entities\Tools\Base\BaseFormRequest;
+use Modules\Generals\Entities\Base\BaseFormRequest;
 
 class CreateLeadRequest extends BaseFormRequest
 {

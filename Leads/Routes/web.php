@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,6 @@
 |
 */
 
-Route::prefix('leads')->group(function() {
-    Route::get('/', 'LeadsController@index');
+Route::namespace('Front')->group(function () {
+    Route::resource('leads', 'LeadController');
 });

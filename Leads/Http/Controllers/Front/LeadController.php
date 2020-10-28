@@ -1,13 +1,20 @@
 <?php
 
-namespace Modules\Leads\Http\Controllers;
+namespace Modules\Leads\Http\Controllers\Front;
 
-use Illuminate\Contracts\Support\Renderable;
+use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Modules\Leads\Entities\Leads\Requests\CreateLeadRequest;
 
-class LeadsController extends Controller
+class LeadController extends Controller
 {
+    private $leadInterface;
+    public function __construct(LeadRepositoryInterface $LeadRepositoryInterface)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -33,7 +40,7 @@ class LeadsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->input());
     }
 
     /**
@@ -76,4 +83,8 @@ class LeadsController extends Controller
     {
         //
     }
+
+
+    // CreateLeadRequest
+
 }

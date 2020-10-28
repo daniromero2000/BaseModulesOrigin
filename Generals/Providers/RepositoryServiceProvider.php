@@ -95,47 +95,47 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            ReferenceTypeRepositoryInterface::Class,
+            ReferenceTypeRepositoryInterface::class,
             ReferenceTypeRepository::class
         );
 
         $this->app->bind(
-            RelationshipRepositoryInterface::Class,
+            RelationshipRepositoryInterface::class,
             RelationshipRepository::class
         );
 
         $this->app->bind(
-            ScholarityRepositoryInterface::Class,
+            ScholarityRepositoryInterface::class,
             ScholarityRepository::class
         );
 
         $this->app->bind(
-            StratumRepositoryInterface::Class,
+            StratumRepositoryInterface::class,
             StratumRepository::class
         );
 
         $this->app->bind(
-            HousingRepositoryInterface::Class,
+            HousingRepositoryInterface::class,
             HousingRepository::class
         );
 
         $this->app->bind(
-            VehicleBrandRepositoryInterface::Class,
+            VehicleBrandRepositoryInterface::class,
             VehicleBrandRepository::class
         );
 
         $this->app->bind(
-            VehicleTypeRepositoryInterface::Class,
+            VehicleTypeRepositoryInterface::class,
             VehicleTypeRepository::class
         );
 
         $this->app->bind(
-            EconomicActivityTypeRepositoryInterface::Class,
+            EconomicActivityTypeRepositoryInterface::class,
             EconomicActivityTypeRepository::class
         );
 
         $this->app->bind(
-            ToolRepositoryInterface::Class,
+            ToolRepositoryInterface::class,
             ToolRepository::class
         );
     }
