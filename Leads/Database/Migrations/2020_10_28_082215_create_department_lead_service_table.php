@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLeadAreaLeadServiceTable extends Migration
+class CreateDepartmentLeadServiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateLeadAreaLeadServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('lead_area_lead_service', function (Blueprint $table) {
+        Schema::create('department_lead_service', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lead_area_id')->unsigned();
+            $table->integer('department_id')->unsigned();
             $table->integer('service_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('lead_area_id')->references('id')->on('lead_areas');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('service_id')->references('id')->on('lead_services');
         });
     }
@@ -31,6 +31,6 @@ class CreateLeadAreaLeadServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lead_area_lead_service');
+        Schema::dropIfExists('department_lead_service');
     }
 }

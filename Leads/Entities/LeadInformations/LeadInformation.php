@@ -13,6 +13,12 @@ class LeadInformation extends Model
 
     protected $fillable = [
         'id',
-        'area'
+        'lead_id',
+        'kind_of_person',
+        'entity',
+        'amount',
+        'term',
+        'expiration_date_soat',
+        'subsidiary_id'
     ];
 }

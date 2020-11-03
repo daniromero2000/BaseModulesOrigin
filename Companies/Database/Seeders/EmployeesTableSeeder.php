@@ -13,7 +13,7 @@ class EmployeesTableSeeder extends Seeder
     {
         /*Creacion Usuario Super Admin Desarrollo*/
         $employee          =  factory(Employee::class)->create([
-            'email'        => 'desarrollo@smartcommerce.com.co'
+            'email'        => 'desarrollo@lagobo.com'
         ]);
 
         $super             =  factory(Role::class)->create([
@@ -23,9 +23,8 @@ class EmployeesTableSeeder extends Seeder
         ]);
 
         $moduleSuperadmin = [
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
-            '22', '23', '24', '25', '26', '27', '28', '29'
+            '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '16', '17', '18', '23'
         ];
 
         $roleSuperRepo =  new RoleRepository($super);
@@ -35,7 +34,7 @@ class EmployeesTableSeeder extends Seeder
 
         /*Creacion Usuario sin acceso*/
         $noAccessEemployee    =  factory(Employee::class)->create([
-            'email'        => 'admin@sycgroup.com'
+            'email'        => 'admin@lagobo.com'
         ]);
 
         $noAccess       =  factory(Role::class)->create([

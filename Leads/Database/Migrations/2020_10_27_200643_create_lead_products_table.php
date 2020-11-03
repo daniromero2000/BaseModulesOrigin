@@ -16,7 +16,7 @@ class CreateLeadProductsTable extends Migration
         Schema::create('lead_products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('product');
-            $table->string('state')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -17,10 +17,10 @@ use Modules\Companies\Entities\Companies\Company;
 
 $factory->define(Company::class, function () {
     return [
-        'name' => 'FVN',
+        'name' => 'Lagobo',
         'country_id' => 1,
         'currency_id' => 3,
         'identification' => 123456,
-        'company_type' => 'Jurídico',
+        'company_type' => 'Administrativo',
     ];
 });

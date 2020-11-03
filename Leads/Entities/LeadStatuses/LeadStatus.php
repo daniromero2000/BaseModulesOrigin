@@ -12,8 +12,10 @@ class LeadStatus extends Model
     protected $table = 'lead_statuses';
 
     protected $fillable = [
-        'name',
+        'status',
         'color',
+        'background',
+        'is_active'
     ];
 
     protected $hidden = [];

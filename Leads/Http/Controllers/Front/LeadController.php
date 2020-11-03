@@ -6,13 +6,19 @@ use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\Leads\Requests\CreateLeadRequest;
 
 class LeadController extends Controller
 {
-    private $leadInterface;
-    public function __construct(LeadRepositoryInterface $LeadRepositoryInterface)
-    {
+    private $leadInterface, $leadInformationInterface;
+
+    public function __construct(
+        LeadRepositoryInterface $LeadRepositoryInterface,
+        LeadInformationRepositoryInterface $LeadInformationRepositoryInterface
+    ) {
+        $this->leadInterface = $LeadRepositoryInterface;
+        $this->leadInformationInterface = $LeadInformationRepositoryInterface;
     }
 
     /**
@@ -40,8 +46,16 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->input());
+        $lead = $this->leadInterface->createLead($request->except('_token', 'emailConfirm', 'kind_of_person', 'amount', 'term', 'entity'));
+
+        $request->merge(['lead_id' => $lead->id]);
+
+        $this->leadInformationInterface->createLeadInformation($request->only('lead_id',  'kind_of_person', 'amount', 'term', 'entity'));
+
+        return redirect()->route('thank.you.page');
     }
+
+
 
     /**
      * Show the specified resource.

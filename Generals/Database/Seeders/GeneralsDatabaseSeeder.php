@@ -35,5 +35,6 @@ class GeneralsDatabaseSeeder extends Seeder
         $this->call(BanksTableSeeder::class);
         $this->call(CurrencyTableSeeder::class);
         $this->call(SocialMediaTableSeeder::class);
+        $this->call(ManagementStatusTableSeeder::class);
     }
 }

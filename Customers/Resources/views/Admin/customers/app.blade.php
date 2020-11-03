@@ -192,6 +192,7 @@
     .spinner-border {
         color: #5e72e4 !important
     }
+
 </style>
 @yield('stylesCustomer')
 @endsection

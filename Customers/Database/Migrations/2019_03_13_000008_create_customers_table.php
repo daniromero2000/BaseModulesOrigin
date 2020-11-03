@@ -43,7 +43,7 @@ class CreateCustomersTable extends Migration
             $table->foreign('civil_status_id')->references('id')->on('civil_statuses');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
             $table->foreign('customer_status_id')->references('id')->on('customer_statuses');
-            $table->foreign('lead_id')->references('id')->on('leads');
+            // $table->foreign('lead_id')->references('id')->on('leads');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

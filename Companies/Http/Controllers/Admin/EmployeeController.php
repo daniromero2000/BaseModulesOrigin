@@ -24,7 +24,6 @@ use Modules\Generals\Entities\IdentityTypes\Repositories\Interfaces\IdentityType
 use Modules\Generals\Entities\ProfessionsLists\Repositories\Interfaces\ProfessionsListRepositoryInterface;
 use Modules\Generals\Entities\Stratums\Repositories\Interfaces\StratumRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
-use Modules\CamStudio\Entities\Cammodels\Repositories\Interfaces\CammodelRepositoryInterface;
 
 
 class EmployeeController extends Controller
@@ -32,7 +31,7 @@ class EmployeeController extends Controller
     private $employeeInterface, $roleInterface, $departmentInterface;
     private $employeePositionInterface, $employeeCommentaryInterface;
     private $employeeStatusesLogInterface, $cityInterface, $identityTypeInterface;
-    private $stratumInterface, $housingInterface, $epsInterface, $cammodelInterface;
+    private $stratumInterface, $housingInterface, $epsInterface;
     private $professionsListInterface, $toolsInterface, $subsidiaryInterface;
 
     public function __construct(
@@ -50,8 +49,7 @@ class EmployeeController extends Controller
         ProfessionsListRepositoryInterface $professionsListRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface,
         CustomerRepositoryInterface $customerRepositoryInterface,
-        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface,
-        CammodelRepositoryInterface $cammodelRepositoryInterface
+        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface
     ) {
         $this->toolsInterface               = $toolRepositoryInterface;
         $this->employeeInterface            = $employeeRepositoryInterface;
@@ -68,7 +66,6 @@ class EmployeeController extends Controller
         $this->professionsListInterface     = $professionsListRepositoryInterface;
         $this->customerInterface            = $customerRepositoryInterface;
         $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
-        $this->cammodelInterface            = $cammodelRepositoryInterface;
         $this->middleware(['permission:employees, guard:employee']);
     }
 
@@ -110,16 +107,6 @@ class EmployeeController extends Controller
     {
         $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
         $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
-
-        if ($request->input('employee_position_id') == 8) {
-            $modelData = [
-                'employee_id' => $employee->id,
-                'manager_id' => $employee->id,
-            ];
-
-            $this->cammodelInterface->createCamModel($modelData);
-        }
-
         $data = [
             'employee_id' => $employee->id,
             'status' => 'Creado',

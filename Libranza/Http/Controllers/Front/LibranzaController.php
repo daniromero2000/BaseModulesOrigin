@@ -1,17 +1,40 @@
 <?php
 
-namespace Modules\Libranza\Http\Controllers;
+namespace Modules\Libranza\Http\Controllers\Front;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 
 class LibranzaController extends Controller
 {
+
+    private $cityInterface;
+
+    public function __construct(
+        CityRepositoryInterface $cityRepositoryInterface
+    ) {
+        $this->cityInterface  = $cityRepositoryInterface;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
+
+    public function subForm()
+    {
+        return view('libranza.front.sub_index', [
+            'cities' => $this->cityInterface->listCities()
+        ]);
+    }
+
+    public function thankYou()
+    {
+        return view('libranza.front.thank_you_page');
+    }
+
     public function index()
     {
         return view('libranza::index');

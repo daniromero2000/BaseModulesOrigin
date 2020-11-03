@@ -35,28 +35,13 @@ class PermissionsGroupsTableSeeder extends Seeder
         ]);
 
         factory(PermissionGroup::class)->create([
-            'name'        => 'CamStudio',
+            'name'        => 'Leads',
             'group_order' => 6
         ]);
 
         factory(PermissionGroup::class)->create([
-            'name'        => 'Sislef',
+            'name'        => 'Libranza',
             'group_order' => 7
-        ]);
-
-        factory(PermissionGroup::class)->create([
-            'name'        => 'XisfoPay',
-            'group_order' => 8
-        ]);
-
-        factory(PermissionGroup::class)->create([
-            'name'        => 'Studio',
-            'group_order' => 9
-        ]);
-
-        factory(PermissionGroup::class)->create([
-            'name'        => 'TWS',
-            'group_order' => 10
         ]);
     }
 }

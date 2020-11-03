@@ -156,6 +156,7 @@ class PermissionsModulesTableSeeder extends Seeder
             'permission_group_id' => 2
         ]);
 
+        //22
         factory(Permission::class)->create([
             'name'                => 'product_reviews',
             'display_name'        => 'Calificación_productos',
@@ -164,17 +165,17 @@ class PermissionsModulesTableSeeder extends Seeder
         ]);
 
         factory(Permission::class)->create([
-            'name'                => 'cam_model_categories',
-            'display_name'        => 'Categorías modelos',
+            'name'                => 'libranza-quotations',
+            'display_name'        => 'Cotizador_libranzas',
             'icon'                => 'ni ni-books',
-            'permission_group_id' => 9
+            'permission_group_id' => 7
         ]);
 
         factory(Permission::class)->create([
-            'name'                => 'cam_models',
-            'display_name'        => 'Modelos',
-            'icon'                => 'fas fa-female',
-            'permission_group_id' => 9
+            'name'                => 'leads',
+            'display_name'        => 'Leads',
+            'icon'                => 'fas fa-user',
+            'permission_group_id' => 6
         ]);
 
         factory(Permission::class)->create([
@@ -184,32 +185,18 @@ class PermissionsModulesTableSeeder extends Seeder
             'permission_group_id' => 4
         ]);
 
-        factory(Permission::class)->create([
-            'name'                => 'interviews',
-            'display_name'        => 'Entrevistas',
-            'icon'                => 'fas fa-address-card',
-            'permission_group_id' => 1
-        ]);
+        // factory(Permission::class)->create([
+        //     'name'                => 'interviews',
+        //     'display_name'        => 'Entrevistas',
+        //     'icon'                => 'fas fa-address-card',
+        //     'permission_group_id' => 1
+        // ]);
 
-        factory(Permission::class)->create([
-            'name'                => 'interview_statuses',
-            'display_name'        => 'Estados_entrevistas',
-            'icon'                => 'fas fa-vote-yea',
-            'permission_group_id' => 1
-        ]);
-
-        factory(Permission::class)->create([
-            'name'                => 'cammodel_social',
-            'display_name'        => 'Redes_modelos',
-            'icon'                => 'fas fa-share-alt',
-            'permission_group_id' => 9
-        ]);
-
-        factory(Permission::class)->create([
-            'name'                => 'cammodel_streamings',
-            'display_name'        => 'Streamings_modelos',
-            'icon'                => 'fas fa-satellite-dish',
-            'permission_group_id' => 9
-        ]);
+        // factory(Permission::class)->create([
+        //     'name'                => 'interview_statuses',
+        //     'display_name'        => 'Estados_entrevistas',
+        //     'icon'                => 'fas fa-vote-yea',
+        //     'permission_group_id' => 1
+        // ]);
     }
 }

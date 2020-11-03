@@ -25,9 +25,9 @@ class LeadStatusesLog extends Model
         return $this->hasMany(Lead::class);
     }
 
-    public function employee()
+    public function user()
     {
-        return $this->belongsTo(Employee::class, 'user_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
     public function status()

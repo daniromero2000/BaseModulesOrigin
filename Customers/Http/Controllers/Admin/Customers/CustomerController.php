@@ -123,7 +123,7 @@ class CustomerController extends Controller
 
         return view('customers::Admin.customers.edit', [
             'customer'            => $customer,
-            'customer_channels'      => $this->customerChannelInterface->getAllCustomerChannelNames(),
+            'customer_channels'   => $this->customerChannelInterface->getAllCustomerChannelNames(),
             'statuses'            => $this->customerStatusInterface->listCustomerStatuses(),
             'scholarities'        => $this->scholarityInterface->getAllScholaritiesNames(),
             'cities'              => $this->cityInterface->listCities(),

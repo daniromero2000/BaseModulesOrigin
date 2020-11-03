@@ -155,7 +155,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
         // Permisos Acciones Módulo Pqrs Statuses
 
         factory(ActionRole::class)->create([
@@ -177,8 +176,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 31,
             'role_id' => 1
         ]);
-
-
 
         // Permisos Acciones Módulo Customer
         factory(ActionRole::class)->create([
@@ -206,8 +203,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
-
         // Permisos Acciones Módulo Customer Statuses
 
         factory(ActionRole::class)->create([
@@ -229,8 +224,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 40,
             'role_id' => 1
         ]);
-
-
 
         // Permisos Acciones Módulo actions
         factory(ActionRole::class)->create([
@@ -258,8 +251,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
-
         // Permisos Acciones Módulo Productos
         factory(ActionRole::class)->create([
             'action_id' => 46,
@@ -285,8 +276,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 50,
             'role_id' => 1
         ]);
-
-
 
         // Permisos Acciones Módulo Categorías
         factory(ActionRole::class)->create([
@@ -314,7 +303,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
         // Permisos Acciones Módulo marcas
         factory(ActionRole::class)->create([
             'action_id' => 56,
@@ -340,8 +328,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 60,
             'role_id' => 1
         ]);
-
-
 
         // Permisos Acciones Módulo marcas
         factory(ActionRole::class)->create([
@@ -369,7 +355,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
         // Permisos Acciones Módulo marcas
         factory(ActionRole::class)->create([
             'action_id' => 66,
@@ -390,7 +375,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 69,
             'role_id' => 1
         ]);
-
 
         // Permisos Acciones Módulo Cursos
         factory(ActionRole::class)->create([
@@ -418,7 +402,6 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
         // Permisos Acciones Módulo Cursos
         factory(ActionRole::class)->create([
             'action_id' => 75,
@@ -445,13 +428,11 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-
         // Permisos Acciones Módulo Cursos
         factory(ActionRole::class)->create([
             'action_id' => 80,
             'role_id' => 1
         ]);
-
 
         // Permisos Acciones Módulo Wishlists
         factory(ActionRole::class)->create([
@@ -548,7 +529,7 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        // Permisos Acciones Módulo modelos
+        // Permisos Acciones Módulo Cotizador Libranzas
         factory(ActionRole::class)->create([
             'action_id' => 99,
             'role_id' => 1
@@ -574,119 +555,62 @@ class SuperAdminActionsTableSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        // Permisos Acciones Módulo modelos
+        // Permisos Acciones Módulo Leads
         factory(ActionRole::class)->create([
             'action_id' => 105,
             'role_id' => 1
         ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 106,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 106,
+        //     'role_id' => 1
+        // ]);
 
-        // Permisos Acciones Módulo Entrevistas
-        factory(ActionRole::class)->create([
-            'action_id' => 107,
-            'role_id' => 1
-        ]);
+        // // Permisos Acciones Módulo Entrevistas
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 107,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 108,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 108,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 109,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 109,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 110,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 110,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 111,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 111,
+        //     'role_id' => 1
+        // ]);
 
-        // Permisos Acciones Módulo Estados Entrevistas
-        factory(ActionRole::class)->create([
-            'action_id' => 112,
-            'role_id' => 1
-        ]);
+        // // Permisos Acciones Módulo Estados Entrevistas
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 112,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 113,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 113,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 114,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 114,
+        //     'role_id' => 1
+        // ]);
 
-        factory(ActionRole::class)->create([
-            'action_id' => 115,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 116,
-            'role_id' => 1
-        ]);
-
-        // Permisos Acciones Módulo Cammodel Socials
-        factory(ActionRole::class)->create([
-            'action_id' => 117,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 118,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 119,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 120,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 121,
-            'role_id' => 1
-        ]);
-
-        // Permisos Acciones Módulo Cammodel Streamings
-        factory(ActionRole::class)->create([
-            'action_id' => 122,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 123,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 124,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 125,
-            'role_id' => 1
-        ]);
-
-        factory(ActionRole::class)->create([
-            'action_id' => 126,
-            'role_id' => 1
-        ]);
+        // factory(ActionRole::class)->create([
+        //     'action_id' => 115,
+        //     'role_id' => 1
+        // ]);
     }
 }

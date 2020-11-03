@@ -1,13 +1,15 @@
 <!-- search form -->
 <div class="ml-auto justify-content-end d-flex" style=" position: absolute; top: 22px; right: 3%; z-index: 99; ">
     <p>
-        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#contentId" aria-expanded="false"
+        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#contentId"
+            aria-expanded="{{(request()->input('q') || request()->input('to') || request()->input('from')) ? 'true' : 'false'}}"
             aria-controls="contentId">
             Filtrar
         </a>
     </p>
 </div>
-<div class="collapse mt-3" id="contentId">
+<div class="collapse mt-3 {{(request()->input('q') || request()->input('to') || request()->input('from')) ? 'show' : ''}}   "
+    id="contentId">
     <div class="row">
         <div class="col-md-12">
             <div class="card" style=" box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .0) !important; ">

@@ -36,13 +36,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 /**
  * Frontend routes
  */
-Route::namespace('Front')->group(function () {
+// Route::namespace('Front')->group(function () {
 
-    Route::namespace('Courses')->group(function () {
-        Route::get('/{course}', 'CoursesFrontController@show')->name('front.course');
-    });
+//     Route::namespace('Courses')->group(function () {
+//         Route::get('/{course}', 'CoursesFrontController@show')->name('front.course');
+//     });
 
-    Route::prefix('CourseAttendances')->group(function () {
-        Route::get('course_attendances', 'CourseAttendancesFrontController@index');
-    });
-});
+//     Route::prefix('CourseAttendances')->group(function () {
+//         Route::get('course_attendances', 'CourseAttendancesFrontController@index');
+//     });
+// });

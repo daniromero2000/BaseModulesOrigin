@@ -16,6 +16,7 @@ class CreateLeadChannelsTable extends Migration
         Schema::create('lead_channels', function (Blueprint $table) {
             $table->increments('id');
             $table->string('channel');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

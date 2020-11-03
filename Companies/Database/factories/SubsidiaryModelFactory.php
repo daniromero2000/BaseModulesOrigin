@@ -27,6 +27,6 @@ $factory->define(Subsidiary::class, function (Faker\Generator $faker) {
         'phone'         => 3183643,
         'opening_hours' => '8: 00 a 12: 00',
         'city_id'       => 1,
-        'company_id'       => 1
+        'company_id'    => 1
     ];
 });

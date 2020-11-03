@@ -16,7 +16,7 @@ class CreateLeadServicesTable extends Migration
         Schema::create('lead_services', function (Blueprint $table) {
             $table->increments('id');
             $table->string('service');
-            $table->string('state')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

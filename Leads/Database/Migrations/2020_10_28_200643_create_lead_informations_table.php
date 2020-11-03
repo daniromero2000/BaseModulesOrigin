@@ -26,6 +26,7 @@ class CreateLeadInformationsTable extends Migration
             $table->foreign('lead_id')->references('id')->on('leads');
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

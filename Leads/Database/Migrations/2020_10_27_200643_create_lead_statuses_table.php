@@ -18,7 +18,7 @@ class CreateLeadStatusesTable extends Migration
             $table->string('status');
             $table->string('color');
             $table->string('background');
-            $table->string('state')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

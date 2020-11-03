@@ -14,7 +14,7 @@ class LeadService extends Model
 
     protected $fillable = [
         'id',
-        'service',
+        'service'
     ];
 
     public function leadArea()

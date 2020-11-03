@@ -16,6 +16,7 @@ $permissions = session('permission');
             {{-- <i class="nav-icon {{$module['icon']}}" aria-hidden="true"></i> --}}
             <span class="nav-link-text">{{ $module['display_name'] }}</span>
         </a>
+        @if (array_key_exists ( 'actionsPrincipal' , $module ))
         @foreach ($module['actionsPrincipal'] as $action)
         <div class="collapse" id="{{$module['display_name']}}">
             <ul class="nav nav-sm flex-column">
@@ -26,6 +27,7 @@ $permissions = session('permission');
             </ul>
         </div>
         @endforeach
+        @endif
         @endforeach
     </li>
     @endforeach

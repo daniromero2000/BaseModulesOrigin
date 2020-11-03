@@ -8,17 +8,19 @@ $actions = session('actionsModule');
     <form id="form_{{$data->id}}" action="{{ route($action['route'], $data->id) }}" method="post"
         class="form-horizontal">
         @csrf
-        <button onclick="return confirm('¿Estás Seguro?')" type="submit"
+        <button onclick="return confirm('Are you sure?')" type="submit"
             class="table-action table-action-delete button-reset" data-toggle="tooltip"
             data-original-title="{{ $action['name'] }}">
-            <i class="fas fa-trash"></i>
+            <i class="{{ $action['icon'] }}"></i>
         </button>
         <input type="hidden" name="_method" value="delete">
     </form>
     @elseif(strpos($action['route'], 'edit'))
     <a data-toggle="modal" data-target="#modal{{ $data->id }}" href="" class="table-action table-action"
         data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
-        <i class="fas fa-user-edit"></i></a>
+        <i class="{{ $action['icon'] }}"></i></a>
+    @elseif(strpos($action['route'], 'asigne'))
+
     @else
     <a href="{{ route($action['route'], $data->id) }}" class=" table-action table-action" data-toggle="tooltip"
         data-original-title="{{ $action['name'] }}">

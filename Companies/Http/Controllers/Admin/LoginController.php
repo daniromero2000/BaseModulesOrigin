@@ -75,6 +75,7 @@ class LoginController extends Controller
                     }
                 }
             }
+
             session(['actions'          => $actions]);
             session(['permission'       => $permissionsRoleUser]);
             session(['actionsUser'      => $actionsUser]);

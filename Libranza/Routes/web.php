@@ -12,3 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::namespace('Front')->group(function () {
+    Route::get('formulario-libranza', 'LibranzaController@subForm');
+    Route::get('thank-you-page', 'LibranzaController@thankYou')->name('thank.you.page');
+});

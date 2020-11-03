@@ -23,10 +23,6 @@ class DepartmentsTableSeeder extends Seeder
         ]);
 
         factory(Department::class)->create([
-            'name' => 'Producción',
-        ]);
-
-        factory(Department::class)->create([
             'name' => 'Marketing Y Publicidad',
         ]);
 
@@ -52,6 +48,46 @@ class DepartmentsTableSeeder extends Seeder
 
         factory(Department::class)->create([
             'name' => 'Mantenimiento',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Canal Digital',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Seguros',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Garantias',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Cartera',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Unidad Avanzada',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Oportuya',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Libranzas',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Ecommercer',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'Juridica',
+        ]);
+
+        factory(Department::class)->create([
+            'name' => 'CallCenter',
         ]);
     }
 }
