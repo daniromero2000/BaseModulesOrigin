@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
         Route::resource('leads', 'LeadsController');
+        Route::post('leads-store-comments', 'LeadsController@comments')->name('leads.store.comments');
     });
 });
 

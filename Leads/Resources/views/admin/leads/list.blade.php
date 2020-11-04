@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" active aria-current="page">Empleados</li>
+                            <li class="breadcrumb-item active" active aria-current="page">Leads</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,7 +23,7 @@
     @if(!$leads->isEmpty())
     <div class="card">
         <div class="card-header border-0">
-            <h3 class="mb-0">Empleados</h3>
+            <h3 class="mb-0">Leads</h3>
             @include('generals::layouts.search', ['route' => route('admin.leads.index')])
         </div>
         <div class="table-responsive">
@@ -59,13 +59,14 @@
                 </tbody>
             </table>
         </div>
-
         <div class="card-footer py-2">
             @include('generals::layouts.admin.pagination.pagination', [$skip])
         </div>
+        @else
+        <div class="card-footer py-2">
+            @include('generals::layouts.admin.pagination.pagination_null', [$skip, $optionsRoutes])
+        </div>
     </div>
-    @else
-    @include('generals::layouts.admin.pagination.pagination_null', [$skip, $optionsRoutes])
     @endif
 </section>
 @endsection

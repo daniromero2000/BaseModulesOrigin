@@ -8,11 +8,11 @@ $actions = session('actionsModule');
     <form id="form_{{$data->id}}" action="{{ route($action['route'], $data->id) }}" method="post"
         class="form-horizontal">
         @csrf
-        <button onclick="return confirm('Are you sure?')" type="submit"
-            class="table-action table-action-delete button-reset" data-toggle="tooltip"
+        <a onclick="return confirm('Are you sure?')" type="submit" href=""
+            class="table-action table-action table-action-delete" data-toggle="tooltip"
             data-original-title="{{ $action['name'] }}">
             <i class="{{ $action['icon'] }}"></i>
-        </button>
+        </a>
         <input type="hidden" name="_method" value="delete">
     </form>
     @elseif(strpos($action['route'], 'edit'))

@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Leads\Entities\LeadManagementStatusesLogs;
+namespace Modules\Leads\Entities\LeadManagementStatusLogs;
 
+use Modules\Companies\Entities\Employees\Employee;
 use Modules\Leads\Entities\Leads\Lead;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Generals\Entities\ManagementStatuses\ManagementStatus;
 
-class LeadManagementStatusesLog extends Model
+class LeadManagementStatusLog extends Model
 {
     protected $fillable = [
         'id',
         'lead_id',
-        'status_management_id',
-        'created_at',
-        'user_id'
+        'management_status_id',
+        'employee_id',
+        'created_at'
     ];
 
     protected $table  = 'lead_management_status';
@@ -26,10 +26,10 @@ class LeadManagementStatusesLog extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
-    public function ManagementStatus()
+    public function status()
     {
         return $this->belongsTo(ManagementStatus::class, 'management_status_id');
     }

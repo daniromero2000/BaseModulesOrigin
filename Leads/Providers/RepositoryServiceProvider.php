@@ -5,6 +5,8 @@ namespace Modules\Leads\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\Leads\Entities\LeadChannels\Repositories\Interfaces\LeadChannelRepositoryInterface;
 use Modules\Leads\Entities\LeadChannels\Repositories\LeadChannelRepository;
+use Modules\Leads\Entities\LeadComments\Repositories\Interfaces\LeadCommentRepositoryInterface;
+use Modules\Leads\Entities\LeadComments\Repositories\LeadCommentRepository;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\LeadInformationRepository;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
@@ -48,6 +50,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             LeadChannelRepositoryInterface::class,
             LeadChannelRepository::class
+        );
+
+        $this->app->bind(
+            LeadCommentRepositoryInterface::class,
+            LeadCommentRepository::class
         );
     }
 }

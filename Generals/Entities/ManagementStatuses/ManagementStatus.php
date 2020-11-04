@@ -14,6 +14,8 @@ class ManagementStatus extends Model
     protected $fillable = [
         'status',
         'type_management_status',
+        'color',
+        'background',
         'is_active'
     ];
 

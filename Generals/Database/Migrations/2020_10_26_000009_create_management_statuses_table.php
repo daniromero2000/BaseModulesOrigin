@@ -15,7 +15,9 @@ class CreateManagementStatusesTable extends Migration
     {
         Schema::create('management_statuses', function (Blueprint $table) {
             $table->Increments('id');
-            $table->string('status')->unique();
+            $table->string('status');
+            $table->string('background');
+            $table->string('color');
             $table->string('type_management_status')->default(0)->comment('0= Comercial, 1= Cartera');
             $table->boolean('is_active')->default(1)->comment('0= Inactivo, 1= Activo');
             $table->timestamps();

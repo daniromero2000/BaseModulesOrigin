@@ -24,13 +24,12 @@ class LeadInformationRepository implements LeadInformationRepositoryInterface
         }
     }
 
-    public function updateLeadInformation($params)
+    public function updateLeadInformation($id, $data)
     {
-
         try {
-            return $this->model->update($params);
+            return $this->model->updateOrCreate(['lead_id' => $id], $data);
         } catch (QueryException $e) {
-            abort(503, $e->getMessage());
+            dd($e);
         }
     }
 

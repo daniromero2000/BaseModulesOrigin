@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-4">
     <div class="card">
         <div class="card-header bg-transparent">
             <h3 class="mb-0">Historial</h3>

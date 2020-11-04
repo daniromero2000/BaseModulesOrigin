@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection as Support;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class LeadRepository implements LeadRepositoryInterface
 {
@@ -72,7 +73,7 @@ class LeadRepository implements LeadRepositoryInterface
     public function updateLead($id, array $data)
     {
         try {
-            return $this->model->update(['id', $id], $data);
+            return $this->model->updateOrCreate(['id' => $id], $data);
         } catch (QueryException $e) {
             dd($e);
         }
@@ -99,25 +100,20 @@ class LeadRepository implements LeadRepositoryInterface
             }
 
             if (!is_null($text) && (is_null($from) || is_null($to))) {
-                return $this->model->searchLeads($text, null, true, true)
+                return $this->model->searchLead($text, null, true, true)
                     ->skip($totalView)
-                    ->take(50)
+                    ->take(30)
                     ->get($this->columns);
             }
 
             if (is_null($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
-                    ->take(50)
+                    ->take(30)
                     ->get($this->columns);
             }
-            dd($this->model->searchLeads($text, null, true, true)
-                ->whereBetween('created_at', [$from, $to])
-                ->orderBy('created_at', 'desc')
-                ->skip($totalView)
-                ->take(30)
-                ->get($this->columns));
-            return $this->model->searchLeads($text, null, true, true)
+
+            return $this->model->searchLead($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
                 ->orderBy('created_at', 'desc')
                 ->skip($totalView)
@@ -128,12 +124,36 @@ class LeadRepository implements LeadRepositoryInterface
         }
     }
 
-    public function searchTrashedLead(string $text = null): Collection
+    public function countLeads(string $text = null,  $from = null, $to = null)
     {
-        if (is_null($text)) {
-            return $this->model->onlyTrashed($text)->get($this->columns);
-        }
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                foreach (auth()->guard('employee')->user()->department as $key => $value) {
+                    $userDepartmet[$key] = $value->id;
+                }
+                $data =  $this->model->whereIn('department_id', $userDepartmet)
+                    ->get();
+                return count($data);
+            }
 
-        return $this->model->onlyTrashed()->get($this->columns);
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchLead($text, null, true, true)
+                    ->get();
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get();
+                return count($data);
+            }
+
+            $data =  $this->model->searchLead($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get();
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 }

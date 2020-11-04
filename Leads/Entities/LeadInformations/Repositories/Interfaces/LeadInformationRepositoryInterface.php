@@ -9,7 +9,7 @@ interface LeadInformationRepositoryInterface
 {
     public function createLeadInformation($data);
 
-    public function updateLeadInformation($params);
+    public function updateLeadInformation($id, $data);
 
     public function findLeadInformationById(int $id): LeadInformation;
 }

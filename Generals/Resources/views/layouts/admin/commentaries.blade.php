@@ -6,7 +6,8 @@
                     <h3 class="mb-0">Comentarios</h3>
                 </div>
                 <div class="col text-right">
-                    <a href="#myModal" data-toggle="modal" data-target="#commentmodal" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                    <a href="#myModal" data-toggle="modal" data-target="#commentmodal" class="btn btn-primary btn-sm"><i
+                            class="fa fa-edit"></i>
                         Agregar Comentario</a>
                 </div>
             </div>

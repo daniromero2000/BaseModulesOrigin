@@ -18,6 +18,8 @@ use Modules\Generals\Entities\ManagementStatuses\ManagementStatus;
 $factory->define(ManagementStatus::class, function () {
     return [
         'status' => 'Asesoría Inadecuada',
-        'type_management_status' => '0'
+        'type_management_status' => '0',
+        'background' => '#ffffff',
+        'color' => '#ffffff'
     ];
 });

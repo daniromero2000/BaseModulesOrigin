@@ -14,6 +14,7 @@ use Modules\Generals\Entities\ManagementStatuses\ManagementStatus;
 use Modules\Leads\Entities\LeadChannels\LeadChannel;
 use Modules\Leads\Entities\LeadComments\LeadComment;
 use Modules\Leads\Entities\LeadInformations\LeadInformation;
+use Modules\Leads\Entities\LeadManagementStatusLogs\LeadManagementStatusLog;
 use Modules\Leads\Entities\LeadServices\LeadService;
 use Modules\Leads\Entities\LeadStatusesLogs\LeadStatusesLog;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -58,22 +59,14 @@ class Lead extends Model
         'columns' => [
             'leads.name'      => 10,
             'leads.last_name' => 10,
-            'leads.telephone' => 10
+            'leads.telephone' => 10,
+            'leads.email'     => 10,
+            'leads.identification_number' => 10
         ],
     ];
 
 
-    public function searchLeads($term)
-    {
-        return self::search($term);
-    }
-
-    public function searchLeadsSubsidiaries($term)
-    {
-        return self::search($term);
-    }
-
-    public function searchCustomLeads($term)
+    public function searchLead($term)
     {
         return self::search($term);
     }
@@ -85,12 +78,12 @@ class Lead extends Model
 
     public function leadStatus()
     {
-        return $this->belongsToMany(LeadStatus::class, 'lead_status', 'lead_id', 'lead_status_id')->withTimestamps();
+        return $this->belongsToMany(LeadStatus::class, 'lead_statuses_logs', 'lead_id', 'lead_statuses_id')->withTimestamps();
     }
 
     public function managementStatus()
     {
-        return $this->belongsToMany(ManagementStatus::class, 'lead_status_management', 'lead_id', 'status_management_id')->withTimestamps();
+        return $this->belongsToMany(ManagementStatus::class)->withTimestamps();
     }
 
     public function city()
@@ -125,23 +118,18 @@ class Lead extends Model
 
     public function leadStatusesLogs()
     {
-        return $this->hasMany(LeadStatusesLog::class);
+        return $this->hasMany(LeadStatusesLog::class)->orderBy('created_at', 'desc');
     }
 
-    // public function statusManagementLog()
-    // {
-    //     return $this->hasMany(StatusManagementLog::class, 'lead_id');
-    // }
+    public function leadManagementStatus()
+    {
+        return $this->hasMany(LeadManagementStatusLog::class)->orderBy('created_at', 'desc');
+    }
 
     public function leadProduct()
     {
         return $this->belongsTo(LeadProduct::class);
     }
-
-    // public function LeadArea()
-    // {
-    //     return $this->belongsTo(LeadArea::class);
-    // }
 
     public function subsidiary()
     {

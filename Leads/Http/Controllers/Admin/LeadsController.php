@@ -9,18 +9,18 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
-use Modules\Leads\Entities\Leads\Requests\CreateLeadRequest;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use Modules\Generals\Entities\ManagementStatuses\Repositories\Interfaces\ManagementStatusRepositoryInterface;
 use Modules\Leads\Entities\LeadChannels\Repositories\Interfaces\LeadChannelRepositoryInterface;
+use Modules\Leads\Entities\LeadComments\Repositories\Interfaces\LeadCommentRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
 use Modules\Leads\Entities\LeadServices\Repositories\Interfaces\LeadServiceRepositoryInterface;
 use Modules\Leads\Entities\LeadStatuses\Repositories\Interfaces\LeadStatusRepositoryInterface;
 
 class LeadsController extends Controller
 {
-    private $leadInterface, $leadInformationInterface, $departmentInterface, $managementStatusInterface, $leadStatusInterface, $leadProductInterface, $leadServiceInterface;
+    private $leadInterface, $leadInformationInterface, $departmentInterface, $managementStatusInterface, $leadStatusInterface, $leadProductInterface, $leadServiceInterface, $leadCommentInterface;
 
     public function __construct(
         ToolRepositoryInterface $toolRepositoryInterface,
@@ -32,6 +32,7 @@ class LeadsController extends Controller
         LeadProductRepositoryInterface $leadProductRepositoryInterface,
         LeadChannelRepositoryInterface $leadChannelRepositoryInterface,
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
+        LeadCommentRepositoryInterface $leadCommentRepositoryInterface,
         ManagementStatusRepositoryInterface $managementStatusRepositoryInterface
     ) {
         $this->toolsInterface            = $toolRepositoryInterface;
@@ -41,8 +42,9 @@ class LeadsController extends Controller
         $this->departmentInterface       = $departmentRepositoryInterface;
         $this->leadProductInterface      = $leadProductRepositoryInterface;
         $this->leadServiceInterface      = $leadServiceRepositoryInterface;
-        $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->leadChannelInterface      = $leadChannelRepositoryInterface;
+        $this->leadCommentInterface      = $leadCommentRepositoryInterface;
+        $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->managementStatusInterface = $managementStatusRepositoryInterface;
         $this->middleware(['permission:leads, guard:employee']);
     }
@@ -58,39 +60,50 @@ class LeadsController extends Controller
         }
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
-            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip);
+            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30);
+            $paginate = $this->leadInterface->countLeads(request()->input('q'),);
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
-            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip, $from, $to);
+            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30, $from, $to);
+            $paginate = $this->leadInterface->countLeads(request()->input('q'), $from, $to);
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } else {
+            $paginate = $this->leadInterface->countLeads('');
             $list = $this->leadInterface->listLeads($skip * 30, $userDepartmet);
         }
 
-        // if (request()->has('q')) {
-        //     $list = $this->leadInterface->searchLeads(request()->input('q'), $userDepartmet);
-        //     $request->session()->flash('message', 'Resultado de la Busqueda');
-        // } elseif (request()->has('t')) {
-        //     $list = $this->leadInterface->searchTrashedLead(request()->input('t'));
-        //     $request->session()->flash('message', 'Resultado de la Busqueda');
-        // } else {
-        //     $skip = $this->toolsInterface->getSkip($request->input('skip'));
-        //     $list = $this->leadInterface->listLeads($skip * 30, $userDepartmet);
-        // }
+        $paginate = ceil($paginate  / 30);
+
+        $skipPaginate = $skip;
+
+        $pageList = ($skipPaginate + 1) / 5;
+        if (is_int($pageList) || $pageList > 1) {
+            $countPage = $skipPaginate - 5;
+            $maxPage = $skipPaginate + 6 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 6;
+        } else {
+            $countPage = 0;
+            $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
+        }
 
         return view('leads::admin.leads.list', [
-            'leads' => $list,
+            'leads'         => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'skip' => $skip,
-            'headers' => ['Id', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
-            'inputs'     => [
+            'skip'          => $skip,
+            'pag'           => $pageList,
+            'i'             => $countPage,
+            'max'           =>  $maxPage,
+            'headers'       => ['Id', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
+            'paginate'      => $paginate,
+            'inputs'        => [
                 ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
                 ['label' => 'Apellidos', 'type' => 'text', 'name' => 'last_name'],
                 ['label' => 'Correo', 'type' => 'text', 'name' => 'email'],
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
                 ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCities(), 'name' => 'city_id', 'option' => 'city'],
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(), 'name' => 'department_id', 'option' => 'name'],
-                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status']
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
+
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -124,7 +137,8 @@ class LeadsController extends Controller
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
                 ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCities(), 'name' => 'city_id', 'option' => 'city'],
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(), 'name' => 'department_id', 'option' => 'name'],
-                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status']
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -136,17 +150,41 @@ class LeadsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $lead = $this->leadInterface->updateLead($id, $request->except('_token', 'emailConfirm', 'kind_of_person', 'amount', 'term', 'entity'));
-        dd($lead);
-        $request->merge(['lead_id' => $lead->id]);
+        $validate = $this->leadInterface->findLeadByIdFull($id);
 
-        // $this->leadInformationInterface->updateLead($id, $request->only('lead_id',  'kind_of_person', 'amount', 'term', 'entity'));
+        $lead = $this->leadInterface->updateLead($id, $request->except('_token', 'emailConfirm', 'kind_of_person', 'amount', 'term', 'entity', '_method'));
 
-        return redirect()->route('thank.you.page');
+        if (!empty($request->input('lead_status_id')) && $request->input('lead_status_id') != $validate->status) {
+            $lead->leadStatus()->attach($request->input('lead_status_id'), ['employee_id' => auth()->guard('employee')->user()->id]);
+        }
+
+        if (!empty($request->input('management_status_id')) && $request->input('management_status_id') != $validate->management_status_id) {
+            $lead->managementStatus()->attach($request->input('management_status_id'), ['employee_id' => auth()->guard('employee')->user()->id]);
+        }
+
+        $this->leadInformationInterface->updateLeadInformation($id, $request->only('kind_of_person', 'amount', 'term', 'entity', 'expiration_date_soat', 'subsidiary_id'));
+
+        $request->session()->flash('message', 'Lead actualizado correctamente');
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        //
+        $lead = $this->leadInterface->findLeadByIdFull($id);
+        $lead->delete();
+
+        request()->session()->flash('message', 'Lead eliminado correctamente');
+        return redirect()->back();
+    }
+
+    public function comments(Request $request)
+    {
+        $data = $request->except('_token');
+        $data['employee_id'] = auth()->guard('employee')->user()->id;
+        $data['comment'] = $data['commentary'];
+        $request->session()->flash('message', 'Comentario creado correctamente');
+        $this->leadCommentInterface->createLeadComment($data);
+
+        return redirect()->route('admin.leads.show', $data['lead_id']);
     }
 }
