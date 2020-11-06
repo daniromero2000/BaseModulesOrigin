@@ -23,6 +23,8 @@ class CreateEmployeesTable extends Migration
             $table->integer('genre_id')->unsigned()->nullable();
             $table->foreign('genre_id')->references('id')->on('genres');
             $table->string('avatar')->nullable()->default('No Avatar');
+            $table->unsignedInteger('company_id')->index();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->integer('subsidiary_id')->unsigned();
             $table->foreign('subsidiary_id')->references('id')->on('subsidiaries');
             $table->integer('employee_position_id')->unsigned();

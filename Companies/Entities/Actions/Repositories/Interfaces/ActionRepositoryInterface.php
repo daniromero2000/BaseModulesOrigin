@@ -17,7 +17,9 @@ interface ActionRepositoryInterface
 
     public function listActions(int $totalView): Collection;
 
-    public function searchAction(string $text = null): Collection;
+    public function searchAction(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function countAction(string $text = null,  $from = null, $to = null);
 
     public function searchTrashedAction(string $text = null): Collection;
 }

@@ -9,6 +9,8 @@ interface CompanyRepositoryInterface
 {
     public function listCompanies(int $totalView);
 
+    public function listCompaniesActives();
+
     public function createCompany(array $params): Company;
 
     public function findCompanyById(int $id): Company;

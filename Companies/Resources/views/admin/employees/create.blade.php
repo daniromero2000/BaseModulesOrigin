@@ -67,6 +67,30 @@
                             </div>
                         </div>
                     </div>
+                    @if (auth()->guard('employee')->user()->role[0]->id == 1)
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="company_id">Empresa</label>
+                            <div class="input-group">
+                                <select name="company_id" id="company_id" class="form-control" enabled>
+                                    <option value="" selected>Selecciona</option>
+                                    @foreach($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="subsidiaries" class="form-group">
+                            <label class="form-control-label" for="department_id">Sucursal</label>
+                            <div class="input-group">
+                                <select name="subsidiary_id" disabled id="subsidiary_id" class="form-control" enabled>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    @else
                     <div class="col-sm-6">
                         <div id="subsidiaries" class="form-group">
                             <label class="form-control-label" for="department_id">Sucursal</label>
@@ -79,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @endif
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -89,4 +113,21 @@
         </form>
     </div>
 </section>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $( "#company_id" ).change(function() {
+            $.get('/admin/subsidiaries/company/' + $(this).val(), function (data) {
+              var html_insert = '<option data-select3-id=""  selected value>  Selecciona  </option>'
+                    for (var i = 0; i < data.length; i++) {
+                        html_insert += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+              $('#subsidiary_id').html(html_insert);
+              $('#subsidiary_id').prop("disabled", false);
+            });
+        });      
+});
+</script>
+
 @endsection

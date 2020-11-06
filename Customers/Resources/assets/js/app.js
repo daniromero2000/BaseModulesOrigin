@@ -13,6 +13,6 @@ Vue.component('show-customer', require('./components/customers/showCustomer.vue'
 
 
 const customers = new Vue({
-    el: '#customers',
+    el: '#customersAdmin',
     store
 });

@@ -8,6 +8,7 @@ use Modules\Companies\Entities\Subsidiaries\Requests\CreateSubsidiaryRequest;
 use Modules\Companies\Entities\Subsidiaries\Requests\UpdateSubsidiaryRequest;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -28,16 +29,35 @@ class SubsidiaryController extends Controller
 
     public function index(Request $request)
     {
-        if (request()->has('q')) {
-            $list = $this->subsidiaryInterface->searchSubsidiary(request()->input('q'));
+        $skip    = request()->input('skip') ? request()->input('skip') : 0;
+        $from    = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
+        $to      = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
+        $company = auth()->guard('employee')->user()->company_id;
+
+        if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
+            $list = $this->subsidiaryInterface->searchSubsidiary(request()->input('q'), $skip * 30, $company);
+            $paginate = $this->subsidiaryInterface->countSubsidiaries(request()->input('q'), $company);
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        } else if (request()->has('t')) {
-            $list = $this->subsidiaryInterface->searchTrashedSubsidiary(request()->input('t'));
+        } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
+            $list = $this->subsidiaryInterface->searchSubsidiary(request()->input('q'), $skip * 30, $company, $from, $to);
+            $paginate = $this->subsidiaryInterface->countSubsidiaries(request()->input('q'), $company, $from, $to);
             $request->session()->flash('message', 'Resultado de la Busqueda');
+        } else {
+            $paginate = $this->subsidiaryInterface->countSubsidiaries('', $company);
+            $list = $this->subsidiaryInterface->listSubsidiaries($skip * 30, $company);
         }
-        else {
-            $skip = $this->toolsInterface->getSkip($request->input('skip'));
-            $list =  $this->subsidiaryInterface->listSubsidiaries($skip * 30);
+
+        $paginate = ceil($paginate  / 30);
+
+        $skipPaginate = $skip;
+
+        $pageList = ($skipPaginate + 1) / 5;
+        if (is_int($pageList) || $pageList > 1) {
+            $countPage = $skipPaginate - 5;
+            $maxPage = $skipPaginate + 6 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 6;
+        } else {
+            $countPage = 0;
+            $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
         }
 
         return view('companies::admin.subsidiaries.list', [
@@ -45,7 +65,12 @@ class SubsidiaryController extends Controller
             'skip'          => $skip,
             'cities'        => $this->cityInterface->listCities(),
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Teléfono', 'Ciudad', 'Opciones']
+            'headers'       => ['ID', 'Sucursal', 'Dirección', 'Teléfono', 'Ciudad', 'Opciones'],
+            'skip'          => $skip,
+            'pag'           => $pageList,
+            'i'             => $countPage,
+            'max'           => $maxPage,
+            'paginate'      => $paginate
         ]);
     }
 
@@ -111,5 +136,10 @@ class SubsidiaryController extends Controller
 
         return redirect()->route('admin.subsidiaries.index')
             ->with('message', 'Recuperación Exitosa!');
+    }
+
+    public function getSubsidiariesCompanies(int $id)
+    {
+        return $this->subsidiaryInterface->getSubsidiaryForCompany($id);
     }
 }

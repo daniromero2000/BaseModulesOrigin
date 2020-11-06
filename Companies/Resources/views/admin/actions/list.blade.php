@@ -36,6 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach($EmployeeActions as $data)
                     <tr>
                         @foreach($data->toArray() as $key => $value)
@@ -44,7 +45,8 @@
                         </td>
                         @endforeach
                         <td class="text-center">
-                            @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])
+                            @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
+                            $optionsRoutes])
                         </td>
                     </tr>
                     <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog"
@@ -57,7 +59,8 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('admin.permissions.update', $data->id) }}" method="post" class="form">
+                                <form action="{{ route('admin.permissions.update', $data->id) }}" method="post"
+                                    class="form">
                                     @method('PUT')
                                     @csrf
                                     <div class="modal-body py-0">
@@ -81,18 +84,30 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-control-label"
-                                                        for="display_name{{ $data->id }}">Nombre a mostrar</label>
+                                                        for="route{{ $data->id }}">Ruta</label>
                                                     <div class="input-group input-group-merge">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"> <i
                                                                     class="fa fa-key"></i></span>
                                                         </div>
-                                                        <input type="text" name="display_name" id="display_name"
-                                                            placeholder="Nombre a mostrar" validation-pattern="name"
-                                                            class="form-control"
-                                                            value="{!! $data->displya_name ?: old('display_name')  !!}"
+                                                        <input type="text" name="route" id="route" placeholder="Ruta"
+                                                            validation-pattern="name" class="form-control"
+                                                            value="{!! $data->route ? $data->route : old('route')  !!}"
                                                             required>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="route{{ $data->id }}">Es una
+                                                        ruta principal?</label>
+                                                    <select class="form-control" name="principal"
+                                                        id="principal{{$data->id}}">
+                                                        <option value="1" {{ $data->principal == 1 ? 'selected' : '' }}>
+                                                            Si</option>
+                                                        <option value="0" {{ $data->principal == 0 ? 'selected' : '' }}>
+                                                            No</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -104,18 +119,10 @@
                                                             <span class="input-group-text"> <i
                                                                     class="fa fa-key"></i></span>
                                                         </div>
-                                                        <input type="text" name="icon" id="icon{{ $data->id }}" placeholder="Ícono"
-                                                            class="form-control"
+                                                        <input type="text" name="icon" id="icon{{ $data->id }}"
+                                                            placeholder="Ícono" class="form-control"
                                                             value="{!! $data->icon ?: old('icon')  !!}" required>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-control-label"
-                                                        for="icon{{ $data->id }}">Descripción</label>
-                                                        <textarea name="description" id="description" validation-pattern="text" class="form-control"
-                                                        rows="3">{!! $data->description ?: old('description')  !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>

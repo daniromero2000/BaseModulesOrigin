@@ -68,11 +68,19 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         $this->model = $employee;
     }
 
-    public function listEmployees(int $totalView)
+    public function listEmployees(int $totalView, $company)
     {
         try {
+            if (is_null($company)) {
+                return $this->model
+                    ->orderBy('name', 'desc')
+                    ->skip($totalView)->take(30)
+                    ->get($this->listColumns);;
+            }
+
             return  $this->model
                 ->orderBy('name', 'desc')
+                ->where('company_id', $company)
                 ->skip($totalView)->take(30)
                 ->get($this->listColumns);
         } catch (QueryException $e) {
@@ -80,13 +88,86 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         }
     }
 
-    public function searchEmployee(string $text = null): Collection
+    public function searchEmployee(string $text = null, $company, int $totalView, $from = null, $to = null): Collection
     {
-        if (is_null($text)) {
-            return $this->model->get($this->columns);
-        }
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listEmployees($totalView, $company);
+            }
 
-        return $this->model->searchEmployee($text)->get($this->columns);
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchEmployee($text, null, true, true)
+                    ->when($company, function ($q, $company) {
+                        return $q->where('company_id', $company);
+                    })
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->when($company, function ($q, $company) {
+                        return $q->where('company_id', $company);
+                    })
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchEmployee($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->when($company, function ($q, $company) {
+                    return $q->where('company_id', $company);
+                })
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function countEmployees(string $text = null, $company,  $from = null, $to = null)
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model
+                    ->when($company, function ($q, $company) {
+                        return $q->where('company_id', $company);
+                    })->get(['id']);
+                return count($data);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchEmployee($text, null, true, true)
+                    ->when($company, function ($q, $company) {
+                        return $q->where('company_id', $company);
+                    })
+                    ->get(['id']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->when($company, function ($q, $company) {
+                        return $q->where('company_id', $company);
+                    })
+                    ->get(['id']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchEmployee($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->when($company, function ($q, $company) {
+                    return $q->where('company_id', $company);
+                })
+                ->get(['id']);
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 
     public function searchTrashedEmployee(string $text = null): Collection

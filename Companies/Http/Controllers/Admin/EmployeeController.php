@@ -3,10 +3,12 @@
 namespace Modules\Companies\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Companies\Entities\Admins\Requests\CreateEmployeeRequest;
 use Modules\Companies\Entities\Admins\Requests\UpdateEmployeeRequest;
+use Modules\Companies\Entities\Companies\Repositories\Interfaces\CompanyRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Modules\Companies\Entities\EmployeeCommentaries\Repositories\Interfaces\EmployeeCommentaryRepositoryInterface;
 use Modules\Companies\Entities\EmployeePositions\Repositories\Interfaces\EmployeePositionRepositoryInterface;
@@ -24,7 +26,6 @@ use Modules\Generals\Entities\IdentityTypes\Repositories\Interfaces\IdentityType
 use Modules\Generals\Entities\ProfessionsLists\Repositories\Interfaces\ProfessionsListRepositoryInterface;
 use Modules\Generals\Entities\Stratums\Repositories\Interfaces\StratumRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
-
 
 class EmployeeController extends Controller
 {
@@ -49,7 +50,8 @@ class EmployeeController extends Controller
         ProfessionsListRepositoryInterface $professionsListRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface,
         CustomerRepositoryInterface $customerRepositoryInterface,
-        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface
+        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface,
+        CompanyRepositoryInterface $companyRepositoryInterface
     ) {
         $this->toolsInterface               = $toolRepositoryInterface;
         $this->employeeInterface            = $employeeRepositoryInterface;
@@ -66,29 +68,58 @@ class EmployeeController extends Controller
         $this->professionsListInterface     = $professionsListRepositoryInterface;
         $this->customerInterface            = $customerRepositoryInterface;
         $this->subsidiaryInterface          = $subsidiaryRepositoryInterface;
+        $this->companyInterface          = $companyRepositoryInterface;
         $this->middleware(['permission:employees, guard:employee']);
     }
 
     public function index(Request $request)
     {
-        if (request()->has('q')) {
-            $list = $this->employeeInterface->searchEmployee(request()->input('q'));
+        $skip = request()->input('skip') ? request()->input('skip') : 0;
+        $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
+        $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
+        $company = null;
+        if (auth()->guard('employee')->user()->role[0]->id != 1) {
+            $company = auth()->guard('employee')->user()->company_id;
+        }
+
+        if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
+            $list = $this->employeeInterface->searchEmployee(request()->input('q'), $company, $skip * 30);
+            $paginate = $this->employeeInterface->countEmployees(request()->input('q'), $company,);
             $request->session()->flash('message', 'Resultado de la Busqueda');
-        } elseif (request()->has('t')) {
-            $list = $this->employeeInterface->searchTrashedEmployee(request()->input('t'));
+        } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
+            $list = $this->employeeInterface->searchEmployee(request()->input('q'), $company, $skip * 30, $from, $to);
+            $paginate = $this->employeeInterface->countEmployees(request()->input('q'), $company, $from, $to);
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } else {
-            $skip = $this->toolsInterface->getSkip($request->input('skip'));
-            $list = $this->employeeInterface->listEmployees($skip * 30);
+            $paginate = $this->employeeInterface->countEmployees('', $company);
+            $list = $this->employeeInterface->listEmployees($skip * 30, $company);
+        }
+
+        $paginate = ceil($paginate  / 30);
+
+        $skipPaginate = $skip;
+
+        $pageList = ($skipPaginate + 1) / 5;
+        if (is_int($pageList) || $pageList > 1) {
+            $countPage = $skipPaginate - 5;
+            $maxPage = $skipPaginate + 6 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 6;
+        } else {
+            $countPage = 0;
+            $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
         }
 
         return view('companies::admin.employees.list', [
-            'employees' => $list,
-            'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'skip' => $skip,
-            'headers' => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
-            'roles' => $this->roleInterface->getAllRoleNames(),
-            'all_departments' => $this->departmentInterface->getAllDepartmentNames(),
+            'employees'          => $list,
+            'optionsRoutes'      => 'admin.' . (request()->segment(2)),
+            'skip'               => $skip,
+            'headers'            => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
+            'skip'               => $skip,
+            'pag'                => $pageList,
+            'i'                  => $countPage,
+            'max'                => $maxPage,
+            'paginate'           => $paginate,
+            'roles'              => $this->roleInterface->getAllRoleNames(),
+            'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
         ]);
     }
@@ -96,17 +127,18 @@ class EmployeeController extends Controller
     public function create()
     {
         return view('companies::admin.employees.create', [
-            'roles' => $this->roleInterface->getAllRoleNames(),
-            'departments' => $this->departmentInterface->getAllDepartmentNames(),
+            'roles'              => $this->roleInterface->getAllRoleNames(),
+            'departments'        => $this->departmentInterface->getAllDepartmentNames(),
             'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
-            'subsidiaries' => $this->subsidiaryInterface->getAllSubsidiaryNames(),
+            'subsidiaries'       => $this->subsidiaryInterface->getSubsidiaryForCompany(auth()->guard('employee')->user()->company_id),
+            'companies'          => $this->companyInterface->listCompaniesActives()
         ]);
     }
 
     public function store(CreateEmployeeRequest $request)
     {
-        $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
-        $employee = $this->employeeInterface->createEmployee($request->all() + ['customer_id' => $customer->id]);
+        // $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
+        $employee = $this->employeeInterface->createEmployee($request->all());
         $data = [
             'employee_id' => $employee->id,
             'status' => 'Creado',

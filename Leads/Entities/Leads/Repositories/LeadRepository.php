@@ -132,25 +132,25 @@ class LeadRepository implements LeadRepositoryInterface
                     $userDepartmet[$key] = $value->id;
                 }
                 $data =  $this->model->whereIn('department_id', $userDepartmet)
-                    ->get();
+                    ->get(['id']);
                 return count($data);
             }
 
             if (!is_null($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchLead($text, null, true, true)
-                    ->get();
+                    ->get(['id']);
                 return count($data);
             }
 
             if (is_null($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
-                    ->get();
+                    ->get(['id']);
                 return count($data);
             }
 
             $data =  $this->model->searchLead($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
-                ->get();
+                ->get(['id']);
             return count($data);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::namespace('Subsidiaries')->group(function () {
                 Route::resource('subsidiaries', 'SubsidiaryController');
                 Route::get('subsidiaries/{subsidiary}/recover', 'SubsidiaryController@recoverTrashedSubsidiary')->name('subsidiaries.recover');
+                Route::get('subsidiaries/company/{company}', 'SubsidiaryController@getSubsidiariesCompanies');
             });
         });
 

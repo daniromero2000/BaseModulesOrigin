@@ -14,7 +14,32 @@ use Modules\Companies\Entities\Actions\Exceptions\CreateActionErrorException;
 class ActionRepository implements ActionRepositoryInterface
 {
     protected $model;
-    private $columns = ['id', 'permission_id', 'name', 'icon', 'route', 'principal', 'status'];
+    private $columns = [
+        'id',
+        'permission_id',
+        'name',
+        'icon',
+        'route',
+        'principal',
+        'status'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'employees.name' => 10,
+            'employees.email' => 5,
+            'employees.last_name' => 5,
+            'employee_identities.identity_number' => 10,
+            'employee_phones.phone' => 10,
+            'employee_emails.email' => 5,
+        ],
+        'joins' => [
+            'employee_identities' => ['employees.id', 'employee_identities.employee_id'],
+            'employee_phones' => ['employees.id', 'employee_phones.employee_id'],
+            'employee_emails' => ['employees.id', 'employee_emails.employee_id'],
+        ],
+    ];
+
 
     public function __construct(Action $action)
     {
@@ -60,7 +85,7 @@ class ActionRepository implements ActionRepositoryInterface
     public function listActions(int $totalView): Collection
     {
         try {
-            return $this->model->with('permission')->orderBy('permission_id', 'asc')
+            return $this->model->orderBy('permission_id', 'asc')
                 ->skip($totalView)->take(30)
                 ->get($this->columns);
         } catch (QueryException $e) {
@@ -68,13 +93,67 @@ class ActionRepository implements ActionRepositoryInterface
         }
     }
 
-    public function searchAction(string $text = null): Collection
+    public function searchAction(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
-        if (is_null($text)) {
-            return $this->model->get($this->columns);
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listActions($totalView);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchAction($text, null, true, true)
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchAction($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
         }
-        return $this->model->searchAction($text)->get($this->columns);
     }
+
+    public function countAction(string $text = null,  $from = null, $to = null)
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model->get(['id', 'name']);
+                return count($data);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchAction($text, null, true, true)
+                    ->get(['id', 'name']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get(['id', 'name']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchAction($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get(['id', 'name']);
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
 
     public function searchTrashedAction(string $text = null): Collection
     {

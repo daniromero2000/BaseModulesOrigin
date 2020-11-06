@@ -19,7 +19,6 @@ class UpdateEmployeeRequest extends FormRequest
         return [
             'name'         => ['required', 'max:255', 'bail'],
             'rh'           => ['required', 'bail'],
-            'bank_account' => ['required', 'bail'],
             'last_name'    => ['required', 'max:255', 'bail'],
             'phone'        => ['max:255', 'bail'],
             'is_active'    => ['max:3', 'bail'],

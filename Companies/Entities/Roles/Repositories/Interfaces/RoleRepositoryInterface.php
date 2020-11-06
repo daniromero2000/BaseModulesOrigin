@@ -20,7 +20,9 @@ interface RoleRepositoryInterface
 
     public function updateRole(array $data): bool;
 
-    public function searchRole(string $text): Collection;
+    public function searchRole(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function countRoles(string $text = null,  $from = null, $to = null);
 
     public function deleteRoleById(): bool;
 

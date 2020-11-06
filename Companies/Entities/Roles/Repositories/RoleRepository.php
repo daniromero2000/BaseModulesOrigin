@@ -75,12 +75,65 @@ class RoleRepository implements RoleRepositoryInterface
         }
     }
 
-    public function searchRole(string $text = null): Collection
+    public function searchRole(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
-        if (is_null($text)) {
-            return $this->model->get($this->columns);
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listRoles($totalView);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchRole($text, null, true, true)
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchRole($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
         }
-        return $this->model->searchRole($text)->get($this->columns);
+    }
+
+    public function countRoles(string $text = null,  $from = null, $to = null)
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model->get(['id']);
+                return count($data);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchRole($text, null, true, true)
+                    ->get(['id']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get(['id']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchRole($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get(['id']);
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 
 

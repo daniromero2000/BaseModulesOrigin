@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface EmployeeRepositoryInterface
 {
-    public function listEmployees(int $totalView);
+    public function listEmployees(int $totalView, $company);
 
     public function createEmployee(array $params): Employee;
 
@@ -23,7 +23,9 @@ interface EmployeeRepositoryInterface
 
     public function isAuthUser(Employee $employee): bool;
 
-    public function searchEmployee(string $text = null): Collection;
+    public function searchEmployee(string $text = null, $company, int $totalView, $from = null, $to = null): Collection;
+
+    public function countEmployees(string $text = null, $company,  $from = null, $to = null);
 
     public function searchTrashedEmployee(string $text = null): Collection;
 

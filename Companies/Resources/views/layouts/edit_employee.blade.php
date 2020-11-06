@@ -115,19 +115,6 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="email">Cuenta Bancaria</label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
-                                    </div>
-                                    <input type="text" name="bank_account" id="bank_account" placeholder="XXXX"
-                                        class="form-control" value="{!! $data->bank_account ?: old('bank_account')  !!}"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
                                 <label class="form-control-label" for="email">Turno</label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
@@ -160,26 +147,8 @@
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
                                     <input type="date" name="birthday" id="birthday" placeholder="Fecha Nacimiento"
-                                        class="form-control" value="{!! $data->birthday ?: old('birthday')  !!}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="is_rotative" class="form-group">
-                                <label class="form-control-label" for="is_rotative">Rota?</label>
-                                <div class="input-group">
-                                    <select name="is_rotative" id="is_rotative" class="form-control">
-                                        @if( 1 == $data->is_rotative)
-                                        <option selected="selected" value="1">Sí </option>
-                                        <option value="0">No</option>
-                                        @elseif( 0 == $data->is_rotative)
-                                        <option selected="selected" value="0">No</option>
-                                        <option value="1">Sí</option>
-                                        @else
-                                        <option value="0">No</option>
-                                        <option value="1">Sí</option>
-                                        @endif
-                                    </select>
+                                        class="form-control" value="{!! $data->birthday ?: old('birthday')  !!}"
+                                        required>
                                 </div>
                             </div>
                         </div>

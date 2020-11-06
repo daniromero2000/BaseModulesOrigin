@@ -91,7 +91,7 @@ class LeadsController extends Controller
             'skip'          => $skip,
             'pag'           => $pageList,
             'i'             => $countPage,
-            'max'           =>  $maxPage,
+            'max'           => $maxPage,
             'headers'       => ['Id', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
             'paginate'      => $paginate,
             'inputs'        => [
@@ -119,6 +119,8 @@ class LeadsController extends Controller
 
         $request->merge(['lead_id' => $lead->id]);
 
+        $lead->leadStatus()->attach($request->input('lead_status_id'), ['employee_id' => auth()->guard('employee')->user()->id]);
+
         $this->leadInformationInterface->createLeadInformation($request->only('lead_id',  'kind_of_person', 'amount', 'term', 'entity'));
 
         return redirect()->route('thank.you.page');
@@ -136,7 +138,7 @@ class LeadsController extends Controller
                 ['label' => 'Correo', 'type' => 'text', 'name' => 'email'],
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
                 ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCities(), 'name' => 'city_id', 'option' => 'city'],
-                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(), 'name' => 'department_id', 'option' => 'name'],
+                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
                 ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
             ], 'routeEdit' => 'admin.leads.update'

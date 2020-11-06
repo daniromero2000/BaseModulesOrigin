@@ -16,10 +16,12 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         $this->model = $department;
     }
 
-    public function getAllDepartmentNames()
+    public function getAllDepartmentNames($select = ['*'])
     {
         try {
-            return $this->model->orderBy('name', 'desc')->get($this->columns);
+            return $this->model
+                ->orderBy('name', 'desc')
+                ->get($select);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

@@ -45,7 +45,8 @@
                         </td>
                         @endforeach
                         <td class="text-center">
-                            @include('generals::layouts.admin..tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])
+                            @include('generals::layouts.admin..tables.table_options', [$data, 'optionsRoutes' =>
+                            $optionsRoutes])
                         </td>
                     </tr>
                     <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog"
@@ -91,9 +92,11 @@
                                                         </div>
                                                         <select name="permissions[]" id="permissions"
                                                             class="form-control select2" multiple="multiple">
+
                                                             @foreach($permissions as $permission)
                                                             <option @if(in_array($permission->id,
-                                                                $attachedPermissionsArrayIds)) selected="selected"
+                                                                $attachedPermissionsArrayIds[$data->id]))
+                                                                selected="selected"
                                                                 @endif
                                                                 value="{{ $permission->id }}">{{ $permission->display_name }}
                                                             </option>

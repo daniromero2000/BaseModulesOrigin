@@ -6,6 +6,7 @@ use Laratrust\Models\LaratrustPermission;
 use Modules\Companies\Entities\Roles\Role;
 use Modules\Companies\Entities\PermissionGroups\PermissionGroup;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\Actions\Action;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Permission extends LaratrustPermission
@@ -57,6 +58,11 @@ class Permission extends LaratrustPermission
     public function role()
     {
         return $this->belongsToMany(Role::class, 'permission_role', 'permission_id', 'role_id');
+    }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
     }
 
     public function permissionGroup()

@@ -9,7 +9,9 @@ interface SubsidiaryRepositoryInterface
 {
     public function getAllSubsidiaryNames(): Collection;
 
-    public function listSubsidiaries(int $totalView);
+    public function getSubsidiaryForCompany($company): Collection;
+
+    public function listSubsidiaries(int $totalView, $company);
 
     public function createSubsidiary(array $params): Subsidiary;
 
@@ -21,7 +23,9 @@ interface SubsidiaryRepositoryInterface
 
     public function deleteSubsidiary(): bool;
 
-    public function searchSubsidiary(string $text): Collection;
+    public function searchSubsidiary(string $text = null, int $totalView, $company, $from = null, $to = null): Collection;
+
+    public function countSubsidiaries(string $text = null, $company,  $from = null, $to = null);
 
     public function recoverTrashedSubsidiary(): bool;
 }

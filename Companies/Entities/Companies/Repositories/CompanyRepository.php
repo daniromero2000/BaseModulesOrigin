@@ -40,6 +40,18 @@ class CompanyRepository implements CompanyRepositoryInterface
         }
     }
 
+    public function listCompaniesActives()
+    {
+        try {
+            return  $this->model
+                ->orderBy('name', 'desc')
+                ->where('is_active', 1)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function createCompany(array $params): Company
     {
         try {

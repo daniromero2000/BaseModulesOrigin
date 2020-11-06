@@ -20,7 +20,9 @@ $actions = session('actionsModule');
         data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
         <i class="{{ $action['icon'] }}"></i></a>
     @elseif(strpos($action['route'], 'asigne'))
-
+    <a data-toggle="modal" data-target="#modal{{ $data->id }}" href="" class="table-action table-action"
+        data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
+        <i class="{{ $action['icon'] }}"></i></a>
     @else
     <a href="{{ route($action['route'], $data->id) }}" class=" table-action table-action" data-toggle="tooltip"
         data-original-title="{{ $action['name'] }}">

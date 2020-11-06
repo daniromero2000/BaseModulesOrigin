@@ -200,7 +200,7 @@
 @yield('headerCustomer')
 @endsection
 @section('content')
-<section id="customers">
+<section id="customersAdmin">
     @yield('contentCustomer')
 </section>
 @endsection

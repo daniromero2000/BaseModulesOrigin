@@ -61,7 +61,7 @@ class EmployeePositionsTableSeeder extends Seeder
         ]);
 
         factory(EmployeePosition::class)->create([
-            'position' => 'Diseñador@',
+            'position' => 'Diseñad(or/ora)',
             'department_id' => 5
         ]);
 
@@ -91,12 +91,12 @@ class EmployeePositionsTableSeeder extends Seeder
         ]);
 
         factory(EmployeePosition::class)->create([
-            'position' => 'Fotograf@',
+            'position' => 'Fotograf(a/o)',
             'department_id' => 5
         ]);
 
         factory(EmployeePosition::class)->create([
-            'position' => 'Audiovisuales@',
+            'position' => 'Audiovisuales',
             'department_id' => 5
         ]);
 
@@ -116,7 +116,7 @@ class EmployeePositionsTableSeeder extends Seeder
         ]);
 
         factory(EmployeePosition::class)->create([
-            'position' => 'Administrador Sede',
+            'position' => 'Administrador de sede',
             'department_id' => 2
         ]);
     }

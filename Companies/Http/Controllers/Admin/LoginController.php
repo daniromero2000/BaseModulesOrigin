@@ -47,9 +47,9 @@ class LoginController extends Controller
             $actionsPerModule    = [];
 
             foreach ($roles as $role) {
-                $permission = $role->permission->toArray();
+                $permission      = $role->permission->toArray();
                 $permissionsRole = $role->permission;
-                $actions     = $role->action->toArray();
+                $actions      = $role->action->toArray();
             }
 
             foreach ($permissionsRole as $key => $value) {
@@ -75,6 +75,7 @@ class LoginController extends Controller
                     }
                 }
             }
+
 
             session(['actions'          => $actions]);
             session(['permission'       => $permissionsRoleUser]);
