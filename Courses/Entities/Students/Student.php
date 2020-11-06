@@ -13,6 +13,8 @@ class Student extends Model
 {
     use SearchableTrait, SoftDeletes;
 
+    protected $table = 'students';
+
     protected $fillable = [
         'id_type',
         'identification',
@@ -43,15 +45,27 @@ class Student extends Model
         'is_active',
     ];
 
+    protected $searchable = [
+        'columns' => [
+            'students.name'             => 4,
+            'students.last_name'        => 4,
+            'students.identification'   => 4,
+            'students.hotel_city'       => 4,
+            'students.hotel_name'       => 4,
+            'students.phone'            => 4
+
+        ]
+    ];
+
     protected $dates = [
         'deleted_at',
         'created_at',
         'updated_at',
     ];
 
-    public function searchStudent(string $term): Collection
+    public function searchStudent(string $term)
     {
-        return self::search($term)->get();
+        return self::search($term);
     }
 
     public function courses()

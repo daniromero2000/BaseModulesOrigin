@@ -24,7 +24,7 @@
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Cursos</h3>
-            {{-- @include('generals::layouts.search', ['route' => route('admin.courses.index')]) --}}
+            @include('generals::layouts.search', ['route' => route('admin.courses.index')])
         </div>
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover text-center">

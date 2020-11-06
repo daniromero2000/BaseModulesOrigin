@@ -19,7 +19,9 @@ interface StudentRepositoryInterface
 
     public function findStudentByIdentification(int $id);
 
-    public function searchStudent(string $text = null): Collection;
+    public function searchStudent(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function countStudents(string $text = null,  $from = null, $to = null);
 
     public function searchTrashedStudent(string $text = null): Collection;
 

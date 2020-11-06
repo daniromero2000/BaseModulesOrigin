@@ -22,12 +22,14 @@
         @for ($i; $i < ($max); $i++) @php $search[$i]=request()->input();
             $search[$i]['skip'] = ($skipPaginate = $i);
             @endphp
+            @if ($i >= 0)
             <li class="page-item @if(request()->input('skip') == $i) active @endif">
                 <a class="page-link " href="{{ route("$optionsRoutes.index", $search[$i])  }}">{{$i + 1}}</a>
             </li>
+            @endif
             @endfor
             @if ($max < $paginate) ... @php $search4=request()->input();
-                $search4['skip'] = $paginate;
+                $search4['skip'] = $paginate - 1;
                 @endphp <li class="page-item "><a class="page-link "
                         href="{{ route("$optionsRoutes.index", $search4)  }}">{{$paginate}}</a>
                 </li>

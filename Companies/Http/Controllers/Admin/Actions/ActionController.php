@@ -24,7 +24,6 @@ class ActionController extends Controller
 
     public function index(Request $request)
     {
-
         $skip = request()->input('skip') ? request()->input('skip') : 0;
         $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
         $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
@@ -43,7 +42,6 @@ class ActionController extends Controller
         }
 
         $paginate = ceil($paginate  / 30);
-
         $skipPaginate = $skip;
 
         $pageList = ($skipPaginate + 1) / 5;
@@ -57,7 +55,6 @@ class ActionController extends Controller
 
         return view('companies::admin.actions.list', [
             'EmployeeActions' => $list,
-            'skip'            => $skip,
             'optionsRoutes'   => 'admin.' . (request()->segment(2)),
             'headers'         => ['ID',  'Módulo',  'Nombre',  'Ícono',  'Ruta', 'Principal',  'Opciones',],
             'skip'            => $skip,

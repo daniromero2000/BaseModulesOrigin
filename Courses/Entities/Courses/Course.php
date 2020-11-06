@@ -49,9 +49,9 @@ class Course extends Model
         ]
     ];
 
-    public function searchCourse(string $term): Collection
+    public function searchCourse(string $term)
     {
-        return self::search($term)->get();
+        return self::search($term);
     }
 
     public function courseAttendances()

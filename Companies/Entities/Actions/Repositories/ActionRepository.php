@@ -129,25 +129,25 @@ class ActionRepository implements ActionRepositoryInterface
     {
         try {
             if (is_null($text) && is_null($from) && is_null($to)) {
-                $data =  $this->model->get(['id', 'name']);
+                $data =  $this->model->get(['id']);
                 return count($data);
             }
 
             if (!is_null($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchAction($text, null, true, true)
-                    ->get(['id', 'name']);
+                    ->get(['id']);
                 return count($data);
             }
 
             if (is_null($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
-                    ->get(['id', 'name']);
+                    ->get(['id']);
                 return count($data);
             }
 
             $data =  $this->model->searchAction($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
-                ->get(['id', 'name']);
+                ->get(['id']);
             return count($data);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());

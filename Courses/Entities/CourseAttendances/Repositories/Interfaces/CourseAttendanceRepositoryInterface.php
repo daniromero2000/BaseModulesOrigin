@@ -17,7 +17,9 @@ interface CourseAttendanceRepositoryInterface
 
     public function updateCourseAttendance(array $params): bool;
 
-    public function searchCourseAttendance(string $text = null): Collection;
+    public function searchCourseAttendance(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function countCourseAttendance(string $text = null,  $from = null, $to = null);
 
     public function searchTrashedCourseAttendance(string $text = null): Collection;
 

@@ -70,7 +70,6 @@ class RoleController extends Controller
             'roles'         => $list,
             'user'          => auth()->guard('employee')->user(),
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'skip'          => $skip,
             'permissions'   => $this->permissionInterface->getAllPermissionNames(),
             'attachedPermissionsArrayIds' => $attachedPermissionsArrayIds,
             'headers'       => ['ID', 'Nombre', 'Nombre Display', 'Descripción', 'Opciones',],

@@ -24,7 +24,7 @@
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Estudiantes</h3>
-            {{-- @include('generals::layouts.search', ['route' => route('admin.students.index')]) --}}
+            @include('generals::layouts.search', ['route' => route('admin.students.index')])
         </div>
         <div class="ml-auto px-4 mr-2 py-2">
             <a data-toggle="modal" data-target="#modal-default" class="btn btn-success btn-sm text-white">Cargar

@@ -24,7 +24,9 @@ interface CourseRepositoryInterface
 
     public function updateCourse(array $params): bool;
 
-    public function searchCourse(string $text = null): Collection;
+    public function searchCourse(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function countCourse(string $text = null,  $from = null, $to = null);
 
     public function searchTrashedCourse(string $text = null): Collection;
 

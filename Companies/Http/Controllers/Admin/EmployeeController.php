@@ -111,7 +111,6 @@ class EmployeeController extends Controller
         return view('companies::admin.employees.list', [
             'employees'          => $list,
             'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-            'skip'               => $skip,
             'headers'            => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
             'skip'               => $skip,
             'pag'                => $pageList,

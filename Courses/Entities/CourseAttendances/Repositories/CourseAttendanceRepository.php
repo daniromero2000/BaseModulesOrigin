@@ -14,7 +14,14 @@ use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAtt
 class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
 {
     protected $model;
-    private $columns = [];
+    private $columns = [
+        'id',
+        'course_name',
+        'identification',
+        'name',
+        'last_name',
+        'created_at'
+    ];
 
     private $listColumns = [
         'id',
@@ -41,13 +48,65 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
         }
     }
 
-    public function searchCourseAttendance(string $text = null): Collection
+    public function searchCourseAttendance(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
-        if (is_null($text)) {
-            return $this->model->get($this->columns);
-        }
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listCourseAttendances($totalView);
+            }
 
-        return $this->model->searchCourseAttendance($text)->get($this->columns);
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchCourseAttendance($text, null, true, true)
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchCourseAttendance($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function countCourseAttendance(string $text = null,  $from = null, $to = null)
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model->get(['id']);
+                return count($data);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchCourseAttendance($text, null, true, true)
+                    ->get(['id']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get(['id']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchCourseAttendance($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get(['id']);
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
 
     public function searchTrashedCourseAttendance(string $text = null): Collection

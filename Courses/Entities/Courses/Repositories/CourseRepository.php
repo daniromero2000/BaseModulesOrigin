@@ -67,14 +67,67 @@ class CourseRepository implements CourseRepositoryInterface
         }
     }
 
-    public function searchCourse(string $text = null): Collection
+    public function searchCourse(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
-        if (is_null($text)) {
-            return $this->model->get($this->columns);
-        }
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listCourses($totalView);
+            }
 
-        return $this->model->searchCourse($text)->get($this->columns);
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchCourse($text, null, true, true)
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchCourse($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
     }
+
+    public function countCourse(string $text = null,  $from = null, $to = null)
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model->get(['id']);
+                return count($data);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchCourse($text, null, true, true)
+                    ->get(['id']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get(['id']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchCourse($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get(['id']);
+            return count($data);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
 
     public function searchTrashedCourse(string $text = null): Collection
     {
