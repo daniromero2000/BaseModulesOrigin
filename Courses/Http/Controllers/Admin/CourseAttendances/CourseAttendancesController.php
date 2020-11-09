@@ -58,6 +58,7 @@ class CourseAttendancesController extends Controller
         return view('courses::admin.courseAttendances.list', [
             'coursesAttendances'        => $list,
             'optionsRoutes'  => 'admin.' . (request()->segment(2)),
+            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'skip'            => $skip,
             'pag'             => $pageList,
             'i'               => $countPage,

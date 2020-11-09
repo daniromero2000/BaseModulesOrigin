@@ -112,6 +112,7 @@ class EmployeeController extends Controller
             'employees'          => $list,
             'optionsRoutes'      => 'admin.' . (request()->segment(2)),
             'headers'            => ['Id', 'Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
+            'searchInputs'       => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'skip'               => $skip,
             'pag'                => $pageList,
             'i'                  => $countPage,

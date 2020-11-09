@@ -56,6 +56,7 @@ class ActionController extends Controller
         return view('companies::admin.actions.list', [
             'EmployeeActions' => $list,
             'optionsRoutes'   => 'admin.' . (request()->segment(2)),
+            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'headers'         => ['ID',  'Módulo',  'Nombre',  'Ícono',  'Ruta', 'Principal',  'Opciones',],
             'skip'            => $skip,
             'pag'             => $pageList,

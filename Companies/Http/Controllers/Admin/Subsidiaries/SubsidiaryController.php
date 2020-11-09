@@ -66,6 +66,7 @@ class SubsidiaryController extends Controller
             'cities'        => $this->cityInterface->listCities(),
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'headers'       => ['ID', 'Sucursal', 'Dirección', 'Teléfono', 'Ciudad', 'Opciones'],
+            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'skip'          => $skip,
             'pag'           => $pageList,
             'i'             => $countPage,

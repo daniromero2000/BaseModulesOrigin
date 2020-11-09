@@ -73,6 +73,7 @@ class RoleController extends Controller
             'permissions'   => $this->permissionInterface->getAllPermissionNames(),
             'attachedPermissionsArrayIds' => $attachedPermissionsArrayIds,
             'headers'       => ['ID', 'Nombre', 'Nombre Display', 'Descripción', 'Opciones',],
+            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'skip'          => $skip,
             'pag'           => $pageList,
             'i'             => $countPage,

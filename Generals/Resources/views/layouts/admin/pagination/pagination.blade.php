@@ -63,7 +63,7 @@
                 </li>
 
 
-                @if ($paginate > 20 && ($skip + 10) < $paginate) @php $searchNext=equest()->input();
+                @if ($paginate > 10 && ($skip + 10) < $paginate) @php $searchNext=request()->input();
                     $searchNext['skip'] = $skip + 10 ;
                     @endphp
                     <li class="page-item "><a class="page-link "

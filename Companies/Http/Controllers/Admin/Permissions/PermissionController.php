@@ -58,6 +58,7 @@ class PermissionController extends Controller
             'permissions'   => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip'          => $skip,
+            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'headers'       => ['ID', 'Nombre', 'Nombre Display',  'Icono', 'Descripción', 'Opciones',],
             'skip'          => $skip,
             'pag'           => $pageList,
