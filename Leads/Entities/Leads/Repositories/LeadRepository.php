@@ -124,6 +124,36 @@ class LeadRepository implements LeadRepositoryInterface
         }
     }
 
+    public function exportLeads(string $text = null, $from = null, $to = null): Collection
+    {
+        try {
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                foreach (auth()->guard('employee')->user()->department as $key => $value) {
+                    $userDepartmet[$key] = $value->id;
+                }
+                return $this->model->whereIn('department_id', $userDepartmet)
+                    ->get(['id']);
+            }
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchLead($text, null, true, true)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchLead($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function countLeads(string $text = null,  $from = null, $to = null)
     {
         try {

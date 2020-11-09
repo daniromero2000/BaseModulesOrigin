@@ -24,7 +24,7 @@
     <div class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">Leads</h3>
-            @include('generals::layouts.search', ['route' => route('admin.leads.index')])
+            @include('leads::admin.leads.layouts.search', ['route' => route('admin.leads.index')])
         </div>
         <div class="table-responsive">
             <table class="table align-items-center table-flush table-hover">

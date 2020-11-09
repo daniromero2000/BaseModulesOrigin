@@ -21,9 +21,9 @@ interface PermissionRepositoryInterface
 
     public function listPermissions(int $totalView): Collection;
 
-    public function searchPermission(string $text): Collection;
+    public function searchPermission(string $text = null, int $totalView, $from = null, $to = null): Collection;
 
-    public function searchTrashedPermission(string $text): Collection;
+    public function countPermission(string $text = null,  $from = null, $to = null);
 
     public function recoverTrashedPermission(): bool;
 }

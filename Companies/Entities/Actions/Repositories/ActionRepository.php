@@ -24,23 +24,6 @@ class ActionRepository implements ActionRepositoryInterface
         'status'
     ];
 
-    protected $searchable = [
-        'columns' => [
-            'employees.name' => 10,
-            'employees.email' => 5,
-            'employees.last_name' => 5,
-            'employee_identities.identity_number' => 10,
-            'employee_phones.phone' => 10,
-            'employee_emails.email' => 5,
-        ],
-        'joins' => [
-            'employee_identities' => ['employees.id', 'employee_identities.employee_id'],
-            'employee_phones' => ['employees.id', 'employee_phones.employee_id'],
-            'employee_emails' => ['employees.id', 'employee_emails.employee_id'],
-        ],
-    ];
-
-
     public function __construct(Action $action)
     {
         $this->model = $action;

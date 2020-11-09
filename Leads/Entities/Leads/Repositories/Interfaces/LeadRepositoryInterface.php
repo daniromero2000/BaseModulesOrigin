@@ -18,5 +18,7 @@ interface LeadRepositoryInterface
 
     public function searchLeads(string $text = null, int $totalView, $from = null, $to = null): Collection;
 
+    public function exportLeads(string $text = null, $from = null, $to = null): Collection;
+
     public function countLeads(string $text = null,  $from = null, $to = null);
 }

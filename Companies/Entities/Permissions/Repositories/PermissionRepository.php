@@ -82,25 +82,62 @@ class PermissionRepository implements PermissionRepositoryInterface
         }
     }
 
-    public function searchPermission(string $text = null): Collection
+    public function searchPermission(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text)) {
-                return $this->model->get($this->columns);
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                return $this->listPermissions($totalView);
             }
-            return $this->model->searchPermission($text)->get($this->columns);
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                return $this->model->searchPermission($text, null, true, true)
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                return $this->model->whereBetween('created_at', [$from, $to])
+                    ->skip($totalView)
+                    ->take(30)
+                    ->get($this->columns);
+            }
+
+            return $this->model->searchPermission($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->orderBy('created_at', 'desc')
+                ->skip($totalView)
+                ->take(30)
+                ->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
     }
 
-    public function searchTrashedPermission(string $text = null): Collection
+    public function countPermission(string $text = null,  $from = null, $to = null)
     {
         try {
-            if (is_null($text)) {
-                return $this->model->onlyTrashed($text)->get($this->columns);
+            if (is_null($text) && is_null($from) && is_null($to)) {
+                $data =  $this->model->get(['id']);
+                return count($data);
             }
-            return $this->model->onlyTrashed()->get($this->columns);
+
+            if (!is_null($text) && (is_null($from) || is_null($to))) {
+                $data =  $this->model->searchPermission($text, null, true, true)
+                    ->get(['id']);
+                return count($data);
+            }
+
+            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+                $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->get(['id']);
+                return count($data);
+            }
+
+            $data =  $this->model->searchPermission($text, null, true, true)
+                ->whereBetween('created_at', [$from, $to])
+                ->get(['id']);
+            return count($data);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

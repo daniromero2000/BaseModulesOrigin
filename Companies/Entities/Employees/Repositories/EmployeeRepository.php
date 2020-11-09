@@ -21,13 +21,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'name',
         'last_name',
         'email',
-        'rh',
-        'bank_account',
-        'work_schedule',
-        'admission_date',
-        'subsidiary_id',
-        'employee_position_id',
+        'password',
         'is_active',
+        'employee_position_id',
+        'company_id',
+        'subsidiary_id',
     ];
 
     private $listColumns = [
@@ -35,15 +33,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'name',
         'last_name',
         'email',
-        'rh',
-        'bank_account',
-        'work_schedule',
-        'admission_date',
-        'subsidiary_id',
-        'employee_position_id',
+        'password',
         'is_active',
-        'is_rotative',
-        'birthday',
+        'employee_position_id',
+        'company_id',
+        'subsidiary_id',
     ];
 
     private $employeeColumns = [
@@ -51,16 +45,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'name',
         'last_name',
         'email',
-        'rh',
-        'bank_account',
-        'work_schedule',
-        'admission_date',
-        'subsidiary_id',
-        'employee_position_id',
+        'password',
         'is_active',
-        'last_login_at',
-        'is_rotative',
-        'birthday',
+        'employee_position_id',
+        'company_id',
+        'subsidiary_id',
     ];
 
     public function __construct(Employee $employee)

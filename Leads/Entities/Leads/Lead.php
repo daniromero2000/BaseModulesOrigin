@@ -76,6 +76,11 @@ class Lead extends Model
         return $this->hasMany(LeadComment::class);
     }
 
+    public function managementStatusLead()
+    {
+        return $this->belongsTo(ManagementStatus::class)->select('id', 'status');
+    }
+
     public function leadStatus()
     {
         return $this->belongsToMany(LeadStatus::class, 'lead_statuses_logs', 'lead_id', 'lead_statuses_id')->withTimestamps();
@@ -88,7 +93,7 @@ class Lead extends Model
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)->select('id', 'city');
     }
 
     public function leadStatuses()
@@ -98,17 +103,17 @@ class Lead extends Model
 
     public function leadChannel()
     {
-        return $this->belongsTo(LeadChannel::class);
+        return $this->belongsTo(LeadChannel::class)->select('id', 'channel');
     }
 
     public function leadService()
     {
-        return $this->belongsTo(LeadService::class);
+        return $this->belongsTo(LeadService::class)->select('id', 'service');
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class)->select('id', 'name');
     }
 
     public function leadInformation()
@@ -128,11 +133,11 @@ class Lead extends Model
 
     public function leadProduct()
     {
-        return $this->belongsTo(LeadProduct::class);
+        return $this->belongsTo(LeadProduct::class)->select('id', 'product');
     }
 
     public function subsidiary()
     {
-        return $this->belongsTo(Subsidiary::class, 'subsidiary_id');
+        return $this->belongsTo(Subsidiary::class, 'subsidiary_id')->select('id', 'name');
     }
 }

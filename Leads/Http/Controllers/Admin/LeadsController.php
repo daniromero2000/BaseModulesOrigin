@@ -7,6 +7,7 @@ use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
@@ -15,6 +16,7 @@ use Modules\Generals\Entities\ManagementStatuses\Repositories\Interfaces\Managem
 use Modules\Leads\Entities\LeadChannels\Repositories\Interfaces\LeadChannelRepositoryInterface;
 use Modules\Leads\Entities\LeadComments\Repositories\Interfaces\LeadCommentRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
+use Modules\Leads\Entities\Leads\Exports\ExportToExcel;
 use Modules\Leads\Entities\LeadServices\Repositories\Interfaces\LeadServiceRepositoryInterface;
 use Modules\Leads\Entities\LeadStatuses\Repositories\Interfaces\LeadStatusRepositoryInterface;
 
@@ -54,10 +56,72 @@ class LeadsController extends Controller
         $skip = request()->input('skip') ? request()->input('skip') : 0;
         $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
         $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
-
         foreach (auth()->guard('employee')->user()->department as $key => $value) {
             $userDepartmet[$key] = $value->id;
         }
+
+        if (request()->has('action')) {
+            if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
+                $list = $this->leadInterface->exportLeads(request()->input('q'));
+                $request->session()->flash('message', 'Se ha exportado su busqueda');
+            } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
+                $list = $this->leadInterface->exportLeads(request()->input('q'), $from, $to);
+                $request->session()->flash('message', 'Se ha exportado su busqueda');
+            } else {
+                $list = $this->leadInterface->exportLeads('');
+            }
+
+            $cont = 0;
+
+            foreach ($list as $key => $value) {
+                $cont++;
+                if ($cont == 1) {
+                    $printExcel[] = [
+                        'Cedula',
+                        'Nombrbes',
+                        'Apellidos',
+                        'Correo',
+                        'Telefono',
+                        'Ciudad',
+                        'Estado',
+                        'Area encargada',
+                        // 'Empleado asignado',
+                        'Servicio',
+                        'Producto',
+                        'Canal de adquisicion ',
+                        'Estado de gestion',
+                        'Tipo de cliente',
+                        'Entidad',
+                        'Monto',
+                        'Plazo',
+                        'Fecha'
+                    ];
+                }
+                $printExcel[] = [
+                    $value->identification_number,
+                    $value->name,
+                    $value->last_name,
+                    $value->email,
+                    $value->telephone,
+                    $value->city != null ? $value->city->city : 'NA',
+                    $value->leadStatuses->status,
+                    $value->department->name,
+                    $value->leadService != null ? $value->leadService->service : 'NA',
+                    $value->leadProduct != null ? $value->leadProduct->product : 'NA',
+                    $value->leadChannel != null ? $value->leadChannel->channel : 'NA',
+                    $value->managementStatusLead != null ? $value->managementStatusLead->status : 'NA',
+                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->kind_of_person : 'NA') : 'NA',
+                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->entity : 'NA') : 'NA',
+                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->amount : 'NA') : 'NA',
+                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->term : 'NA') : 'NA',
+                    $value->created_at
+                ];
+            }
+
+            $export = new ExportToExcel($printExcel);
+            return Excel::download($export, 'leads.xlsx');
+        }
+
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30);
@@ -92,7 +156,7 @@ class LeadsController extends Controller
             'pag'           => $pageList,
             'i'             => $countPage,
             'max'           => $maxPage,
-            'headers'       => ['Id', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
+            'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
             'paginate'      => $paginate,
             'inputs'        => [
                 ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
@@ -103,7 +167,6 @@ class LeadsController extends Controller
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
                 ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
-
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }

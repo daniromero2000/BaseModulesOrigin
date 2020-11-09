@@ -44,13 +44,9 @@ class Action extends Model
 
     protected $searchable = [
         'columns' => [
-            'actions.name'             => 10,
-            'actions.route'            => 5,
-            'permissions.display_name' => 10
-        ],
-        'joins' => [
-            'permissions' => ['permissions.id', 'actions.permission_id'],
-        ],
+            'actions.name' => 10,
+            'actions.route' => 10
+        ]
     ];
 
     public function searchAction($term)
