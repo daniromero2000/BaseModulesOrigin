@@ -6,7 +6,11 @@ use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Companies\Entities\Companies\Company;
+use Modules\Companies\Entities\DepartmentsEmployees\DepartmentEmployee;
 use Modules\Generals\Entities\Countries\Country;
+use Modules\Leads\Entities\LeadProducts\LeadProduct;
+use Modules\Leads\Entities\LeadServices\LeadService;
+use Modules\Leads\Entities\LeadStatuses\LeadStatus;
 
 class Department extends Model
 {
@@ -15,6 +19,7 @@ class Department extends Model
 
     protected $fillable = [
         'name',
+        'employee_id',
         'phone',
     ];
 
@@ -24,7 +29,7 @@ class Department extends Model
         'updated_at',
         'city_id',
         'city',
-        'employees',
+        'employee_id',
         'opening_hours',
         'relevance',
     ];
@@ -51,7 +56,27 @@ class Department extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(employee::class)
+        return $this->belongsToMany(Employee::class)->select(['employees.id', 'name']);
+    }
+
+    public function listEmployees()
+    {
+        return $this->hasMany(DepartmentEmployee::class)
             ->select(['id', 'department_id', 'employee_id']);
+    }
+
+    public function leadProducts()
+    {
+        return $this->belongsToMany(LeadProduct::class);
+    }
+
+    public function leadServices()
+    {
+        return $this->belongsToMany(LeadService::class);
+    }
+
+    public function leadStatus()
+    {
+        return $this->belongsToMany(LeadStatus::class);
     }
 }

@@ -8,6 +8,7 @@ use Modules\Leads\Entities\LeadStatuses\LeadStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Companies\Entities\Departments\Department;
+use Modules\Companies\Entities\Employees\Employee;
 use Modules\Companies\Entities\Subsidiaries\Subsidiary;
 use Modules\Generals\Entities\Cities\City;
 use Modules\Generals\Entities\ManagementStatuses\ManagementStatus;
@@ -39,6 +40,7 @@ class Lead extends Model
         'department_id',
         'lead_service_id',
         'lead_product_id',
+        'employee_id',
         'lead_channel_id',
         'management_status_id',
         'terms_and_conditions'
@@ -134,6 +136,11 @@ class Lead extends Model
     public function leadProduct()
     {
         return $this->belongsTo(LeadProduct::class)->select('id', 'product');
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class)->select('id', 'name');
     }
 
     public function subsidiary()

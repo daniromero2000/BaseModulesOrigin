@@ -12,7 +12,6 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body py-0">
-                    <input name="employee_id" id="employee_id" type="hidden" value="{{ $data->id }}">
                     <div class="row">
                         @foreach ($inputs as $input)
                         @if($input['type'] == 'text' || $input['type'] == 'number' || $input['type']

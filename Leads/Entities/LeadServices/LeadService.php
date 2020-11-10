@@ -16,9 +16,4 @@ class LeadService extends Model
         'id',
         'service'
     ];
-
-    public function leadArea()
-    {
-        return $this->belongsToMany(LeadArea::class)->withTimestamps();
-    }
 }

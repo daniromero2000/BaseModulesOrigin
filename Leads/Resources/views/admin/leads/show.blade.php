@@ -59,7 +59,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                                     <h3 class="mb-0">Comentarios</h3>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="#myModal" data-toggle="modal" data-target="#commentmodal"
+                                    <a data-toggle="modal" data-target="#commentmodal{{ $lead->id }}" href=""
                                         class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
                                         Agregar Comentario</a>
                                 </div>
@@ -134,7 +134,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
                                         <div class="mt-3 mb-3">
                                             <span class="badge badge-pill "
                                                 style="color: {{$data->status->color}}; background:{{ $data->status->background}}">
-                                                {{$lead->created_at->diffForHumans($data->created_at)}} Despues de ser
+                                                {{$lead->created_at->diffForHumans($data->created_at)}} de ser
                                                 creado</span>
                                         </div>
                                     </div>
@@ -156,8 +156,7 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
     </div> --}}
     </div>
 
-    @include('generals::layouts.admin.add_comment_modal',['route'=> 'admin.leads.store.comments', 'data'=>['name' =>
-    'lead_id','id' => $lead->id]])
+    @include('leads::admin.leads.layouts.add_comment_modal',['data' => $lead])
     @include('leads::admin.leads.layouts.modal_update',['data' => $lead])
 </section>
 @endsection

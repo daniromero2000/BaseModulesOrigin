@@ -22,10 +22,6 @@ class LeadProductsTableSeeder extends Seeder
         ]);
 
         factory(LeadProduct::class)->create([
-            'product'  => 'Nevecon',
-        ]);
-
-        factory(LeadProduct::class)->create([
             'product'  => 'Lavadora',
         ]);
 

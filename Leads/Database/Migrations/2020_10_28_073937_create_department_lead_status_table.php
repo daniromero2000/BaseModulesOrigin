@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDepartmentLeadStatuseTable extends Migration
+class CreateDepartmentLeadStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDepartmentLeadStatuseTable extends Migration
      */
     public function up()
     {
-        Schema::create('department_lead_statuse', function (Blueprint $table) {
+        Schema::create('department_lead_status', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('department_id')->unsigned();
-            $table->integer('lead_statuse_id')->unsigned();
+            $table->integer('lead_status_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('lead_statuse_id')->references('id')->on('lead_statuses');
+            $table->foreign('lead_status_id')->references('id')->on('lead_statuses');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateDepartmentLeadStatuseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department_lead_statuse');
+        Schema::dropIfExists('department_lead_status');
     }
 }

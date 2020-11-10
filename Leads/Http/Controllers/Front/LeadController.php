@@ -55,8 +55,6 @@ class LeadController extends Controller
         return redirect()->route('thank.you.page');
     }
 
-
-
     /**
      * Show the specified resource.
      * @param int $id

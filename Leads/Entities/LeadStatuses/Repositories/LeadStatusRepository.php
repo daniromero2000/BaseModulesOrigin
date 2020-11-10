@@ -13,10 +13,10 @@ class LeadStatusRepository implements LeadStatusRepositoryInterface
         $this->model = $LeadStatus;
     }
 
-    public function getAllLeadStatusesNames()
+    public function getAllLeadStatusesNames($select = ['*'])
     {
         try {
-            return $this->model->orderBy('status', 'asc')->get();
+            return $this->model->orderBy('status', 'asc')->get($select);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

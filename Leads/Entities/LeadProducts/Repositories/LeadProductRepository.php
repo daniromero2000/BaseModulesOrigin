@@ -17,7 +17,7 @@ class LeadProductRepository implements LeadProductRepositoryInterface
     public function getAllLeadProductNames()
     {
         try {
-            return $this->model->orderBy('lead_product', 'asc')->get();
+            return $this->model->orderBy('product', 'asc')->get(['id', 'product']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

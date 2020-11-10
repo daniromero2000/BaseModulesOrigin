@@ -10,6 +10,10 @@ interface CityRepositoryInterface
 
     public function listCities();
 
+    public function listCitiesForColumns($columns);
+
+    public function listCitiesForLeads($columns);
+
     public function findCityById(int $id): City;
 
     public function findCityByName(string $name): City;

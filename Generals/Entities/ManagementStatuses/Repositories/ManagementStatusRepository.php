@@ -17,11 +17,11 @@ class ManagementStatusRepository implements ManagementStatusRepositoryInterface
         $this->model = $managementStatus;
     }
 
-    public function getStatusesForType($type)
+    public function getStatusesForType($type, $select = ['*'])
     {
         try {
             return $this->model->where('type_management_status', $type)
-                ->get();
+                ->get($select = ['*']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

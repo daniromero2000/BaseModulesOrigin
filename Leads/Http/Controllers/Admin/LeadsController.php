@@ -56,6 +56,7 @@ class LeadsController extends Controller
         $skip = request()->input('skip') ? request()->input('skip') : 0;
         $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
         $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
+
         foreach (auth()->guard('employee')->user()->department as $key => $value) {
             $userDepartmet[$key] = $value->id;
         }
@@ -158,15 +159,21 @@ class LeadsController extends Controller
             'max'           => $maxPage,
             'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
             'paginate'      => $paginate,
-            'inputs'        => [
+            'inputsAssigne' => [
+                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
+                ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
+                ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
+            ],
+            'inputs' => [
                 ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
                 ['label' => 'Apellidos', 'type' => 'text', 'name' => 'last_name'],
                 ['label' => 'Correo', 'type' => 'text', 'name' => 'email'],
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
-                ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCities(), 'name' => 'city_id', 'option' => 'city'],
-                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(), 'name' => 'department_id', 'option' => 'name'],
-                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
-                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
+                ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCitiesForLeads(['id', 'city']), 'name' => 'city_id', 'option' => 'city'],
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -195,15 +202,21 @@ class LeadsController extends Controller
 
         return view('leads::admin.leads.show', [
             'lead' => $lead,
-            'inputs'     => [
+            'inputsAssigne' => [
+                ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product'],
+                ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service'],
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
+            ],
+            'inputs' => [
                 ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
                 ['label' => 'Apellidos', 'type' => 'text', 'name' => 'last_name'],
                 ['label' => 'Correo', 'type' => 'text', 'name' => 'email'],
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
-                ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCities(), 'name' => 'city_id', 'option' => 'city'],
+                ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCitiesForColumns(['id', 'city']), 'name' => 'city_id', 'option' => 'city'],
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
-                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0), 'name' => 'management_status_id', 'option' => 'status'],
-                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(), 'name' => 'lead_status_id', 'option' => 'status']
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -251,5 +264,10 @@ class LeadsController extends Controller
         $this->leadCommentInterface->createLeadComment($data);
 
         return redirect()->route('admin.leads.show', $data['lead_id']);
+    }
+
+    public function searchDepartment($id)
+    {
+        return $this->departmentInterface->findDepartmentById($id);
     }
 }

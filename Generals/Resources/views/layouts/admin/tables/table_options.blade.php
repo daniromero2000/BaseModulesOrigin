@@ -1,7 +1,7 @@
 @php
 $actions = session('actionsModule');
 @endphp
-<div class="d-flex justify-content-center">
+<div class="row justify-content-center">
     @if($actions)
     @foreach ($actions as $action)
     @if (strpos($action['route'], 'destroy'))
@@ -20,7 +20,11 @@ $actions = session('actionsModule');
         data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
         <i class="{{ $action['icon'] }}"></i></a>
     @elseif(strpos($action['route'], 'asigne'))
-    <a data-toggle="modal" data-target="#modal{{ $data->id }}" href="" class="table-action table-action"
+    <a data-toggle="modal" data-target="#modal-assigne{{ $data->id }}" onclick="dataLead({{$data->id}})" href=""
+        class="table-action table-action" data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
+        <i class="{{ $action['icon'] }}"></i></a>
+    @elseif(strpos($action['route'], 'comments'))
+    <a data-toggle="modal" data-target="#commentmodal{{ $data->id }}" href="" class="table-action table-action"
         data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
         <i class="{{ $action['icon'] }}"></i></a>
     @else

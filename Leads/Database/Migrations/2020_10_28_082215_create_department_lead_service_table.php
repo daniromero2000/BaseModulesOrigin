@@ -16,11 +16,11 @@ class CreateDepartmentLeadServiceTable extends Migration
         Schema::create('department_lead_service', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('department_id')->unsigned();
-            $table->integer('service_id')->unsigned();
+            $table->integer('lead_service_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('service_id')->references('id')->on('lead_services');
+            $table->foreign('lead_service_id')->references('id')->on('lead_services');
         });
     }
 

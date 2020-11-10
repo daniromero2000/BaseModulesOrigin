@@ -25,6 +25,7 @@ class LeadRepository implements LeadRepositoryInterface
         'lead_service_id',
         'lead_product_id',
         'lead_channel_id',
+        'employee_id',
         'management_status_id',
         'terms_and_conditions',
         'created_at'

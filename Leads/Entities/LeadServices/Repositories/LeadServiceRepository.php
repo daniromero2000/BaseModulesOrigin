@@ -25,7 +25,7 @@ class LeadServiceRepository implements LeadServiceRepositoryInterface
     public function getAllLeadServiceNames()
     {
         try {
-            return $this->model->orderBy('service', 'asc')->get();
+            return $this->model->orderBy('service', 'asc')->get(['id', 'service']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

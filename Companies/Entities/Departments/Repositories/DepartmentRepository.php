@@ -26,4 +26,15 @@ class DepartmentRepository implements DepartmentRepositoryInterface
             abort(503, $e->getMessage());
         }
     }
+
+    public function findDepartmentById($id)
+    {
+        try {
+            return $this->model->where('id', $id)->with('leadProducts', 'leadServices', 'leadStatus', 'employees')
+                ->orderBy('name', 'desc')
+                ->get(['id', 'name']);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
 }

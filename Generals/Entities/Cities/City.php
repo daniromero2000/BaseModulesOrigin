@@ -18,7 +18,8 @@ class City extends Model
 
     protected $fillable = [
         'name',
-        'province_id'
+        'province_id',
+        'is_active_leads'
     ];
 
     protected $dates  = [
