@@ -21,7 +21,7 @@ class ActionRepository implements ActionRepositoryInterface
         'icon',
         'route',
         'principal',
-        'status'
+        'is_active'
     ];
 
     public function __construct(Action $action)

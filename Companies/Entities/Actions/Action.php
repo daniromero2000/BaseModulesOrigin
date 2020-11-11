@@ -15,17 +15,17 @@ class Action extends Model
     protected $fillable = [
         'permission_id',
         'name',
-        'button',
         'icon',
         'route',
-        'principal'
+        'principal',
+        'is_active'
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at',
-        'status',
+        'is_active',
     ];
 
     protected $guarded = [
@@ -33,7 +33,7 @@ class Action extends Model
         'created_at',
         'deleted_at',
         'updated_at',
-        'status'
+        'is_active'
     ];
 
     protected $dates  = [

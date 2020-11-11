@@ -8,17 +8,20 @@ use Carbon\Carbon;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Modules\Companies\Entities\Actions\Repositories\Interfaces\ActionRepositoryInterface;
 use Modules\Companies\Entities\Actions\Repositories\ActionRepository;
+use Modules\Companies\Entities\Permissions\Repositories\Interfaces\PermissionRepositoryInterface;
 
 class ActionController extends Controller
 {
-    private $actionsInterface, $toolsInterface;
+    private $actionsInterface, $toolsInterface, $permissionInterface;
 
     public function __construct(
         ActionRepositoryInterface $actionRepositoryInterface,
-        ToolRepositoryInterface $toolRepositoryInterface
+        ToolRepositoryInterface $toolRepositoryInterface,
+        PermissionRepositoryInterface $permissionRepositoryInterface
     ) {
         $this->toolsInterface   = $toolRepositoryInterface;
         $this->actionsInterface = $actionRepositoryInterface;
+        $this->permissionInterface = $permissionRepositoryInterface;
         $this->middleware(['permission:actions, guard:employee']);
     }
 
@@ -68,12 +71,17 @@ class ActionController extends Controller
 
     public function create()
     {
-        return view('companies::create');
+        return view('companies::admin.actions.create', [
+            'permissions'     => $this->permissionInterface->getAllPermissionNames()
+        ]);
     }
 
     public function store(Request $request)
     {
-        //
+        $this->actionsInterface->createAction($request->except('_token'));
+
+        return redirect()->route('admin.actions.index')
+            ->with('message', 'Accion creada exitosamente!');
     }
 
     public function show($id)
@@ -100,15 +108,5 @@ class ActionController extends Controller
 
         return redirect()->route('admin.actions.index')
             ->with('message', 'Eliminado Satisfactoriamente');
-    }
-
-    public function recoverTrashedAction(int $id)
-    {
-        $action  = $this->actionsInterface->searchTrashedAction($id);
-        $actionRepo = new ActionRepository($action);
-        $actionRepo->recoverTrashedAction();
-
-        return redirect()->route('admin.actions.index')
-            ->with('message', 'Recuperación Exitosa!');
     }
 }

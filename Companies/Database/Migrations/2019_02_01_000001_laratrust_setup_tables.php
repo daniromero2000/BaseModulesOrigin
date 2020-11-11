@@ -44,7 +44,7 @@ class LaratrustSetupTables extends Migration
             $table->string('icon')->nullable();
             $table->string('route');
             $table->tinyInteger('principal')->default('1');
-            $table->tinyInteger('status')->unsigned()->default(1);
+            $table->tinyInteger('is_active')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('permission_id')->references('id')->on('permissions')
@@ -99,6 +99,17 @@ class LaratrustSetupTables extends Migration
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->timestamps();
         });
+
+        // Schema::create('action_permission', function (Blueprint $table) {
+        //     $table->unsignedInteger('action_id')->index();
+        //     $table->unsignedInteger('permission_id')->index();
+        //     $table->foreign('action_id')->references('id')->on('actions')
+        //         ->onUpdate('cascade')->onDelete('cascade');
+        //     $table->foreign('permission_id')->references('id')->on('permissions')
+        //         ->onUpdate('cascade')->onDelete('cascade');
+        //     $table->tinyInteger('is_active')->unsigned()->default(1);
+        //     $table->timestamps();
+        // });
     }
 
     /**
