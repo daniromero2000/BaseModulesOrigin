@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Libranza\Http\Controllers\Front;
+namespace Modules\Libranza\Http\Controllers\Front\libranzaController;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Front')->group(function () {
-    Route::get('formulario-libranza', 'LibranzaController@subForm');
-    Route::get('thank-you-page', 'LibranzaController@thankYou')->name('thank.you.page');
+    Route::get('formulario-libranza', 'libranzaController\LibranzaController@subForm');
+    Route::get('thank-you-page', 'libranzaController\LibranzaController@thankYou')->name('thank.you.page');
+    Route::get('benefits', 'benefitController\BenefitController@index')->name('benefit');
+    Route::get('about-us', 'aboutController\AboutController@index')->name('about');
 });
