@@ -7,7 +7,7 @@ use Modules\Courses\Entities\Students\Repositories\StudentRepository;
 use Modules\Courses\Entities\Students\Repositories\Interfaces\StudentRepositoryInterface;
 use Modules\Courses\Entities\Courses\Repositories\CourseRepository;
 use Modules\Courses\Entities\Courses\Repositories\Interfaces\CourseRepositoryInterface;
-use Modules\Courses\Entities\CourseAttendance\Repositories\CourseAttendanceRepository;
+use Modules\Courses\Entities\CourseAttendances\Repositories\CourseAttendanceRepository;
 use Modules\Courses\Entities\CourseAttendances\Repositories\Interfaces\CourseAttendanceRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider

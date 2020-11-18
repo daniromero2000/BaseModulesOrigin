@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Front')->group(function () {
-    Route::get('formulario-libranza', 'libranzaController\LibranzaController@subForm')->name('form-libranza');
-    Route::get('thank-you-page', 'libranzaController\LibranzaController@thankYou')->name('thank.you.page');
-    Route::get('benefits', 'benefitController\BenefitController@index')->name('benefit');
-    Route::get('about-us', 'aboutController\AboutController@index')->name('about');
+    Route::namespace('libranzaController')->group(function () {
+        Route::resource('libranza', 'LibranzaController');
+        Route::get('formulario-libranza', 'LibranzaController@subForm')->name('form-libranza');
+        Route::get('thank-you-page', 'LibranzaController@thankYou')->name('thank.you.page');
+    });
+    Route::namespace('benefitController')->group(function () {
+        Route::get('benefits', 'BenefitController@index')->name('benefit');
+    });
+    Route::namespace('aboutController')->group(function () {
+        Route::get('about-us', 'AboutController@index')->name('about');
+    });
+
     Route::get('/codigo-etica', function () {
         return view('libranza.front.information.code_of_ethics');
     })->name('code.ethics');

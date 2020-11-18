@@ -10,6 +10,8 @@ interface CityRepositoryInterface
 
     public function listCities();
 
+    public function listCitiesFront();
+
     public function listCitiesForColumns($columns);
 
     public function listCitiesForLeads($columns);

@@ -3,7 +3,7 @@
 namespace Modules\Ecommerce\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Modules\Companies\Entities\Admins\Requests\CartLoginRequest;
+use Modules\Companies\Entities\Employees\Requests\CartLoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Modules\Customers\Entities\Customers\Repositories\Interfaces\CustomerRepositoryInterface;

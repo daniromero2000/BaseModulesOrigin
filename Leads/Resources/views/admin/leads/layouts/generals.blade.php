@@ -34,9 +34,9 @@
                                 <td>{{ $data->telephone }}</td>
                                 <td>{{ $data->city->city }}</td>
                                 <td>{{ $data->leadChannel->channel }}</td>
-                                <td> <span class="badge"
-                                        style="color:{{$data->leadStatuses->color}}; background:{{$data->leadStatuses->background}} ">{{$data->leadStatuses->status}}</span>
-                                </td>
+                                                   <td> <span class="badge"
+                                style="color:{{ $data->leadStatuses ? $data->leadStatuses->color : ''}}; background:{{ $data->leadStatuses ? $data->leadStatuses->background : ''}} ">{{$data->leadStatuses ? $data->leadStatuses->status : 'Sin estado'}}</span>
+                        </td>
                             </tr>
                         </tbody>
                     </table>

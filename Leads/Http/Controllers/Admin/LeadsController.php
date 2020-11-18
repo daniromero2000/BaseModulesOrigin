@@ -105,7 +105,7 @@ class LeadsController extends Controller
                     $value->email,
                     $value->telephone,
                     $value->city != null ? $value->city->city : 'NA',
-                    $value->leadStatuses->status,
+                    $value->leadStatuses ? $value->leadStatuses->status : "SIN ESTADO",
                     $value->department->name,
                     $value->leadService != null ? $value->leadService->service : 'NA',
                     $value->leadProduct != null ? $value->leadProduct->product : 'NA',
@@ -186,11 +186,8 @@ class LeadsController extends Controller
     public function store(Request $request)
     {
         $lead = $this->leadInterface->createLead($request->except('_token', 'emailConfirm', 'kind_of_person', 'amount', 'term', 'entity'));
-
         $request->merge(['lead_id' => $lead->id]);
-
         $lead->leadStatus()->attach($request->input('lead_status_id'), ['employee_id' => auth()->guard('employee')->user()->id]);
-
         $this->leadInformationInterface->createLeadInformation($request->only('lead_id',  'kind_of_person', 'amount', 'term', 'entity'));
 
         return redirect()->route('thank.you.page');
