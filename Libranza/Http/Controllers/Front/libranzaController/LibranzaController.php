@@ -25,7 +25,7 @@ class LibranzaController extends Controller
 
     public function subForm()
     {
-        return view('libranza.front.sub_index', [
+        return view('libranza.front.form_libranza', [
             'cities' => $this->cityInterface->listCities()
         ]);
     }

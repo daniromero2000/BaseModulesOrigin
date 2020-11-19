@@ -78,7 +78,7 @@ class RoleController extends Controller
             'pag'           => $pageList,
             'i'             => $countPage,
             'max'           => $maxPage,
-            'paginate'      => $paginate,
+            'paginate'      => $paginate
         ]);
     }
 

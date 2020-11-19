@@ -69,7 +69,8 @@ class ActionRepository implements ActionRepositoryInterface
     {
         try {
             return $this->model->orderBy('permission_id', 'asc')
-                ->skip($totalView)->take(30)
+                ->skip($totalView)
+                ->take(30)
                 ->get($this->columns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -136,7 +137,6 @@ class ActionRepository implements ActionRepositoryInterface
             abort(503, $e->getMessage());
         }
     }
-
 
     public function searchTrashedAction(string $text = null): Collection
     {

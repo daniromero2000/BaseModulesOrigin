@@ -43,35 +43,35 @@
     <!-- Global site tag (gtag.js) - Google Ads: 781153823 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-781153823"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-    gtag('config', 'AW-781153823');
+        gtag('config', 'AW-781153823');
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164894259-1"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-    gtag('config', 'UA-164894259-1');
+        gtag('config', 'UA-164894259-1');
     </script>
     <script>
-    (function(h, e, a, t, m, p) {
-        m = e.createElement(a);
-        m.async = !0;
-        m.src = t;
-        p = e.getElementsByTagName(a)[0];
-        p.parentNode.insertBefore(m, p);
-    })(window, document, 'script', 'https://u.heatmap.it/log.js');
+        (function(h, e, a, t, m, p) {
+            m = e.createElement(a);
+            m.async = !0;
+            m.src = t;
+            p = e.getElementsByTagName(a)[0];
+            p.parentNode.insertBefore(m, p);
+        })(window, document, 'script', 'https://u.heatmap.it/log.js');
     </script>
 </head>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -82,15 +82,13 @@
     <nav class="navbar navbar-expand navbar-light bg-white">
         <div class="row w-100 d-flex align-items-center text-center row-reset">
 
-            <div style="margin-left: auto;margin-right: auto;"
-                class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-reset">
-                <a href="/inicio" style=" margin-top: 5px;" class="nav-link centrado"> <img class="w-imgLog"
-                        src="resources/assets/LogoLibranza.png" alt=""> <span class="sr-only">(current)</span></a>
+            <div style="margin-left: auto;margin-right: auto;" class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-reset">
+                <a href="/inicio" style=" margin-top: 5px;" class="nav-link centrado"> <img class="w-imgLog" src="resources/assets/LogoLibranza.png" alt=""> <span class="sr-only">(current)</span></a>
             </div>
             <div class="col-12 col-sm-5 col-md-4 col-lg-4 col-xl-4 col-reset content-textTitleNav">
                 <p class="titleNav">
                     <span class="title-form mt-1 text-center ">
-                    <strong>¿REPORTADO?</strong>
+                        <strong>¿REPORTADO?</strong>
                     </span>
                     <br>
                     <span class="title-form2 text-center" style="color:#1cbaf8">
@@ -104,11 +102,8 @@
             <!-- <div style="margin-left: auto;margin-right: auto;" class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-2 col-reset siguenos text-center">
                 <a href="" target="_blank"><span class="text-contact">Llamanos al tel. </span><br><i style="font-size: 30px;" class="fas fa-phone-alt"></i> </a>
             </div>-->
-            <div style="margin-left: auto;margin-right: auto;"
-                class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-2 col-reset siguenos text-center">
-                <a class="contact-fb" href="https://www.facebook.com/almacenes.oportunidades/" target="_blank"><span
-                        class="text-contact" style="color:#b1b1b1">Síguenos</span><i style="font-size: 40px;"
-                        class="fab fa-facebook"></i></a>
+            <div style="margin-left: auto;margin-right: auto;" class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-2 col-reset siguenos text-center">
+                <a class="contact-fb" href="https://www.facebook.com/almacenes.oportunidades/" target="_blank"><span class="text-contact" style="color:#b1b1b1">Síguenos</span><i style="font-size: 40px;" class="fab fa-facebook"></i></a>
             </div>
         </div>
     </nav>
@@ -116,12 +111,10 @@
         <div class="row w-100 d-flex align-items-center text-center row-reset">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="row w-100 d-flex align-items-center text-center row-reset">
-                    <div style="margin-left: auto;margin-right: auto;"
-                        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-reset">
+                    <div style="margin-left: auto;margin-right: auto;" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-reset">
                         <a href="/inicio"><span class="text-nav">Inicio</span></a>
                     </div>
-                    <div style="margin-left: auto;margin-right: auto;"
-                        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-reset">
+                    <div style="margin-left: auto;margin-right: auto;" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-reset">
                         <a href="https://www.oportunidades.com.co/"><span class="text-nav">Crédito para
                                 Electrodomésticos </span></a>
                     </div>
@@ -136,11 +129,11 @@
         <div class="loader"></div>
     </div>
     <script>
-    window.onload = function() {
-        var contenedor = document.getElementById('contenedor_carga');
-        contenedor.style.visibility = 'hidden';
-        contenedor.style.opacity = '0';
-    }
+        window.onload = function() {
+            var contenedor = document.getElementById('contenedor_carga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
+        }
     </script>
     <div class="row row-reset">
         <div class="col-12 col-md-12">
@@ -177,81 +170,79 @@
                 </p>
             </div>
         </div>
-       
+
         <div style=" width: 100%;" class="row row-reset">
-          <div class="col-12 col-reset mt-5 mb-5">
-            <h2 class="text-center title-footer" style="color: #0063AB"><b>Principales convenios</b></h2>
-            <div class="row p-2 text-center justify-content-center"
-                style="max-width: 1330px;margin-left: auto;margin-right: auto;">
-                <div class="row row-reset">
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 150px; margin-top: -0.5cm;" src="resources/assets/ColpensionesLogo.jpg" alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 100px;" src="resources/assets/BBVASegurosLogo2.jpg" alt="">
-                    </div>
-                    <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+            <div class="col-12 col-reset mt-5 mb-5">
+                <h2 class="text-center title-footer" style="color: #0063AB"><b>Principales convenios</b></h2>
+                <div class="row p-2 text-center justify-content-center" style="max-width: 1330px;margin-left: auto;margin-right: auto;">
+                    <div class="row row-reset">
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 150px; margin-top: -0.5cm;" src="resources/assets/ColpensionesLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 100px;" src="resources/assets/BBVASegurosLogo2.jpg" alt="">
+                        </div>
+                        <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
                         <img style="width: 105px;" src="resources/assets/CasurLogo.jpg" alt="">
                     </div> -->
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 130px;" src="resources/assets/AxaColpatriaLogo.png" alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 150px;" src="resources/assets/ColfondosLogo.jpg" alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 82px; margin-top: 14px;" src="resources/assets/PorvenirLogo.jpg" alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 135px; margin-top: 18px" src="resources/assets/ProteccionLogo.png" alt="">
-                    </div>   
-                    <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 130px;" src="resources/assets/AxaColpatriaLogo.png" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 150px;" src="resources/assets/ColfondosLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 82px; margin-top: 14px;" src="resources/assets/PorvenirLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 135px; margin-top: 18px" src="resources/assets/ProteccionLogo.png" alt="">
+                        </div>
+                        <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
                         <img style="width: 95px;" src="resources/assets/FerrocarilesLogo2.jpg" alt="">
                     </div> -->
-                </div>
+                    </div>
 
-                <div class="row row-reset">
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 82px;" src="resources/assets/MafreLogo.jpg" alt="">
-                    </div> 
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 82px;" src="resources/assets/PositivaLogo.png" alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 150px;" src="resources/assets/SuraLogo.png" alt="">
-                    </div>   
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 100px; border-radius:10px;" src="resources/assets/SegurosBolivarLogo.jpg"
-                            alt="">
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 120px; margin-top: 0.7cm" src="resources/assets/FiduprevisoraLogo.jpg" alt="">
-                    </div>                       
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 165px;" src="resources/assets/AlfaSegurosLogo.png" alt="">
-                    </div>                                                    
-                    <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                    <div class="row row-reset">
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 82px;" src="resources/assets/MafreLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 82px;" src="resources/assets/PositivaLogo.png" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 150px;" src="resources/assets/SuraLogo.png" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 100px; border-radius:10px;" src="resources/assets/SegurosBolivarLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 120px; margin-top: 0.7cm" src="resources/assets/FiduprevisoraLogo.jpg" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 165px;" src="resources/assets/AlfaSegurosLogo.png" alt="">
+                        </div>
+                        <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
                         <img style="width: 95px;" src="resources/assets/cocgfmLogo.jpg" alt="">
                     </div> -->
-                </div>
+                    </div>
 
-                <div class="row row-reset">     
-                    <div class="col-6 col-md-4 col-lg-5 text-center text-footer">
-                        <img style="width: 90px;" src="resources/assets/GlobalSegurosLogo.jpg" alt="">
-                    </div>  
-                               
-                    <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                    <div class="row row-reset">
+                        <div class="col-6 col-md-4 col-lg-5 text-center text-footer">
+                            <img style="width: 90px;" src="resources/assets/GlobalSegurosLogo.jpg" alt="">
+                        </div>
+
+                        <!-- <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
                         <img style="width: 181px;" src="resources/assets/FoNCEPLogo.jpg" alt="">
                     </div> -->
-                    <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
-                        <img style="width: 90px; margin-top: 13px" src="resources/assets/FOPEPLogo.png" alt="">
-                    </div>                     
-                </div>
+                        <div class="col-6 col-md-4 col-lg-2 text-center text-footer">
+                            <img style="width: 90px; margin-top: 13px" src="resources/assets/FOPEPLogo.png" alt="">
+                        </div>
+                    </div>
 
+                </div>
             </div>
-        </div>
-        
-        <!-- <img src="resources/assets/bg04.jpg" style="width:100%;" alt="Footer-libranza-facil"> -->
+
+            <!-- <img src="resources/assets/bg04.jpg" style="width:100%;" alt="Footer-libranza-facil"> -->
         </div>
         <div id="footer" class="footer-lib">
             <div style="padding: 10px 0px 20px 0px;" class="row text-center row-reset">
@@ -271,16 +262,13 @@
                             <div class="text-left">
                                 <ul class="text-items">
                                     <h5 style="font-weight: bold;" class="text-items1">NOSOTROS</h5>
-                                    <li><a class="text-items1" href="/codigo-etica"
-                                            title="Código de ética y buen gobierno corporativo">Código de ética y buen
+                                    <li><a class="text-items1" href="/codigo-etica" title="Código de ética y buen gobierno corporativo">Código de ética y buen
                                             gobierno corporativo</a></li>
                                     <li><a class="text-items1" href="/quienes-somos" title="Quiénes somos">Quiénes
                                             somos</a></li>
-                                    <li><a class="text-items1" href="/Proteccion-de-datos-personales"
-                                            title="Protección de datos personales">Protección de datos personales</a>
+                                    <li><a class="text-items1" href="/Proteccion-de-datos-personales" title="Protección de datos personales">Protección de datos personales</a>
                                     </li>
-                                    <li><a class="text-items1" href="/Terminos-y-condiciones"
-                                            title="Términos y condiciones">Términos y condiciones</a></li>
+                                    <li><a class="text-items1" href="/Terminos-y-condiciones" title="Términos y condiciones">Términos y condiciones</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -301,18 +289,12 @@
                                 <div class="text-left mt-4">
                                     <ul class="text-items">
                                         <h5 style="font-weight: bold;" class="text-items1">SERVICIO AL CLIENTE</h5>
-                                        <li><a class="text-items1" href="/Por-que-comprar-con-nosotros"
-                                                class="footer-menuItem" title="Por qué comprar con nosotros">Por qué
+                                        <li><a class="text-items1" href="/Por-que-comprar-con-nosotros" class="footer-menuItem" title="Por qué comprar con nosotros">Por qué
                                                 comprar con nosotros</a></li>
-                                        <li><a class="text-items1" href="/Cambios-devoluciones-y-atencion-de-garantias"
-                                                class="footer-menuItem"
-                                                title="Cambios , devoluciones y atención de garantías">Cambios ,
+                                        <li><a class="text-items1" href="/Cambios-devoluciones-y-atencion-de-garantias" class="footer-menuItem" title="Cambios , devoluciones y atención de garantías">Cambios ,
                                                 devoluciones y atención de garantías</a></li>
-                                        <li><a class="text-items1" href="http://www.sic.gov.co/proteccion-del-consumidor"
-                                                target="_blank" class="footer-menuItem"
-                                                title="Protección al consumidor">Protección al consumidor</a></li>
-                                        <li><a class="text-items1" href="/Preguntas-frecuentes" class="footer-menuItem"
-                                                title="Preguntas Frecuentes">Preguntas Frecuentes</a></li>
+                                        <li><a class="text-items1" href="http://www.sic.gov.co/proteccion-del-consumidor" target="_blank" class="footer-menuItem" title="Protección al consumidor">Protección al consumidor</a></li>
+                                        <li><a class="text-items1" href="/Preguntas-frecuentes" class="footer-menuItem" title="Preguntas Frecuentes">Preguntas Frecuentes</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -343,13 +325,11 @@
                             </div> -->
                                 <div class="row m-auto">
                                     <div class="col-12 col-md-12 m-auto">
-                                        <a style="color:#b1b1b1;" href="https://www.facebook.com/almacenes.oportunidades/"
-                                            target="_blank"><span class="footer-menuText">Síguenos
-                                            <i style="font-size: 40px; color:#0063ab;" class="fab fa-facebook" aria-hidden="true"></i>    
-                                                   <!-- <img
+                                        <a style="color:#b1b1b1;" href="https://www.facebook.com/almacenes.oportunidades/" target="_blank"><span class="footer-menuText">Síguenos
+                                                <i style="font-size: 40px; color:#0063ab;" class="fab fa-facebook" aria-hidden="true"></i>
+                                                <!-- <img
                                                     src="resources/assets/FacebookFooter.png" alt=""> -->
-                                                    <a href="https://www.facebook.com/almacenes.oportunidades/"
-                                                    target="_blank"></a></span></a>
+                                                <a href="https://www.facebook.com/almacenes.oportunidades/" target="_blank"></a></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -373,102 +353,102 @@
 <script src="js/ciudades.js"></script>
 <script type="text/javascript" src="js/whatsapp.min.js"> </script>
 <script type="text/javascript">
-// 1. This code loads the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
+    // 1. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
 
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// 2. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
-var player;
+    // 2. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        playerVars: {
-            loop: 1,
-            controls: 1,
-            showinfo: 1,
-            autohide: 1,
-            modestbranding: 1,
-            autoplay: 0,
-            vq: 'hd720'
-        },
-        videoId: 'QQdp5gF7LAw',
-        events: {
-            'onStateChange': onPlayerStateChange
-        }
-    });
-}
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '100%',
+            width: '100%',
+            playerVars: {
+                loop: 1,
+                controls: 1,
+                showinfo: 1,
+                autohide: 1,
+                modestbranding: 1,
+                autoplay: 0,
+                vq: 'hd720'
+            },
+            videoId: 'QQdp5gF7LAw',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
 
-// 3. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-    event.target.playVideo();
-}
+    // 3. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
 
-var done = false;
+    var done = false;
 
-function onPlayerStateChange(event) {
+    function onPlayerStateChange(event) {
 
-}
+    }
 
-function stopVideo() {
-    player.stopVideo();
-}
-/*
-setTimeout(function(){
-	$('#modalAgradacimiento').modal('show');
-}, 30000);
-setTimeout(function(){
-	$('#modalAgradacimiento').modal('hide');
-}, 48000);
-*/
+    function stopVideo() {
+        player.stopVideo();
+    }
+    /*
+    setTimeout(function(){
+    	$('#modalAgradacimiento').modal('show');
+    }, 30000);
+    setTimeout(function(){
+    	$('#modalAgradacimiento').modal('hide');
+    }, 48000);
+    */
 </script>
 
 <script type="text/javascript">
-$(function() {
-    $('#WAButton').floatingWhatsApp({
-        phone: '573138701355', //WhatsApp Business phone number
-        headerTitle: 'Chatea con nosotros por WhatsApp !', //Popup Title
-        popupMessage: 'Hola, como podemos ayudarte?', //Popup Message
-        showPopup: true, //Enables popup display
-        buttonImage: '<img src="whatsapp.svg" />', //Button Image
-        // headerColor: 'crimson', //Custom header color
-        //backgroundColor: 'crimson', //Custom background button color
-        position: "right" //Position: left | right
+    $(function() {
+        $('#WAButton').floatingWhatsApp({
+            phone: '573138701355', //WhatsApp Business phone number
+            headerTitle: 'Chatea con nosotros por WhatsApp !', //Popup Title
+            popupMessage: 'Hola, como podemos ayudarte?', //Popup Message
+            showPopup: true, //Enables popup display
+            buttonImage: '<img src="whatsapp.svg" />', //Button Image
+            // headerColor: 'crimson', //Custom header color
+            //backgroundColor: 'crimson', //Custom background button color
+            position: "right" //Position: left | right
 
+        });
     });
-});
 </script>
 <script>
-window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag('js', new Date());
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-gtag('config', 'UA-164894259-1');
+    gtag('config', 'UA-164894259-1');
 </script>
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org/",
-    "@type": "WebSite",
-    "name": "Libranza Facil",
-    "url": "https://libranzafacil.com/",
-    "sameAs": [
-        "https://www.facebook.com/almacenes.oportunidades/",
-        "https://www.instagram.com/almacenes.oportunidades/"
-    ],
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://libranzafacil.com/{search_term_string}",
-        "query-input": "required name=search_term_string"
+    {
+        "@context": "https://schema.org/",
+        "@type": "WebSite",
+        "name": "Libranza Facil",
+        "url": "https://libranzafacil.com/",
+        "sameAs": [
+            "https://www.facebook.com/almacenes.oportunidades/",
+            "https://www.instagram.com/almacenes.oportunidades/"
+        ],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://libranzafacil.com/{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
     }
-}
 </script>
 
 </html>
