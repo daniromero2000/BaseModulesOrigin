@@ -27,6 +27,17 @@ class CityRepository implements CityRepositoryInterface
         }
     }
 
+    public function listCitiesFront()
+    {
+        try {
+            return $this->model->orderBy('city', 'asc')
+                ->groupBy('city')
+                ->get($this->columns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function listCities()
     {
         try {

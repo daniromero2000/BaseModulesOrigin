@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Courses\Entities\CourseAttendance\Repositories;
+namespace Modules\Courses\Entities\CourseAttendances\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\QueryException;

@@ -46,7 +46,7 @@
                         <td> {{$data->department->name}} </td>
                         <td> {{$data->created_at}} </td>
                         <td> <span class="badge"
-                                style="color:{{$data->leadStatuses->color}}; background:{{$data->leadStatuses->background}} ">{{$data->leadStatuses->status}}</span>
+                                style="color:{{ $data->leadStatuses ? $data->leadStatuses->color : ''}}; background:{{ $data->leadStatuses ? $data->leadStatuses->background : ''}} ">{{$data->leadStatuses ? $data->leadStatuses->status : 'Sin estado'}}</span>
                         </td>
                         <td>
                             @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>

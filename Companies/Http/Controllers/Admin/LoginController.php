@@ -2,7 +2,7 @@
 
 namespace Modules\Companies\Http\Controllers\Admin;
 
-use Modules\Companies\Entities\Admins\Requests\LoginRequest;
+use Modules\Companies\Entities\Employees\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
