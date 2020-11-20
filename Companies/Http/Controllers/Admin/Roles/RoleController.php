@@ -59,26 +59,38 @@ class RoleController extends Controller
             $countPage = 0;
             $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
         }
-
-
         foreach ($list as $key => $value) {
             $roleRepo[$key]                    = new RoleRepository($list[$key]);
             $attachedPermissionsArrayIds[$list[$key]->id] = $roleRepo[$key]->listPermissions()->pluck('id')->all();
         }
 
+        $listActions = [];
+
+        foreach ($list as $key => $value) {
+            foreach ($list[$key]->permission as $key2 => $value2) {
+                $listActions[$list[$key]->id][$value2->display_name] = $value2->actions;
+            }
+        }
+
+        foreach ($list as $key3 => $value3) {
+            $actionsAttached[$list[$key3]->id] = $value3->action->pluck('id')->all();
+        }
+
         return view('companies::admin.roles.list', [
-            'roles'         => $list,
-            'user'          => auth()->guard('employee')->user(),
-            'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'permissions'   => $this->permissionInterface->getAllPermissionNames(),
+            'roles'                       => $list,
+            'user'                        => auth()->guard('employee')->user(),
+            'optionsRoutes'               => 'admin.' . (request()->segment(2)),
+            'permissions'                 => $this->permissionInterface->getAllPermissionNames(),
             'attachedPermissionsArrayIds' => $attachedPermissionsArrayIds,
-            'headers'       => ['ID', 'Nombre', 'Nombre Display', 'Descripción', 'Opciones',],
-            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
-            'skip'          => $skip,
-            'pag'           => $pageList,
-            'i'             => $countPage,
-            'max'           => $maxPage,
-            'paginate'      => $paginate
+            'headers'                     => ['ID', 'Nombre', 'Nombre Display', 'Descripción', 'Opciones',],
+            'searchInputs'                => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
+            'skip'                        => $skip,
+            'pag'                         => $pageList,
+            'i'                           => $countPage,
+            'max'                         => $maxPage,
+            'paginate'                    => $paginate,
+            'listActions'                 => $listActions,
+            'actionsAttached'             => $actionsAttached
         ]);
     }
 
@@ -116,6 +128,17 @@ class RoleController extends Controller
         }
 
         $this->roleInterface->updateRole($request->except('_method', '_token'), $id);
+
+        return redirect()->route('admin.roles.index')
+            ->with('message', 'Actualizado Satisfactoriamente!');
+    }
+
+    public function updateActions(Request $request, $id)
+    {
+        if ($request->has('actions')) {
+            $roleRepo = new RoleRepository($this->roleInterface->findRoleById($id));
+            $roleRepo->syncActions($request->input('actions'));
+        }
 
         return redirect()->route('admin.roles.index')
             ->with('message', 'Actualizado Satisfactoriamente!');

@@ -23,6 +23,7 @@ use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
 use Modules\CallCenter\Entities\Assignments\CallCenterAssignment;
+use Modules\Companies\Entities\EmployeeEmergencyContacts\EmployeeEmergencyContact;
 use Modules\Companies\Entities\Subsidiaries\Subsidiary;
 use Modules\Studio\Entities\Discounts\Discount;
 use Modules\Studio\Entities\EmployeePlatformAccounts\EmployeePlatformAccount;
@@ -52,6 +53,8 @@ class Employee extends Authenticatable
         'email',
         'password',
         'phone',
+        'rh',
+        'birthday',
         'is_active',
         'employee_position_id',
         'company_id',
@@ -268,4 +271,10 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(Score::class);
     }
+
+    public function employeeEmergencyContact()
+    {
+        return $this->hasMany(EmployeeEmergencyContact::class);
+    }
+
 }

@@ -1,9 +1,9 @@
-<div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+<div class="modal fade" id="modal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualizar <b>{{$data->name}}</b></h5>
+                <h5 class="modal-title">Actualizar <b>{{ $data->name }}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -23,7 +23,7 @@
                                     </div>
                                     <input type="text" name="name" id="name" validation-pattern="name"
                                         placeholder="Nombre" class="form-control"
-                                        value="{!! $data->name ?: old('name')  !!}" required>
+                                        value="{!!  $data->name ?: old('name') !!}" required>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                     </div>
                                     <input type="text" name="last_name" id="last_name" validation-pattern="name"
                                         placeholder="Apellido" class="form-control"
-                                        value="{!! $data->last_name ?: old('last_name')  !!}" required>
+                                        value="{!!  $data->last_name ?: old('last_name') !!}" required>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                     </div>
                                     <input type="text" name="email" id="email" validation-pattern="email"
                                         placeholder="Email" class="form-control"
-                                        value="{!! $data->email ?: old('email')  !!}" required>
+                                        value="{!!  $data->email ?: old('email') !!}" required>
                                 </div>
                             </div>
                         </div>
@@ -58,14 +58,15 @@
                                 <label class="form-control-label" for="employee_position_id">Cargo</label>
                                 <div class="input-group">
                                     <select name="employee_position_id" id="employee_position_id" class="form-control">
-                                        @foreach($employee_positions as $data_position)
-                                        @if($data_position->id == $data->employee_position_id)
-                                        <option selected="selected" value="{{ $data_position->id }}">
-                                            {{ $data_position->position }}</option>
-                                        @else
-                                        <option value="{{ $data_position->id }}">{{ $data_position->position }}
-                                        </option>
-                                        @endif
+                                        @foreach ($employee_positions as $data_position)
+                                            @if ($data_position->id == $data->employee_position_id)
+                                                <option selected="selected" value="{{ $data_position->id }}">
+                                                    {{ $data_position->position }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $data_position->id }}">{{ $data_position->position }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -76,14 +77,12 @@
                                 <label class="form-control-label" for="department_id">Departamento</label>
                                 <div class="input-group">
                                     <select name="department_id" id="department_id" class="form-control">
-                                        @foreach($all_departments as $department)
-                                        @if($department->id == $data->department_id)
-                                        <option selected="selected" value="{{ $department->id }}">
-                                            {{ $department->name }}
-                                        </option>
-                                        @else
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                        @endif
+                                        @foreach ($all_departments as $department)
+                                            <option
+                                                {{ $data->department[0]->id == $department->id ? 'selected="selected"' : '' }}
+                                                value="{{ $department->id }}">
+                                                {{ $department->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -97,7 +96,7 @@
                                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
                                     </div>
                                     <input type="password" name="password" id="password" placeholder="xxxxx"
-                                        class="form-control" value="{!! $data->phone ?: old('phone')  !!}">
+                                        class="form-control" value="{!!  old('password') !!}">
                                 </div>
                             </div>
                         </div>
@@ -109,33 +108,7 @@
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
                                     <input type="text" name="rh" id="rh" placeholder="RH" class="form-control"
-                                        value="{!! $data->rh ?: old('rh')  !!}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="email">Turno</label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
-                                    </div>
-                                    <input type="text" name="work_schedule" id="work_schedule" placeholder="Horario"
-                                        class="form-control"
-                                        value="{!! $data->work_schedule ?: old('work_schedule')  !!}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="admission_date">Ingreso</label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-drop"></i></span>
-                                    </div>
-                                    <input type="date" name="admission_date" id="admission_date"
-                                        placeholder="Fecha Ingreso" class="form-control"
-                                        value="{!! $data->admission_date ?: old('admission_date')  !!}" required>
+                                        value="{!!  $data->rh ?: old('rh') !!}" required>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +120,7 @@
                                         <span class="input-group-text"><i class="fa fa-drop"></i></span>
                                     </div>
                                     <input type="date" name="birthday" id="birthday" placeholder="Fecha Nacimiento"
-                                        class="form-control" value="{!! $data->birthday ?: old('birthday')  !!}"
+                                        class="form-control" value="{!!  $data->birthday ?: old('birthday') !!}"
                                         required>
                                 </div>
                             </div>
@@ -155,7 +128,7 @@
                         <div class="col-sm-6">
                             @include('generals::admin.shared.status-select', ['status' => $data->is_active])
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 mt-3">
                             <label class="form-control-label" for="password">Rol</label>
                             @include('generals::admin.shared.roles', ['roles' => $roles, 'selectedIds' =>
                             $data->roles()->pluck('role_id')->all()])

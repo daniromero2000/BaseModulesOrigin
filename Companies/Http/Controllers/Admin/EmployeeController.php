@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Modules\Companies\Entities\Admins\Requests\CreateEmployeeRequest;
-use Modules\Companies\Entities\Admins\Requests\UpdateEmployeeRequest;
+use Modules\Companies\Entities\Employees\Requests\CreateEmployeeRequest;
+use Modules\Companies\Entities\Employees\Requests\UpdateEmployeeRequest;
 use Modules\Companies\Entities\Companies\Repositories\Interfaces\CompanyRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Modules\Companies\Entities\EmployeeCommentaries\Repositories\Interfaces\EmployeeCommentaryRepositoryInterface;
@@ -199,6 +199,9 @@ class EmployeeController extends Controller
             $employee->roles()->sync($request->input('roles'));
         } elseif (!$isCurrentUser) {
             $employee->roles()->detach();
+        }
+        if ($request->has('department_id')) {
+            $employee->department()->sync($request->input('department_id'));
         }
 
         return redirect()->route('admin.employees.index')->with('message', 'Actualización exitosa');

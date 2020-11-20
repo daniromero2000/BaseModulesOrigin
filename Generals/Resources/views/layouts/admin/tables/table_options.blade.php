@@ -19,6 +19,7 @@ $actions = session('actionsModule');
     <a data-toggle="modal" data-target="#modal{{ $data->id }}" href="" class="table-action table-action"
         data-toggle="tooltip" data-original-title="{{ $action['name'] }}">
         <i class="{{ $action['icon'] }}"></i></a>
+       
     @elseif(strpos($action['route'], 'asigne'))
     <a data-toggle="modal" data-target="#modal-assigne{{ $data->id }}" onclick="dataLead({{$data->id}})" href=""
         class="table-action table-action" data-toggle="tooltip" data-original-title="{{ $action['name'] }}">

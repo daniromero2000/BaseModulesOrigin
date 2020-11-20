@@ -32,9 +32,8 @@ interface RoleRepositoryInterface
 
     public function syncPermissions(array $ids);
 
+    public function syncActions(array $ids);
+
     public function listPermissions(): Collection;
 
-    public function recoverTrashedRole(): bool;
-
-    public function searchTrashedRole(string $text): Collection;
 }

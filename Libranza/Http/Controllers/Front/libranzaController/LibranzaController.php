@@ -55,7 +55,7 @@ class LibranzaController extends Controller
             'lead_product_id' => $request->input('lead_product_id') ? $request->input('lead_product_id') : 14,
             'lead_channel_id' => 1
         ]);
-        
+
         $lead = $this->leadInterface->createLead($request->except('_token', 'emailConfirm', 'kind_of_person', 'amount', 'term', 'entity'));
         $request->merge(['lead_id' => $lead->id]);
         $lead->leadStatus()->attach($request->input('lead_status_id'));

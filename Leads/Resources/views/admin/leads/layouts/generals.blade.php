@@ -62,8 +62,8 @@
                         </thead>
                         <tbody class="list">
                             <tr>
-                                <td>{{ $data->leadProduct->product }}</td>
-                                <td>{{ $data->leadService->service }}</td>
+                                <td>{{ $data->leadProduct ? $data->leadProduct->product : 'NA' }}</td>
+                                <td>{{ $data->leadService ? $data->leadService->service : 'NA' }}</td>
                                 @if ($data->leadInformation)
                                 <td>{{ $data->leadInformation->kind_of_person }}</td>
                                 <td>{{ $data->leadInformation->entity }}</td>

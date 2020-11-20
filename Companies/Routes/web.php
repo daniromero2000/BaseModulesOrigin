@@ -89,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::group(['middleware' => ['role:superadmin, guard:employee']], function () {
             Route::namespace('Roles')->group(function () {
                 Route::resource('roles', 'RoleController');
+                Route::put('roles/{role}/actions', 'RoleController@updateActions')->name('roles.actions.update');
                 Route::get('roles/{role}/recover', 'RoleController@recoverTrashedRole')->name('roles.recover');
             });
 

@@ -156,38 +156,20 @@ class RoleRepository implements RoleRepositoryInterface
         $this->model->attachPermissions($permissions);
     }
 
-
     public function syncPermissions(array $ids)
     {
         $this->model->syncPermissions($ids);
     }
 
+    public function syncActions(array $ids)
+    {
+        $this->model->action()->sync($ids);
+    }
 
     public function listPermissions(): Collection
     {
         try {
             return $this->model->permissions()->get($this->columns);
-        } catch (QueryException $e) {
-            abort(503, $e->getMessage());
-        }
-    }
-
-    public function searchTrashedRole(string $text = null): Collection
-    {
-        try {
-            if (is_null($text)) {
-                return $this->model->onlyTrashed($text)->get($this->columns);
-            }
-            return $this->model->onlyTrashed()->get($this->columns);
-        } catch (QueryException $e) {
-            abort(503, $e->getMessage());
-        }
-    }
-
-    public function recoverTrashedRole(): bool
-    {
-        try {
-            return $this->model->restore();
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
