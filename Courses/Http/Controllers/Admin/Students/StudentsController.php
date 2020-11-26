@@ -31,7 +31,7 @@ class StudentsController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->studentInterface->searchStudent(request()->input('q'), $skip * 30);
-            $paginate = $this->studentInterface->countStudents(request()->input('q'),);
+            $paginate = $this->studentInterface->countStudents(request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->studentInterface->searchStudent(request()->input('q'), $skip * 30, $from, $to);

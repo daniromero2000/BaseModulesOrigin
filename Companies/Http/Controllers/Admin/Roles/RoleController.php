@@ -36,7 +36,7 @@ class RoleController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->roleInterface->searchRole(request()->input('q'), $skip * 30);
-            $paginate = $this->roleInterface->countRoles(request()->input('q'),);
+            $paginate = $this->roleInterface->countRoles(request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->roleInterface->searchRole(request()->input('q'), $skip * 30, $from, $to);

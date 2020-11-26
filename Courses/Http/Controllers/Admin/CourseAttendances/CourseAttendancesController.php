@@ -32,7 +32,7 @@ class CourseAttendancesController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->courseAttendanceInterface->searchCourseAttendance(request()->input('q'), $skip * 30);
-            $paginate = $this->courseAttendanceInterface->countCourseAttendance(request()->input('q'),);
+            $paginate = $this->courseAttendanceInterface->countCourseAttendance(request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->courseAttendanceInterface->searchCourseAttendance(request()->input('q'), $skip * 30, $from, $to);

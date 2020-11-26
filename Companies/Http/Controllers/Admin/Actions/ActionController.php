@@ -33,7 +33,7 @@ class ActionController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->actionsInterface->searchAction(request()->input('q'), $skip * 30);
-            $paginate = $this->actionsInterface->countAction(request()->input('q'),);
+            $paginate = $this->actionsInterface->countAction(request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->actionsInterface->searchAction(request()->input('q'), $skip * 30, $from, $to);

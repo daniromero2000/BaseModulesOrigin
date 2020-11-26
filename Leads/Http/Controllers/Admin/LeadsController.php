@@ -125,7 +125,7 @@ class LeadsController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30);
-            $paginate = $this->leadInterface->countLeads(request()->input('q'),);
+            $paginate = $this->leadInterface->countLeads(request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30, $from, $to);
