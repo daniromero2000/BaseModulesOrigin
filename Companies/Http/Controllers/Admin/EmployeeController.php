@@ -84,7 +84,7 @@ class EmployeeController extends Controller
 
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->employeeInterface->searchEmployee(request()->input('q'), $company, $skip * 30);
-            $paginate = $this->employeeInterface->countEmployees(request()->input('q'), $company,);
+            $paginate = $this->employeeInterface->countEmployees(request()->input('q'), $company, '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
             $list = $this->employeeInterface->searchEmployee(request()->input('q'), $company, $skip * 30, $from, $to);
