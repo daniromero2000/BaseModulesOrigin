@@ -47,27 +47,24 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <!--@include('companies::layouts.generals')
-                    @include('companies::layouts.ids')-->
+                   @include('companies::layouts.generals')
+                    @include('companies::layouts.ids')
                     <div class="row">
-                        Information One
-                        <!--@include('companies::layouts.epss')
-                        @include('companies::layouts.professions')-->
+                       @include('companies::layouts.epss')
+                        @include('companies::layouts.professions')
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="row">
-                        Information Two
-                        <!--@include('companies::layouts.addresses')
+                       @include('companies::layouts.addresses')
                         @include('companies::layouts.phones')
-                        @include('companies::layouts.emails')-->
+                        @include('companies::layouts.emails')
                     </div>
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="row">
-                        Information Three
-                        <!--@include('generals::layouts.admin.commentaries', ['datas' => $employee->employeeCommentaries])
-                        @include('companies::layouts.statusesLog', ['datas' => $employee->employeeStatusesLogs])-->
+                       @include('generals::layouts.admin.commentaries', ['datas' => $employee->employeeCommentaries])
+                        @include('companies::layouts.statusesLog', ['datas' => $employee->employeeStatusesLogs])
                     </div>
                 </div>
             </div>
@@ -76,13 +73,13 @@ $fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
             </div>
         </div>
     </div>
-    <!--@include('companies::layouts.edit_employee', ['data' => $employee])
+   @include('companies::layouts.edit_employee', ['data' => $employee])
     @include('companies::layouts.add_address_modal')
     @include('companies::layouts.add_email_modal')
     @include('companies::layouts.add_phone_modal')
     @include('companies::layouts.add_identity_modal')
     @include('companies::layouts.add_comment_modal')
     @include('companies::layouts.add_eps_modal')
-    @include('companies::layouts.add_profession_modal')-->
+    @include('companies::layouts.add_profession_modal')
 </section>
 @endsection

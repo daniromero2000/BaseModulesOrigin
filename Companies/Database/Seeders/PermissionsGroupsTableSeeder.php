@@ -35,13 +35,9 @@ class PermissionsGroupsTableSeeder extends Seeder
         ]);
 
         factory(PermissionGroup::class)->create([
-            'name'        => 'Leads',
+            'name'        => 'Comerciales',
             'group_order' => 6
         ]);
 
-        factory(PermissionGroup::class)->create([
-            'name'        => 'Libranza',
-            'group_order' => 7
-        ]);
     }
 }

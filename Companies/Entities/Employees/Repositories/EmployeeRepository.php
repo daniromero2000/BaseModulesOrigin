@@ -48,6 +48,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         'name',
         'last_name',
         'email',
+        'rh',
+        'birthday',
         'password',
         'is_active',
         'employee_position_id',
@@ -174,8 +176,6 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function createEmployee(array $data): Employee
     {
         try {
-            //$data['password'] = Hash::make($data['password']);
-
             return $this->model->create($data);
         } catch (QueryException $e) {
             throw new CreateEmployeeErrorException($e);

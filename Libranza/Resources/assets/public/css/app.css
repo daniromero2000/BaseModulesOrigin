@@ -1,0 +1,572 @@
+@font-face {
+    font-family : 'Montserrat';
+    src         : url('../fonts/Montserrat-Bold.woff2') format('woff2'), url('../fonts/Montserrat-Bold.woff') format('woff');
+    font-weight : bold;
+    font-style  : normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family : 'Montserrat';
+    src         : url('../fonts/Montserrat-Medium.woff2') format('woff2'), url('../fonts/Montserrat-Medium.woff') format('woff');
+    font-weight : 500;
+    font-style  : normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family : 'Montserrat Alternates';
+    src         : url('../fonts/MontserratAlternates-SemiBold.woff2') format('woff2'), url('../fonts/MontserratAlternates-SemiBold.woff') format('woff');
+    font-weight : 600;
+    font-style  : normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family : 'Montserrat';
+    src         : url('../fonts/Montserrat-ExtraBold.woff2') format('woff2'), url('../fonts/Montserrat-ExtraBold.woff') format('woff');
+    font-weight : 800;
+    font-style  : normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family : 'Montserrat';
+    src         : url('../fonts/Montserrat-Regular.woff2') format('woff2'), url('../fonts/Montserrat-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap
+}
+
+.logo-yellow-header {
+    -webkit-box-shadow: 0px 0px 3vw 0.4vw rgba(255, 206, 0, 0.68);
+    -moz-box-shadow   : 0px 0px 3vw 0.4vw rgba(255, 206, 0, 0.68);
+    box-shadow        : 0px 0px 3vw 0.4vw rgba(255, 206, 0, 0.68);
+    border-radius     : 0px 0px 16% 16%
+}
+
+.first-div-header {
+    width: 36%
+}
+
+.first-div-header img {
+    width : 47%;
+    cursor: pointer
+}
+
+.last-div-header {
+    width  : 20%;
+    z-index: 9
+}
+
+.last-div-header img {
+    width : 41%;
+    cursor: pointer
+}
+
+.second-logo {
+    width : 63%;
+    cursor: pointer
+}
+
+body {
+    font-size  : 1vw;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial
+}
+
+header {
+    padding-bottom: 1%
+}
+
+header span,
+.navbar a {
+    font-size: 1vw
+}
+
+header,
+.navbar a {
+    color: #164194 !important
+}
+
+header .icons {
+    width : 10%;
+    cursor: pointer
+}
+
+header .container-icon-call {
+    width : 12%;
+    cursor: pointer
+}
+
+header .icon-call {
+    width : 80%;
+    margin: auto;
+    cursor: pointer
+}
+
+.ml-2-responsive {
+    margin-left: 1.4%
+}
+
+.navbar {
+    padding           : 1% 17%;
+    border-top        : 0.1vw solid #dee2e66b;
+    font-weight       : 500;
+    -webkit-transition: 0.4s ease-out;
+    transition        : 0.4s ease-out;
+    text-align        : center
+}
+
+.button-nav {
+    padding      : 0.8% 1.8%;
+    background   : #FFCE00;
+    border-radius: 48vw;
+    display      : flex;
+    width        : 25%
+}
+
+.button-nav:hover {
+    text-decoration: none;
+    opacity        : 0.6
+}
+
+.button-nav img {
+    width       : 12%;
+    margin-right: 2.2%
+}
+
+.navbar-expand .navbar-nav .nav-link {
+    padding-right: 0.9vw;
+    padding-left : 0.9vw;
+    margin-left  : 0.3vw
+}
+
+.navbar .nav-link:hover {
+    border       : #FFCE00 0.1vw solid;
+    border-radius: 40vw
+}
+
+.navbar .active {
+    border       : #FFCE00 0.1vw solid;
+    border-radius: 40vw
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    width : 100%;
+    height: 50%
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    width  : 9%;
+    opacity: 0.7
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='cyan' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E")
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='cyan' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E")
+}
+
+.modal-reset {
+    max-width : 65.9%;
+    position  : relative;
+    margin-top: 3%
+}
+
+.modal-reset a {
+    position     : absolute;
+    z-index      : 9;
+    top          : -5%;
+    right        : -6%;
+    padding      : 0.9% 1.5%;
+    background   : #f3f3f3;
+    border-radius: 95%;
+    font-weight  : 800;
+    color        : #848181
+}
+
+.modal-reset a:hover {
+    text-decoration: none;
+    cursor         : pointer
+}
+
+.nav-link {
+    display: block;
+    padding: .5vw 1vw
+}
+
+.footer-lib {
+    background-color: #00C3FF
+}
+
+.container-logo-footer {
+    margin-bottom: 4%;
+    margin-top   : 3%;
+    width        : 22%
+}
+
+.container-logo-footer .logo1 {
+    padding-left : 1.3vw;
+    padding-right: 1.3vw;
+    width        : 96%;
+    margin-top   : 2%
+}
+
+.container-logo-footer .logo2 {
+    padding-left : 1.3vw;
+    padding-right: 1.3vw;
+    width        : 81%
+}
+
+.title-foot {
+    color    : #FFFF;
+    font-size: 1.6vw
+}
+
+.text-foot {
+    color      : #164194;
+    font-size  : 0.8vw;
+    font-weight: bold
+}
+
+ul {
+    list-style: none
+}
+
+.title-foot {
+    margin-bottom: 0.5vw;
+    font-weight  : bold
+}
+
+.servicio {
+    margin-left: 1.5vw
+}
+
+.text-central {
+    text-align: center
+}
+
+.container-text-footer {
+    width         : 80%;
+    margin        : auto;
+    padding-bottom: 2%
+}
+
+.col-text-footer {
+    width: 30%
+}
+
+.col-text-footer ul {
+    padding: 0%
+}
+
+.linea {
+    color       : #ffff;
+    font-size   : 0.8vw;
+    text-justify: left
+}
+
+.tels {
+    color      : #164194;
+    font-size  : 0.8vw;
+    font-weight: bold
+}
+
+.horario {
+    color      : #ffff;
+    font-size  : 0.8vw;
+    font-weight: bold
+}
+
+.siguenos {
+    color    : #ffff;
+    font-size: 0.8vw
+}
+
+.icon-call2 {
+    width: 100%
+}
+
+.ml-2-responsive1 {
+    color    : #ffff;
+    font-size: 0.9vw
+}
+
+.pl-11 {
+    text-align  : left;
+    padding-left: 0
+}
+
+.text-foot2 {
+    text-align   : left;
+    margin-left  : 0.4vw;
+    margin-bottom: 0.6vw
+}
+
+.footer-lib {
+    padding-bottom: 0.5vw
+}
+
+footer .container-icon-call {
+    width: 9%
+}
+
+footer .icons {
+    width       : 9%;
+    margin-right: 2%
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    header span,
+    .navbar a {
+        font-size: 1.9vw
+    }
+
+    .first-div-header {
+        width: 24%
+    }
+
+    .first-div-header img {
+        width: 80%
+    }
+
+    .col-header-responsive {
+        max-width: 27%
+    }
+
+    .second-logo {
+        width: 74%
+    }
+
+    .last-div-header {
+        width: 12%
+    }
+
+    .col-text-footer {
+        width: 32%
+    }
+
+    .last-div-header img {
+        width: 86%
+    }
+
+    .navbar {
+        padding: 1% 2%
+    }
+
+    .button-nav {
+        width      : 32%;
+        margin-left: 1%
+    }
+
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon {
+        height: 65%
+    }
+
+    .modal-reset a {
+        right    : -7.2%;
+        padding  : 1% 2.1%;
+        font-size: 1.8vw
+    }
+
+    .modal-reset {
+        max-width : 71.9%;
+        margin-top: 4%
+    }
+
+    .container-logo-footer {
+        margin-top: 4%;
+        width     : 33%
+    }
+
+    .container-text-footer {
+        width         : 100%;
+        margin        : auto;
+        padding-bottom: 4%
+    }
+
+    .text-foot {
+        font-size: 1.6vw
+    }
+
+    .title-foot {
+        font-size: 2.3vw
+    }
+
+    .servicio li {
+        margin-top: 5%
+    }
+
+    .linea {
+        font-size: 1.7vw
+    }
+
+    footer .container-icon-call {
+        width: 11%
+    }
+
+    .tels {
+        font-size: 1.4vw
+    }
+
+    .horario {
+        font-size: 1.5vw
+    }
+
+    .ml-2-responsive1 {
+        font-size: 1.6vw
+    }
+
+    footer .icons {
+        width: 12%
+    }
+}
+
+@media (min-width: 310px) and (max-width: 479px) {
+
+    header span,
+    .navbar a {
+        font-size: 2.3vw
+    }
+
+    .first-div-header {
+        width: 28.3%
+    }
+
+    .first-div-header img {
+        width: 81%
+    }
+
+    .col-header-responsive {
+        max-width: 27%
+    }
+
+    #logo-hide {
+        display: none
+    }
+
+    .navbar .nav-link:hover {
+        border: #FFCE00 0.2vw solid
+    }
+
+    .navbar .active {
+        border: #FFCE00 0.2vw solid
+    }
+
+    .second-logo {
+        width: 77%
+    }
+
+    .navbar {
+        padding: 1% 2%
+    }
+
+    .navbar-expand .navbar-nav .nav-link {
+        padding-right: 0.3rem;
+        padding-left : 0.3rem
+    }
+
+    .button-nav {
+        width      : 42.1%;
+        margin-left: 1%
+    }
+
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon {
+        height: 52.6%
+    }
+
+    .modal-reset {
+        max-width : 95%;
+        margin-top: 10%
+    }
+
+    .modal-reset a {
+        right    : -0.9%;
+        top      : -15%;
+        padding  : 1% 2.4%;
+        font-size: 3vw
+    }
+
+    .container-logo-footer {
+        margin-top   : 8%;
+        width        : 44%;
+        margin-bottom: 8%
+    }
+
+    .container-logo-footer .logo1 {
+        padding-left : 2.7vw;
+        padding-right: 2.7vw;
+        width        : 96%
+    }
+
+    .container-logo-footer .logo2 {
+        padding-left : 2.7vw;
+        padding-right: 2.7vw;
+        width        : 81%
+    }
+
+    .container-text-footer {
+        width         : 100%;
+        margin        : auto;
+        padding-bottom: 8%
+    }
+
+    .col-text-footer {
+        width: 46%
+    }
+
+    .text-foot {
+        font-size: 2.8vw
+    }
+
+    .servicio li {
+        margin-top: 10%
+    }
+
+    .title-foot {
+        font-size: 3.8vw
+    }
+
+    .linea {
+        font-size: 2.8vw
+    }
+
+    footer .container-icon-call {
+        width: 12%
+    }
+
+    .icon-call2 {
+        margin-top: 23%
+    }
+
+    .tels {
+        font-size: 2.8vw
+    }
+
+    .horario {
+        font-size: 2.8vw
+    }
+
+    .ml-2-responsive1 {
+        font-size: 1.3vw
+    }
+
+    footer .icons {
+        width: 13%
+    }
+
+    .ml-2-responsive1 {
+        font-size: 3.2vw
+    }
+
+    .last-col-footer {
+        width: 68% !important
+    }
+}

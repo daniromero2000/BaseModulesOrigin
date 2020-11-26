@@ -75,7 +75,8 @@ class DepartmentsTableSeeder extends Seeder
         ]);
 
         factory(Department::class)->create([
-            'name' => 'Libranzas',
+            'name'       => 'Libranzas',
+            'company_id' => 2
         ]);
 
         factory(Department::class)->create([

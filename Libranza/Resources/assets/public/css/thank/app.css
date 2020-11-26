@@ -1,0 +1,38 @@
+.imgchulo {
+    padding-top   : 3vw;
+    padding-bottom: 2.5vw;
+    width         : 5%;
+    height        : 5%;
+}
+
+.solicitud {
+    color    : #164194;
+    font-size: 1.5vw;
+}
+
+.texto-solicitud {
+    color    : #164194;
+    font-size: 1vw;
+}
+
+.btn-thank {
+    color           : #164194;
+    background-color: #FFCE00;
+    font-weight     : 600;
+    padding         : 0.8vw;
+    width           : 13%;
+    border-radius   : 2.2vw;
+    border          : 0.1vw solid transparent;
+    font-size       : 0.8vw;
+    display         : block;
+    margin-top      : 2%;
+    margin-left     : auto;
+    margin-right    : auto;
+}
+
+.texto-solicitud2 {
+    color         : #94A4C3;
+    font-size     : 1vw;
+    padding-top   : 1.7vw;
+    padding-bottom: 2vw;
+}

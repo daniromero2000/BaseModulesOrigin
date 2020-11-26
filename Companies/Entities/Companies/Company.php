@@ -4,6 +4,7 @@ namespace Modules\Companies\Entities\Companies;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Companies\Entities\Departments\Department;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Modules\Generals\Entities\Countries\Country;
 
@@ -62,5 +63,10 @@ class Company extends Model
     {
         return $this->belongsTo(Country::class)
             ->select(['id', 'name', 'is_active']);
+    }
+
+    public function deparments()
+    {
+        return $this->hasMany(Department::class)->with('employeePositions');
     }
 }

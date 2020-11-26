@@ -123,7 +123,6 @@ class LeadsController extends Controller
             return Excel::download($export, 'leads.xlsx');
         }
 
-
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
             $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30);
             $paginate = $this->leadInterface->countLeads(request()->input('q'),);
@@ -157,10 +156,10 @@ class LeadsController extends Controller
             'pag'           => $pageList,
             'i'             => $countPage,
             'max'           => $maxPage,
-            'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Correo', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
+            'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
             'paginate'      => $paginate,
             'inputsAssigne' => [
-                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
+                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
                 ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
@@ -201,7 +200,7 @@ class LeadsController extends Controller
         return view('leads::admin.leads.show', [
             'lead' => $lead,
          'inputsAssigne' => [
-                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->getAllDepartmentNames(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
+                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
                 ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],

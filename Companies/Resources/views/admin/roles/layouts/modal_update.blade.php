@@ -52,30 +52,30 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="address{{ $data->id }}">Descripción</label>
                                 <div class="input-group input-group-merge">
-                                    <textarea name="description" id="description" class="form-control"
+                                    <textarea name="description" id="description{{ $data->id }}" class="form-control"
                                         validation-pattern="text" required
                                         placeholder="Descripción"> {!!  old('description') ?: $data->description !!}</textarea>
 
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <h4 class="mb-3"> Permisos</h4>
-                    <div class="row">
-                        @foreach ($permissions as $permission)
-                            <div class="px-2">
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input classs="custom-control-input " name="permissions[]"
-                                        id="{{ $permission->id . $data->id }}" type="checkbox"
-                                        value="{{ $permission->id }}"
-                                        {{ isset($attachedPermissionsArrayIds[$data->id]) && in_array($permission->id, $attachedPermissionsArrayIds[$data->id]) ? 'checked="checked"' : '' }}>
-                                    <label class=""
-                                        for="{{ $permission->id . $data->id }}">{{ $permission->display_name }}</label>
+                        <h4 class="mb-3"> Permisos</h4>
+                        <div class="row">
+                            @foreach ($permissions as $permission)
+                                <div class="px-1">
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input classs="custom-control-input " name="permissions[]"
+                                            id="{{ $permission->id . $data->id . 'permissions' }}" type="checkbox"
+                                            value="{{ $permission->id }}"
+                                            {{ isset($attachedPermissionsArrayIds[$data->id]) && in_array($permission->id, $attachedPermissionsArrayIds[$data->id]) ? 'checked="checked"' : '' }}>
+                                        <label class=""
+                                            for="{{ $permission->id . $data->id . 'permissions' }}">{{ $permission->display_name }}</label>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
+
                 </div>
                 <div class="card-footer text-right">
                     <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>

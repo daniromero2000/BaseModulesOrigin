@@ -5,6 +5,7 @@ namespace Modules\Companies\Entities\EmployeePositions;
 use Modules\Companies\Entities\Employees\Employee;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Companies\Entities\Departments\Department;
 
 class EmployeePosition extends Model
 {
@@ -12,7 +13,9 @@ class EmployeePosition extends Model
     protected $table = 'employee_positions';
 
     protected $fillable = [
-        'position'
+        'position',
+        'department_id',
+        'is_active'
     ];
 
     protected $hidden = [];
@@ -34,5 +37,10 @@ class EmployeePosition extends Model
     public function employees()
     {
         return $this->hasMany(Employee::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

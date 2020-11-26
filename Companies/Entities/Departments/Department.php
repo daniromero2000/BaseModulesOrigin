@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Companies\Entities\Companies\Company;
 use Modules\Companies\Entities\DepartmentsEmployees\DepartmentEmployee;
+use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Generals\Entities\Countries\Country;
 use Modules\Leads\Entities\LeadProducts\LeadProduct;
 use Modules\Leads\Entities\LeadServices\LeadService;
@@ -19,19 +20,15 @@ class Department extends Model
 
     protected $fillable = [
         'name',
-        'employee_id',
         'phone',
+        'company_id',
+        'is_active'
     ];
 
     protected $hidden = [
         'deleted_at',
         'created_at',
         'updated_at',
-        'city_id',
-        'city',
-        'employee_id',
-        'opening_hours',
-        'relevance',
     ];
 
     protected $guarded = [
@@ -39,7 +36,7 @@ class Department extends Model
         'created_at',
         'deleted_at',
         'updated_at',
-        'status'
+        'is_active'
     ];
 
     protected $dates  = [
@@ -78,5 +75,10 @@ class Department extends Model
     public function leadStatus()
     {
         return $this->belongsToMany(LeadStatus::class);
+    }
+
+    public function employeePositions()
+    {
+        return $this->hasMany(EmployeePosition::class);
     }
 }

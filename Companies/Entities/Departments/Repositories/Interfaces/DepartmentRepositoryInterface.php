@@ -8,5 +8,7 @@ interface DepartmentRepositoryInterface
 {
     public function getAllDepartmentNames($select = ['*']);
 
+    public function geDepartmentNamesForCompany($select = ['*']);
+
     public function findDepartmentById($id);
 }

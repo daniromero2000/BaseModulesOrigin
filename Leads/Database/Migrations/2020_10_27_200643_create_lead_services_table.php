@@ -18,6 +18,7 @@ class CreateLeadServicesTable extends Migration
             $table->string('service');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

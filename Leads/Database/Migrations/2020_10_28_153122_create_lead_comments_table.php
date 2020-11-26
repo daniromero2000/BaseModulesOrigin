@@ -21,6 +21,7 @@ class CreateLeadCommentsTable extends Migration
             $table->foreign('lead_id')->references('id')->on('leads');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

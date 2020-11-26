@@ -21,16 +21,20 @@
 
 <section class="content">
     @include('generals::layouts.errors-and-messages')
-    <div class="box crud-box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
+    <div class="card">
         <form action="{{ route('admin.roles.store') }}" method="post" class="form">
-            <div class="box-body">
+            <div class="card-body">
                 @csrf
-                <div class="form-group">
-                    <label for="display_name">Nombre <span class="text-danger">*</span></label>
+                 <div class="form-group">
+                    <label for="name">Nombre <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-at"></i>
-                        </div>
+                        <input type="text" name="name" id="name" validation-pattern="name"
+                            placeholder="Nombre" class="form-control" value="{{ old('display_name') }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="display_name">Nombre a mostrar <span class="text-danger">*</span></label>
+                    <div class="input-group">
                         <input type="text" name="display_name" id="display_name" validation-pattern="name"
                             placeholder="Nombre" class="form-control" value="{{ old('display_name') }}" required>
                     </div>
@@ -42,12 +46,10 @@
                 </div>
             </div>
 
-            <div class="box-footer">
+            <div class="card-footer text-right">
                 <div class="btn-group">
-                    <div class="btn-group">
-                        <a href="{{ route('admin.roles.index') }}" class="btn btn-default">Regresar</a>
-                        <button type="submit" class="btn btn-primary">Crear</button>
-                    </div>
+                        <a href="{{ route('admin.roles.index') }}" class="btn btn-default btn-sm">Regresar</a>
+                        <button type="submit" class="btn btn-primary btn-sm">Crear</button>
                 </div>
             </div>
         </form>

@@ -119,8 +119,8 @@ class EmployeeController extends Controller
             'max'                => $maxPage,
             'paginate'           => $paginate,
             'roles'              => $this->roleInterface->getAllRoleNames(),
-            'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
-            'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
+            'all_departments'    => $this->departmentInterface->geDepartmentNamesForCompany(),
+            'employee_positions' => $this->employeePositionInterface->getEmployeePositionNamesForCompany(),
         ]);
     }
 
@@ -128,28 +128,42 @@ class EmployeeController extends Controller
     {
         return view('companies::admin.employees.create', [
             'roles'              => $this->roleInterface->getAllRoleNames(),
-            'departments'        => $this->departmentInterface->getAllDepartmentNames(),
-            'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
+            'departments'        => $this->departmentInterface->geDepartmentNamesForCompany(),
+            'employee_positions' => $this->employeePositionInterface->getEmployeePositionNamesForCompany(),
             'subsidiaries'       => $this->subsidiaryInterface->getSubsidiaryForCompany(auth()->guard('employee')->user()->company_id),
-            'companies'          => $this->companyInterface->listCompaniesActives()
+            'companies'          => $this->companyInterface->listCompaniesActives(),
+            'all_departments'    => $this->departmentInterface->geDepartmentNamesForCompany(),
         ]);
     }
 
     public function store(CreateEmployeeRequest $request)
     {
-        // $customer = $this->customerInterface->createCustomer($request->except('_token', '_method'));
+        if(is_null($request->input('company_id'))){
+            $request->merge(['company_id' => auth()->guard('employee')->user()->company_id]);
+        }
         $employee = $this->employeeInterface->createEmployee($request->all());
         $data = [
             'employee_id' => $employee->id,
-            'status' => 'Creado',
-            'user_id' => auth()->guard('employee')->user()->id,
+            'status'      => 'Creado',
+            'user_id'     => auth()->guard('employee')->user()->id,
         ];
 
         $this->employeeStatusesLogInterface->createEmployeeStatusesLog($data);
+        $isCurrentUser = $this->employeeInterface->isAuthUser($employee);
 
-        if ($request->has('role')) {
-            $employeeRepo = new EmployeeRepository($employee);
-            $employeeRepo->syncRoles([$request->input('role')]);
+        if ($request->has('password') && !empty($request->input('password'))) {
+            $employee->password = Hash::make($request->input('password'));
+            $employee->save();
+        }
+
+        if ($request->has('roles') and !$isCurrentUser) {
+            $employee->roles()->sync($request->input('roles'));
+        } elseif (!$isCurrentUser) {
+            $employee->roles()->detach();
+        }
+
+        if ($request->has('department_id')) {
+            $employee->department()->sync($request->input('department_id'));
         }
 
         return redirect()->route('admin.employees.index')
@@ -167,8 +181,8 @@ class EmployeeController extends Controller
                 'housings'           => $this->housingInterface->getAllHousingsNames(),
                 'epss'               => $this->epsInterface->getAllEpsNames(),
                 'professions_lists'  => $this->professionsListInterface->getAllProfessionsNames(),
-                'employee_positions' => $this->employeePositionInterface->getAllEmployeePositionNames(),
-                'all_departments'    => $this->departmentInterface->getAllDepartmentNames(),
+                'employee_positions' => $this->employeePositionInterface->getEmployeePositionNamesForCompany(),
+                'all_departments'    => $this->departmentInterface->geDepartmentNamesForCompany(),
                 'roles'              => $this->roleInterface->getAllRoleNames(),
             ]);
         } catch (EmployeeNotFoundException $e) {
@@ -185,9 +199,9 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployeeRequest $request, $id)
     {
-        $employee = $this->employeeInterface->findEmployeeById($id);
+        $employee      = $this->employeeInterface->findEmployeeById($id);
         $isCurrentUser = $this->employeeInterface->isAuthUser($employee);
-        $empRepo = new EmployeeRepository($employee);
+        $empRepo       = new EmployeeRepository($employee);
         $empRepo->updateEmployee($request->except('_token', '_method', 'password'));
 
         if ($request->has('password') && !empty($request->input('password'))) {
@@ -200,6 +214,7 @@ class EmployeeController extends Controller
         } elseif (!$isCurrentUser) {
             $employee->roles()->detach();
         }
+
         if ($request->has('department_id')) {
             $employee->department()->sync($request->input('department_id'));
         }

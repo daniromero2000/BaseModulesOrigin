@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('last_name');
-            $table->string('email')->unique()->nullable()->default('Sin Email');
+            $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->date('birthday')->nullable();
             $table->integer('genre_id')->unsigned()->nullable();
@@ -30,10 +30,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('employee_position_id')->unsigned();
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->char('rh')->nullable()->default('No RH');
-            $table->string('bank_account')->unique()->nullable()->default('No Cuenta');
-            $table->string('work_schedule')->nullable()->default('No Turno');
             $table->date('admission_date')->nullable();
-            $table->tinyInteger('is_rotative')->unsigned()->default(0);
             $table->integer('customer_id')->unsigned()->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->dateTime('last_login_at')->nullable();

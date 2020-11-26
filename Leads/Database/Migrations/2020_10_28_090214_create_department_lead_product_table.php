@@ -13,7 +13,7 @@ class CreateDepartmentLeadProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('department_lead_products', function (Blueprint $table) {
+        Schema::create('department_lead_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('department_id')->unsigned();
             $table->integer('lead_product_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateDepartmentLeadProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department_lead_products');
+        Schema::dropIfExists('department_lead_product');
     }
 }

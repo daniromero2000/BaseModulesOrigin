@@ -18,6 +18,7 @@ class CreateLeadChannelsTable extends Migration
             $table->string('channel');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

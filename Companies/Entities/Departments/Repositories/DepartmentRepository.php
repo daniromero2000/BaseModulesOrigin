@@ -27,6 +27,18 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         }
     }
 
+    public function geDepartmentNamesForCompany($select = ['*'])
+    {
+        $company = auth()->guard('employee')->user()->company_id;
+        try {
+            return $this->model->where('company_id', $company)
+                ->orderBy('name', 'desc')
+                ->get($select);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function findDepartmentById($id)
     {
         try {

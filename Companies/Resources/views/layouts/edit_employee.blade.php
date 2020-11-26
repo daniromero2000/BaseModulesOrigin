@@ -79,7 +79,7 @@
                                     <select name="department_id" id="department_id" class="form-control">
                                         @foreach ($all_departments as $department)
                                             <option
-                                                {{ $data->department[0]->id == $department->id ? 'selected="selected"' : '' }}
+                                                {{ !empty($data->department->toArray()) ? ($data->department[0]->id == $department->id ? 'selected="selected"' : '') : '' }}
                                                 value="{{ $department->id }}">
                                                 {{ $department->name }}
                                             </option>
@@ -129,7 +129,7 @@
                             @include('generals::admin.shared.status-select', ['status' => $data->is_active])
                         </div>
                         <div class="col-sm-12 mt-3">
-                            <label class="form-control-label" for="password">Rol</label>
+                            <label class="form-control-label" for="">Rol</label>
                             @include('generals::admin.shared.roles', ['roles' => $roles, 'selectedIds' =>
                             $data->roles()->pluck('role_id')->all()])
                         </div>

@@ -18,7 +18,6 @@
                             <th scope="col">Email Usuario</th>
                             <th scope="col">Sucursal</th>
                             <th scope="col">RH</th>
-                            <th scope="col">Cuenta Bancaria</th>
                             <th scope="col">Roles</th>
                         </tr>
                     </thead>
@@ -27,7 +26,6 @@
                             <td>{{ $employee->email }}</td>
                             <td>{{ $employee->subsidiary->name }}</td>
                             <td>{{ $employee->rh }}</td>
-                            <td>{{ $employee->bank_account }}</td>
                             <td>
                                 {{ $employee->roles()->get()->implode('display_name', ', ') }}
                             </td>
@@ -36,8 +34,6 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Fecha de Nacimiento</th>
-                            <th scope="col">Turno</th>
-                            <th scope="col">Rota?</th>
                             <th scope="col">Inicio Labores</th>
                             <th scope="col">Última Sesión</th>
                         </tr>
@@ -45,9 +41,6 @@
                     <tbody class="list">
                         <tr>
                             <td>{{ date('M d, Y h:i a', strtotime($employee->birthday)) }} </td>
-                            <td>{{ $employee->work_schedule }}</td>
-                            <td> @if ($employee->is_rotative == 0) No @endif
-                                @if ($employee->is_rotative == 1) Sí @endif</td>
                             <td>{{ date('M d, Y h:i a', strtotime($employee->admission_date)) }}</td>
                             <td>{{ date('M d, Y h:i a', strtotime($employee->last_login_at)) }}</td>
                         </tr>

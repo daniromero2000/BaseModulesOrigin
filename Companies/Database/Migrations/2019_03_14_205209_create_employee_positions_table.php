@@ -15,7 +15,7 @@ class CreateEmployeePositionsTable extends Migration
     {
         Schema::create('employee_positions', function (Blueprint $table) {
             $table->Increments('id');
-            $table->string('position')->unique();
+            $table->string('position');
             $table->integer('department_id')->unsigned()->index();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->tinyInteger('is_active')->unsigned()->default(1);

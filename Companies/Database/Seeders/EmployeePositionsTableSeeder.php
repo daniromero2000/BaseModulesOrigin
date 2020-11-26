@@ -16,6 +16,11 @@ class EmployeePositionsTableSeeder extends Seeder
         ]);
 
         factory(EmployeePosition::class)->create([
+            'position' => 'Asesor',
+            'department_id' => 9
+        ]);
+
+        factory(EmployeePosition::class)->create([
             'position' => 'Promotor',
             'department_id' => 9
         ]);
@@ -119,5 +124,16 @@ class EmployeePositionsTableSeeder extends Seeder
             'position' => 'Administrador de sede',
             'department_id' => 2
         ]);
+
+        factory(EmployeePosition::class)->create([
+            'position' => 'Lider',
+            'department_id' => 17
+        ]);
+
+        factory(EmployeePosition::class)->create([
+            'position' => 'Asesor',
+            'department_id' => 17
+        ]);
+
     }
 }

@@ -143,6 +143,14 @@ class ModulesActionsTableSeeder extends Seeder
 
         factory(Action::class)->create([
             'permission_id' => 4,
+            'name'          => 'Asignar accion',
+            'icon'          => 'fas fa-check-double',
+            'route'         => 'admin.actions.asigne',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 4,
             'name'          => 'Borrar Rol',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.roles.destroy',
@@ -378,206 +386,9 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Acciones Módulo Productos
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Ver Productos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.products.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'      => 'Crear Producto',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.products.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Editar Producto',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.products.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Ver Producto',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.Products.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 11,
-            'name'          => 'Borrar Producto',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.product.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Categorías
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Ver Categorías',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.categories.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'      => 'Crear Categoría',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.categories.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Editar Categoría',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.categories.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Ver Categoría',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.categories.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 12,
-            'name'          => 'Borrar Categoría',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.categories.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Atributos
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Ver Atributos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.attributes.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'      => 'Crear Atributo',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.attributes.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Editar Atributo',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.attributes.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Ver Atributo',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.attributes.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 13,
-            'name'          => 'Borrar Atributo',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.attributes.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Marcas
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Ver Marcas',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.brands.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'      => 'Crear Marca',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.brands.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Editar Marca',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.brands.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Ver Marca',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.brands.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 14,
-            'name'          => 'Borrar Marca',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.brands.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Ordenes
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Ver Ordenes',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.orders.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Editar Orden',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.orders.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Ver Orden',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.orders.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 15,
-            'name'          => 'Borrar Orden',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.orders.destroy',
-            'principal'     => 0
-        ]);
-
         // Acciones Módulo cursos
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 11,
             'name'          => 'Ver Cursos',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.courses.index',
@@ -585,7 +396,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 11,
             'name'      => 'Crear Curso',
             'icon'      => 'fas fa-plus',
             'route'     => 'admin.courses.create',
@@ -593,7 +404,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 11,
             'name'          => 'Editar Curso',
             'icon'          => 'fas fa-edit',
             'route'         => 'admin.courses.edit',
@@ -601,7 +412,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 11,
             'name'          => 'Ver Curso',
             'icon'          => 'fas fa-search',
             'route'         => 'admin.courses.show',
@@ -609,7 +420,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 11,
             'name'          => 'Borrar Curso',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.courses.destroy',
@@ -618,7 +429,7 @@ class ModulesActionsTableSeeder extends Seeder
 
         // Acciones Módulo estudiantes
         factory(Action::class)->create([
-            'permission_id' => 17,
+            'permission_id' => 12,
             'name'          => 'Ver Estudiantes',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.students.index',
@@ -626,7 +437,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 17,
+            'permission_id' => 12,
             'name'      => 'Crear Estudiante',
             'icon'      => 'fas fa-plus',
             'route'     => 'admin.students.create',
@@ -634,7 +445,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 17,
+            'permission_id' => 12,
             'name'          => 'Editar Estudiante',
             'icon'          => 'fas fa-edit',
             'route'         => 'admin.students.edit',
@@ -642,7 +453,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 17,
+            'permission_id' => 12,
             'name'          => 'Ver Estudiante',
             'icon'          => 'fas fa-search',
             'route'         => 'admin.students.show',
@@ -650,7 +461,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 17,
+            'permission_id' => 12,
             'name'          => 'Borrar Estudiante',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.students.destroy',
@@ -659,165 +470,16 @@ class ModulesActionsTableSeeder extends Seeder
 
         // Acciones Módulo Asistencias Cursos
         factory(Action::class)->create([
-            'permission_id' => 18,
+            'permission_id' => 13,
             'name'          => 'Ver Asistencias',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.course_attendances.index',
             'principal'     => 1
         ]);
 
-        // Acciones Módulo wishlists
-        factory(Action::class)->create([
-            'permission_id' => 19,
-            'name'          => 'Ver Wishlists',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.wishlists.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 19,
-            'name'          => 'Ver Wishlist',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.wishlists.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 20,
-            'name'          => 'Borrar Wishlist',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.wishlists.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Checkouts
-        factory(Action::class)->create([
-            'permission_id' => 20,
-            'name'          => 'Ver Checkouts',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.checkouts.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 20,
-            'name'          => 'Ver Checkout',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.checkouts.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 20,
-            'name'          => 'Borrar Checkout',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.checkouts.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo despacho de ordenes
-        factory(Action::class)->create([
-            'permission_id' => 21,
-            'name'          => 'Ver Despachos',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.order-shipments.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 21,
-            'name'          => 'Editar Despacho',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.order-shipments.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 21,
-            'name'          => 'Ver Despacho',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.order-shipments.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 21,
-            'name'          => 'Borrar Despacho',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.order-shipments.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo calificacion de producto
-        factory(Action::class)->create([
-            'permission_id' => 22,
-            'name'          => 'Ver Calificaciones',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.product-reviews.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 22,
-            'name'          => 'Ver Calificacion',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.product-reviews.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 22,
-            'name'          => 'Borrar Calificacion',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.product-reviews.destroy',
-            'principal'     => 0
-        ]);
-
-        // Acciones Módulo Libranza 
-        factory(Action::class)->create([
-            'permission_id' => 23,
-            'name'          => 'Ver Cotizaciones',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.libranza-quotations.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 23,
-            'name'      => 'Crear Cotizaciones',
-            'icon'      => 'fas fa-plus',
-            'route'     => 'admin.libranza-quotations.create',
-            'principal' => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 23,
-            'name'          => 'Editar Cotizaciones',
-            'icon'          => 'fas fa-edit',
-            'route'         => 'admin.libranza-quotations.edit',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 23,
-            'name'          => 'Ver Cotizaciones',
-            'icon'          => 'fas fa-search',
-            'route'         => 'admin.libranza-quotations.show',
-            'principal'     => 0
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 23,
-            'name'          => 'Borrar Cotizaciones',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.libranza-quotations.destroy',
-            'principal'     => 0
-        ]);
-
         // Acciones Módulo leads
         factory(Action::class)->create([
-            'permission_id' => 24,
+            'permission_id' => 14,
             'name'          => 'Ver Leads',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.leads.index',
@@ -825,7 +487,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 24,
+            'permission_id' => 14,
             'name'      => 'Crear Lead',
             'icon'      => 'fas fa-plus',
             'route'     => 'admin.leads.create',
@@ -833,7 +495,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 24,
+            'permission_id' => 14,
             'name'          => 'Editar Lead',
             'icon'          => 'fas fa-edit',
             'route'         => 'admin.leads.edit',
@@ -841,7 +503,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 24,
+            'permission_id' => 14,
             'name'          => 'Ver Lead',
             'icon'          => 'fas fa-search',
             'route'         => 'admin.leads.show',
@@ -849,110 +511,27 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 24,
+            'permission_id' => 14,
+            'name'          => 'Asignar Lead',
+            'icon'          => 'fas fa-check-double',
+            'route'         => 'admin.leads.asigne',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'          => 'Crear Comentario',
+            'icon'          => 'fas fa-comments',
+            'route'         => 'admin.leads.comments',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 14,
             'name'          => 'Borrar Lead',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.leads.destroy',
             'principal'     => 0
         ]);
-
-        // Acciones Módulo Newsletters Subscriptions
-        factory(Action::class)->create([
-            'permission_id' => 25,
-            'name'          => 'Ver Subscripciones',
-            'icon'          => 'fas fa-eye',
-            'route'         => 'admin.newsletter-subscription.index',
-            'principal'     => 1
-        ]);
-
-        factory(Action::class)->create([
-            'permission_id' => 25,
-            'name'          => 'Borrar Subscripción',
-            'icon'          => 'fas fa-times',
-            'route'         => 'admin.newsletter-subscription.destroy',
-            'principal'     => 0
-        ]);
-
-        // // Acciones Módulo Entrevistas
-        // factory(Action::class)->create([
-        //     'permission_id' => 26,
-        //     'name'          => 'Ver Entrevistas',
-        //     'icon'          => 'fas fa-eye',
-        //     'route'         => 'admin.interviews.index',
-        //     'principal'     => 1
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 26,
-        //     'name'      => 'Crear Entrevista',
-        //     'icon'      => 'fas fa-plus',
-        //     'route'     => 'admin.interviews.create',
-        //     'principal' => 1
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 26,
-        //     'name'          => 'Editar Entrevista',
-        //     'icon'          => 'fas fa-edit',
-        //     'route'         => 'admin.interviews.edit',
-        //     'principal'     => 0
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 26,
-        //     'name'          => 'Ver Entrevista',
-        //     'icon'          => 'fas fa-search',
-        //     'route'         => 'admin.interviews.show',
-        //     'principal'     => 0
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 26,
-        //     'name'          => 'Borrar Entrevista',
-        //     'icon'          => 'fas fa-times',
-        //     'route'         => 'admin.interviews.destroy',
-        //     'principal'     => 0
-        // ]);
-
-        // // Acciones Módulo esstados Entrevistas
-        // factory(Action::class)->create([
-        //     'permission_id' => 27,
-        //     'name'          => 'Ver Estados Entrevistas',
-        //     'icon'          => 'fas fa-eye',
-        //     'route'         => 'admin.interview-statuses.index',
-        //     'principal'     => 1
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 27,
-        //     'name'      => 'Crear Estado Entrevista',
-        //     'icon'      => 'fas fa-plus',
-        //     'route'     => 'admin.interview-statuses.create',
-        //     'principal' => 1
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 27,
-        //     'name'          => 'Editar Estado Entrevista',
-        //     'icon'          => 'fas fa-edit',
-        //     'route'         => 'admin.interview-statuses.edit',
-        //     'principal'     => 0
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 27,
-        //     'name'          => 'Ver Estado Entrevista',
-        //     'icon'          => 'fas fa-search',
-        //     'route'         => 'admin.interview-statuses.show',
-        //     'principal'     => 0
-        // ]);
-
-        // factory(Action::class)->create([
-        //     'permission_id' => 27,
-        //     'name'          => 'Borrar Estado Entrevista',
-        //     'icon'          => 'fas fa-times',
-        //     'route'         => 'admin.interview-statuses.destroy',
-        //     'principal'     => 0
-        // ]);
     }
 }

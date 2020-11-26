@@ -64,6 +64,17 @@
                             </div>
                         </div>
                     </div>
+
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="principal">Es una accion principal? <span
+                                    class="text-danger">*</span></label>
+                             <select class="form-control" name="principal" id="principal">
+                                <option value="0">No</option>
+                                <option value="1">Si</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="form-control-label" for="icon">Ruta <span class="text-danger">*</span></label>
@@ -78,11 +89,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer text-right">
                 <div class="btn-group">
                     <div class="btn-group">
-                        <a href="{{ route('admin.permissions.index') }}" class="btn btn-default">Regresar</a>
-                        <button type="submit" class="btn btn-primary">Crear</button>
+                        <a href="{{ route('admin.permissions.index') }}" class="btn btn-sm btn-default">Regresar</a>
+                        <button type="submit" class="btn btn-primary btn-sm">Crear</button>
                     </div>
                 </div>
             </div>

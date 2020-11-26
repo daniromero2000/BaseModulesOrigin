@@ -76,6 +76,13 @@ class CompanyController extends Controller
         return redirect()->route('admin.companies.index');
     }
 
+    public function getDepartments(Request $request, $id)
+    {
+        $company = $this->companyInterface->findCompanyById($id);
+
+        return $company->deparments;
+    }
+
     public function destroy(int $id)
     {
         $company = new CompanyRepository($this->companyInterface->findCompanyById($id));
