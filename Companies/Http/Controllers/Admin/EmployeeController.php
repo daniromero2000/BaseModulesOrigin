@@ -239,7 +239,7 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function updateProfile(UpdateEmployeeRequest $request, $id)
+    public function updateProfile(Request $request, $id)
     {
         $employee = $this->employeeInterface->findEmployeeById($id);
         $update = new EmployeeRepository($employee);

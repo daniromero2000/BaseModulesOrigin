@@ -73,7 +73,7 @@ class LeadsController extends Controller
             }
 
             $cont = 0;
-
+            ini_set('memory_limit', "700M");
             foreach ($list as $key => $value) {
                 $cont++;
                 if ($cont == 1) {

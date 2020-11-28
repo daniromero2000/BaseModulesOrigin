@@ -25,7 +25,7 @@
                                       <div class="mt-3 mb-3">
                                           <span class="badge badge-pill "
                                               style="color: {{ $data->status ? $data->status->color : '' }}; background:{{ $data->status ? $data->status->background : '' }}">
-                                              {{ $lead->created_at->diffForHumans($data->created_at) }} de ser
+                                              {{ $lead->created_at->diffInHours($data->created_at) }} Horas despues de ser
                                               creado</span>
                                       </div>
                                   </div>

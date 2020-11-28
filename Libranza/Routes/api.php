@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/libranza', function (Request $request) {
-    return $request->user();
+Route::namespace('Front')->group(function () {
+    Route::namespace('libranzaController')->group(function () {
+        Route::post('formulario-credito-libranza', 'LibranzaController@storeProduct')->name('api-form-credit-libranza');
+    });
 });

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
+use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
 
 class LibranzaController extends Controller
 {
@@ -17,12 +18,14 @@ class LibranzaController extends Controller
     public function __construct(
         CityRepositoryInterface $cityRepositoryInterface,
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
-        LeadRepositoryInterface $LeadRepositoryInterface
-
+        LeadRepositoryInterface $LeadRepositoryInterface,
+        LeadProductRepositoryInterface $leadProductRepositoryInterface
     ) {
-        $this->cityInterface  = $cityRepositoryInterface;
+        $this->cityInterface             = $cityRepositoryInterface;
         $this->leadInterface             = $LeadRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
+        $this->leadProductInterface      = $leadProductRepositoryInterface;
+
     }
 
     public function subForm()
@@ -30,6 +33,20 @@ class LibranzaController extends Controller
         return view('libranza.front.form_libranza', [
             'cities' => $this->cityInterface->listCitiesFront()
         ]);
+    }
+
+    public function creditForm()
+    {
+        return view('libranza.front.form_libranza', [
+            'cities' => $this->cityInterface->listCitiesFront()
+        ]);
+    }
+
+    public function storeProduct(Request $request)
+    {
+        $this->leadProductInterface->findProductForName($request->input('product_line'));
+        
+        return route('form-credit-libranza', ['amount' => $request->input('amount'), 'lead_product_id' => $request->input('product_line')]);
     }
 
     public function thankYou()

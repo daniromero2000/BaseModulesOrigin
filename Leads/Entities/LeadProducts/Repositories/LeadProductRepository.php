@@ -31,4 +31,13 @@ class LeadProductRepository implements LeadProductRepositoryInterface
             abort(503, $e->getMessage());
         }
     }
+
+    public function findProductForName($id)
+    {
+        try {
+            return $this->model->where('product', $id)->first();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
 }

@@ -17,6 +17,7 @@ Route::namespace('Front')->group(function () {
     Route::namespace('libranzaController')->group(function () {
         Route::resource('libranza', 'LibranzaController');
         Route::get('formulario-libranza', 'LibranzaController@subForm')->name('form-libranza');
+        Route::get('formulario-credito-libranza', 'LibranzaController@creditForm')->name('form-credit-libranza');
         Route::get('thank-you-page', 'LibranzaController@thankYou')->name('thank.you.page');
     });
     Route::namespace('benefitController')->group(function () {
