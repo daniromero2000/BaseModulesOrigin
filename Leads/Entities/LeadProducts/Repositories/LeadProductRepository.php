@@ -5,6 +5,7 @@ namespace Modules\Leads\Entities\LeadProducts\Repositories;
 use Modules\Leads\Entities\LeadProducts\LeadProduct;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\Builder;
 
 class LeadProductRepository implements LeadProductRepositoryInterface
 {
@@ -32,6 +33,15 @@ class LeadProductRepository implements LeadProductRepositoryInterface
         }
     }
 
+    public function createLeadProduct(array $data): LeadProduct
+    {
+        try {
+            return $this->model->create($data);
+        } catch (QueryException $e) {
+            dd($e);
+        }
+    }
+
     public function findProductForName($id)
     {
         try {
@@ -39,5 +49,21 @@ class LeadProductRepository implements LeadProductRepositoryInterface
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }
+    }
+
+    public function getProductsForDepartment($id)
+    {
+        try {
+            return $this->model->whereHas('departments', function (Builder $query) use ($id) {
+                $query->where('departments.id', $id);
+            })->get();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function syncDeparments(array $ids)
+    {
+        $this->model->departments()->sync($ids);
     }
 }

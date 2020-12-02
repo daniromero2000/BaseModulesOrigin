@@ -2,7 +2,7 @@
 
 namespace Modules\Leads\Entities\LeadProducts;
 
-use Modules\Leads\Entities\LeadAreas\LeadArea;
+use Modules\Companies\Entities\Departments\Department;
 use Illuminate\Database\Eloquent\Model;
 
 class LeadProduct extends Model
@@ -26,8 +26,8 @@ class LeadProduct extends Model
         'deleted_at'
     ];
 
-    public function leadArea()
+    public function departments()
     {
-        return $this->belongsToMany(LeadArea::class)->withTimestamps();
+        return $this->belongsToMany(Department::class);
     }
 }

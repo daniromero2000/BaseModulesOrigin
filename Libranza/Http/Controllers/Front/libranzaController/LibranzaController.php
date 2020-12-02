@@ -9,6 +9,7 @@ use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInter
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
+use Modules\Leads\Entities\LeadProducts\Repositories\LeadProductRepository;
 
 class LibranzaController extends Controller
 {
@@ -25,28 +26,42 @@ class LibranzaController extends Controller
         $this->leadInterface             = $LeadRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->leadProductInterface      = $leadProductRepositoryInterface;
-
     }
 
     public function subForm()
     {
-        return view('libranza.front.form_libranza', [
-            'cities' => $this->cityInterface->listCitiesFront()
-        ]);
-    }
+        if (request()->input()) {
+            $leadProduct = $this->leadProductInterface->findProductForName(request()->input('linea'));
+            try {
+                if (!$leadProduct) {
+                    $data = [
+                        'product' => request()->input('linea'),
+                        'is_active' => '1'
+                    ];
 
-    public function creditForm()
-    {
-        return view('libranza.front.form_libranza', [
-            'cities' => $this->cityInterface->listCitiesFront()
-        ]);
-    }
+                    $leadProduct = $this->leadProductInterface->createLeadProduct($data);
+                    $productRepo = new LeadProductRepository($this->leadProductInterface->findProductForName(request()->input('linea')));
+                    $productRepo->syncDeparments(['17']);
+                }
+            } catch (\Throwable $th) {
+            }
+        }
+        $amounts = [];
+        $price = 0;
+        for ($i=0; $i < 80; $i++) {
+            $price = $price + 1000000;
+            $amounts[] = $price;
+        }
 
-    public function storeProduct(Request $request)
-    {
-        $this->leadProductInterface->findProductForName($request->input('product_line'));
-        
-        return route('form-credit-libranza', ['amount' => $request->input('amount'), 'lead_product_id' => $request->input('product_line')]);
+        $products = $this->leadProductInterface->getProductsForDepartment('17');
+        $amountOrigin =  round(request()->input('monto'), -5, PHP_ROUND_HALF_UP);
+
+        return view('libranza.front.form_libranza', [
+            'cities'       => $this->cityInterface->listCitiesFront(),
+            'products'     => $products,
+            'amounts'      => $amounts,
+            'amountOrigin' => $amountOrigin
+        ]);
     }
 
     public function thankYou()
