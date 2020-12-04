@@ -84,7 +84,7 @@ class LibranzaController extends Controller
         $request->merge([
             'department_id' => 17,
             'lead_service_id' => 12,
-            'lead_product_id' => $request->input('lead_product_id') ? $request->input('lead_product_id') : 14,
+            'lead_product_id' => $request->input('lead_product_id') ? $request->input('lead_product_id') : 44,
             'lead_channel_id' => 1
         ]);
 
