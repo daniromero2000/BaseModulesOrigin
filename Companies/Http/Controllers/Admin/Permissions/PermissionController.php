@@ -42,29 +42,19 @@ class PermissionController extends Controller
             $list = $this->permissionInterface->listPermissions($skip * 30);
         }
 
-        $paginate = ceil($paginate  / 30);
-        $skipPaginate = $skip;
-
-        $pageList = ($skipPaginate + 1) / 5;
-        if (is_int($pageList) || $pageList > 1) {
-            $countPage = $skipPaginate - 5;
-            $maxPage = $skipPaginate + 6 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 6;
-        } else {
-            $countPage = 0;
-            $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
-        }
+        $getPaginate = $this->toolsInterface->getPaginate($paginate, $skip);
 
         return view('companies::admin.permissions.list', [
             'permissions'   => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip'          => $skip,
-            'searchInputs'    => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
+            'searchInputs'  => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'headers'       => ['ID', 'Nombre', 'Nombre Display',  'Icono', 'Descripción', 'Opciones',],
             'skip'          => $skip,
-            'pag'           => $pageList,
-            'i'             => $countPage,
-            'max'           => $maxPage,
-            'paginate'      => $paginate
+            'paginate'      => $getPaginate['paginate'],
+            'position'      => $getPaginate['position'],
+            'page'          => $getPaginate['page'],
+            'limit'         => $getPaginate['limit']
         ]);
     }
 

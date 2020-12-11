@@ -133,13 +133,9 @@ class ProductController extends Controller
         })->sum();
 
         if (request()->has('delete') && request()->has('pa')) {
-            // dd(request()->input('pa'));
-
             $pa = $productAttributes->where('id', request()->input('pa'))->first();
-            // dd($pa);
             $pa->attributesValues()->detach();
             $pa->delete();
-
             request()->session()->flash('message', 'Delete successful');
             return redirect()->route('admin.products.edit', [$product->id]);
         }

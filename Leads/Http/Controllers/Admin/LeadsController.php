@@ -136,28 +136,17 @@ class LeadsController extends Controller
             $list = $this->leadInterface->listLeads($skip * 30, $userDepartmet);
         }
 
-        $paginate = ceil($paginate  / 30);
-
-        $skipPaginate = $skip;
-
-        $pageList = ($skipPaginate + 1) / 5;
-        if (is_int($pageList) || $pageList > 1) {
-            $countPage = $skipPaginate - 5;
-            $maxPage = $skipPaginate + 6 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 6;
-        } else {
-            $countPage = 0;
-            $maxPage = $skipPaginate + 5 > $paginate ? intval($skipPaginate + ($paginate - $skipPaginate)) : $skipPaginate + 5;
-        }
+        $getPaginate = $this->toolsInterface->getPaginate($paginate, $skip);
 
         return view('leads::admin.leads.list', [
             'leads'         => $list,
             'optionsRoutes' => 'admin.' . (request()->segment(2)),
             'skip'          => $skip,
-            'pag'           => $pageList,
-            'i'             => $countPage,
-            'max'           => $maxPage,
+            'paginate'      => $getPaginate['paginate'],
+            'position'      => $getPaginate['position'],
+            'page'          => $getPaginate['page'],
+            'limit'         => $getPaginate['limit'],
             'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
-            'paginate'      => $paginate,
             'inputsAssigne' => [
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],

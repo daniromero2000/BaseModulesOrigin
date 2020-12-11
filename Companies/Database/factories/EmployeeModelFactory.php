@@ -27,7 +27,6 @@ $factory->define(Employee::class, function (Faker\Generator $faker) {
         'company_id'           => 1,
         'password'             => $password ?: $password = bcrypt('secret'),
         'remember_token'       => str_random(10),
-        'rh'                   => 'O-',
-        'bank_account'         => str_random(10),
+        'rh'                   => 'O-'
     ];
 });

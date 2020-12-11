@@ -3,58 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css/front/carousel/glider.css')}}">
 <script src="{{ asset('js/front/carousel/glider.js')}}"></script>
 <script src="{{ asset('js/admin/carousel.js')}}"></script>
-<style type="text/css">
-    label.checkbox-inline {
-        padding: 10px 5px;
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    label.checkbox-inline>input[type="checkbox"] {
-        margin-left: 10px;
-    }
-
-    ul.attribute-lists>li {
-        margin-bottom: 10px;
-    }
-
-    .center {
-        left: 50%;
-        transform: translateX(0) !important;
-    }
-
-    .info-tooltip {
-        position: absolute;
-        top: 3px;
-        right: 18px;
-        border-radius: 20px;
-        background: #5e72e4;
-        width: 18px;
-        cursor: pointer;
-        font-size: 12px;
-        text-decoration: none;
-        color: white !important;
-    }
-
-    .relative {
-        position: relative;
-    }
-
-    .remove-img {
-        position: absolute;
-        top: 5px;
-        width: 29px;
-        right: 5px;
-    }
-
-    @media (max-width: 700px) {
-        .remove-img {
-            width: 0px;
-            padding-right: 12px;
-            right: 0px;
-            font-size: 8px;
-        }
-    }
+<style type="text/css">label.checkbox-inline{padding:10px 5px;display:block;margin-bottom:5px}label.checkbox-inline>input[type=checkbox]{margin-left:10px}ul.attribute-lists>li{margin-bottom:10px}.center{left:50%;transform:translateX(0)!important}.info-tooltip{position:absolute;top:3px;right:18px;border-radius:20px;background:#5e72e4;width:18px;cursor:pointer;font-size:12px;text-decoration:none;color:#fff!important}.relative{position:relative}.remove-img{position:absolute;top:5px;width:29px;right:5px}@media (max-width:700px){.remove-img{width:0;padding-right:12px;right:0;font-size:8px}}
 </style>
 @endsection
 @section('header')

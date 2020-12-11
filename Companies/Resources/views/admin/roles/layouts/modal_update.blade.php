@@ -59,8 +59,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="mb-3"> Permisos</h4>
-                        <div class="row">
+                        <div class="row mx-0">
+                            <h4 class="mb-3"> Permisos</h4>
                             @foreach ($permissions as $permission)
                                 <div class="px-1">
                                     <div class="custom-control custom-checkbox mb-3">

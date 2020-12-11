@@ -1,7 +1,3 @@
-@php
-$fechaActual = strtotime(date("Y-m-d"));
-$fechaMayorEdad = date("Y-m-d", strtotime("-18 years", $fechaActual));
-@endphp
 @extends('generals::layouts.admin.app')
 @section('header')
     <div class="header pb-2">

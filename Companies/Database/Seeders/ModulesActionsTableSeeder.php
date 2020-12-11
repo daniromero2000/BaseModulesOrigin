@@ -533,5 +533,87 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.leads.destroy',
             'principal'     => 0
         ]);
+
+        // Acciones Módulo Indicadores
+        factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Ver Indicadores',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.documents.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'      => 'Crear Indicador',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.documents.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Editar Indicador',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.documents.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Ver Indicador',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.documents.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Borrar Indicador',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.documents.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo Categorias de Indicadores
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Ver Categorias',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.document-categories.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'      => 'Crear Categoria',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.document-categories.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Editar Categoria',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.document-categories.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Ver Categoria',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.document-categories.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Borrar Categoria',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.document-categories.destroy',
+            'principal'     => 0
+        ]);
     }
 }

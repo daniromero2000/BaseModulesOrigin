@@ -14,6 +14,7 @@ use Modules\Companies\Entities\Actions\Exceptions\CreateActionErrorException;
 class ActionRepository implements ActionRepositoryInterface
 {
     protected $model;
+    
     private $columns = [
         'id',
         'permission_id',

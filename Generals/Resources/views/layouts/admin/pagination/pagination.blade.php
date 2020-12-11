@@ -1,6 +1,7 @@
-<nav aria-label=" ...">
+@if (isset($position))
+    <nav aria-label=" ...">
     <ul class="pagination justify-content-center mb-0 py-2">
-        @if ($i > 10)
+        @if ($position > 10)
         @php
         $searchPrev = request()->input();
         $searchPrev['skip'] = $skip - 10 ;
@@ -25,25 +26,25 @@
         $searchReset['skip'] = 0;
         @endphp
 
-        @if ($max > 11)
+        @if ($limit > 11)
         <li class="page-item "><a class="page-link " href="{{ route("$optionsRoutes.index", $searchReset)  }}">{{1}}</a>
         </li>...
         @endif
-        @for ($i; $i < ($max); $i++) <div>
+        @for ($position; $position < ($limit); $position++) <div>
             </div>
 
-            @php $search[$i]=request()->input();
-            $search[$i]['skip'] = ($skipPaginate = $i);
+            @php $search[$position]=request()->input();
+            $search[$position]['skip'] = ($skipPaginate = $position);
             @endphp
 
-            @if ($i >= 0)
-            <li class="page-item @if(request()->input('skip') == $i) active @endif">
-                <a class="page-link " href="{{ route("$optionsRoutes.index", $search[$i])  }}">{{$i + 1}}</a>
+            @if ($position >= 0)
+            <li class="page-item @if(request()->input('skip') == $position) active @endif">
+                <a class="page-link " href="{{ route("$optionsRoutes.index", $search[$position])  }}">{{$position + 1}}</a>
             </li>
             @endif
             @endfor
 
-            @if ($max < $paginate) ... @php $searchLast=request()->input();
+            @if ($limit < $paginate) ... @php $searchLast=request()->input();
                 $searchLast['skip'] = $paginate - 1;
                 @endphp <li class="page-item "><a class="page-link "
                         href="{{ route("$optionsRoutes.index", $searchLast)  }}">{{$paginate}}</a>
@@ -73,3 +74,4 @@
                     @endif
     </ul>
 </nav>
+@endif
