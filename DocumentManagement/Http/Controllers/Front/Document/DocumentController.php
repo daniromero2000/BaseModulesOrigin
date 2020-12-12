@@ -38,6 +38,8 @@ class DocumentController extends Controller
             return Response::download($file, $data->name . '.pdf', $headers);
         }
 
+
+
         $data = $this->documentCategoryInterface->findDocumentCategoriesForCompany(1);
 
         $categories = [];
@@ -46,7 +48,8 @@ class DocumentController extends Controller
         }
 
         return view('libranza.front.information.finances', [
-            'categories' => $categories
+            'categories' => $categories,
+            'active'     => '2020'
         ]);
     }
 
