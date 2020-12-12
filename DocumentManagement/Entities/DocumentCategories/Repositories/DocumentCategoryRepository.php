@@ -33,7 +33,7 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
     public function listDocumentCategories($totalView): Support
     {
         try {
-            return  $this->model->orderBy('created_at', 'asc')
+            return  $this->model->orderBy('created_at', 'desc')
                 ->skip($totalView)
                 ->take(30)
                 ->get($this->columns);
