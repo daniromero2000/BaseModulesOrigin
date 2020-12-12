@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Modules\DocumentManagement\Entities\Documents\Document;
 
 class DocumentCategory extends Authenticatable
 {
@@ -45,6 +46,11 @@ class DocumentCategory extends Authenticatable
     public function searchDocumentCategory($term)
     {
         return self::search($term);
+    }
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
     }
 
 }

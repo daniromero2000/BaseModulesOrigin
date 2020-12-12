@@ -3,7 +3,6 @@
 namespace Modules\DocumentManagement\Entities\DocumentDocumentCategory;
 
 use Illuminate\Database\Eloquent\Model;
-
 class DocumentDocumentCategory extends Model
 {
 
@@ -12,4 +11,5 @@ class DocumentDocumentCategory extends Model
     protected $fillable = [
     ];
 
+   
 }

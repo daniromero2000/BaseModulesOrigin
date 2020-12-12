@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::namespace('Front')->group(function () {
+    Route::group([], function () {
+        Route::namespace('Document')->group(function () {
+            Route::resource('indicadores', 'DocumentController');
+        });
+    });
+});
+
+
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
         Route::group([], function () {

@@ -7,7 +7,6 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Modules\DocumentManagement\Entities\DocumentCategories\DocumentCategory;
 use Modules\DocumentManagement\Entities\DocumentDocumentCategory\DocumentDocumentCategory;
-
 class Document extends Model
 {
     use SoftDeletes, SearchableTrait;

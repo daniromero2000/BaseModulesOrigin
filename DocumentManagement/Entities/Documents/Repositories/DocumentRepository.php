@@ -56,7 +56,7 @@ class DocumentRepository implements DocumentRepositoryInterface
 
     public function saveDocumentFile(UploadedFile $file): string
     {
-        return $file->store('finances', ['disk' => 'public']);
+        return $file->store('documents', ['disk' => 'public']);
     }
 
     public function searchDocument(string $text = null, int $totalView, $from = null, $to = null): Collection
