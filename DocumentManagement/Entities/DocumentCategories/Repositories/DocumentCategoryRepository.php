@@ -119,7 +119,7 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
     public function findDocumentCategoriesForCompany(int $id): Collection
     {
         try {
-            return $this->model->where('company_id', $id)->get();
+            return $this->model->where('company_id', $id)->orderBy('created_at', 'desc')->get();
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());
         }
