@@ -29,6 +29,14 @@ class LibranzaController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->guard('api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'unauthenticated'
+            ]);
+        }
+        
         $data = $request->input();
 
         $validation = Validator::make($request->all(), [
