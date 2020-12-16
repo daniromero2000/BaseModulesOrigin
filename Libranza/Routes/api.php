@@ -17,19 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'leads'], function () {
     Route::namespace('Api')->group(function () {
         Route::namespace('libranzaController')->group(function () {
-            Route::group(['middleware' => 'auth:api'], function () {
+            Route::group(['middleware' => ['api']], function () {
                 Route::post('register', 'LibranzaController@store');
             });
         });
     });
 });
 
-Route::group(['prefix' => 'leads/test'], function () {
-    Route::namespace('Api')->group(function () {
-        Route::namespace('libranzaController')->group(function () {
-            Route::group(['middleware' => 'auth:api'], function () {
-                Route::post('register', 'LibranzaController@testStore');
-            });
-        });
-    });
-});
