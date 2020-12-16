@@ -14,8 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Front')->group(function () {
-    Route::namespace('libranzaController')->group(function () {
-        Route::post('formulario-credito-libranza', 'LibranzaController@storeProduct')->name('api-form-credit-libranza');
+Route::group(['prefix' => 'leads'], function () {
+    Route::namespace('Api')->group(function () {
+        Route::namespace('libranzaController')->group(function () {
+            Route::group(['middleware' => 'auth:api'], function () {
+                Route::post('register', 'LibranzaController@store');
+            });
+        });
+    });
+});
+
+Route::group(['prefix' => 'leads/test'], function () {
+    Route::namespace('Api')->group(function () {
+        Route::namespace('libranzaController')->group(function () {
+            Route::group(['middleware' => 'auth:api'], function () {
+                Route::post('register', 'LibranzaController@testStore');
+            });
+        });
     });
 });

@@ -78,6 +78,15 @@ class CityRepository implements CityRepositoryInterface
         }
     }
 
+    public function findCityByCode(int $id)
+    {
+        try {
+            return $this->model->where('dane', $id)->first($this->columns);
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function findCityByProvince(int $id)
     {
         try {
