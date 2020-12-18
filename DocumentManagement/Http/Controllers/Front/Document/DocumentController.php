@@ -38,8 +38,6 @@ class DocumentController extends Controller
             return Response::download($file, $data->name . '.pdf', $headers);
         }
 
-
-
         $data = $this->documentCategoryInterface->findDocumentCategoriesForCompany(1);
 
         $categories = [];
@@ -52,6 +50,33 @@ class DocumentController extends Controller
             'active'     => '2020'
         ]);
     }
+
+    public function regulation(Request $request)
+    {
+        if (request()->input()) {
+            $data = $this->documentInterface->findDocumentById(request()->input('id'));
+            $file = "storage/" . $data->src;
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            $data->downloads = $data->downloads + 1;
+            $data->update();
+            return Response::download($file, $data->name . '.pdf', $headers);
+        }
+
+        $data = $this->documentCategoryInterface->findDocumentCategoryForCompany(1, [6]);
+
+        $categories = [];
+        foreach ($data as $key => $item) {
+            $categories[$item->name] =  $item->documents;
+        }
+
+        return view('libranza.front.information.regulation', [
+            'categories' => $categories,
+            'active'     => '2020'
+        ]);
+    }
+
 
     public function show($id)
     {

@@ -18,6 +18,9 @@ Route::namespace('Front')->group(function () {
         Route::namespace('Document')->group(function () {
             Route::resource('indicadores', 'DocumentController');
         });
+        Route::namespace('Document')->group(function () {
+            Route::get('reglamento-producto-condiciones-credito', 'DocumentController@regulation')->name('regulation');
+        });
     });
 });
 
