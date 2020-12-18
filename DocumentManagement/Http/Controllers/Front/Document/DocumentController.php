@@ -38,7 +38,7 @@ class DocumentController extends Controller
             return Response::download($file, $data->name . '.pdf', $headers);
         }
 
-        $data = $this->documentCategoryInterface->findDocumentCategoriesForCompany(1);
+        $data = $this->documentCategoryInterface->findDocumentCategoriesForCompanyFront(1);
 
         $categories = [];
         foreach ($data as $key => $item) {
@@ -64,7 +64,7 @@ class DocumentController extends Controller
             return Response::download($file, $data->name . '.pdf', $headers);
         }
 
-        $data = $this->documentCategoryInterface->findDocumentCategoryForCompany(1, [6]);
+        $data = $this->documentCategoryInterface->findDocumentCategoryForCompany(1, 6);
 
         $categories = [];
         foreach ($data as $key => $item) {

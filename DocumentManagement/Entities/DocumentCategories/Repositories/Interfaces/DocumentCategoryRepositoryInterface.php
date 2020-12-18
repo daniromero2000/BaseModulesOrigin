@@ -20,6 +20,8 @@ interface DocumentCategoryRepositoryInterface
 
     public function findDocumentCategoriesForCompany(int $id): Collection;
 
+    public function findDocumentCategoriesForCompanyFront(int $id): Collection;
+
     public function findDocumentCategoryForCompany(int $id, $data): Collection;
 
     public function searchDocumentCategory(string $text = null, int $totalView, $from = null, $to = null): Collection;

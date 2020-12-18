@@ -116,7 +116,7 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
         }
     }
 
-    public function findDocumentCategoriesForCompany(int $id): Collection
+    public function findDocumentCategoriesForCompanyFront(int $id): Collection
     {
         try {
             return $this->model->where('company_id', $id)
@@ -127,11 +127,21 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
         }
     }
 
+    public function findDocumentCategoriesForCompany(int $id): Collection
+    {
+        try {
+            return $this->model->where('company_id', $id)
+                ->orderBy('created_at', 'desc')->get();
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function findDocumentCategoryForCompany(int $id, $data): Collection
     {
         try {
             return $this->model->where('company_id', $id)
-                ->whereIn('id', $data)
+                ->where('id', $data)
                 ->orderBy('created_at', 'desc')->get();
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());
