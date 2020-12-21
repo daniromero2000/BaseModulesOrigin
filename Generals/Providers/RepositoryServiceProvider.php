@@ -39,6 +39,8 @@ use Modules\Generals\Entities\EconomicActivityTypes\Repositories\Interfaces\Econ
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepository;
 use Illuminate\Support\ServiceProvider;
+use Modules\Generals\Entities\Covenants\Repositories\CovenantRepository;
+use Modules\Generals\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
 use Modules\Generals\Entities\ManagementStatuses\Repositories\Interfaces\ManagementStatusRepositoryInterface;
 use Modules\Generals\Entities\ManagementStatuses\Repositories\ManagementStatusRepository;
 
@@ -144,6 +146,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ManagementStatusRepositoryInterface::class,
             ManagementStatusRepository::class
+        );
+
+        $this->app->bind(
+            CovenantRepositoryInterface::class,
+            CovenantRepository::class
         );
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Modules\Generals\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
@@ -13,19 +14,20 @@ use Modules\Leads\Entities\LeadProducts\Repositories\LeadProductRepository;
 
 class LibranzaController extends Controller
 {
-
     private $cityInterface;
 
     public function __construct(
         CityRepositoryInterface $cityRepositoryInterface,
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
         LeadRepositoryInterface $LeadRepositoryInterface,
-        LeadProductRepositoryInterface $leadProductRepositoryInterface
+        LeadProductRepositoryInterface $leadProductRepositoryInterface,
+        CovenantRepositoryInterface $covenantRepositoryInterface
     ) {
         $this->cityInterface             = $cityRepositoryInterface;
         $this->leadInterface             = $LeadRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->leadProductInterface      = $leadProductRepositoryInterface;
+        $this->covenantInterface         = $covenantRepositoryInterface;
     }
 
     public function subForm()
@@ -58,6 +60,7 @@ class LibranzaController extends Controller
 
         return view('libranza.front.form_libranza', [
             'cities'       => $this->cityInterface->listCitiesFront(),
+            'covenants'     => $this->covenantInterface->getAllCovenantsNames(),
             'products'     => $products,
             'amounts'      => $amounts,
             'amountOrigin' => $amountOrigin
