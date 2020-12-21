@@ -122,6 +122,7 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
         try {
             return $this->model->where('company_id', $id)
                 ->where('id', '!=', 6)
+                ->where('id', '!=', 7)
                 ->orderBy('created_at', 'desc')->get();
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());
