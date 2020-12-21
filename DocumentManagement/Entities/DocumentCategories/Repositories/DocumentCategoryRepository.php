@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Modules\DocumentManagement\Entities\DocumentCategories\DocumentCategory;
 use Illuminate\Support\Collection as Support;
+use Illuminate\Database\Eloquent\Builder;
 
 class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
 {
@@ -140,8 +141,10 @@ class DocumentCategoryRepository implements DocumentCategoryRepositoryInterface
     public function findDocumentCategoryForCompany(int $id, $data): Collection
     {
         try {
-            return $this->model->where('company_id', $id)
-                ->where('id', $data)
+            return $this->model->where('company_id', $id)->where('id', $data)
+                ->whereHas('documents', function (Builder $query) {
+                    return $query->where('is_active', 1);
+                })
                 ->orderBy('created_at', 'desc')->get();
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());

@@ -50,7 +50,7 @@ class DocumentCategory extends Authenticatable
 
     public function documents()
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)->where('is_active', 1);
     }
 
 }
