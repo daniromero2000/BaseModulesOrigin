@@ -51,7 +51,5 @@ Route::namespace('Front')->group(function () {
     Route::get('/preguntas-frecuentes', function () {
         return view('libranza.front.information.frequent_questions');
     })->name('frequent.questions');
-    Route::get('/tasas-y-tarifas', function () {
-        return view('libranza.front.information.rates_and_fees');
-    })->name('rates_and_fees');
+  
 });

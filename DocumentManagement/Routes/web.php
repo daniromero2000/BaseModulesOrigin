@@ -20,7 +20,9 @@ Route::namespace('Front')->group(function () {
         });
         Route::namespace('Document')->group(function () {
             Route::get('reglamento-producto-condiciones-credito', 'DocumentController@regulation')->name('regulation');
+            Route::get('/tasas-y-tarifas', 'DocumentController@rates')->name('rates_and_fees'); 
         });
+       
     });
 });
 

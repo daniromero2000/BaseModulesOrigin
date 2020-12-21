@@ -77,6 +77,32 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function rates(Request $request)
+    {
+        if (request()->input()) {
+            $data = $this->documentInterface->findDocumentById(request()->input('id'));
+            $file = "storage/" . $data->src;
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            $data->downloads = $data->downloads + 1;
+            $data->update();
+            return Response::download($file, $data->name . '.pdf', $headers);
+        }
+
+        $data = $this->documentCategoryInterface->findDocumentCategoryForCompany(1, 7);
+
+        $categories = [];
+        foreach ($data as $key => $item) {
+            $categories[$item->name] =  $item->documents;
+        }
+
+        return view('libranza.front.information.rates_and_fees', [
+            'categories' => $categories,
+            'active'     => '2020'
+        ]);
+    }
+
 
     public function show($id)
     {
