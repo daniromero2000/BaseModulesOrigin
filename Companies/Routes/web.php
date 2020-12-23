@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Companies\Events\Test;
 
 /*
  * Admin routes
@@ -37,6 +38,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             });
         });
 
+        Route::get('/broadcast', function () {
+            broadcast(new Test(["data" => "Prueba"]));
+        });
+
+        Route::namespace('Notifications')->group(function () {
+            Route::get('getNotifications', 'NotificationController@list');
+            Route::post('saveNotification', 'NotificationController@store');
+            Route::post('deleteNotification/{id}', 'NotificationController@destroy');
+        });
         Route::namespace('EmployeeEmails')->group(function () {
             Route::resource('employee-emails', 'EmployeeEmailController');
         });

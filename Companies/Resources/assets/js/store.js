@@ -1,99 +1,47 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        customer: [],
-        customers: [],
-        currentStatus: [],
-        skip: "",
-        isBusy: false,
-        economicActivity: [],
-        professions: [],
-        cities: []
+        notifications: []
     },
     mutations: {
-        customer(state, customer) {
-            state.customer = customer;
+        notificationList(state, notifications) {
+            state.notifications = notifications;
         },
-        currentStatus(state, currentStatus) {
-            state.currentStatus = currentStatus;
+        addNotification(state, notification) {
+            state.notifications.push(notification);
         },
-        customerList(state, customers) {
-            state.customers = customers;
-        },
-        vauleSkip(state, skip) {
-            state.skip = skip;
-        },
-        toggleBusy(state, isBusy) {
-            state.isBusy = isBusy;
-        },
-        listEconomicActivity(state, economicActivity) {
-            state.economicActivity = economicActivity;
-        },
-        listProfessions(state, professions) {
-            state.professions = professions;
-        },
-        listCities(state, cities) {
-            state.cities = cities;
-        },
-        addNewEconomicActivity(state, newEconomicActivity) {
-            console.log(newEconomicActivity);
-            state.customer.customer_economic_activities.push(newEconomicActivity);
+        deleteNotification(state, notification) {
+            console.log(notification)
+            for (let index = 0; index < state.notifications.length; index++) {
+                if (state.notifications[index].id == notification){
+                    state.notifications.splice(index, 1)
+                }
+            }
         },
     },
     actions: {
-        storeEconomicActivity(context, newEconomicActivity) {
-            axios.post("/admin/customer-economic-activities", newEconomicActivity).then(response => {
-                console.log(response.data);
+        deleteNotification(context, notification) {
+            context.commit("deleteNotification", notification);
+            axios.post("/admin/deleteNotification/" + notification).then(response => {
+                notification = "";
+            });
+        },
+        saveNotification(context, newnotification) {
+            axios.post("/admin/saveNotification", newnotification).then(response => {
                 if (response.data) {
-                    context.commit("addNewEconomicActivity", newEconomicActivity);
-                    newEconomicActivity = "";
+                    context.commit("addNotification", response.data);
+                    newnotification = "";
                 }
             });
         },
-        getCustomers(context) {
-            axios.get("/admin/api/customers?skip=" + context.state.skip).then(response => {
-                context.commit("customerList", response.data.customers);
-            });
-        },
-        getCustomersFiltered(context, form) {
-            axios.get("/admin/api/customers?q=" + form.search + "&from=" + form.from + "&to=" + form.to).then(response => {
-                context.commit("customerList", response.data.customers);
-            });
-        },
-        getCustomerForId(context, id) {
-            axios.get("/admin/api/customers/" + id).then(response => {
-                context.commit("customer", response.data.customer);
-                context.commit("currentStatus", response.data.currentStatus);
-
-            });
-        },
-        getlistEconomicActivity(context) {
-            axios.get("/admin/api/listEconomicActivity").then(response => {
-                context.commit("listEconomicActivity", response.data.economic_activity_types);
-                context.commit("listProfessions", response.data.professions_lists);
-            });
-        },
-        getListCities(context) {
-            axios.get("/admin/api/listCities").then(response => {
-                context.commit("listCities", response.data.cities);
+        getNotifications(context) {
+            axios.get("/admin/getNotifications").then(response => {
+                context.commit("notificationList", response.data);
             });
         },
     },
-    getters: {
-        listEconomicActivity(state) {
-            return state.conversations.filter(conversation => {
-                return (
-                    !state.querySearch ||
-                    conversation.contact_name
-                        .toLowerCase()
-                        .indexOf(state.querySearch.toLowerCase()) > -1
-                );
-            });
-        }
-    }
 });

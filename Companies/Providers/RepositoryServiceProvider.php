@@ -41,7 +41,8 @@ use Modules\Companies\Entities\InterviewStatuses\Repositories\Interfaces\Intervi
 use Modules\Companies\Entities\InterviewStatuses\Repositories\InterviewStatusRepository;
 use Modules\Companies\Entities\Interviews\Repositories\Interfaces\InterviewRepositoryInterface;
 use Modules\Companies\Entities\Interviews\Repositories\InterviewRepository;
-
+use Modules\Companies\Entities\Notifications\Repositories\Interfaces\NotificationRepositoryInterface;
+use Modules\Companies\Entities\Notifications\Repositories\NotificationRepository;
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
@@ -150,9 +151,15 @@ class RepositoryServiceProvider extends ServiceProvider
             EmployeeProfessionRepositoryInterface::class,
             EmployeeProfessionRepository::class
         );
+        
         $this->app->bind(
             EmployeeEmergencyContactRepositoryInterface::class,
             EmployeeEmergencyContactRepository::class
+        );
+
+        $this->app->bind(
+            NotificationRepositoryInterface::class,
+            NotificationRepository::class
         );
     }
 }
