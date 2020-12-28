@@ -1,13 +1,15 @@
 <?php
 
-namespace Modules\Generals\Entities\Covenants;
+namespace Modules\Libranza\Entities\Covenants;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Covenant extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SearchableTrait;
+    
     protected $table = 'covenants';
 
     protected $fillable = [
@@ -32,5 +34,17 @@ class Covenant extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected $searchable = [
+        'columns' => [
+            'covenants.name'           => 10,
+            'covenants.kind_of_person' => 15,
+        ]
+    ];
+
+    public function searchCovenant($term)
+    {
+        return self::search($term);
+    }
 
 }

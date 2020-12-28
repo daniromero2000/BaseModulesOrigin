@@ -17,12 +17,13 @@
                 <tbody class="list">
                     @foreach ($list as $data)
                         <tr>
-                            @foreach ($data->toArray() as $key2 => $value)
-                                @if (!is_array($value))
-                                    @if ($key2 == 'created_at')
+                            @foreach ($data->toArray() as $index => $value)
+                                @if (!is_array($value) && $index != 'id')
+                                    @if ($index == 'created_at')
                                         <td class="text-center">{{ $data->created_at }}</td>
-                                    @elseif($key2 == 'is_active')
-                                        <td class="text-center"> @include('generals::layouts.status', ['status' => $data->is_active])</td>
+                                    @elseif($index == 'is_active')
+                                        <td class="text-center"> @include('generals::layouts.status', ['status' =>
+                                            $data->is_active])</td>
                                     @else
                                         <td class="text-center">
                                             {{ $value }}

@@ -6,12 +6,11 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use Modules\Generals\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\LeadProductRepository;
-
+use Modules\Libranza\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
 class LibranzaController extends Controller
 {
     private $cityInterface;

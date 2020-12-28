@@ -51,5 +51,12 @@ Route::namespace('Front')->group(function () {
     Route::get('/preguntas-frecuentes', function () {
         return view('libranza.front.information.frequent_questions');
     })->name('frequent.questions');
-  
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
+    Route::namespace('Admin')->group(function () {
+        Route::namespace('covenants')->group(function () {
+            Route::resource('convenios', 'CovenantController');
+        });
+    });
 });

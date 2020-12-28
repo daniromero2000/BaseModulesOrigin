@@ -42,8 +42,8 @@ class Document extends Model
 
     protected $searchable = [
         'columns' => [
-            'Documents.name'        => 10,
-            'Documents.description' => 5,
+            'documents.name'        => 10,
+            'documents.description' => 5,
         ]
     ];
 
