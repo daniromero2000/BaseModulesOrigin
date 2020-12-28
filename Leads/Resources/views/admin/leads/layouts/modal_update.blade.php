@@ -14,7 +14,7 @@
                 <div class="modal-body py-0">
                     <div class="row">
                         @foreach ($inputs as $input)
-                            @if ($input['type'] == 'text' || $input['type'] == 'number' || $input['type'] == 'date' || $input['type'] == 'time' || $input['type'] == 'url')
+                            @if ($input['type'] == 'text' || $input['type'] == 'number' || $input['type'] == 'date' || $input['type'] == 'time' || $input['type'] == 'url' || $input['type'] == 'file')
                                 <div class="col-sm-6 col-12 form-group">
                                     <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
                                     <input type="{{ $input['type'] }}" id="{{ $input['name'] }}"

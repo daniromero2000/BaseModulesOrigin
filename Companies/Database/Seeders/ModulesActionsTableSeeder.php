@@ -534,10 +534,10 @@ class ModulesActionsTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Acciones Módulo Indicadores
+        // Acciones Módulo Documentos
         factory(Action::class)->create([
             'permission_id' => 15,
-            'name'          => 'Ver Indicadores',
+            'name'          => 'Ver Documentos',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.documents.index',
             'principal'     => 1
@@ -545,7 +545,7 @@ class ModulesActionsTableSeeder extends Seeder
 
         factory(Action::class)->create([
             'permission_id' => 15,
-            'name'      => 'Crear Indicador',
+            'name'      => 'Crear Documento',
             'icon'      => 'fas fa-plus',
             'route'     => 'admin.documents.create',
             'principal' => 1
@@ -553,7 +553,7 @@ class ModulesActionsTableSeeder extends Seeder
 
         factory(Action::class)->create([
             'permission_id' => 15,
-            'name'          => 'Editar Indicador',
+            'name'          => 'Editar Documento',
             'icon'          => 'fas fa-edit',
             'route'         => 'admin.documents.edit',
             'principal'     => 0
@@ -561,7 +561,7 @@ class ModulesActionsTableSeeder extends Seeder
 
         factory(Action::class)->create([
             'permission_id' => 15,
-            'name'          => 'Ver Indicador',
+            'name'          => 'Ver Documento',
             'icon'          => 'fas fa-search',
             'route'         => 'admin.documents.show',
             'principal'     => 0
@@ -569,13 +569,13 @@ class ModulesActionsTableSeeder extends Seeder
 
         factory(Action::class)->create([
             'permission_id' => 15,
-            'name'          => 'Borrar Indicador',
+            'name'          => 'Borrar Documento',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.documents.destroy',
             'principal'     => 0
         ]);
 
-        // Acciones Módulo Categorias de Indicadores
+        // Acciones Módulo Categorias de Documentos
         factory(Action::class)->create([
             'permission_id' => 16,
             'name'          => 'Ver Categorias',

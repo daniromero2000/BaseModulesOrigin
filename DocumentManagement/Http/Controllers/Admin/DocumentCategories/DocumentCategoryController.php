@@ -44,7 +44,7 @@ class DocumentCategoryController extends Controller
         return view('documentmanagement::admin.documentsCategory.index', [
             'documentCategory' => $list,
             'skip'              => $skip,
-            'headers'           => ['#', 'Nombre', 'Fecha', 'Estado', 'Opciones'],
+            'headers'           => ['#', 'Nombre', 'Estado', 'Fecha', 'Opciones'],
             'routeEdit'         => 'admin.document-categories.update',
             'optionsRoutes'     => 'admin.' . (request()->segment(2)),
             'title'             => 'Documentos',

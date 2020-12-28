@@ -55,13 +55,14 @@ class DocumentController extends Controller
         return view('documentmanagement::admin.documents.index', [
             'documents'       => $list,
             'skip'            => $skip,
-            'headers'         => ['Nombre', 'Fecha', 'Estado', 'Opciones'],
+            'headers'         => ['Nombre',  'Estado', 'Categorias', 'Fecha', 'Opciones'],
             'routeEdit'       => 'admin.documents.update',
             'optionsRoutes'   => 'admin.' . (request()->segment(2)),
             'title'           => 'Documentos',
             'attached'        => $attached,
             'inputs' => [
                 ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
+                ['label' => 'Documento', 'type' => 'file', 'name' => 'src'],
                 ['label' => 'Estado', 'type' => 'select', 'name' => 'is_active', 'options' => [['id' => 1, 'name' => 'Activo'], ['id' => '0', 'name' => 'Inactivo']], 'option' => 'name'],
                 ['title' => 'Categorias', 'label' => 'name', 'type' => 'checkbox', 'array' => $this->documentCategoryInterface->findDocumentCategoriesForCompany(auth()->guard('employee')->user()->company_id), 'name' => 'categories[]']
             ],

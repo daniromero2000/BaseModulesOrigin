@@ -114,12 +114,11 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
         try {
             $data = $this->findDocumentById($params['id']);
+
             if ($params['categories']) {
                 $data->categories()->sync($params['categories']);
             }
-
-            $data->update($params['data']);
-          
+            $data->update($params['data']);     
             return $data;
 
         } catch (QueryException $e) {

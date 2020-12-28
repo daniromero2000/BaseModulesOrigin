@@ -64,14 +64,14 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-name">Mes</label>
+                                            <label class="form-control-label" for="input-name">Nombre</label>
                                             <input type="text" id="input-name" name="name" required class="form-control"
                                                 placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-name">Documento</label>
+                                            <label class="form-control-label" for="input-name">Archivo</label>
                                             <input type="file" id="input-name" name="src" required class="form-control">
                                         </div>
                                     </div>

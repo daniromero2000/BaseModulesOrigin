@@ -124,7 +124,7 @@ class PermissionsModulesTableSeeder extends Seeder
         factory(Permission::class)->create([
             //15
             'name'                => 'documents',
-            'display_name'        => 'Indicadores',
+            'display_name'        => 'Documentos',
             'icon'                => 'fas fa-book-reader',
             'permission_group_id' => 1
         ]);
@@ -132,7 +132,7 @@ class PermissionsModulesTableSeeder extends Seeder
         factory(Permission::class)->create([
             //16
             'name'                => 'documents_category',
-            'display_name'        => 'Categorias de Indicadores',
+            'display_name'        => 'Categorias de Documentos',
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 1
         ]);

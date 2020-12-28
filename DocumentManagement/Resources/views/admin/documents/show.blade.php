@@ -10,7 +10,7 @@
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link mb-sm-3 mb-md-0 active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="true">Indicador</a>
+                            aria-controls="home" aria-selected="true">Documento</a>
                     </li>
                 </ul>
             </div>
