@@ -55,7 +55,7 @@ Route::namespace('Front')->group(function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
-        Route::namespace('covenants')->group(function () {
+        Route::namespace('Covenants')->group(function () {
             Route::resource('convenios', 'CovenantController');
         });
     });
