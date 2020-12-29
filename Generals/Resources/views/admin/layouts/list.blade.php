@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-header border-0">
         <h3 class="mb-0">{{ $title }}</h3>
-        @include('leads::admin.leads.layouts.search', ['route' => route('admin.leads.index')])
+        @include('generals::admin.layouts.search.search', ['route' => route("$optionsRoutes.index")])
     </div>
     @if (!$list->isEmpty())
         <div class="table-responsive">

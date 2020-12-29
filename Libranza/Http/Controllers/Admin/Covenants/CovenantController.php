@@ -50,8 +50,22 @@ class CovenantController extends Controller
             'title'             => 'Documentos',
             'inputs'            => [
                 ['label' => 'Nombre', 'type' => 'text', 'name' => 'covenant'],
+                ['label' => 'Tipo de Cliente', 'type' => 'select', 'name' => 'kind_of_person', 'options' => [
+                    ['id' => 'PENSIONADOS', 'name' => 'PENSIONADOS'],
+                    ['id' => 'DOCENTES', 'name' => 'DOCENTES'],
+                    ['id' => 'ACTIVOS', 'name' => 'ACTIVOS']
+                ], 'option' => 'name'],
+                ['label' => 'Tipo', 'type' => 'select', 'name' => 'type', 'options' => [
+                    ['id' => 'DEPARTAMENTALES', 'name' => 'DEPARTAMENTALES'],
+                    ['id' => 'NACIONALES', 'name' => 'NACIONALES']
+                ], 'option' => 'name'],
+                ['label' => 'Origen', 'type' => 'select', 'name' => 'origin', 'options' => [
+                    ['id' => 'LAGOBO', 'name' => 'LAGOBO'],
+                    ['id' => 'SOCOMIR', 'name' => 'SOCOMIR']
+                ], 'option' => 'name'],
                 ['label' => 'Estado', 'type' => 'select', 'name' => 'is_active', 'options' => [['id' => 1, 'name' => 'Activo'], ['id' => '0', 'name' => 'Inactivo']], 'option' => 'name']
             ],
+            'searchInputs'       => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'paginate'          => $getPaginate['paginate'],
             'position'          => $getPaginate['position'],
             'page'              => $getPaginate['page'],

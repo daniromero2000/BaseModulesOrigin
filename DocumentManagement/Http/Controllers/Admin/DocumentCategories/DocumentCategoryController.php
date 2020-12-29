@@ -44,7 +44,7 @@ class DocumentCategoryController extends Controller
         return view('documentmanagement::admin.documentsCategory.index', [
             'documentCategory' => $list,
             'skip'              => $skip,
-            'headers'           => ['#', 'Nombre', 'Estado', 'Fecha', 'Opciones'],
+            'headers'           => [ 'Nombre', 'Estado', 'Fecha', 'Opciones'],
             'routeEdit'         => 'admin.document-categories.update',
             'optionsRoutes'     => 'admin.' . (request()->segment(2)),
             'title'             => 'Documentos',
@@ -52,6 +52,7 @@ class DocumentCategoryController extends Controller
                 ['label' => 'Nombre', 'type' => 'text', 'name' => 'name'],
                 ['label' => 'Estado', 'type' => 'select', 'name' => 'is_active', 'options' => [['id' => 1, 'name' => 'Activo'], ['id' => '0', 'name' => 'Inactivo']], 'option' => 'name']
             ],
+            'searchInputs'       => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'paginate'        => $getPaginate['paginate'],
             'position'        => $getPaginate['position'],
             'page'            => $getPaginate['page'],

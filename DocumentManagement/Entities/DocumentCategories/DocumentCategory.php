@@ -38,8 +38,7 @@ class DocumentCategory extends Authenticatable
 
     protected $searchable = [
         'columns' => [
-            'document_categories.name'      => 10,
-            'document_categories.last_name' => 5,
+            'document_categories.name' => 10
         ]        
     ];
 

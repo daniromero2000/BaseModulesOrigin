@@ -66,6 +66,7 @@ class DocumentController extends Controller
                 ['label' => 'Estado', 'type' => 'select', 'name' => 'is_active', 'options' => [['id' => 1, 'name' => 'Activo'], ['id' => '0', 'name' => 'Inactivo']], 'option' => 'name'],
                 ['title' => 'Categorias', 'label' => 'name', 'type' => 'checkbox', 'array' => $this->documentCategoryInterface->findDocumentCategoriesForCompany(auth()->guard('employee')->user()->company_id), 'name' => 'categories[]']
             ],
+            'searchInputs'       => [['label' => 'Buscar', 'type' => 'text', 'name' => 'q'], ['label' => 'Desde', 'type' => 'date', 'name' => 'from'], ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']],
             'paginate'        => $getPaginate['paginate'],
             'position'        => $getPaginate['position'],
             'page'            => $getPaginate['page'],

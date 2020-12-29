@@ -36,12 +36,12 @@
 @section('content')
     <section class="content">
         @include('generals::layouts.errors-and-messages')
-        @if (!$leads->isEmpty())
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="mb-0">Leads</h3>
-                    @include('leads::admin.leads.layouts.search', ['route' => route('admin.leads.index')])
-                </div>
+        <div class="card">
+            <div class="card-header border-0">
+                <h3 class="mb-0">Leads</h3>
+                @include('leads::admin.leads.layouts.search', ['route' => route('admin.leads.index')])
+            </div>
+            @if (!$leads->isEmpty())
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush table-hover">
                         <thead class="thead-light">
@@ -82,8 +82,8 @@
                 <div class="card-footer py-2">
                     @include('generals::layouts.admin.pagination.pagination_null', [$skip, $optionsRoutes])
                 </div>
-            </div>
-        @endif
+            @endif
+        </div>
     </section>
 @endsection
 

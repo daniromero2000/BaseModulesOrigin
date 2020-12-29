@@ -30,7 +30,8 @@ class CovenantRepository implements CovenantRepositoryInterface
     public function getAllCovenantsNames()
     {
         try {
-            return $this->model->orderBy('covenant', 'asc')
+            return $this->model->where('is_active', 1)
+                ->orderBy('covenant', 'asc')
                 ->get(['id', 'covenant']);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -41,7 +42,7 @@ class CovenantRepository implements CovenantRepositoryInterface
     {
         try {
             return  $this->model->orderBy('created_at', 'desc')
-            ->skip($totalView)
+                ->skip($totalView)
                 ->take(30)
                 ->get($this->columns);
         } catch (QueryException $e) {

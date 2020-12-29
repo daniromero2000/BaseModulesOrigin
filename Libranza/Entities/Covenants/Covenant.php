@@ -37,7 +37,7 @@ class Covenant extends Model
 
     protected $searchable = [
         'columns' => [
-            'covenants.name'           => 10,
+            'covenants.covenant'       => 10,
             'covenants.kind_of_person' => 15,
         ]
     ];

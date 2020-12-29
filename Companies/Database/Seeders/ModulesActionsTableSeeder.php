@@ -615,5 +615,46 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.document-categories.destroy',
             'principal'     => 0
         ]);
+
+        // Acciones Módulo Convenios
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Ver Convenios',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.convenios.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'      => 'Crear Convenio',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.convenios.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Editar Convenio',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.convenios.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Ver Convenio',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.convenios.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 16,
+            'name'          => 'Borrar Convenio',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.convenios.destroy',
+            'principal'     => 0
+        ]);
     }
 }

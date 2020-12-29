@@ -136,5 +136,13 @@ class PermissionsModulesTableSeeder extends Seeder
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 1
         ]);
+
+        factory(Permission::class)->create([
+            //17
+            'name'                => 'convenios',
+            'display_name'        => 'Convenios',
+            'icon'                => 'fas fa-headset',
+            'permission_group_id' => 1
+        ]);
     }
 }

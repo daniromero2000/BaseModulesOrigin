@@ -2,8 +2,6 @@
 
 namespace Modules\DocumentManagement\Http\Controllers\Front\Document;
 
-use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Routing\Controller;
@@ -44,7 +42,7 @@ class DocumentController extends Controller
         foreach ($data as $key => $item) {
             $categories[$item->name] =  $item->documents;
         }
-
+        // date('Y')
         return view('libranza.front.information.finances', [
             'categories' => $categories,
             'active'     => '2020'
@@ -72,8 +70,7 @@ class DocumentController extends Controller
         }
 
         return view('libranza.front.information.regulation', [
-            'categories' => $categories,
-            'active'     => '2020'
+            'categories' => $categories
         ]);
     }
 
@@ -98,8 +95,7 @@ class DocumentController extends Controller
         }
 
         return view('libranza.front.information.rates_and_fees', [
-            'categories' => $categories,
-            'active'     => '2020'
+            'categories' => $categories
         ]);
     }
 
