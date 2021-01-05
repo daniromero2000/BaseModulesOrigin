@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CallCenter\Entities;
+namespace Modules\CallCenter\Entities\PaymentPromises;
 
 use Illuminate\Database\Eloquent\Model;
 
