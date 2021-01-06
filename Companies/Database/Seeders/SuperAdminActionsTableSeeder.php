@@ -413,5 +413,30 @@ class SuperAdminActionsTableSeeder extends Seeder
             'action_id' => 79,
             'role_id' => 1
         ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 80,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 81,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 82,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 83,
+            'role_id' => 1
+        ]);
+
+        factory(ActionRole::class)->create([
+            'action_id' => 84,
+            'role_id' => 1
+        ]);
     }
 }

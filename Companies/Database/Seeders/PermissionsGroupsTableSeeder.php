@@ -39,5 +39,10 @@ class PermissionsGroupsTableSeeder extends Seeder
             'group_order' => 6
         ]);
 
+        factory(PermissionGroup::class)->create([
+            'name'        => 'Call Center',
+            'group_order' => 7
+        ]);
+
     }
 }

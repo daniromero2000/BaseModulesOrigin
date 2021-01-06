@@ -10,11 +10,13 @@ use Modules\CallCenter\Entities\CampaignRequests\Exceptions\CreateCampaignReques
 use Modules\CallCenter\Entities\CampaignRequests\Exceptions\CampaignRequestNotFoundException;
 use Modules\CallCenter\Entities\CampaignRequests\Exceptions\UpdateCampaignRequestErrorException;
 use Modules\CallCenter\Entities\CampaignRequests\Repositories\Interfaces\CallCenterCampaignRequestRepositoryInterface;
+use Illuminate\Http\UploadedFile;
 
 class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRepositoryInterface
 {
     protected $model;
     private $columns = [
+        'id',
         'employee_id',
         'campaign',
         'script',
@@ -23,6 +25,7 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
     ];
 
     private $listColumns = [
+        'id',
         'employee_id',
         'campaign',
         'script',
@@ -31,6 +34,7 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
     ];
 
     private $campaignRequestColumns = [
+        'id',
         'employee_id',
         'campaign',
         'script',
@@ -87,18 +91,24 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
         }
     }
 
+    public function saveDocumentFile(UploadedFile $file): string
+    {
+        return $file->store('CampaignRequest', ['disk' => 'public']);
+    }
+
+
     public function countCallCenterCampaignRequests(string $text = null,  $from = null, $to = null)
     {
-        if (is_null($text) && is_null($from) && is_null($to)) {
+        if (empty($text) && is_null($from) && is_null($to)) {
             return $this->model->count('id');
         }
 
-        if (!is_null($text) && (is_null($from) || is_null($to))) {
+        if (!empty($text) && (is_null($from) || is_null($to))) {
             return $this->model->searchCallCenterCampaignRequest($text, null, true, true)
                 ->count('id');
         }
 
-        if (is_null($text) && (!is_null($from) || !is_null($to))) {
+        if (empty($text) && (!is_null($from) || !is_null($to))) {
             return $this->model->whereBetween('created_at', [$from, $to])
                 ->count('id');
         }

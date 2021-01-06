@@ -6,7 +6,9 @@ interface CallCenterCampaignRequestServiceInterface
 {
     public function listCampaignRequests(array $data): array;
 
-    public function saveCampaignRequest(array $data): bool;
+    public function saveCampaignRequest($data): bool;
+
+    public function saveFileCampaignRequest($data);
 
     public function updateCampaignRequest(array $data): bool;
 

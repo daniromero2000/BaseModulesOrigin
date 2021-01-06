@@ -13,11 +13,10 @@ class CreateCallCenterCampaignRequestsRequest extends FormRequest
         return true;
     }
 
-
     public function rules()
     {
         return [
-            'name'   => ['required', 'max:255', 'bail'],
+            'campaign'   => ['required', 'max:255', 'bail'],
         ];
     }
 }

@@ -30,7 +30,7 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
 
         if ($q != '' && ($fromOrigin == '' || $toOrigin == '')) {
             $list     = $this->campaignRequestInterface->searchCallCenterCampaignRequest($q, $skip * 30);
-            $paginate = $this->campaignRequestInterface->countCallCenterCampaignRequests($q, '');
+            $paginate = $this->campaignRequestInterface->countCallCenterCampaignRequests($q);
             $search = true;
         } elseif (($q != '' || $fromOrigin != '' || $toOrigin != '')) {
             $from     = $fromOrigin != '' ? $fromOrigin : Carbon::now()->subMonths(1);
@@ -47,7 +47,7 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
 
         return [
             'data' => [
-                'campaignRequests'   => $list,
+                'list'               => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
                 'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
                 'searchInputs'       => [
@@ -73,14 +73,16 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
         ];
     }
 
-    public function saveCampaignRequest(array $data): bool
+    public function saveCampaignRequest($data): bool
     {
-        if (!array_key_exists('company_id', $data['data'])) {
-            $data['data']['company_id'] = auth()->guard('campaignRequest')->user()->company_id;
-        }
-
-        $this->campaignRequestInterface->createCallCenterCampaignRequest($data['data']);
+        $data['employee_id'] = auth()->guard('employee')->user()->id;
+        $this->campaignRequestInterface->createCallCenterCampaignRequest($data);
         return true;
+    }
+
+    public function saveFileCampaignRequest($data)
+    {
+        return $this->campaignRequestInterface->saveDocumentFile($data);
     }
 
     public function updateCampaignRequest(array $data): bool

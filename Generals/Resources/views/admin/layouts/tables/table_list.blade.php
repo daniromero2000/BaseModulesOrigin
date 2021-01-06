@@ -2,10 +2,9 @@
   <div class="card">
       <div class="card-header border-0">
           <h3 class="mb-0">{{ $title }}</h3>
-          @include('leads::admin.leads.layouts.search', ['route' => route('admin.leads.index')])
+          @include('generals::admin.layouts.search.search', ['route' => route('admin.leads.index')])
       </div>
       @if (!$list->isEmpty())
-
           <div class="table-responsive">
               <table class="table align-items-center table-flush table-hover">
                   <thead class="thead-light">
@@ -18,15 +17,26 @@
                   <tbody class="list">
                       @foreach ($list as $data)
                           <tr class="text-center">
-                              @foreach ($data->toArray() as $key2 => $value)
-                                  @if (!is_array($value))
-                                      <td class="text-center">
-                                          {{ $value }}
-                                      </td>
+                              @foreach ($data->toArray() as $index => $value)
+                                  @if (!is_array($value) && $index != 'id')
+                                      @if ($index == 'created_at')
+                                          <td class="text-center">{{ $data->created_at }}</td>
+                                      @elseif($index == 'is_active')
+                                          <td class="text-center">
+                                              @include('generals::layouts.admin.status', ['status' => $data->is_active])</td>
+                                      @else
+                                          <td class="text-center">
+                                              {{ $value }}
+                                          </td>
+                                      @endif
                                   @endif
                               @endforeach
+                              <td class="text-center">
+                                  @include('generals::layouts.admin.tables.table_options', [$data, 'optionsRoutes' =>
+                                  $optionsRoutes])
+                              </td>
                           </tr>
-                          @include('leads::admin.leads.layouts.modal_update')
+                          @include('generals::layouts.admin.modals.modal_update')
                       @endforeach
                   </tbody>
               </table>
@@ -39,5 +49,4 @@
               @include('generals::layouts.admin.pagination.pagination_null', [$skip, $optionsRoutes])
           </div>
       @endif
-
   </div>

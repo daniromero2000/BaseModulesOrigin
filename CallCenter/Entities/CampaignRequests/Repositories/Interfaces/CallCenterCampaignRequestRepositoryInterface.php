@@ -4,6 +4,7 @@ namespace Modules\CallCenter\Entities\CampaignRequests\Repositories\Interfaces;
 
 use Modules\CallCenter\Entities\CampaignRequests\CallCenterCampaignRequest;
 use Illuminate\Support\Collection;
+use Illuminate\Http\UploadedFile;
 
 interface CallCenterCampaignRequestRepositoryInterface
 {
@@ -18,6 +19,8 @@ interface CallCenterCampaignRequestRepositoryInterface
     public function updateCallCenterCampaignRequest(array $params): bool;
 
     public function searchCallCenterCampaignRequest(string $text = null, int $totalView, $from = null, $to = null): Collection;
+
+    public function saveDocumentFile(UploadedFile $file): string;
 
     public function countCallCenterCampaignRequests(string $text = null,  $from = null, $to = null);
 
