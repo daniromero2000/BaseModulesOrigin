@@ -90,7 +90,7 @@ class DocumentController extends Controller
         }
 
         $data['slug'] = str_slug($request->input('name'));
-        $finance      = $this->documentInterface->createDocument(['data' => $data, 'categories' => $request->input('categories')]);
+        $this->documentInterface->createDocument(['data' => $data, 'categories' => $request->input('categories')]);
 
         return redirect()->route('admin.documents.index')->with('message', 'Creación Exitosa');
     }

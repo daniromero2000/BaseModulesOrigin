@@ -4,7 +4,6 @@ namespace Modules\CallCenter\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-
 class CallCenterServiceProvider extends ServiceProvider
 {
     /**
@@ -29,6 +28,9 @@ class CallCenterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(UseCaseServiceProvider::class);
+
     }
 
     /**

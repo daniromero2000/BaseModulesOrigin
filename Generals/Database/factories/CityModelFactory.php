@@ -17,8 +17,9 @@ use Modules\Generals\Entities\Cities\City;
 
 $factory->define(City::class, function () {
     return [
-        'dane'        => 001,
-        'city'        => 'Pereira',
-        'province_id' => 1
+        'dane'            => 001,
+        'city'            => 'Pereira',
+        'province_id'     => 1,
+        'is_active_leads' => 0
     ];
 });

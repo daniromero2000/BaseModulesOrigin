@@ -656,5 +656,46 @@ class ModulesActionsTableSeeder extends Seeder
             'route'         => 'admin.convenios.destroy',
             'principal'     => 0
         ]);
+
+        // Acciones Módulo Campaign Requests
+        factory(Action::class)->create([
+            'permission_id' => 18,
+            'name'          => 'Ver Solicitudes',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.campaignRequests.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 18,
+            'name'      => 'Crear Solicitud',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.campaignRequests.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 18,
+            'name'          => 'Editar Solicitud',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.campaignRequests.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 18,
+            'name'          => 'Ver Solicitud',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.campaignRequests.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 18,
+            'name'          => 'Borrar Solicitud',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.campaignRequests.destroy',
+            'principal'     => 0
+        ]);
     }
 }

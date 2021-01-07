@@ -144,5 +144,13 @@ class PermissionsModulesTableSeeder extends Seeder
             'icon'                => 'fas fa-headset',
             'permission_group_id' => 1
         ]);
+
+        factory(Permission::class)->create([
+            //18
+            'name'                => 'campaign_requests',
+            'display_name'        => 'Solicitudes de campañas',
+            'icon'                => 'fas fa-user-graduate',
+            'permission_group_id' => 7
+        ]);
     }
 }
