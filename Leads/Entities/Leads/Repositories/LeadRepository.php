@@ -93,21 +93,21 @@ class LeadRepository implements LeadRepositoryInterface
     public function searchLeads(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 foreach (auth()->guard('employee')->user()->department as $key => $value) {
                     $userDepartmet[$key] = $value->id;
                 }
                 return $this->listLeads($totalView, $userDepartmet);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchLead($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
                     ->take(30)
@@ -128,7 +128,7 @@ class LeadRepository implements LeadRepositoryInterface
     public function exportLeads(string $text = null, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 foreach (auth()->guard('employee')->user()->department as $key => $value) {
                     $userDepartmet[$key] = $value->id;
                 }
@@ -136,12 +136,12 @@ class LeadRepository implements LeadRepositoryInterface
                     ->get(['id']);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchLead($text, null, true, true)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->get($this->columns);
             }
@@ -158,7 +158,7 @@ class LeadRepository implements LeadRepositoryInterface
     public function countLeads(string $text = null,  $from = null, $to = null)
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 foreach (auth()->guard('employee')->user()->department as $key => $value) {
                     $userDepartmet[$key] = $value->id;
                 }
@@ -167,13 +167,13 @@ class LeadRepository implements LeadRepositoryInterface
                 return count($data);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchLead($text, null, true, true)
                     ->get(['id']);
                 return count($data);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
                     ->get(['id']);
                 return count($data);

@@ -19,8 +19,6 @@
 @endsection
 @section('content')
 <section class="content">
-    @include('generals::layouts.errors-and-messages')
     @include('generals::admin.layouts.tables.table_list', ['list' => $list, 'title' => 'Solicitudes de campañas'])
- 
 </section>
 @endsection

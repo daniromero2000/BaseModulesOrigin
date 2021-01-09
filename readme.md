@@ -26,21 +26,21 @@
 
 ### Introduction
 
-[SmartCommerce](https://www..com) is a hand tailored E-Commerce framework built on some of the hottest opensource technologies
+[Oportudata](https://www..com) is a hand tailored E-Commerce framework built on some of the hottest opensource technologies
 such as [Laravel](https://laravel.com) (a [PHP](https://secure.php.net/) framework) and [Vue.js](https://vuejs.org)
 a progressive Javascript framework.
 
-**SmartCommerce can help you to cut down your time, cost, and workforce for building online stores or migrating from physical stores
+**Oportudata can help you to cut down your time, cost, and workforce for building online stores or migrating from physical stores
 to the ever demanding online world. Your business -- whether small or huge -- can benefit. And it's very simple to set it up.**
 
-**Read our documentation: [SmartCommerce Docs](https://devdocs..com/)**
+**Read our documentation: [Oportudata Docs](https://devdocs..com/)**
 
 **For Developers**:
-Take advantage of two of the hottest frameworks used in this project -- Laravel and Vue.js -- both of which have been used in SmartCommerce.
+Take advantage of two of the hottest frameworks used in this project -- Laravel and Vue.js -- both of which have been used in Oportudata.
 
 ### Documentation
 
-#### SmartCommerce Documentation [https://devdocs..com](https://devdocs..com)
+#### Oportudata Documentation [https://devdocs..com](https://devdocs..com)
 
 ### Requirements
 
@@ -56,7 +56,7 @@ Take advantage of two of the hottest frameworks used in this project -- Laravel 
 
 ### Installation and Configuration
 
-**1. You can install SmartCommerce by using the console installer.**
+**1. You can install Oportudata by using the console installer.**
 
 ##### a. Create a new laravel Project
 
@@ -75,7 +75,7 @@ Edit composer.json adding the following pakages:
 - **nicolaslopezj/searchable**: Simply add the package to your composer.json file and run composer update "nicolaslopezj/searchable": "1.\*" (https://github.com/nicolaslopezj/searchable).
 - **maatwebsite/excel**: composer require maatwebsite/excel (https://docs.laravel-excel.com/3.1/getting-started/installation.html).
 
-##### c. clone smartCommerce Modules
+##### c. clone oportudata Modules
 
 1. Create a folder in project root called "Modules".
 2. Clone the smartcommerce Modules into that folder.
@@ -158,7 +158,7 @@ Edit composer.json adding the following pakages:
 1. Check if the file exists in public/js ecommerce.js, if it doesn't exist, proceed to create it.
 2. Run npm run dev
 
-**To execute SmartCommerce**:
+**To execute Oportudata**:
 
 ##### On server:
 
@@ -188,8 +188,8 @@ password:secret
 
 ### License
 
-SmartCommerce is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/SmartCommerce/SmartCommerce/blob/master/LICENSE).
+Oportudata is a truly opensource E-Commerce framework which will always be free under the [MIT License](https://github.com/Oportudata/Oportudata/blob/master/LICENSE).
 
 ### Security Vulnerabilities
 
-Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in SmartCommerce then please email us: mailto:support@SmartCommerce.com.
+Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in Oportudata then please email us: mailto:support@Oportudata.com.

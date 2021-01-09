@@ -51,18 +51,18 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
     public function searchCourseAttendance(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listCourseAttendances($totalView);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchCourseAttendance($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
                     ->take(30)
@@ -83,18 +83,18 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
     public function countCourseAttendance(string $text = null,  $from = null, $to = null)
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 $data =  $this->model->get(['id']);
                 return count($data);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchCourseAttendance($text, null, true, true)
                     ->get(['id']);
                 return count($data);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
                     ->get(['id']);
                 return count($data);
@@ -111,7 +111,7 @@ class CourseAttendanceRepository implements CourseAttendanceRepositoryInterface
 
     public function searchTrashedCourseAttendance(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 

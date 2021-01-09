@@ -88,7 +88,7 @@ class PqrRepository implements PqrRepositoryInterface
 
     public function searchPqr(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->all();
         }
         return $this->model->searchPqr($text)->get();
@@ -111,7 +111,7 @@ class PqrRepository implements PqrRepositoryInterface
 
     public function searchTrashedPqr(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
         return $this->model->onlyTrashed()->get($this->columns);

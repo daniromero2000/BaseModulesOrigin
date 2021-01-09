@@ -58,18 +58,18 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
     public function searchCallCenterCampaign(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listCallCenterCampaigns($totalView);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchCallCenterCampaign($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
                     ->take(30)
@@ -89,16 +89,16 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
 
     public function countCallCenterCampaigns(string $text = null,  $from = null, $to = null)
     {
-        if (is_null($text) && is_null($from) && is_null($to)) {
+        if (empty($text) && is_null($from) && is_null($to)) {
             return $this->model->count('id');
         }
 
-        if (!is_null($text) && (is_null($from) || is_null($to))) {
+        if (!empty($text) && (is_null($from) || is_null($to))) {
             return $this->model->searchCallCenterCampaign($text, null, true, true)
                 ->count('id');
         }
 
-        if (is_null($text) && (!is_null($from) || !is_null($to))) {
+        if (empty($text) && (!is_null($from) || !is_null($to))) {
             return $this->model->whereBetween('created_at', [$from, $to])
                 ->count('id');
         }
@@ -110,7 +110,7 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
 
     public function searchTrashedCallCenterCampaign(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 

@@ -167,7 +167,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function searchCustomer(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return  $this->model->with([
                 'customerStatus',
                 'customerChannel'
@@ -183,7 +183,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function searchTrashedCustomer(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
         return $this->model->onlyTrashed()->get($this->columns);

@@ -54,7 +54,7 @@
     <div class="container-footer mx-auto ">
         <div class="row mx-0 text-center">
             <i class="mx-auto my-2"><small>Copyright ©2020 All rights reserved | powered by <b>
-                        SmartCommerce</b>.</small></i>
+                        Oportudata</b>.</small></i>
         </div>
     </div>
 </section> --}}

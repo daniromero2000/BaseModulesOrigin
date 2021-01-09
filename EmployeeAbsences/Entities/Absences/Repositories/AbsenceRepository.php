@@ -84,7 +84,7 @@ class AbsenceRepository implements AbsenceRepositoryInterface
     public function searchAbsence(string $text = null): Collection
     {
         try {
-            if (is_null($text)) {
+            if (empty($text)) {
                 return $this->model->get();
             }
             return $this->model->searchAbsence($text)->get();
@@ -96,7 +96,7 @@ class AbsenceRepository implements AbsenceRepositoryInterface
     public function searchTrashedAbsence(string $text = null): Collection
     {
         try {
-            if (is_null($text)) {
+            if (empty($text)) {
                 return $this->model->onlyTrashed($text)->get();
             }
             return $this->model->onlyTrashed()->get();

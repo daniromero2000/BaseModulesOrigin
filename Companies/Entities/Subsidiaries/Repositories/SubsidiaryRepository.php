@@ -100,11 +100,11 @@ class SubsidiaryRepository implements SubsidiaryRepositoryInterface
     public function searchSubsidiary(string $text = null, int $totalView, $company, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listSubsidiaries($totalView, $company);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchSubsidiary($text, null, true, true)
                     ->where('company_id', $company)
                     ->skip($totalView)
@@ -112,7 +112,7 @@ class SubsidiaryRepository implements SubsidiaryRepositoryInterface
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->where('company_id', $company)
                     ->skip($totalView)
@@ -135,21 +135,21 @@ class SubsidiaryRepository implements SubsidiaryRepositoryInterface
     public function countSubsidiaries(string $text = null, $company,  $from = null, $to = null)
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 $data =  $this->model
                     ->where('company_id', $company)
                     ->get(['id']);
                 return count($data);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchSubsidiary($text, null, true, true)
                     ->where('company_id', $company)
                     ->get(['id']);
                 return count($data);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
                     ->where('company_id', $company)
                     ->get(['id']);
@@ -169,7 +169,7 @@ class SubsidiaryRepository implements SubsidiaryRepositoryInterface
     public function searchTrashedSubsidiary(string $text = null): Collection
     {
         try {
-            if (is_null($text)) {
+            if (empty($text)) {
                 return $this->model->onlyTrashed()->get($this->columns);
             }
             return $this->model->onlyTrashed()->get($this->columns);

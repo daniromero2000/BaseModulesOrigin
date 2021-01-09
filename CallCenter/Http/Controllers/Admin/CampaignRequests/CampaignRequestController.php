@@ -21,6 +21,11 @@ class CampaignRequestController extends Controller
 
     public function index(Request $request)
     {
+        if (request()->input('id')) {
+            $data = $this->callCenterCampaignRequestInterface->downloadFileCampaignRequest(request()->input('id'));
+            return response()->download($data['file'], $data['name']);
+        }
+        
         $response = $this->callCenterCampaignRequestInterface->listCampaignRequests(['search' => request()->input()]);
 
         if ($response['search']) {
@@ -41,15 +46,11 @@ class CampaignRequestController extends Controller
 
         if ($request->hasFile('src') && $request->file('src') instanceof UploadedFile) {
 
-            $valid = array(
-                'csv', 'xls', 'xlsx'
-            );
-
+            $valid = array('csv', 'xls', 'xlsx');
             if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
                 $request->session()->flash('error', 'El archivo no es valido');
                 return redirect()->back();
             }
-
             $data['src'] = $this->callCenterCampaignRequestInterface->saveFileCampaignRequest($request->file('src'));
         }
 
@@ -70,7 +71,20 @@ class CampaignRequestController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', '_method');
+        if ($request->hasFile('src') && $request->file('src') instanceof UploadedFile) {
+
+            $valid = array('csv', 'xls', 'xlsx');
+            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
+                $request->session()->flash('error', 'El archivo no es valido');
+                return redirect()->back();
+            }
+            $data['src'] = $this->callCenterCampaignRequestInterface->saveFileCampaignRequest($request->file('src'));
+        }
+
+        $this->callCenterCampaignRequestInterface->updateCampaignRequest(['data' => $data, 'id' => $id]);
+
+        return redirect()->route('admin.campaignRequests.index')->with('message', 'Actualización Exitosa');
     }
 
     public function destroy($id)

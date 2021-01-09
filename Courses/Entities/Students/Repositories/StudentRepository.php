@@ -66,18 +66,18 @@ class StudentRepository implements StudentRepositoryInterface
     public function searchStudent(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listStudents($totalView);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchStudent($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
                     ->take(30)
@@ -98,18 +98,18 @@ class StudentRepository implements StudentRepositoryInterface
     public function countStudents(string $text = null,  $from = null, $to = null)
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 $data =  $this->model->get(['id']);
                 return count($data);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchStudent($text, null, true, true)
                     ->get(['id']);
                 return count($data);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
                     ->get(['id']);
                 return count($data);
@@ -127,7 +127,7 @@ class StudentRepository implements StudentRepositoryInterface
 
     public function searchTrashedStudent(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 

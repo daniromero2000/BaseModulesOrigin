@@ -20,6 +20,7 @@ class CreateCallCenterCampaignRequestsTable extends Migration
             $table->string('script')->nullable();
             $table->string('description')->nullable();
             $table->string('src')->nullable();
+            $table->integer('status')->default('0')->comment('0 = pendiente, 1 = Aprobado, 2 = Negado');
             $table->timestamps();
             $table->softDeletes();
 

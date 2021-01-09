@@ -28,7 +28,7 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
         'id',
         'employee_id',
         'campaign',
-        'script',
+        'status',
         'description',
         'src'
     ];
@@ -62,18 +62,18 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
     public function searchCallCenterCampaignRequest(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listCallCenterCampaignRequests($totalView);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchCallCenterCampaignRequest($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->skip($totalView)
                     ->take(30)
@@ -120,7 +120,7 @@ class CallCenterCampaignRequestRepository implements CallCenterCampaignRequestRe
 
     public function searchTrashedCallCenterCampaignRequest(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 

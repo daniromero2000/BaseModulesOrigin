@@ -103,7 +103,7 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function searchCompany(string $text = null): Collection
     {
         try {
-            if (is_null($text)) {
+            if (empty($text)) {
                 return $this->model->get($this->columns);
             }
 
@@ -116,7 +116,7 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function searchTrashedCompany(string $text = null): Collection
     {
         try {
-            if (is_null($text)) {
+            if (empty($text)) {
                 return $this->model->onlyTrashed()->get($this->columns);
             }
 

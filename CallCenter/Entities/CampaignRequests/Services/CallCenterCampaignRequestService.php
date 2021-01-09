@@ -45,23 +45,37 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
 
         $getPaginate  = $this->toolsInterface->getPaginate($paginate, $skip);
 
+        $list = $list->map(function ($item) {
+            $item->employee_id = $item->employee->name . ' ' . $item->employee->last_name;
+
+            if ($item->status == 0) {
+                $item->status = ['status' => 'Pendiente', 'color' => '#FFFFFF', 'background' => '#007bff'];
+            } elseif ($item->status == 1) {
+                $item->status = ['status' => 'Aprobado', 'color' => '#FFFFFF', 'background' => '#007bff'];
+            } else {
+                $item->status = ['status' => 'Negado', 'color' => '#FFFFFF', 'background' => '#007bff'];
+            }
+            $item->status = collect($item->status);
+            return $item;
+        })->all();
+
         return [
             'data' => [
-                'list'               => $list,
+                'list'               => collect($list),
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-                'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
+                'headers'            => ['Solicitante', 'Campaña', 'Estado', 'Descripción', 'Opciones'],
                 'searchInputs'       => [
                     ['label' => 'Buscar', 'type' => 'text', 'name' => 'q'],
                     ['label' => 'Desde', 'type' => 'date', 'name' => 'from'],
                     ['label' => 'Hasta', 'type' => 'date', 'name' => 'to']
                 ],
                 'inputs' => [
-                    ['label' => 'Nombre', 'type' => 'text', 'name' => 'name'],
-                    ['label' => 'Apellido', 'type' => 'text', 'name' => 'last_name'],
-                    ['label' => 'Email', 'type' => 'text', 'name' => 'email'],
-                    ['label' => 'Password', 'type' => 'password', 'name' => 'password'],
-                    ['label' => 'Tipo Sangre', 'type' => 'text', 'name' => 'rh'],
-                    ['label' => 'Fecha Nacimiento', 'type' => 'date', 'name' => 'birthday']
+                    ['label' => 'Campaña', 'type' => 'text', 'name' => 'campaign'],
+                    ['label' => 'Estado', 'type' => 'select', 'name' => 'status', 'options' => [
+                        ['id' => '1', 'name' => 'Aprobado'],
+                        ['id' => '0', 'name' => 'Pendiente'],
+                        ['id' => '2', 'name' => 'Negado']
+                    ], 'option' => 'name']
                 ],
                 'skip'               => $skip,
                 'paginate'           => $getPaginate['paginate'],
@@ -83,6 +97,16 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
     public function saveFileCampaignRequest($data)
     {
         return $this->campaignRequestInterface->saveDocumentFile($data);
+    }
+
+    public function downloadFileCampaignRequest($id)
+    {
+        $file = $this->campaignRequestInterface->findCallCenterCampaignRequestById($id);
+        $exten = explode(".", $file->src);
+        return [
+            'file' => "storage/" . $file->src,
+            'name' => $file->campaign . '.' . $exten[1]
+        ];
     }
 
     public function updateCampaignRequest(array $data): bool

@@ -85,7 +85,7 @@ class InterviewRepository implements InterviewRepositoryInterface
 
     public function searchInterview(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->get($this->columns);
         }
 
@@ -94,7 +94,7 @@ class InterviewRepository implements InterviewRepositoryInterface
 
     public function searchTrashedInterview(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 

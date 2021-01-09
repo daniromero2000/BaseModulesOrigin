@@ -5,6 +5,7 @@ namespace Modules\CallCenter\Entities\CampaignRequests;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Modules\Companies\Entities\Employees\Employee;
 
 class CallCenterCampaignRequest extends Model
 {
@@ -16,7 +17,8 @@ class CallCenterCampaignRequest extends Model
         'campaign',
         'script',
         'description',
-        'src'
+        'src',
+        'status'
     ];
 
     protected $searchable = [
@@ -28,5 +30,10 @@ class CallCenterCampaignRequest extends Model
     public function searchCallCenterCampaignRequest($term)
     {
         return self::search($term);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class)->select('id', 'name', 'last_name');
     }
 }

@@ -85,11 +85,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function searchEmployee(string $text = null, $company, int $totalView, $from = null, $to = null): Collection
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 return $this->listEmployees($totalView, $company);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchEmployee($text, null, true, true)
                     ->when($company, function ($q, $company) {
                         return $q->where('company_id', $company);
@@ -99,7 +99,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                     ->get($this->columns);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
                     ->when($company, function ($q, $company) {
                         return $q->where('company_id', $company);
@@ -126,7 +126,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function countEmployees(string $text = null, $company,  $from = null, $to = null)
     {
         try {
-            if (is_null($text) && is_null($from) && is_null($to)) {
+            if (empty($text) && is_null($from) && is_null($to)) {
                 $data =  $this->model
                     ->when($company, function ($q, $company) {
                         return $q->where('company_id', $company);
@@ -134,7 +134,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 return count($data);
             }
 
-            if (!is_null($text) && (is_null($from) || is_null($to))) {
+            if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchEmployee($text, null, true, true)
                     ->when($company, function ($q, $company) {
                         return $q->where('company_id', $company);
@@ -143,7 +143,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 return count($data);
             }
 
-            if (is_null($text) && (!is_null($from) || !is_null($to))) {
+            if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
                     ->when($company, function ($q, $company) {
                         return $q->where('company_id', $company);
@@ -166,7 +166,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function searchTrashedEmployee(string $text = null): Collection
     {
-        if (is_null($text)) {
+        if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
         }
 
