@@ -10,14 +10,14 @@ use Carbon\Carbon;
 
 class CallCenterScriptService implements CallCenterScriptServiceInterface
 {
-    protected $campaignRequestInterface, $toolsInterface;
+    protected $scriptRequestInterface, $toolsInterface;
 
     public function __construct(
-        CallCenterScriptRepositoryInterface $campaignRequestRepositoryInterface,
+        CallCenterScriptRepositoryInterface $scriptRequestRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
     ) {
-        $this->campaignRequestInterface = $campaignRequestRepositoryInterface;
-        $this->toolsInterface           = $toolRepositoryInterface;
+        $this->scriptRequestInterface = $scriptRequestRepositoryInterface;
+        $this->toolsInterface         = $toolRepositoryInterface;
     }
 
     public function listScripts(array $data): array
@@ -29,25 +29,25 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
         $search      = false;
 
         if ($q != '' && ($fromOrigin == '' || $toOrigin == '')) {
-            $list     = $this->campaignRequestInterface->searchCallCenterScript($q, $skip * 30);
-            $paginate = $this->campaignRequestInterface->countCallCenterScripts($q, '');
+            $list     = $this->scriptRequestInterface->searchCallCenterScript($q, $skip * 30);
+            $paginate = $this->scriptRequestInterface->countCallCenterScripts($q, '');
             $search = true;
         } elseif (($q != '' || $fromOrigin != '' || $toOrigin != '')) {
             $from     = $fromOrigin != '' ? $fromOrigin : Carbon::now()->subMonths(1);
             $to       = $toOrigin != '' ? $toOrigin : Carbon::now();
-            $list     = $this->campaignRequestInterface->searchCallCenterScript($q, $skip * 30, $from, $to);
-            $paginate = $this->campaignRequestInterface->countCallCenterScripts($q, $from, $to);
+            $list     = $this->scriptRequestInterface->searchCallCenterScript($q, $skip * 30, $from, $to);
+            $paginate = $this->scriptRequestInterface->countCallCenterScripts($q, $from, $to);
             $search = true;
         } else {
-            $list     = $this->campaignRequestInterface->listCallCenterScripts($skip * 30);
-            $paginate = $this->campaignRequestInterface->countCallCenterScripts('');
+            $list     = $this->scriptRequestInterface->listCallCenterScripts($skip * 30);
+            $paginate = $this->scriptRequestInterface->countCallCenterScripts('');
         }
 
         $getPaginate  = $this->toolsInterface->getPaginate($paginate, $skip);
 
         return [
             'data' => [
-                'campaignRequests'   => $list,
+                'scriptRequests'   => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
                 'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
                 'searchInputs'       => [
@@ -76,26 +76,26 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
     public function saveScript(array $data): bool
     {
         if (!array_key_exists('company_id', $data['data'])) {
-            $data['data']['company_id'] = auth()->guard('campaignRequest')->user()->company_id;
+            $data['data']['company_id'] = auth()->guard('scriptRequest')->user()->company_id;
         }
 
-        $this->campaignRequestInterface->createCallCenterScript($data['data']);
+        $this->scriptRequestInterface->createCallCenterScript($data['data']);
         return true;
     }
 
     public function updateScript(array $data): bool
     {
-        $campaignRequest  = $this->campaignRequestInterface->findCallCenterScriptById($data['id']);
-        $repo             = new CallCenterScriptRepository($campaignRequest);
+        $scriptRequest  = $this->scriptRequestInterface->findCallCenterScriptById($data['id']);
+        $repo           = new CallCenterScriptRepository($scriptRequest);
         $repo->updateCallCenterScript($data['data']);
         return true;
     }
 
     public function deleteScript(int $id): bool
     {
-        $campaignRequest     = $this->campaignRequestInterface->findCallCenterScriptById($id);
-        $campaignRequestRepo = new CallCenterScriptRepository($campaignRequest);
-        $campaignRequestRepo->deleteCallCenterScript();
+        $scriptRequest     = $this->scriptRequestInterface->findCallCenterScriptById($id);
+        $scriptRequestRepo = new CallCenterScriptRepository($scriptRequest);
+        $scriptRequestRepo->deleteCallCenterScript();
         return true;
     }
 }

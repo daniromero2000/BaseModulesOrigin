@@ -15,27 +15,20 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
 {
     protected $model;
     private $columns = [
-        'employee_id',
-        'campaign',
+        
         'script',
-        'description',
-        'src'
+        'type',
+        'status',  
     ];
 
     private $listColumns = [
-        'employee_id',
-        'campaign',
         'script',
-        'description',
-        'src'
+        'type',   
     ];
 
     private $campaignRequestColumns = [
-        'employee_id',
-        'campaign',
         'script',
-        'description',
-        'src'
+        'type',  
     ];
 
     public function __construct(CallCenterScript $campaignRequest)

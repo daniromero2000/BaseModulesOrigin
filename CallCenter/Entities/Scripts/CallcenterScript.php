@@ -13,6 +13,7 @@ class CallCenterScript extends Model
 
     protected $fillable = [
         'script',
+        'type',
         'status',
     ];
 
@@ -36,9 +37,9 @@ class CallCenterScript extends Model
         'updated_at',
         'deleted_at',
     ];
-
-    public function callCenterManagements()
+    
+    public function callCenterCampaigns()
     {
-         $this->hasMany(CallCenterManagement::class);
+         $this->hasMany(CallCenterCampaign::class);
     }
 }
