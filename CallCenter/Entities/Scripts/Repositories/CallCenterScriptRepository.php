@@ -14,8 +14,7 @@ use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScript
 class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
 {
     protected $model;
-    private $columns = [
-        
+    private $columns = [        
         'script',
         'type',
         'status',  

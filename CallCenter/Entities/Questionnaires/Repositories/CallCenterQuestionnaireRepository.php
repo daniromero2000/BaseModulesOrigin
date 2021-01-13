@@ -15,11 +15,8 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
 {
     protected $model;
     private $columns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'question',
+        'status',
     ];
 
     private $listColumns = [
