@@ -47,7 +47,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
         return [
             'data' => [
-                'campaigns'   => $list,
+                'list'          => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
                 'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
                 'searchInputs'       => [
@@ -81,6 +81,21 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
         $this->campaignInterface->createCallCenterCampaign($data['data']);
         return true;
+    }
+
+    public function saveFileCampaign($data)
+    {
+        return $this->campaignInterface->saveDocumentFile($data);
+    }
+
+    public function downloadFileCampaign($id)
+    {
+        $file = $this->campaignInterface->findCallCenterCampaignById($id);
+        $exten = explode(".", $file->src);
+        return [
+            'file' => "storage/" . $file->src,
+            'name' => $file->campaign . '.' . $exten[1]
+        ];
     }
 
     public function updateCampaign(array $data): bool

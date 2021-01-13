@@ -10,6 +10,10 @@ interface CallCenterCampaignRequestServiceInterface
 
     public function saveFileCampaignRequest($data);
 
+    public function getCreate($data): array;
+
+    public function getShow(int $id): array;
+
     public function downloadFileCampaignRequest($id);
 
     public function updateCampaignRequest(array $data): bool;

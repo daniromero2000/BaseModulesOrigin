@@ -17,7 +17,6 @@
                   <tbody class="list">
                       @foreach ($list as $data)
                           <tr class="text-center">
-
                               @foreach ($data->toArray() as $index => $value)
                                   @if (!is_array($value) && $index != 'id')
                                       @if ($index == 'created_at')

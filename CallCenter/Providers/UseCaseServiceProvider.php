@@ -7,6 +7,8 @@ use Modules\CallCenter\Entities\CampaignBases\Services\CallCenterCampaignBaseSer
 use Modules\CallCenter\Entities\CampaignBases\Services\Interfaces\CallCenterCampaignBaseServiceInterface;
 use Modules\CallCenter\Entities\CampaignRequests\Services\CallCenterCampaignRequestService;
 use Modules\CallCenter\Entities\CampaignRequests\Services\Interfaces\CallCenterCampaignRequestServiceInterface;
+use Modules\CallCenter\Entities\Campaigns\Services\CallCenterCampaignService;
+use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 
 class UseCaseServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,11 @@ class UseCaseServiceProvider extends ServiceProvider
         $this->app->bind(
             CallCenterCampaignBaseServiceInterface::class,
             CallCenterCampaignBaseService::class
+        );
+
+        $this->app->bind(
+            CallCenterCampaignServiceInterface::class,
+            CallCenterCampaignService::class
         );
     }
 

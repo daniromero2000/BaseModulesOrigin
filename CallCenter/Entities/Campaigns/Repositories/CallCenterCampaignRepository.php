@@ -10,32 +10,33 @@ use Modules\CallCenter\Entities\Campaigns\Exceptions\CreateCampaignErrorExceptio
 use Modules\CallCenter\Entities\Campaigns\Exceptions\CampaignNotFoundException;
 use Modules\CallCenter\Entities\Campaigns\Exceptions\UpdateCampaignErrorException;
 use Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces\CallCenterCampaignRepositoryInterface;
+use Illuminate\Http\UploadedFile;
 
 class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterface
 {
     protected $model;
     private $columns = [
-        'employee_id',
-        'campaign',
-        'script',
+        'name',
         'description',
-        'src'
+        'department_id',
+        'begindate',
+        'endingdate'
     ];
 
     private $listColumns = [
-        'employee_id',
-        'campaign',
-        'script',
+        'name',
         'description',
-        'src'
+        'department_id',
+        'begindate',
+        'endingdate'
     ];
 
     private $campaignColumns = [
-        'employee_id',
-        'campaign',
-        'script',
+        'name',
         'description',
-        'src'
+        'department_id',
+        'begindate',
+        'endingdate'
     ];
 
     public function __construct(CallCenterCampaign $campaign)
@@ -106,6 +107,11 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
         return $this->model->searchCallCenterCampaign($text, null, true, true)
             ->whereBetween('created_at', [$from, $to])
             ->count('id');
+    }
+
+    public function saveDocumentFile(UploadedFile $file): string
+    {
+        return $file->store('Campaign', ['disk' => 'public']);
     }
 
     public function searchTrashedCallCenterCampaign(string $text = null): Collection

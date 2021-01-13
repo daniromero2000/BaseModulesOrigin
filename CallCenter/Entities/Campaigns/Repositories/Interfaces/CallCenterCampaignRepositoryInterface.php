@@ -4,6 +4,7 @@ namespace Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces;
 
 use Modules\CallCenter\Entities\Campaigns\CallCenterCampaign;
 use Illuminate\Support\Collection;
+use Illuminate\Http\UploadedFile;
 
 interface CallCenterCampaignRepositoryInterface
 {
@@ -14,6 +15,8 @@ interface CallCenterCampaignRepositoryInterface
     public function findCallCenterCampaignById(int $id): CallCenterCampaign;
 
     public function findTrashedCallCenterCampaignById(int $id): CallCenterCampaign;
+
+    public function saveDocumentFile(UploadedFile $file): string;
 
     public function updateCallCenterCampaign(array $params): bool;
 
