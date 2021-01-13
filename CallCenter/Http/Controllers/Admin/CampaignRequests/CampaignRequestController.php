@@ -16,7 +16,6 @@ class CampaignRequestController extends Controller
         CallCenterCampaignRequestServiceInterface $callCenterCampaignRequestServiceInterface
     ) {
         $this->callCenterCampaignRequestInterface   = $callCenterCampaignRequestServiceInterface;
-        // $this->middleware(['permission:actions, guard:employee']);
     }
 
     public function index(Request $request)
@@ -25,7 +24,7 @@ class CampaignRequestController extends Controller
             $data = $this->callCenterCampaignRequestInterface->downloadFileCampaignRequest(request()->input('id'));
             return response()->download($data['file'], $data['name']);
         }
-        
+
         $response = $this->callCenterCampaignRequestInterface->listCampaignRequests(['search' => request()->input()]);
 
         if ($response['search']) {
@@ -61,12 +60,14 @@ class CampaignRequestController extends Controller
 
     public function show($id)
     {
-        return view('callcenter::show');
+        $response = $this->callCenterCampaignRequestInterface->getShow($id);
+
+        return view('callcenter::admin.campaignRequests.show', $response);
     }
 
     public function edit($id)
     {
-        return view('callcenter::edit');
+        return view('callcenter::admin.campaignRequests.edit');
     }
 
     public function update(Request $request, $id)

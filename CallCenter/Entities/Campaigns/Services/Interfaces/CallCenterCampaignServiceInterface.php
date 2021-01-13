@@ -8,6 +8,10 @@ interface CallCenterCampaignServiceInterface
 
     public function saveCampaign(array $data): bool;
 
+    public function saveFileCampaign($data);
+
+    public function downloadFileCampaign($id);
+
     public function updateCampaign(array $data): bool;
 
     public function deleteCampaign(int $id): bool;

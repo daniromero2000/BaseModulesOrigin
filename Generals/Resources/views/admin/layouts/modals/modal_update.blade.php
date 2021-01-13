@@ -16,14 +16,14 @@
                         @foreach ($inputs as $input)
                             @if ($input['type'] == 'text' || $input['type'] == 'number' || $input['type'] == 'date' || $input['type'] == 'time' || $input['type'] == 'url' || $input['type'] == 'file')
                                 <div class="col-sm-6 col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
+                                    <label class="form-control-label" for="{{ $input['name'] }}">{{ $input['label'] }}</label>
                                     <input type="{{ $input['type'] }}" id="{{ $input['name'] }}"
                                         value="{{ array_key_exists($input['name'], $data->getOriginal()) ? $data->getOriginal()[$input['name']] : '' }}"
                                         name='{{ $input['name'] }}' step="any" class="form-control">
                                 </div>
                             @elseif($input['type'] == 'select')
                                 <div class="col-sm-6 col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
+                                    <label class="form-control-label" for="{{ $input['name'] }}">{{ $input['label'] }}</label>
                                     <select class="form-control" name="{{ $input['name'] }}" id="{{ $input['name'] }}">
                                         @foreach ($input['options'] as $option)
                                             <option
@@ -35,7 +35,7 @@
                                 </div>
                             @elseif($input['type'] == 'textarea')
                                 <div class="col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
+                                    <label class="form-control-label" for="{{ $input['name'] }}">{{ $input['label'] }}</label>
                                     <textarea class="form-control" name="{{ $input['name'] }}" id="{{ $input['name'] }}"
                                         cols="10"
                                         rows="5">{{ array_key_exists($input['name'], $data->getOriginal()) ? $data->getOriginal()[$input['name']] : '' }}</textarea>

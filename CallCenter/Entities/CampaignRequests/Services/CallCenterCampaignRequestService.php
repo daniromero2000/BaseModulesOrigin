@@ -63,7 +63,7 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
             'data' => [
                 'list'               => collect($list),
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-                'headers'            => ['Solicitante', 'Campaña', 'Estado', 'Descripción', 'Opciones'],
+                'headers'            => ['Solicitante', 'Campaña', 'Estado', 'Descripción', 'Ver', 'Opciones'],
                 'searchInputs'       => [
                     ['label' => 'Buscar', 'type' => 'text', 'name' => 'q'],
                     ['label' => 'Desde', 'type' => 'date', 'name' => 'from'],
@@ -97,6 +97,36 @@ class CallCenterCampaignRequestService implements CallCenterCampaignRequestServi
     public function saveFileCampaignRequest($data)
     {
         return $this->campaignRequestInterface->saveDocumentFile($data);
+    }
+
+    public function getCreate($data): array
+    {
+
+        return [];
+    }
+
+    public function getShow(int $id): array
+    {
+        $item = $this->campaignRequestInterface->findCallCenterCampaignRequestById($id);
+
+        $item->employee_id = $item->employee->name . ' ' . $item->employee->last_name;
+
+        if ($item->status == 0) {
+            $item->status = ['status' => 'Pendiente', 'color' => '#FFFFFF', 'background' => '#007bff'];
+        } elseif ($item->status == 1) {
+            $item->status = ['status' => 'Aprobado', 'color' => '#FFFFFF', 'background' => '#007bff'];
+        } else {
+            $item->status = ['status' => 'Negado', 'color' => '#FFFFFF', 'background' => '#007bff'];
+        }
+        $item->status = collect($item->status);
+
+        return [
+            'data'          => $item,
+            'inputs'        => [
+                ['label' => 'Campaña', 'type' => 'text', 'name' => 'campaign'],
+            ],
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
+        ];
     }
 
     public function downloadFileCampaignRequest($id)

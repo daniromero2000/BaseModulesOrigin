@@ -7,5 +7,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('CampaignRequests')->group(function () {
             Route::resource('campaignRequests', 'CampaignRequestController');
         });
+
+        Route::namespace('Campaigns')->group(function () {
+            Route::resource('campaigns', 'CampaignController');
+        });
     });
 });
