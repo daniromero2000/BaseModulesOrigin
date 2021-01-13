@@ -47,9 +47,9 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
 
         return [
             'data' => [
-                'scriptRequests'   => $list,
+                'list'               => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-                'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
+                'headers'            => ['Nombre', 'Guion', 'Opciones'],
                 'searchInputs'       => [
                     ['label' => 'Buscar', 'type' => 'text', 'name' => 'q'],
                     ['label' => 'Desde', 'type' => 'date', 'name' => 'from'],
@@ -57,11 +57,7 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
                 ],
                 'inputs' => [
                     ['label' => 'Nombre', 'type' => 'text', 'name' => 'name'],
-                    ['label' => 'Apellido', 'type' => 'text', 'name' => 'last_name'],
-                    ['label' => 'Email', 'type' => 'text', 'name' => 'email'],
-                    ['label' => 'Password', 'type' => 'password', 'name' => 'password'],
-                    ['label' => 'Tipo Sangre', 'type' => 'text', 'name' => 'rh'],
-                    ['label' => 'Fecha Nacimiento', 'type' => 'date', 'name' => 'birthday']
+                    ['label' => 'Guion', 'type' => 'textarea', 'name' => 'script']
                 ],
                 'skip'               => $skip,
                 'paginate'           => $getPaginate['paginate'],
@@ -75,11 +71,7 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
 
     public function saveScript(array $data): bool
     {
-        if (!array_key_exists('company_id', $data['data'])) {
-            $data['data']['company_id'] = auth()->guard('scriptRequest')->user()->company_id;
-        }
-
-        $this->scriptRequestInterface->createCallCenterScript($data['data']);
+        $this->scriptRequestInterface->createCallCenterScript($data);
         return true;
     }
 

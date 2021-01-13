@@ -13,8 +13,8 @@ class CallCenterScript extends Model
 
     protected $fillable = [
         'script',
-        'type',
-        'status',
+        'name',
+        'is_active',
     ];
 
     protected $hidden = [

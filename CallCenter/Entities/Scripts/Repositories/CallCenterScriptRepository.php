@@ -15,20 +15,22 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
 {
     protected $model;
     private $columns = [
-        
+        'id',
         'script',
-        'type',
-        'status',  
+        'name',
+        'is_active',  
     ];
 
     private $listColumns = [
+        'id',
         'script',
-        'type',   
+        'name',   
     ];
 
     private $campaignRequestColumns = [
+        'id',
         'script',
-        'type',  
+        'name',  
     ];
 
     public function __construct(CallCenterScript $campaignRequest)
@@ -125,6 +127,18 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
             return $this->model->findOrFail($id, $this->campaignRequestColumns);
         } catch (ModelNotFoundException $e) {
             throw new ScriptNotFoundException($e);
+        }
+    }
+
+    public function getAllCallCenterScript()
+    {
+        try {
+            return  $this->model
+                ->orderBy('id', 'desc')
+                ->where('is_active', 1)
+                ->get($this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
         }
     }
 

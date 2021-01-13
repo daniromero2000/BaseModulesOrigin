@@ -36,7 +36,8 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('callcenter::admin.campaigns.create');
+        return view('callcenter::admin.campaigns.create',
+            $this->callCenterCampaignInterface->getDataCreate());
     }
 
     public function store(CreateCallCenterCampaign $request)

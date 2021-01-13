@@ -7,6 +7,8 @@ use Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces\CallCenterCamp
 use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignRepository;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Carbon\Carbon;
+use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
+use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
 
 class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 {
@@ -14,10 +16,14 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
     public function __construct(
         CallCenterCampaignRepositoryInterface $campaignRepositoryInterface,
+        CallCenterScriptRepositoryInterface $callCenterScriptRepositoryInterface,
+        DepartmentRepositoryInterface $departmentRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
     ) {
-        $this->campaignInterface = $campaignRepositoryInterface;
-        $this->toolsInterface           = $toolRepositoryInterface;
+        $this->scriptInterface      = $callCenterScriptRepositoryInterface;
+        $this->campaignInterface    = $campaignRepositoryInterface;
+        $this->departmentInterface  = $departmentRepositoryInterface;
+        $this->toolsInterface       = $toolRepositoryInterface;
     }
 
     public function listCampaigns(array $data): array
@@ -47,7 +53,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
         return [
             'data' => [
-                'list'          => $list,
+                'list'               => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
                 'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
                 'searchInputs'       => [
@@ -58,6 +64,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
                 'inputs' => [
                     ['label' => 'Nombre', 'type' => 'text', 'name' => 'name'],
                     ['label' => 'Apellido', 'type' => 'text', 'name' => 'last_name'],
+                    ['label' => 'Servicios', 'type' => 'select', 'options' => $this->scriptInterface->getAllCallCenterScript(), 'name' => 'script_id', 'option' => 'name'],
                     ['label' => 'Email', 'type' => 'text', 'name' => 'email'],
                     ['label' => 'Password', 'type' => 'password', 'name' => 'password'],
                     ['label' => 'Tipo Sangre', 'type' => 'text', 'name' => 'rh'],
@@ -81,6 +88,14 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
         $this->campaignInterface->createCallCenterCampaign($data['data']);
         return true;
+    }
+
+    public function getDataCreate(): array
+    {
+        return [
+            'scripts'     => $this->scriptInterface->getAllCallCenterScript(),
+            'departments' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name'])
+        ];
     }
 
     public function saveFileCampaign($data)
