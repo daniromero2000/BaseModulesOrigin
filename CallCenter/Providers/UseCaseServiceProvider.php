@@ -9,6 +9,8 @@ use Modules\CallCenter\Entities\CampaignRequests\Services\CallCenterCampaignRequ
 use Modules\CallCenter\Entities\CampaignRequests\Services\Interfaces\CallCenterCampaignRequestServiceInterface;
 use Modules\CallCenter\Entities\Campaigns\Services\CallCenterCampaignService;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
+use Modules\CallCenter\Entities\Scripts\Services\CallCenterScriptService;
+use Modules\CallCenter\Entities\Scripts\Services\Interfaces\CallCenterScriptServiceInterface;
 
 class UseCaseServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,11 @@ class UseCaseServiceProvider extends ServiceProvider
         $this->app->bind(
             CallCenterCampaignServiceInterface::class,
             CallCenterCampaignService::class
+        );
+
+        $this->app->bind(
+            CallCenterScriptServiceInterface::class,
+            CallCenterScriptService::class
         );
     }
 
