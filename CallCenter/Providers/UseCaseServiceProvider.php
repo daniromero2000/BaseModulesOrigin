@@ -11,6 +11,10 @@ use Modules\CallCenter\Entities\Campaigns\Services\CallCenterCampaignService;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Modules\CallCenter\Entities\Scripts\Services\CallCenterScriptService;
 use Modules\CallCenter\Entities\Scripts\Services\Interfaces\CallCenterScriptServiceInterface;
+use Modules\CallCenter\Entities\Questionnaires\Services\CallCenterQuestionnaireService;
+use Modules\CallCenter\Entities\Questionnaires\Services\Interfaces\CallCenterQuestionnaireServiceInterface;
+use Modules\CallCenter\Entities\ManagementIndicators\Repositories\CallCenterManagementIndicatorRepository;
+use Modules\CallCenter\Entities\ManagementIndicators\Interfaces\CallCenterManagementIndicatorRepositoryInterface;
 
 class UseCaseServiceProvider extends ServiceProvider
 {
@@ -39,6 +43,16 @@ class UseCaseServiceProvider extends ServiceProvider
         $this->app->bind(
             CallCenterScriptServiceInterface::class,
             CallCenterScriptService::class
+        );
+
+        $this->app->bind(
+            CallCenterQuestionnaireServiceInterface::class,
+            CallCenterQuestionnaireService::class
+        );
+
+        $this->app->bind(
+            CallCenterManagementIndicatorRepository::class,
+            CallCenterManagementIndicatorRepositoryInterface::class
         );
     }
 
