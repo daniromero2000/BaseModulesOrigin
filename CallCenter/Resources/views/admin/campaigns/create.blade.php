@@ -34,9 +34,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-check"></i></span>
                                     </div>
-                                    <input type="text" name="name" id="name" placeholder="Nombre"
-                                        validation-pattern="name" class="form-control" value="{{ old('name') }}"
-                                        required>
+                                    <input type="text" name="name" id="name" placeholder="Nombre" validation-pattern="name"
+                                        class="form-control" value="{{ old('name') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +44,8 @@
                                 <label class="form-control-label" for="icon">Archivo <span
                                         class="text-danger">*</span></label>
                                 <div class="input-group  mb-3">
-                                    <input type="file" name="src" id="src" class="form-control"
-                                        value="{{ old('src') }}" required>
+                                    <input type="file" name="src" id="src" class="form-control" value="{{ old('src') }}"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -54,16 +53,31 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="script">Guion <span
                                         class="text-danger">*</span></label>
-                                <textarea class="form-control" name="script" id="script" cols="10" rows="3">
-                                </textarea>
+                                <select class="form-control" name="script_id" id="script_id">
+                                    <option value=""> Selecciona</option>
+                                    @foreach ($scripts as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="script">Departamento<span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control" name="department_id" id="department_id">
+                                    <option value=""> Selecciona</option>
+                                    @foreach ($departments as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-control-label" for="description">Descripción <span
                                         class="text-danger">*</span></label>
-                                <textarea class="form-control" name="description" id="description" cols="10"
-                                    rows="3"></textarea>
+                                <textarea class="form-control" name="description" id="description" rows="3"></textarea>
                             </div>
                         </div>
                     </div>

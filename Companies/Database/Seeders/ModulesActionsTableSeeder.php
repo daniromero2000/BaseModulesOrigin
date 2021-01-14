@@ -618,7 +618,7 @@ class ModulesActionsTableSeeder extends Seeder
 
         // Acciones Módulo Convenios
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 17,
             'name'          => 'Ver Convenios',
             'icon'          => 'fas fa-eye',
             'route'         => 'admin.convenios.index',
@@ -626,7 +626,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 17,
             'name'      => 'Crear Convenio',
             'icon'      => 'fas fa-plus',
             'route'     => 'admin.convenios.create',
@@ -634,7 +634,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 17,
             'name'          => 'Editar Convenio',
             'icon'          => 'fas fa-edit',
             'route'         => 'admin.convenios.edit',
@@ -642,7 +642,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 17,
             'name'          => 'Ver Convenio',
             'icon'          => 'fas fa-search',
             'route'         => 'admin.convenios.show',
@@ -650,7 +650,7 @@ class ModulesActionsTableSeeder extends Seeder
         ]);
 
         factory(Action::class)->create([
-            'permission_id' => 16,
+            'permission_id' => 17,
             'name'          => 'Borrar Convenio',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.convenios.destroy',
@@ -695,6 +695,88 @@ class ModulesActionsTableSeeder extends Seeder
             'name'          => 'Borrar Solicitud',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.campaignRequests.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo Campaigns
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Ver Campañas',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.campaigns.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'      => 'Crear Campaña',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.campaigns.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Editar Campaña',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.campaigns.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Ver Campaña',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.campaigns.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 19,
+            'name'          => 'Borrar Campaña',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.campaigns.destroy',
+            'principal'     => 0
+        ]);
+
+        // Acciones Módulo Scripts
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Ver Guiones',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.scripts.index',
+            'principal'     => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'      => 'Crear Guion',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.scripts.create',
+            'principal' => 1
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Editar Guion',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.scripts.edit',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Ver Guion',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.scripts.show',
+            'principal'     => 0
+        ]);
+
+        factory(Action::class)->create([
+            'permission_id' => 20,
+            'name'          => 'Borrar Guion',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.scripts.destroy',
             'principal'     => 0
         ]);
     }

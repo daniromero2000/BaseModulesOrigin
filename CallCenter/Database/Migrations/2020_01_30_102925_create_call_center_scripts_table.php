@@ -15,8 +15,9 @@ class CreateCallCenterScriptsTable extends Migration
     {
         Schema::create('call_center_scripts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('script',250);
-            $table->tinyInteger('status');
+            $table->string('name');
+            $table->string('script', 250);
+            $table->tinyInteger('is_active');
             $table->softDeletes();
             $table->timestamps();
         });

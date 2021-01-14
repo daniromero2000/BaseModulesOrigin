@@ -17,6 +17,8 @@ interface CallCenterScriptRepositoryInterface
 
     public function updateCallCenterScript(array $params): bool;
 
+    public function getAllCallCenterScript();
+
     public function searchCallCenterScript(string $text = null, int $totalView, $from = null, $to = null): Collection;
 
     public function countCallCenterScripts(string $text = null,  $from = null, $to = null);
