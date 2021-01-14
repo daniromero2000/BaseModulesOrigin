@@ -9,6 +9,8 @@ use Modules\CallCenter\Entities\CampaignRequests\Repositories\CallCenterCampaign
 use Modules\CallCenter\Entities\CampaignRequests\Repositories\Interfaces\CallCenterCampaignRequestRepositoryInterface;
 use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignRepository;
 use Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces\CallCenterCampaignRepositoryInterface;
+use Modules\CallCenter\Entities\Questionnaires\Repositories\CallCenterQuestionnaireRepository;
+use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\Scripts\Repositories\CallCenterScriptRepository;
 use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
 
@@ -34,6 +36,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CallCenterScriptRepositoryInterface::class,
             CallCenterScriptRepository::class
+        );
+
+        $this->app->bind(
+            CallCenterQuestionnaireRepositoryInterface::class,
+            CallCenterQuestionnaireRepository::class
         );
     }
 }

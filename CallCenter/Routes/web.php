@@ -15,5 +15,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Scripts')->group(function () {
             Route::resource('scripts', 'ScriptController');
         });
+
+        Route::namespace('Questionnaires')->group(function () {
+            Route::resource('questionnaires', 'QuestionnaireController');
+        });
     });
 });

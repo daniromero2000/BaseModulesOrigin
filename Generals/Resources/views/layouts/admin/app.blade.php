@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     @include('generals::layouts.admin.styles')
     @yield('styles')
     <script src="{{ asset('js/companies.js') }}" defer></script>
 </head>
-
 <body>
     <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-dark" id="sidenav-main"
         style="background-color: #24252a !important;">
@@ -47,7 +45,6 @@
 
         @include('generals::layouts.admin.scriptInclude')
         @yield('scripts')
-
 </body>
 
 </html>

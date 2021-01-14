@@ -1,4 +1,7 @@
 @extends('generals::layouts.admin.app')
+@section('styles')
+    <script src="{{ asset('js/callcenter.js') }}" defer></script>
+@endsection
 @section('header')
     <div class="header pb-2">
         <div class="container-fluid">
@@ -8,7 +11,7 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" active aria-current="page">Crear Guion</li>
+                                <li class="breadcrumb-item active" active aria-current="page">Crear Questionario</li>
                             </ol>
                         </nav>
                     </div>
@@ -19,47 +22,8 @@
 @endsection
 @section('content')
     <section class="content">
-        @include('generals::layouts.errors-and-messages')
-        <div class="card">
-            <form action="{{ route('admin.scripts.store') }}" method="post" enctype="multipart/form-data" class="form">
-                <div class="card-body">
-                    @csrf
-                    <h2>Crear Guion</h2>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="name">Nombre del guion<span
-                                        class="text-danger">*</span></label>
-                                <div class="input-group  mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-check"></i></span>
-                                    </div>
-                                    <input type="text" name="name" id="name" placeholder="Nombre"
-                                        validation-pattern="name" class="form-control" value="{{ old('name') }}"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="script">Guion <span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control" name="script" id="script" rows="3">
-                                </textarea>
-                            </div>
-                        </div>
-                          <input type="hidden" name="is_active" id="is_active" value="1">
-                    </div>
-                </div>
-                <div class="card-footer text-right">
-                    <div class="btn-group">
-                        <div class="btn-group">
-                            <a href="{{ route('admin.scripts.index') }}" class="btn btn-sm btn-default">Regresar</a>
-                            <button type="submit" class="btn btn-primary btn-sm">Crear</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div id="callCenter">
+            <app-create></app-create>
         </div>
     </section>
 @endsection

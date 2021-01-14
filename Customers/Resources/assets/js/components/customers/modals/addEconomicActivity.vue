@@ -27,7 +27,9 @@
                 :options="economicActivities"
               ></b-form-select>
 
-              <b-form-invalid-feedback id="input-economic-activity">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-economic-activity"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Nombre de Entidad" label-for="entity_name" id>
@@ -40,7 +42,9 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-entity_name">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-entity_name"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Cargo" label-for="profession-input" id>
@@ -52,7 +56,9 @@
                 aria-describedby="input-profession"
                 :options="professions"
               ></b-form-select>
-              <b-form-invalid-feedback id="input-profession">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-profession"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Fecha de Ingreso" label-for="start_date" id>
@@ -78,11 +84,17 @@
                     aria-controls="start_date"
                   ></b-form-datepicker>
                 </b-input-group-append>
-                <b-form-invalid-feedback id="input-start-date">Este campo es requerido.</b-form-invalid-feedback>
+                <b-form-invalid-feedback id="input-start-date"
+                  >Este campo es requerido.</b-form-invalid-feedback
+                >
               </b-input-group>
             </b-form-group>
 
-            <b-form-group label="Dirección Entidad" label-for="entity_address" id>
+            <b-form-group
+              label="Dirección Entidad"
+              label-for="entity_address"
+              id
+            >
               <b-form-input
                 id="entity_address"
                 name="entity_address"
@@ -92,7 +104,9 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-entity_address">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-entity_address"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
             <b-form-group label="Teléfono Entidad" label-for="entity_phone" id>
               <b-form-input
@@ -104,7 +118,9 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-entity_phone">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-entity_phone"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
           </b-col>
 
@@ -118,7 +134,9 @@
                 aria-describedby="input-city_id"
                 :options="cities"
               ></b-form-select>
-              <b-form-invalid-feedback id="input-city_id">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-city_id"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
             <b-form-group label="Ingresos" label-for="incomes" id>
               <b-form-input
@@ -130,7 +148,9 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-incomes">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-incomes"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Otros Ingresos" label-for="other_incomes" id>
@@ -143,10 +163,16 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-other_incomes">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-other_incomes"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
-            <b-form-group label="Fuente Otros Ingresos" label-for="other_incomes_source" id>
+            <b-form-group
+              label="Fuente Otros Ingresos"
+              label-for="other_incomes_source"
+              id
+            >
               <b-form-input
                 id="other_incomes_source"
                 name="other_incomes_source"
@@ -156,7 +182,9 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-other_incomes_source">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-other_incomes_source"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
 
             <b-form-group label="Egresos" label-for="expenses" id>
@@ -169,14 +197,18 @@
                 required
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-expenses">Este campo es requerido.</b-form-invalid-feedback>
+              <b-form-invalid-feedback id="input-expenses"
+                >Este campo es requerido.</b-form-invalid-feedback
+              >
             </b-form-group>
           </b-col>
         </b-row>
 
         <div class="py-2 text-right">
           <b-button size="sm" @click="closeModal()">Cancelar</b-button>
-          <b-button size="sm" variant="primary" @click="onSubmit">Agregar</b-button>
+          <b-button size="sm" variant="primary" @click="onSubmit"
+            >Agregar</b-button
+          >
         </div>
       </form>
     </b-modal>
@@ -206,47 +238,47 @@ export default {
         expenses: null,
         entity_address: null,
         entity_phone: null,
-        city_id: null
-      }
+        city_id: null,
+      },
     };
   },
   validations: {
     form: {
       economic_activity_type_id: {
-        required
+        required,
       },
       entity_name: {
-        required
+        required,
       },
       professions_list_id: {
-        required
+        required,
       },
       start_date: {
-        required
+        required,
       },
       incomes: {
-        required
+        required,
         // minLength: minLength(4)
       },
       other_incomes: {
-        required
+        required,
       },
       other_incomes_source: {
-        required
+        required,
       },
       expenses: {
-        required
+        required,
       },
       entity_address: {
-        required
+        required,
       },
       entity_phone: {
-        required
+        required,
       },
       city_id: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   created() {
     this.$store.dispatch("getlistEconomicActivity");
@@ -264,7 +296,7 @@ export default {
     resetForm() {
       this.form = {
         name: null,
-        food: null
+        food: null,
       };
 
       this.$nextTick(() => {
@@ -283,39 +315,39 @@ export default {
     closeModal() {
       this.$bvModal.hide("addActivity");
       this.$store.dispatch("getCustomerForId", this.customer.id);
-    }
+    },
   },
   computed: {
     customer() {
       return this.$store.state.customer;
     },
     economicActivities() {
-      var data = [];
+      let data = [];
       data.push({ value: null, text: "Seleccione", disabled: true });
-      var economicActivity = this.$store.state.economicActivity;
-      economicActivity.forEach(e => {
+      let economicActivity = this.$store.state.economicActivity;
+      economicActivity.forEach((e) => {
         data.push({ value: e.id, text: e.economic_activity_type });
       });
       return data;
     },
     professions() {
-      var data = [];
+      let data = [];
       data.push({ value: null, text: "Seleccione", disabled: true });
-      var professions = this.$store.state.professions;
-      professions.forEach(e => {
+      let professions = this.$store.state.professions;
+      professions.forEach((e) => {
         data.push({ value: e.id, text: e.profession });
       });
       return data;
     },
     cities() {
-      var data = [];
+      let data = [];
       data.push({ value: null, text: "Seleccione", disabled: true });
-      var cities = this.$store.state.cities;
-      cities.forEach(e => {
+      let cities = this.$store.state.cities;
+      cities.forEach((e) => {
         data.push({ value: e.id, text: e.city });
       });
       return data;
-    }
-  }
+    },
+  },
 };
 </script> 

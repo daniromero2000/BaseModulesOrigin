@@ -5,6 +5,7 @@ namespace Modules\CallCenter\Entities\Campaigns;
 use Illuminate\Database\Eloquent\Model;
 use Modules\CallCenter\Entities\Assignments\CallCenterAssignment;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class CallCenterCampaign extends Model
 {
     use SoftDeletes;
