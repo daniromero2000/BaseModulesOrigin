@@ -15,27 +15,21 @@ class CallCenterManagementIndicatorRepository implements CallCenterManagementInd
 {
     protected $model;
     private $columns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'indicator',
+        'status',
+        'type',
     ];
 
     private $listColumns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'indicator',
+        'status',
+        'type',
     ];
 
     private $campaignRequestColumns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'indicator',
+        'status',
+        'type',
     ];
 
     public function __construct(CallCenterManagementIndicator $campaignRequest)

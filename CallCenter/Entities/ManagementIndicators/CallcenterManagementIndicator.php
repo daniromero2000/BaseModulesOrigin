@@ -14,9 +14,10 @@ class CallCenterManagementIndicator extends Model
 
     protected $fillable = [
         'indicator',
-        'status'
+        'status',
+        'type',
     ];
-
+    
     protected $hidden = [
         'id',
         'status',

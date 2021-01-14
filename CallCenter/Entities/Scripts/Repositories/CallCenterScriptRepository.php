@@ -14,8 +14,12 @@ use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScript
 class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
 {
     protected $model;
+<<<<<<< HEAD
+    private $columns = [        
+=======
     private $columns = [
         'id',
+>>>>>>> 082985e439562d854f773d99cb14df4cec09ebbc
         'script',
         'name',
         'is_active',  
@@ -24,18 +28,28 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
     private $listColumns = [
         'id',
         'script',
+<<<<<<< HEAD
+        'type',   
+        'status', 
+=======
         'name',   
+>>>>>>> 082985e439562d854f773d99cb14df4cec09ebbc
     ];
 
     private $campaignRequestColumns = [
         'id',
         'script',
+<<<<<<< HEAD
+        'type',  
+        'status', 
+=======
         'name',  
+>>>>>>> 082985e439562d854f773d99cb14df4cec09ebbc
     ];
 
-    public function __construct(CallCenterScript $campaignRequest)
+    public function __construct(CallCenterScript $scriptRequest)
     {
-        $this->model = $campaignRequest;
+        $this->model = $scriptRequest;
     }
 
     public function listCallCenterScripts(int $totalView)
@@ -124,7 +138,7 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
     public function findCallCenterScriptById(int $id): CallCenterScript
     {
         try {
-            return $this->model->findOrFail($id, $this->campaignRequestColumns);
+            return $this->model->findOrFail($id, $this->scriptRequestColumns);
         } catch (ModelNotFoundException $e) {
             throw new ScriptNotFoundException($e);
         }

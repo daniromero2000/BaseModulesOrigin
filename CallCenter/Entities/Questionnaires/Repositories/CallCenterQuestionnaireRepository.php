@@ -15,32 +15,23 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
 {
     protected $model;
     private $columns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'question',
+        'status',
     ];
 
     private $listColumns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+        'question',
+        'status',
     ];
 
-    private $campaignRequestColumns = [
-        'employee_id',
-        'campaign',
-        'script',
-        'description',
-        'src'
+    private $questionnaireRequestColumns = [
+        'question',
+        'status',
     ];
 
-    public function __construct(CallCenterQuestionnaire $campaignRequest)
+    public function __construct(CallCenterQuestionnaire $questionnaireRequest)
     {
-        $this->model = $campaignRequest;
+        $this->model = $$questionnaireRequest;
     }
 
     public function listCallCenterQuestionnaires(int $totalView)
@@ -129,7 +120,7 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
     public function findCallCenterQuestionnaireById(int $id): CallCenterQuestionnaire
     {
         try {
-            return $this->model->findOrFail($id, $this->campaignRequestColumns);
+            return $this->model->findOrFail($id, $this->questionnaireRequestColumns);
         } catch (ModelNotFoundException $e) {
             throw new QuestionnaireNotFoundException($e);
         }
