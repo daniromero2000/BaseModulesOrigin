@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Modules\Generals\Entities\Logs\Repositories\Interfaces\LogRepositoryInterface;
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
@@ -19,25 +20,28 @@ class LibranzaController extends Controller
         CityRepositoryInterface $cityRepositoryInterface,
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
         LeadRepositoryInterface $LeadRepositoryInterface,
-        LeadProductRepositoryInterface $leadProductRepositoryInterface
+        LeadProductRepositoryInterface $leadProductRepositoryInterface,
+        LogRepositoryInterface $logRepositoryInterface
     ) {
         $this->cityInterface             = $cityRepositoryInterface;
         $this->leadInterface             = $LeadRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->leadProductInterface      = $leadProductRepositoryInterface;
+        $this->logInterface              = $logRepositoryInterface;
     }
 
     public function store(Request $request)
     {
         $user = auth()->guard('api')->user();
+        $data = $request->input();
 
         if (!$user) {
+            $this->logInterface->createLog(['data' => json_encode($data), 'response' => json_encode(['message' => 'unauthenticated']), 'origin' => 'Leads']);
             return response()->json([
                 'message' => 'unauthenticated'
             ]);
         }
-        
-        $data = $request->input();
+
 
         $validation = Validator::make($request->all(), [
             'name'                  => 'bail|required|string|max:191',
@@ -62,7 +66,7 @@ class LibranzaController extends Controller
                 "data"             => $data,
                 "errors"           => $errors
             ]];
-
+            $this->logInterface->createLog(['data' => json_encode($data), 'response' => json_encode($response), 'origin' => 'Leads']);
             return response()->json($response);
         }
 
@@ -78,7 +82,7 @@ class LibranzaController extends Controller
                     "data"             => $data,
                     "errors"           => ['error' => 'no se ha encontrado ninguna ciudad con el código enviado']
                 ]];
-
+                $this->logInterface->createLog(['data' => json_encode($data), 'response' => json_encode($response), 'origin' => 'Leads']);
                 return response()->json($response);
             }
 
@@ -132,8 +136,9 @@ class LibranzaController extends Controller
                 "errors"           => $th->getMessage()
             ]];
 
+            $this->logInterface->createLog(['data' => json_encode($data), 'response' => json_encode($response), 'origin' => 'Leads']);
+
             return response()->json($response);
         }
     }
-
- }
+}
