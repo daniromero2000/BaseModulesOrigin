@@ -19,6 +19,8 @@ Route::group(['prefix' => 'leads'], function () {
         Route::namespace('libranzaController')->group(function () {
             Route::group(['middleware' => ['api']], function () {
                 Route::post('register', 'LibranzaController@store');
+                Route::get('getCovenants', 'LibranzaController@covenants');
+                Route::get('getDeadlines', 'LibranzaController@deadlines');
             });
         });
     });

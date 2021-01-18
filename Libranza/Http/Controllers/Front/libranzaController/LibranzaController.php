@@ -2,7 +2,6 @@
 
 namespace Modules\Libranza\Http\Controllers\Front\libranzaController;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
@@ -59,7 +58,7 @@ class LibranzaController extends Controller
 
         return view('libranza.front.form_libranza', [
             'cities'       => $this->cityInterface->listCitiesFront(),
-            'covenants'     => $this->covenantInterface->getAllCovenantsNames(),
+            'covenants'    => $this->covenantInterface->getAllCovenantsNames(),
             'products'     => $products,
             'amounts'      => $amounts,
             'amountOrigin' => $amountOrigin

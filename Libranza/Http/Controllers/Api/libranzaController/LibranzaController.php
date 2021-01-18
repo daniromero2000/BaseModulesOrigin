@@ -10,6 +10,7 @@ use Modules\Generals\Entities\Logs\Repositories\Interfaces\LogRepositoryInterfac
 use Modules\Leads\Entities\Leads\Repositories\Interfaces\LeadRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Leads\Entities\LeadProducts\Repositories\Interfaces\LeadProductRepositoryInterface;
+use Modules\Libranza\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
 
 class LibranzaController extends Controller
 {
@@ -21,13 +22,40 @@ class LibranzaController extends Controller
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
         LeadRepositoryInterface $LeadRepositoryInterface,
         LeadProductRepositoryInterface $leadProductRepositoryInterface,
+        CovenantRepositoryInterface $covenantRepositoryInterface,
         LogRepositoryInterface $logRepositoryInterface
     ) {
         $this->cityInterface             = $cityRepositoryInterface;
         $this->leadInterface             = $LeadRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->leadProductInterface      = $leadProductRepositoryInterface;
+        $this->covenantInterface         = $covenantRepositoryInterface;
         $this->logInterface              = $logRepositoryInterface;
+    }
+
+    public function covenants(Request $request)
+    {
+        return response()->json(
+            $this->covenantInterface->getAllCovenantsNames()
+        );
+    }
+
+    public function deadlines(Request $request)
+    {
+        $data = [
+            ['term' => '13'],
+            ['term' => '24'],
+            ['term' => '36'],
+            ['term' => '48'],
+            ['term' => '60'],
+            ['term' => '84'],
+            ['term' => '96'],
+            ['term' => '108'],
+            ['term' => '120'],
+            ['term' => '132'],
+            ['term' => '144']
+        ];
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -41,7 +69,6 @@ class LibranzaController extends Controller
                 'message' => 'unauthenticated'
             ]);
         }
-
 
         $validation = Validator::make($request->all(), [
             'name'                  => 'bail|required|string|max:191',
@@ -71,7 +98,6 @@ class LibranzaController extends Controller
         }
 
         try {
-
             $city = $this->cityInterface->findCityByCode($data['city']);
 
             if (empty($city)) {
