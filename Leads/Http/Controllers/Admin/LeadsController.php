@@ -106,15 +106,15 @@ class LeadsController extends Controller
                     $value->telephone,
                     $value->city != null ? $value->city->city : 'NA',
                     $value->leadStatuses ? $value->leadStatuses->status : "SIN ESTADO",
-                    $value->department->name,
+                    $value->department != null  ? $value->department->name : 'NA',
                     $value->leadService != null ? $value->leadService->service : 'NA',
                     $value->leadProduct != null ? $value->leadProduct->product : 'NA',
                     $value->leadChannel != null ? $value->leadChannel->channel : 'NA',
                     $value->managementStatusLead != null ? $value->managementStatusLead->status : 'NA',
-                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->kind_of_person : 'NA') : 'NA',
-                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->entity : 'NA') : 'NA',
-                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->amount : 'NA') : 'NA',
-                    $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->term : 'NA') : 'NA',
+                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->kind_of_person : 'NA') : 'NA',
+                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->entity : 'NA') : 'NA',
+                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->amount : 'NA') : 'NA',
+                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->term : 'NA') : 'NA',
                     $value->created_at
                 ];
             }
