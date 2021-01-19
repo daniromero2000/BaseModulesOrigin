@@ -133,7 +133,7 @@ class LeadRepository implements LeadRepositoryInterface
                     $userDepartmet[$key] = $value->id;
                 }
                 return $this->model->whereIn('department_id', $userDepartmet)
-                    ->get(['id']);
+                    ->get($this->columns);
             }
 
             if (!empty($text) && (is_null($from) || is_null($to))) {

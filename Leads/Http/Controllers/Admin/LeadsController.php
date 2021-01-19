@@ -57,8 +57,8 @@ class LeadsController extends Controller
         $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
         $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
 
-        foreach (auth()->guard('employee')->user()->department as $key => $value) {
-            $userDepartmet[$key] = $value->id;
+        foreach (auth()->guard('employee')->user()->department as $key => $deparmentUser) {
+            $userDepartmet[$key] = $deparmentUser->id;
         }
 
         if (request()->has('action')) {
@@ -111,10 +111,10 @@ class LeadsController extends Controller
                     $value->leadProduct != null ? $value->leadProduct->product : 'NA',
                     $value->leadChannel != null ? $value->leadChannel->channel : 'NA',
                     $value->managementStatusLead != null ? $value->managementStatusLead->status : 'NA',
-                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->kind_of_person : 'NA') : 'NA',
-                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->entity : 'NA') : 'NA',
-                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->amount : 'NA') : 'NA',
-                    $value->department != null && $value->department->id == 17 ? ($value->leadInformation ? $value->leadInformation->term : 'NA') : 'NA',
+                    $value->department != null ? ($value->leadInformation ? $value->leadInformation->kind_of_person : 'NA') : 'NA',
+                    $value->department != null ? ($value->leadInformation ? $value->leadInformation->entity : 'NA') : 'NA',
+                    $value->department != null ? ($value->leadInformation ? $value->leadInformation->amount : 'NA') : 'NA',
+                    $value->department != null ? ($value->leadInformation ? $value->leadInformation->term : 'NA') : 'NA',
                     $value->created_at
                 ];
             }
