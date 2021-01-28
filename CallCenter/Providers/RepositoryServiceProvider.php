@@ -15,6 +15,8 @@ use Modules\CallCenter\Entities\Questionnaires\Repositories\CallCenterQuestionna
 use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\ManagementIndicators\Repositories\CallCenterManagementIndicatorRepository;
 use Modules\CallCenter\Entities\ManagementIndicators\Interfaces\CallCenterManagementIndicatorRepositoryInterface;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Repositories\CallCenterQuestionnaireQuestionRepository;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Repositories\Interfaces\CallCenterQuestionnaireQuestionRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -41,13 +43,18 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            CallCenterQuestionnaireRepository::class,
-            CallCenterQuestionnaireRepositoryInterface::class
+            CallCenterQuestionnaireRepositoryInterface::class,
+            CallCenterQuestionnaireRepository::class
         );
 
         $this->app->bind(
-            CallCenterManagementIndicatorRepository::class,
-            CallCenterManagementIndicatorRepositoryInterface::class
+            CallCenterManagementIndicatorRepositoryInterface::class,
+            CallCenterManagementIndicatorRepository::class
+        );
+
+        $this->app->bind(
+            CallCenterQuestionnaireQuestionRepositoryInterface::class,
+            CallCenterQuestionnaireQuestionRepository::class
         );
     }
 }

@@ -5,8 +5,6 @@ namespace Modules\CallCenter\Http\Controllers\Admin\Questionnaires;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\CallCenter\Entities\Questionnaires\Services\Interfaces\CallCenterQuestionnaireServiceInterface;
-use Illuminate\Http\UploadedFile;
-use Modules\CallCenter\Entities\Questionnaires\Requests\CreateCallCenterQuestionnairesRequest;
 
 class QuestionnaireController extends Controller
 {
@@ -36,11 +34,8 @@ class QuestionnaireController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->except('_token', '_method');
-
-        $this->callCenterQuestionnaireInterface->saveQuestionnaire($data);
-
-        return redirect()->route('admin.questionnaires.index')->with('message', 'Creación Exitosa');
+        $this->callCenterQuestionnaireInterface->saveQuestionnaire($request->except('_token', '_method'));
+        return response()->json(true);
     }
 
     public function show($id)

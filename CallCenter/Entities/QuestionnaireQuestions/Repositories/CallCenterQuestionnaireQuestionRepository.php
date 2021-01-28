@@ -1,42 +1,40 @@
 <?php
 
-namespace Modules\CallCenter\Entities\Scripts\Repositories;
+namespace Modules\CallCenter\Entities\QuestionnaireQuestions\Repositories;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
-use Modules\CallCenter\Entities\Scripts\CallCenterScript;
-use Modules\CallCenter\Entities\Scripts\Exceptions\CreateScriptErrorException;
-use Modules\CallCenter\Entities\Scripts\Exceptions\ScriptNotFoundException;
-use Modules\CallCenter\Entities\Scripts\Exceptions\UpdateScriptErrorException;
-use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\CallCenterQuestionnaireQuestion;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Exceptions\CreateQuestionnaireQuestionErrorException;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Exceptions\QuestionnaireQuestionNotFoundException;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Exceptions\UpdateQuestionnaireQuestionErrorException;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\Repositories\Interfaces\CallCenterQuestionnaireQuestionRepositoryInterface;
 
-class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
+class CallCenterQuestionnaireQuestionRepository implements CallCenterQuestionnaireQuestionRepositoryInterface
 {
     protected $model;
     private $columns = [
-        'id',
-        'script',
         'name',
-        'is_active',  
+        'status',
     ];
 
     private $listColumns = [
-        'id',
-        'script',
+        'name',
+        'status',
     ];
 
-    private $campaignRequestColumns = [
-        'script',
-        'name',  
+    private $questionnaireRequestColumns = [
+        'name',
+        'status',
     ];
 
-    public function __construct(CallCenterScript $scriptRequest)
+    public function __construct(CallCenterQuestionnaireQuestion $questionnaireRequest)
     {
-        $this->model = $scriptRequest;
+        $this->model = $questionnaireRequest;
     }
 
-    public function listCallCenterScripts(int $totalView)
+    public function listCallCenterQuestionnaireQuestions(int $totalView)
     {
         try {
             return  $this->model
@@ -48,15 +46,15 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
         }
     }
 
-    public function searchCallCenterScript(string $text = null, int $totalView, $from = null, $to = null): Collection
+    public function searchCallCenterQuestionnaireQuestion(string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
             if (empty($text) && is_null($from) && is_null($to)) {
-                return $this->listCallCenterScripts($totalView);
+                return $this->listCallCenterQuestionnaireQuestions($totalView);
             }
 
             if (!empty($text) && (is_null($from) || is_null($to))) {
-                return $this->model->searchCallCenterScript($text, null, true, true)
+                return $this->model->searchCallCenterQuestionnaireQuestion($text, null, true, true)
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
@@ -69,7 +67,7 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
                     ->get($this->columns);
             }
 
-            return $this->model->searchCallCenterScript($text, null, true, true)
+            return $this->model->searchCallCenterQuestionnaireQuestion($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
                 ->orderBy('created_at', 'desc')
                 ->skip($totalView)
@@ -80,14 +78,14 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
         }
     }
 
-    public function countCallCenterScripts(string $text = null,  $from = null, $to = null)
+    public function countCallCenterQuestionnaireQuestions(string $text = null,  $from = null, $to = null)
     {
         if (empty($text) && is_null($from) && is_null($to)) {
             return $this->model->count('id');
         }
 
         if (!empty($text) && (is_null($from) || is_null($to))) {
-            return $this->model->searchCallCenterScript($text, null, true, true)
+            return $this->model->searchCallCenterQuestionnaireQuestion($text, null, true, true)
                 ->count('id');
         }
 
@@ -96,12 +94,12 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
                 ->count('id');
         }
 
-        return $this->model->searchCallCenterScript($text, null, true, true)
+        return $this->model->searchCallCenterQuestionnaireQuestion($text, null, true, true)
             ->whereBetween('created_at', [$from, $to])
             ->count('id');
     }
 
-    public function searchTrashedCallCenterScript(string $text = null): Collection
+    public function searchTrashedCallCenterQuestionnaireQuestion(string $text = null): Collection
     {
         if (empty($text)) {
             return $this->model->onlyTrashed($text)->get($this->columns);
@@ -110,55 +108,43 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
         return $this->model->onlyTrashed()->get($this->columns);
     }
 
-    public function createCallCenterScript(array $data): CallCenterScript
+    public function createCallCenterQuestionnaireQuestion(array $data): CallCenterQuestionnaireQuestion
     {
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            throw new CreateScriptErrorException($e);
+            throw new CreateQuestionnaireQuestionErrorException($e);
         }
     }
 
-    public function findCallCenterScriptById(int $id): CallCenterScript
+    public function findCallCenterQuestionnaireQuestionById(int $id): CallCenterQuestionnaireQuestion
     {
         try {
-            return $this->model->findOrFail($id, $this->scriptRequestColumns);
+            return $this->model->findOrFail($id, $this->questionnaireRequestColumns);
         } catch (ModelNotFoundException $e) {
-            throw new ScriptNotFoundException($e);
+            throw new QuestionnaireQuestionNotFoundException($e);
         }
     }
 
-    public function getAllCallCenterScript()
-    {
-        try {
-            return  $this->model
-                ->orderBy('id', 'desc')
-                ->where('is_active', 1)
-                ->get($this->listColumns);
-        } catch (QueryException $e) {
-            abort(503, $e->getMessage());
-        }
-    }
-
-    public function findTrashedCallCenterScriptById(int $id): CallCenterScript
+    public function findTrashedCallCenterQuestionnaireQuestionById(int $id): CallCenterQuestionnaireQuestion
     {
         try {
             return $this->model->withTrashed()->findOrFail($id, $this->columns);
         } catch (ModelNotFoundException $e) {
-            throw new ScriptNotFoundException($e);
+            throw new QuestionnaireQuestionNotFoundException($e);
         }
     }
 
-    public function updateCallCenterScript(array $params): bool
+    public function updateCallCenterQuestionnaireQuestion(array $params): bool
     {
         try {
             return $this->model->update($params);
         } catch (QueryException $e) {
-            throw new UpdateScriptErrorException($e);
+            throw new UpdateQuestionnaireQuestionErrorException($e);
         }
     }
 
-    public function deleteCallCenterScript(): bool
+    public function deleteCallCenterQuestionnaireQuestion(): bool
     {
         try {
             return $this->model->delete();
@@ -167,7 +153,7 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
         }
     }
 
-    public function recoverTrashedCallCenterScript(): bool
+    public function recoverTrashedCallCenterQuestionnaireQuestion(): bool
     {
         try {
             return $this->model->restore();

@@ -3,7 +3,11 @@ require('./bootstrap');
 import Vuex from 'vuex'
 import Vue from 'vue'
 import store from './store';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+
+Vue.use(BootstrapVue)
 Vue.use(Vuex)
 
 Vue.component('app-create', require('./components/admin/questionnarie/create.vue').default);

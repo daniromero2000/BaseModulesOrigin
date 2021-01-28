@@ -62,7 +62,6 @@
 
 <script>
 import addAddress from "../modals/addAddress";
-
 export default {
   components: {
     addAddress

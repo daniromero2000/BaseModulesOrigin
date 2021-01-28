@@ -70,12 +70,13 @@
                   v-model="data.typeAnswer[k]"
                   class="custom-control-input"
                   value="0"
+                  required
                 />
                 <label class="custom-control-label" :for="k + 'radioFirst'"
                   >Respuesta abierta</label
                 >
               </div>
-              <div class="custom-control custom-radio">
+              <div class="custom-control custom-radio mb-3">
                 <input
                   type="radio"
                   :id="k + 'radioSecond'"
@@ -89,15 +90,35 @@
                 >
               </div>
 
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  :id="k + 'radioThird'"
+                  :name="'customRadio' + k"
+                  v-model="data.typeAnswer[k]"
+                  class="custom-control-input"
+                  value="2"
+                />
+                <label class="custom-control-label" :for="k + 'radioThird'"
+                  >Respuesta de calificación</label
+                >
+              </div>
+
               <div class="mt-2 row mx-0 justify-content-end">
                 <i
                   class="fas fa-minus-circle px-1"
                   @click="remove(k)"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Eliminar pregunta"
                   v-show="k || (!k && inputs.length > 1)"
                 ></i>
                 <i
                   class="fas fa-plus-circle"
                   @click="add(k)"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Agregar pregunta"
                   v-show="k == inputs.length - 1"
                 ></i>
               </div>
@@ -110,62 +131,21 @@
         <div class="btn-group">
           <div class="btn-group">
             <a href="" class="btn btn-sm btn-default">Regresar</a>
-            <button @click="onSubmit" class="btn btn-primary btn-sm">
-              Crear
-            </button>
+            <button type="submit" class="btn btn-primary btn-sm">Crear</button>
           </div>
         </div>
       </div>
     </form>
+
+    <b-overlay :show="show" no-wrap></b-overlay>
   </div>
 </template>
-<style >
-label.checkbox-inline {
-  padding: 10px 5px;
-  display: block;
-  margin-bottom: 5px;
-}
-label.checkbox-inline > input[type="checkbox"] {
-  margin-left: 10px;
-}
-ul.attribute-lists > li {
-  margin-bottom: 10px;
-}
-.center {
-  left: 50%;
-  transform: translateX(0) !important;
-}
-.info-tooltip {
-  position: absolute;
-  top: 3px;
-  right: 18px;
-  border-radius: 20px;
-  background: #5e72e4;
-  width: 18px;
-  cursor: pointer;
-  font-size: 12px;
-  text-decoration: none;
-  color: #fff !important;
-}
-.relative {
-  position: relative;
-}
-.remove-img {
-  position: absolute;
-  top: 5px;
-  width: 29px;
-  right: 5px;
-}
-@media (max-width: 700px) {
-  .remove-img {
-    width: 0;
-    padding-right: 12px;
-    right: 0;
-    font-size: 8px;
-  }
-}
-</style>
+
+
 <script>
+
+require("../../../../../css/app.css");
+
 export default {
   data() {
     return {
@@ -180,9 +160,7 @@ export default {
       ],
     };
   },
-  created() {
-    // alert('hola');
-  },
+  created() {},
   mounted() {},
   methods: {
     add(index) {
@@ -192,12 +170,17 @@ export default {
       this.inputs.splice(index, 1);
     },
     onSubmit() {
+      this.$store.dispatch("loaderPage");
       this.$store.dispatch("saveQuestionnaire", {
         data: this.data,
         items: this.inputs,
       });
     },
   },
-  computed: {},
+  computed: {
+    show() {
+      return this.$store.state.loader;
+    },
+  },
 };
 </script>

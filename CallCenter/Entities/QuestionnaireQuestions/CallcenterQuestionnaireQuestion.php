@@ -1,18 +1,19 @@
 <?php
 
-namespace Modules\CallCenter\Entities\Questionnaires;
+namespace Modules\CallCenter\Entities\QuestionnaireQuestions;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CallCenterQuestionnaire extends Model
+class CallCenterQuestionnaireQuestion extends Model
 {
     use SoftDeletes;
-    protected $table = 'call_center_questionnaires';
+    protected $table = 'call_center_questionnaire_questions';
 
     protected $fillable = [
-        'name',
-        'status',
+        'id_call_center_questionnaire',
+        'question',
+        'typeAnswer'
     ];
 
     protected $hidden = [

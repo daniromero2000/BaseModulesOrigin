@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCallCenterQuestionnairesTable extends Migration
+class CreateCallCenterQuestionnaireQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCallCenterQuestionnairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('call_center_questionnaires', function (Blueprint $table) {
+        Schema::create('call_center_questionnaire_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->tinyInteger('status');
+            $table->unsignedinteger('id_call_center_questionnaire');
+            $table->string('question');
+            $table->string('typeAnswer');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateCallCenterQuestionnairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('call_center_questionnaires');
+        Schema::dropIfExists('call_center_questionnaire_questions');
     }
 }

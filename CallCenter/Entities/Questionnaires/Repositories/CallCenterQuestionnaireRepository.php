@@ -15,23 +15,23 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
 {
     protected $model;
     private $columns = [
-        'question',
+        'name',
         'status',
     ];
 
     private $listColumns = [
-        'question',
+        'name',
         'status',
     ];
 
     private $questionnaireRequestColumns = [
-        'question',
+        'name',
         'status',
     ];
 
     public function __construct(CallCenterQuestionnaire $questionnaireRequest)
     {
-        $this->model = $$questionnaireRequest;
+        $this->model = $questionnaireRequest;
     }
 
     public function listCallCenterQuestionnaires(int $totalView)

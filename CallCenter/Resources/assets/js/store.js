@@ -5,21 +5,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        save: false
+        loader: false,
+        showModalSave: false
     },
     mutations: {
-        saved(state) {
-            state.save = true;
+        saved(state, value) {
+            state.loader = value;
         },
     },
     actions: {
-        saveQuestionnaire(context, newnotification) {
-            // axios.post("/admin/saveNotification", newnotification).then(response => {
-                // if (response.data) {
-            context.commit("saved");
-                    // newnotification = "";
-                // }
-            // });
+        saveQuestionnaire(context, data) {
+            axios.post("/admin/questionnaires", data).then(response => {
+                if (response.data) {
+                    context.commit("saved", false);
+                    data = "";
+                }
+            });
+        },
+        loaderPage(context) {
+            context.commit("saved", true);
         },
     },
 });
