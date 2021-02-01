@@ -15,27 +15,34 @@ use Illuminate\Http\UploadedFile;
 class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterface
 {
     protected $model;
+
     private $columns = [
+        'id',
         'name',
         'description',
         'department_id',
         'begindate',
-        'endingdate'
+        'endingdate',
+        'script_id',
     ];
 
     private $listColumns = [
+        'id',
         'name',
         'description',
         'department_id',
         'begindate',
+        'script_id',
         'endingdate'
     ];
 
     private $campaignColumns = [
+        'id',
         'name',
         'description',
         'department_id',
         'begindate',
+        'script_id',
         'endingdate'
     ];
 

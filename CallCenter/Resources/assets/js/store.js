@@ -6,11 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         loader: false,
-        showModalSave: false
+        showAlert: false,
+        questionnaire: {}
     },
     mutations: {
         saved(state, value) {
             state.loader = value;
+        },
+        showAlert(state, value) {
+            state.showAlert = value;
+        },
+        getQuestionnaire(state, object) {
+            state.questionnaire = object;
         },
     },
     actions: {
@@ -18,12 +25,33 @@ export default new Vuex.Store({
             axios.post("/admin/questionnaires", data).then(response => {
                 if (response.data) {
                     context.commit("saved", false);
+                    context.commit("showAlert", true);
                     data = "";
                 }
             });
         },
-        loaderPage(context) {
-            context.commit("saved", true);
+        updateQuestionnaire(context, data) {
+            axios.put("/admin/questionnaires/" + data.id, data).then(response => {
+                if (response.data) {
+                    context.commit("saved", false);
+                    context.commit("showAlert", true);
+                    data = "";
+                }
+            });
+        },
+        getQuestionnaire(context, id) {
+            axios.get("/admin/getQuestionnaire/" + id).then(response => {
+                if (response.data) {
+                    context.commit("getQuestionnaire", response.data);
+                    context.commit("saved", false);
+                }
+            });
+        },
+        loaderPage(context, status) {
+            context.commit("saved", status);
+        },
+        showAlert(context) {
+            context.commit("showAlert", false);
         },
     },
 });

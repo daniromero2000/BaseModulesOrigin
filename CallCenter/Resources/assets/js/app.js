@@ -5,12 +5,14 @@ import Vue from 'vue'
 import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import SweetAlertIcons from 'vue-sweetalert-icons';
 
-
+Vue.use(SweetAlertIcons);
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 
 Vue.component('app-create', require('./components/admin/questionnarie/create.vue').default);
+Vue.component('app-show', require('./components/admin/questionnarie/show.vue').default);
 
 // import Echo from 'laravel-echo';
 

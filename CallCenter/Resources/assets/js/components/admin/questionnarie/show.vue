@@ -2,7 +2,7 @@
   <div class="card">
     <form @submit.stop.prevent="onSubmit" class="form">
       <div class="card-body">
-        <h2>Crear Questionario</h2>
+        <h2>Actualizar Questionario</h2>
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
@@ -21,7 +21,7 @@
                   type="text"
                   name="name"
                   id="name"
-                  v-model="data.name"
+                  v-model="questionnaire.name"
                   placeholder="Nombre"
                   validation-pattern="name"
                   class="form-control"
@@ -31,7 +31,11 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6" v-for="(input, k) in inputs" :key="k">
+          <div
+            class="col-sm-6"
+            v-for="(question, k) in questionnaire.questions"
+            :key="k"
+          >
             <div class="form-group">
               <label class="form-control-label" for="script"
                 >Pregunta {{ k + 1 }}</label
@@ -44,7 +48,7 @@
                 validation-pattern="name"
                 class="form-control"
                 value=""
-                v-model="data.questions[k]"
+                v-model="question.question"
                 required
               />
 
@@ -67,7 +71,7 @@
                   type="radio"
                   :id="k + 'radioFirst'"
                   :name="'customRadio' + k"
-                  v-model="data.typeAnswer[k]"
+                  v-model="question.typeAnswer"
                   class="custom-control-input"
                   value="0"
                   required
@@ -81,7 +85,7 @@
                   type="radio"
                   :id="k + 'radioSecond'"
                   :name="'customRadio' + k"
-                  v-model="data.typeAnswer[k]"
+                  v-model="question.typeAnswer"
                   class="custom-control-input"
                   value="1"
                 />
@@ -95,7 +99,7 @@
                   type="radio"
                   :id="k + 'radioThird'"
                   :name="'customRadio' + k"
-                  v-model="data.typeAnswer[k]"
+                  v-model="question.typeAnswer"
                   class="custom-control-input"
                   value="2"
                 />
@@ -111,7 +115,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Eliminar pregunta"
-                  v-show="k || (!k && inputs.length > 1)"
+                  v-show="k || (!k && questionnaire.questions.length > 1)"
                 ></i>
                 <i
                   class="fas fa-plus-circle"
@@ -119,7 +123,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Agregar pregunta"
-                  v-show="k == inputs.length - 1"
+                  v-show="k == questionnaire.questions.length - 1"
                 ></i>
               </div>
             </div>
@@ -133,7 +137,7 @@
             <a href="/admin/questionnaires" class="btn btn-sm btn-default"
               >Regresar</a
             >
-            <button type="submit" class="btn btn-primary btn-sm">Crear</button>
+            <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
           </div>
         </div>
       </div>
@@ -154,18 +158,15 @@
           <div class="modal-header"></div>
           <div class="modal-body text-center">
             <sweetalert-icon icon="success" />
-            <p>Registro creado exitosamente</p>
+            <p>Registro actualizado exitosamente</p>
           </div>
           <div class="modal-footer">
-            <a href="/admin/questionnaires" class="btn btn-primary">Salir</a>
-            <button
-              type="button"
-              @click="add(dataEmpty())"
-              class="btn btn-link ml-auto"
+            <a
+              href="/admin/questionnaires"
               data-dismiss="modal"
+              class="btn btn-primary m-auto"
+              >Ok</a
             >
-              Crear nuevo guión
-            </button>
           </div>
         </div>
       </div>
@@ -179,42 +180,26 @@
 require("../../../../../css/app.css");
 
 export default {
+  props: ["id"],
   data() {
-    return {
-      data: {
-        questions: [],
-        typeAnswer: [],
-      },
-      inputs: [
-        {
-          id: "",
-        },
-      ],
-    };
+    return {};
   },
-  created() {},
+  created() {
+    this.$store.dispatch("getQuestionnaire", this.id);
+    this.$store.dispatch("loaderPage", true);
+  },
   mounted() {},
   methods: {
     add() {
-      this.inputs.push({ id: "" });
+      this.questionnaire.questions.push({});
     },
     remove(index) {
-      this.inputs.splice(index, 1);
-    },
-    dataEmpty() {
-      this.data = {
-        questions: [],
-        typeAnswer: [],
-      };
-      this.inputs = [];
+      this.questionnaire.questions.splice(index, 1);
     },
     onSubmit() {
       this.$store.dispatch("showAlert");
       this.$store.dispatch("loaderPage", true);
-      this.$store.dispatch("saveQuestionnaire", {
-        data: this.data,
-        items: this.inputs,
-      });
+      this.$store.dispatch("updateQuestionnaire", this.questionnaire);
     },
   },
   computed: {
@@ -224,13 +209,17 @@ export default {
     showAlert() {
       return this.$store.state.showAlert;
     },
+    questionnaire() {
+      return this.$store.state.questionnaire;
+    },
   },
   watch: {
     showAlert() {
-      if (this.$store.state.showAlert) {
+      if (this.showAlert) {
         $("#modal-alert").modal("show");
       }
     },
+    questionnaire() {},
   },
 };
 </script>

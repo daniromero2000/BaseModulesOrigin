@@ -11,20 +11,19 @@ class CallCenterQuestionnaireQuestion extends Model
     protected $table = 'call_center_questionnaire_questions';
 
     protected $fillable = [
+        'id',
         'id_call_center_questionnaire',
         'question',
         'typeAnswer'
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
-        'update_at',
+        'updated_at',
         'deleted_at'
     ];
 
     protected $guarded = [
-        'id',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -18,6 +18,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
         Route::namespace('Questionnaires')->group(function () {
             Route::resource('questionnaires', 'QuestionnaireController');
+            Route::get('getQuestionnaire/{id}', 'QuestionnaireController@findQuestionnaire');
         });
     });
 });

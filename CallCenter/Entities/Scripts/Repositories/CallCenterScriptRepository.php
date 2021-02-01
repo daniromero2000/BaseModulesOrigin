@@ -23,12 +23,14 @@ class CallCenterScriptRepository implements CallCenterScriptRepositoryInterface
 
     private $listColumns = [
         'id',
-        'script',
+        'name',
+        'is_active'
     ];
 
-    private $campaignRequestColumns = [
-        'script',
-        'name',  
+    private $scriptRequestColumns = [
+        'id',
+        'name',
+        'is_active'
     ];
 
     public function __construct(CallCenterScript $scriptRequest)

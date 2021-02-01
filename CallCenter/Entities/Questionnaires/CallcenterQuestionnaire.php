@@ -4,6 +4,7 @@ namespace Modules\CallCenter\Entities\Questionnaires;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\CallCenter\Entities\QuestionnaireQuestions\CallCenterQuestionnaireQuestion;
 
 class CallCenterQuestionnaire extends Model
 {
@@ -16,14 +17,12 @@ class CallCenterQuestionnaire extends Model
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
         'update_at',
         'deleted_at'
     ];
 
     protected $guarded = [
-        'id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -33,6 +32,10 @@ class CallCenterQuestionnaire extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-    ];   
-    
+    ];
+
+    public function questions()
+    {
+        return $this->hasMany(CallCenterQuestionnaireQuestion::class, 'id_call_center_questionnaire');
+    }
 }

@@ -15,16 +15,19 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
 {
     protected $model;
     private $columns = [
+        'id',
         'name',
         'status',
     ];
 
     private $listColumns = [
+        'id',
         'name',
         'status',
     ];
 
     private $questionnaireRequestColumns = [
+        'id',
         'name',
         'status',
     ];
@@ -40,6 +43,18 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
             return  $this->model
                 ->orderBy('id', 'desc')
                 ->skip($totalView)->take(30)
+                ->get($this->listColumns);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function getAllCallCenterQuestionnaires()
+    {
+        try {
+            return  $this->model
+                ->orderBy('id', 'desc')
+                ->where('status', 1)
                 ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
@@ -120,7 +135,7 @@ class CallCenterQuestionnaireRepository implements CallCenterQuestionnaireReposi
     public function findCallCenterQuestionnaireById(int $id): CallCenterQuestionnaire
     {
         try {
-            return $this->model->findOrFail($id, $this->questionnaireRequestColumns);
+            return $this->model->with('questions')->findOrFail($id, $this->questionnaireRequestColumns);
         } catch (ModelNotFoundException $e) {
             throw new QuestionnaireNotFoundException($e);
         }

@@ -7,7 +7,8 @@ use Illuminate\Routing\Controller;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Illuminate\Http\UploadedFile;
 use Modules\CallCenter\Entities\Campaigns\Requests\CreateCallCenterCampaign;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
 class CampaignController extends Controller
 {
     private $callCenterCampaignInterface;
@@ -45,13 +46,13 @@ class CampaignController extends Controller
         $data = $request->except('_token', '_method');
 
         if ($request->hasFile('src') && $request->file('src') instanceof UploadedFile) {
-
             $valid = array('csv', 'xls', 'xlsx');
-            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
+            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {          
                 $request->session()->flash('error', 'El archivo no es valido');
                 return redirect()->back();
             }
-            $data['src'] = $this->callCenterCampaignInterface->saveFileCampaign($request->file('src'));
+            Excel::import(new CampaignImport, $request->file('src'));
+            dd($data);
         }
 
         $this->callCenterCampaignInterface->saveCampaign($data);

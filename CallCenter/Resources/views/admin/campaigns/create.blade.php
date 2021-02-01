@@ -21,7 +21,7 @@
     <section class="content">
         @include('generals::layouts.errors-and-messages')
         <div class="card">
-            <form action="{{ route('admin.campaigns.store') }}" method="post" enctype="multipart/form-data" class="form">
+            <form action="{{ route('admin.campaigns.store') }}" method="post"  enctype="multipart/form-data" class="form">
                 <div class="card-body">
                     @csrf
                     <h2>Crear Campaña</h2>
@@ -55,8 +55,21 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-control" name="script_id" id="script_id">
                                     <option value=""> Selecciona</option>
-                                    @foreach ($scripts as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @foreach ($scripts as $script)
+                                        <option value="{{ $script->id }}">{{ $script->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                                 <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="script">Questionario<span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control" name="questionnary_id" id="questionnary_id">
+                                    <option value=""> Selecciona</option>
+                                    <option value="0"> No aplica</option>
+                                    @foreach ($questionnaires as $questionnaire)
+                                        <option value="{{ $questionnaire->id }}">{{ $questionnaire->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,13 +80,37 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-control" name="department_id" id="department_id">
                                     <option value=""> Selecciona</option>
-                                    @foreach ($departments as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="name">Fecha de inicio<span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group  mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-check"></i></span>
+                                    </div>
+                                    <input type="date" name="begindate" id="begindate" class="form-control" value="{{ old('begindate') }}" required>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="name">Fecha de finalización<span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group  mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-check"></i></span>
+                                    </div>
+                                    <input type="date" name="endingdate" id="endingdate" class="form-control" value="{{ old('endingdate') }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="form-control-label" for="description">Descripción <span
                                         class="text-danger">*</span></label>

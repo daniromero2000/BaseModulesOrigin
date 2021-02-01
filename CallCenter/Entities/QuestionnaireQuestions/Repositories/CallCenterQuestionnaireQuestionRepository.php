@@ -15,18 +15,24 @@ class CallCenterQuestionnaireQuestionRepository implements CallCenterQuestionnai
 {
     protected $model;
     private $columns = [
-        'name',
-        'status',
+         'id',
+        'id_call_center_questionnaire',
+        'question',
+        'typeAnswer'
     ];
 
     private $listColumns = [
-        'name',
-        'status',
+         'id',
+        'id_call_center_questionnaire',
+        'question',
+        'typeAnswer'
     ];
 
     private $questionnaireRequestColumns = [
-        'name',
-        'status',
+         'id',
+        'id_call_center_questionnaire',
+        'question',
+        'typeAnswer'
     ];
 
     public function __construct(CallCenterQuestionnaireQuestion $questionnaireRequest)
@@ -126,6 +132,15 @@ class CallCenterQuestionnaireQuestionRepository implements CallCenterQuestionnai
         }
     }
 
+    public function findCallCenterQuestionnaireQuestionByQuestionnare(int $id)
+    {
+        try {
+            return $this->model->where('id_call_center_questionnaire', $id)->get();
+        } catch (ModelNotFoundException $e) {
+            throw new QuestionnaireQuestionNotFoundException($e);
+        }
+    }
+
     public function findTrashedCallCenterQuestionnaireQuestionById(int $id): CallCenterQuestionnaireQuestion
     {
         try {
@@ -143,6 +158,16 @@ class CallCenterQuestionnaireQuestionRepository implements CallCenterQuestionnai
             throw new UpdateQuestionnaireQuestionErrorException($e);
         }
     }
+
+    public function destroyCallCenterQuestionnaireQuestions($id): bool
+    {
+        try {
+            return $this->model->where('id_call_center_questionnaire', $id)->delete();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
 
     public function deleteCallCenterQuestionnaireQuestion(): bool
     {

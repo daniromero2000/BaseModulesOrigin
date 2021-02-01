@@ -49,7 +49,7 @@ class CallCenterScriptService implements CallCenterScriptServiceInterface
             'data' => [
                 'list'               => $list,
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-                'headers'            => ['Nombre', 'Guion', 'Opciones'],
+                'headers'            => ['Nombre', 'Estado', 'Opciones'],
                 'searchInputs'       => [
                     ['label' => 'Buscar', 'type' => 'text', 'name' => 'q'],
                     ['label' => 'Desde', 'type' => 'date', 'name' => 'from'],

@@ -9,6 +9,8 @@ interface CallCenterQuestionnaireRepositoryInterface
 {
     public function listCallCenterQuestionnaires(int $totalView);
 
+    public function getAllCallCenterQuestionnaires();
+
     public function createCallCenterQuestionnaire(array $params): CallCenterQuestionnaire;
 
     public function findCallCenterQuestionnaireById(int $id): CallCenterQuestionnaire;

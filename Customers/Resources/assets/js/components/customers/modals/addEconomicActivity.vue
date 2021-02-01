@@ -220,10 +220,6 @@ import { validationMixin } from "vuelidate";
 import { required, minLength } from "vuelidate/lib/validators";
 export default {
   mixins: [validationMixin],
-
-  // props: {
-  //   // customer: Number
-  // },
   data() {
     return {
       form: {

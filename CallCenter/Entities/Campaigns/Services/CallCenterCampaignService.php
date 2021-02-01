@@ -7,23 +7,29 @@ use Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces\CallCenterCamp
 use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignRepository;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
+use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
 
 class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 {
-    protected $campaignInterface, $toolsInterface;
+    protected $campaignInterface, $toolsInterface, $questionnaireInterface;
 
     public function __construct(
         CallCenterCampaignRepositoryInterface $campaignRepositoryInterface,
         CallCenterScriptRepositoryInterface $callCenterScriptRepositoryInterface,
         DepartmentRepositoryInterface $departmentRepositoryInterface,
+        CallCenterQuestionnaireRepositoryInterface $callCenterQuestionnaireRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
     ) {
-        $this->scriptInterface      = $callCenterScriptRepositoryInterface;
-        $this->campaignInterface    = $campaignRepositoryInterface;
-        $this->departmentInterface  = $departmentRepositoryInterface;
-        $this->toolsInterface       = $toolRepositoryInterface;
+        $this->scriptInterface          = $callCenterScriptRepositoryInterface;
+        $this->campaignInterface        = $campaignRepositoryInterface;
+        $this->departmentInterface      = $departmentRepositoryInterface;
+        $this->questionnaireInterface   = $callCenterQuestionnaireRepositoryInterface;
+        $this->toolsInterface           = $toolRepositoryInterface;
     }
 
     public function listCampaigns(array $data): array
@@ -82,19 +88,21 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
     public function saveCampaign(array $data): bool
     {
-        if (!array_key_exists('company_id', $data['data'])) {
-            $data['data']['company_id'] = auth()->guard('campaign')->user()->company_id;
+        if (isset($data['src']) && ($data['src'] instanceof UploadedFile)) {
+            Excel::import(new CampaignImport, $data['src']);
         }
+        dd($data['src']);
 
-        $this->campaignInterface->createCallCenterCampaign($data['data']);
+        $this->campaignInterface->createCallCenterCampaign($data);
         return true;
     }
 
     public function getDataCreate(): array
     {
         return [
-            'scripts'     => $this->scriptInterface->getAllCallCenterScript(),
-            'departments' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name'])
+            'scripts'        => $this->scriptInterface->getAllCallCenterScript(),
+            'departments'    => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']),
+            'questionnaires' => $this->questionnaireInterface->getAllCallCenterQuestionnaires()
         ];
     }
 

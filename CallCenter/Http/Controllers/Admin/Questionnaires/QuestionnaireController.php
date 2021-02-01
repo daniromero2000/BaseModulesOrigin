@@ -40,6 +40,12 @@ class QuestionnaireController extends Controller
 
     public function show($id)
     {
+        return view('callcenter::admin.questionnaires.show', ['id' => $id]);
+    }
+
+    public function findQuestionnaire($id)
+    {
+        return $this->callCenterQuestionnaireInterface->showQuestionnaire($id);
     }
 
     public function edit($id)
@@ -49,11 +55,8 @@ class QuestionnaireController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token', '_method');
-
-        $this->callCenterQuestionnaireInterface->updateQuestionnaire(['data' => $data, 'id' => $id]);
-
-        return redirect()->route('admin.questionnaires.index')->with('message', 'Actualización Exitosa');
+        $this->callCenterQuestionnaireInterface->updateQuestionnaire($request->except('_token', '_method'));
+        return response()->json(true);
     }
 
     public function destroy($id)

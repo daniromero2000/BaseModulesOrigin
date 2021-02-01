@@ -25,5 +25,7 @@ interface CallCenterQuestionnaireQuestionRepositoryInterface
 
     public function deleteCallCenterQuestionnaireQuestion(): bool;
 
+    public function destroyCallCenterQuestionnaireQuestions($id): bool;
+
     public function recoverTrashedCallCenterQuestionnaireQuestion(): bool;
 }

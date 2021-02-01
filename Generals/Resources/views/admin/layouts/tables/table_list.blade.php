@@ -23,7 +23,7 @@
                                           <td class="text-center">{{ $data->created_at }}</td>
                                       @elseif($index == 'is_active')
                                           <td class="text-center">
-                                              @include('generals::layouts.admin.status', ['status' => $data->is_active])
+                                              @include('generals::layouts.status', ['status' => $data->is_active])
                                           </td>
                                       @elseif($index == 'status')
                                           <td class="text-center">
