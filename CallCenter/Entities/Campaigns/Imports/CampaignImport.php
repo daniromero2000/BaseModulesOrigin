@@ -10,7 +10,7 @@ class CampaignImport implements ToModel
     public function model(array $row)
     {
         return new CallCenterCampaign([
-            'name'        => $row['prueba']           
+            'name'        => $row['test']           
         ]);
     }
 }
