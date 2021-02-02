@@ -10,11 +10,12 @@ class CampaignImport implements ToModel, WithHeadingRow
 {
     public function model(array $data)
     {
+        dd($data);
         return new CallCenterCampaignBase([
-            'identity_number'        => $data['data']['identity_number'],
-            'employee_id'            => $data['data']['employee_id'],   
-            'campaign_id'            => $data['campaign'],          
-            'call_center_status_id'  => $data['data']['call_center_status_id']
+            'identity_number'        => $data['identity_number'],
+            'employee_id'            => $data['employee_id'],   
+            'campaign_id'            => $data['campaign_id'],          
+            'call_center_status_id'  => $data['call_center_status_id']
         ]);
     }
 }
