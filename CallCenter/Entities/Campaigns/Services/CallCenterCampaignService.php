@@ -56,13 +56,21 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
             $paginate = $this->campaignInterface->countCallCenterCampaigns('');
         }
 
+        $list = $list->map(function ($item) {
+            $item->department_id   = $item->department->name;
+            $item->script_id       = $item->script->name;
+            $item->questionnary_id = $item->questionnare->name;
+
+            return $item;
+        })->all();
+
         $getPaginate  = $this->toolsInterface->getPaginate($paginate, $skip);
 
         return [
             'data' => [
-                'list'               => $list,
+                'list'               => collect($list),
                 'optionsRoutes'      => 'admin.' . (request()->segment(2)),
-                'headers'            => ['Nombre', 'Email', 'Cargo', 'Estado', 'Opciones'],
+                'headers'            => ['Nombre', 'Area', 'Guion', 'Questionario', 'Fecha de inicio', 'Fecha de finalización', 'Opciones'],
                 'searchInputs'       => [
                     ['label' => 'Buscar', 'type' => 'text', 'name' => 'q'],
                     ['label' => 'Desde', 'type' => 'date', 'name' => 'from'],

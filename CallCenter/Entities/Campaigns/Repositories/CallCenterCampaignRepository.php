@@ -19,31 +19,33 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
     private $columns = [
         'id',
         'name',
-        'description',
         'department_id',
+        'script_id',
+        'questionnary_id',
+        'description',
         'begindate',
         'endingdate',
-        'script_id',
     ];
 
     private $listColumns = [
         'id',
         'name',
-        'description',
         'department_id',
-        'begindate',
         'script_id',
-        'endingdate'
+        'questionnary_id',
+        'begindate',
+        'endingdate',
     ];
 
     private $campaignColumns = [
         'id',
         'name',
-        'description',
         'department_id',
-        'begindate',
         'script_id',
-        'endingdate'
+        'questionnary_id',
+        'description',
+        'begindate',
+        'endingdate',
     ];
 
     public function __construct(CallCenterCampaign $campaign)

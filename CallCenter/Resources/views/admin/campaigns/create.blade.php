@@ -41,16 +41,6 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="icon">Archivo <span
-                                        class="text-danger">*</span></label>
-                                <div class="input-group  mb-3">
-                                    <input type="file" name="src" id="src" class="form-control" value="{{ old('src') }}"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
                                 <label class="form-control-label" for="script">Guion <span
                                         class="text-danger">*</span></label>
                                 <select class="form-control" name="script_id" id="script_id">

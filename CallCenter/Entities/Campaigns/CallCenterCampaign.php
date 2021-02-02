@@ -5,7 +5,9 @@ namespace Modules\CallCenter\Entities\Campaigns;
 use Illuminate\Database\Eloquent\Model;
 use Modules\CallCenter\Entities\Assignments\CallCenterAssignment;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Modules\CallCenter\Entities\Questionnaires\CallCenterQuestionnaire;
+use Modules\CallCenter\Entities\Scripts\CallCenterScript;
+use Modules\Companies\Entities\Departments\Department;
 class CallCenterCampaign extends Model
 {
     use SoftDeletes;
@@ -25,4 +27,20 @@ class CallCenterCampaign extends Model
     {
         return $this->hasMany(CallCenterAssignment::class);
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function script()
+    {
+        return $this->belongsTo(CallCenterScript::class, 'script_id');
+    }
+
+    public function questionnare()
+    {
+        return $this->belongsTo(CallCenterQuestionnaire::class, 'questionnary_id');
+    }
+
 }

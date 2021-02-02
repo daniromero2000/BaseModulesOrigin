@@ -9,7 +9,7 @@
 <div class="collapse mt-3 {{ request()->input() ? 'show' : '' }}" id="contentId">
     <div class="row">
         <div class="col-md-12">
-            <div class="card" >
+            <div class="" >
                 <form action="{{ $route }}" method="get" id="admin-search">
                     <div class="row d-flex justify-content-start">
                         @foreach ($searchInputs as $input)

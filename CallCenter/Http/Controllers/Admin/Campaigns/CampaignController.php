@@ -47,19 +47,19 @@ class CampaignController extends Controller
     public function store(CreateCallCenterCampaign $request)
     {
         $data = $request->except('_token', '_method');
-
-        $valid = array('csv', 'xls', 'xlsx');
-        if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
-            $request->session()->flash('error', 'El archivo no es valido');
-            return redirect()->back();
-        }
-
-        $campaign = $this->callCenterCampaignInterface->saveCampaign($data);
-        set_time_limit(180);
-
-        Excel::import(new CampaignImport, $request->file('src'));
-
+        $this->callCenterCampaignInterface->saveCampaign($data);
         return redirect()->route('admin.campaigns.index')->with('message', 'Creación Exitosa');
+        
+        // $valid = array('csv', 'xls', 'xlsx');
+        // if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
+        //     $request->session()->flash('error', 'El archivo no es valido');
+        //     return redirect()->back();
+        // }
+
+        // set_time_limit(180);
+
+        // Excel::import(new CampaignImport, $request->file('src'));
+
     }
 
     public function show($id)
