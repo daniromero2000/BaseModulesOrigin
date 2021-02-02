@@ -57,7 +57,7 @@ class CampaignController extends Controller
         $campaign = $this->callCenterCampaignInterface->saveCampaign($data);
         set_time_limit(180);
 
-        Excel::import(new CampaignImport, ['data' => $request->file('src'), 'campaign' => $campaign->id]);
+        Excel::import(new CampaignImport, $request->file('src'));
 
         return redirect()->route('admin.campaigns.index')->with('message', 'Creación Exitosa');
     }
