@@ -10,7 +10,6 @@ class CampaignImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        dd($row);
         return new CallCenterCampaign([
             $row           
         ]);
