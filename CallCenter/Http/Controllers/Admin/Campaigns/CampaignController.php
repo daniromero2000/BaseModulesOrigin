@@ -7,8 +7,6 @@ use Illuminate\Routing\Controller;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Illuminate\Http\UploadedFile;
 use Modules\CallCenter\Entities\Campaigns\Requests\CreateCallCenterCampaign;
-use Maatwebsite\Excel\Facades\Excel;
-use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
 
 class CampaignController extends Controller
 {
@@ -54,8 +52,6 @@ class CampaignController extends Controller
                 $request->session()->flash('error', 'El archivo no es valido');
                 return redirect()->back();
             }
-            dd(Excel::import(new CampaignImport, $request->file('src')));
-            dd($data);
         }
 
         $this->callCenterCampaignInterface->saveCampaign($data);

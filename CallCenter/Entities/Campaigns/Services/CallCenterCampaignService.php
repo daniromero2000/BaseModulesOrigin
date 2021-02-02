@@ -88,12 +88,12 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
     public function saveCampaign(array $data): bool
     {
+        $campaign = $this->campaignInterface->createCallCenterCampaign($data);
         if (isset($data['src']) && ($data['src'] instanceof UploadedFile)) {
-            Excel::import(new CampaignImport, $data['src']);
+            Excel::import(new CampaignImport, ['data' => $data['src'], 'campaign' => $campaign->id]);
         }
         dd($data['src']);
 
-        $this->campaignInterface->createCallCenterCampaign($data);
         return true;
     }
 
