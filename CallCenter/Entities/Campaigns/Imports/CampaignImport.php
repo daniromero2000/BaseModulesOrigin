@@ -14,8 +14,7 @@ class CampaignImport implements ToModel, WithHeadingRow
             'identity_number'        => $row['identity_number'],
             'employee_id'            => $row['employee_id'],   
             'campaign_id'            => $row['campaign_id'],          
-            'call_center_status_id'  => $row['call_center_status_id'],          
-
+            'call_center_status_id'  => $row['call_center_status_id']
         ]);
     }
 }

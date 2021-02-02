@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Modules\CallCenter\Entities\Campaigns\Requests\CreateCallCenterCampaign;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
+
 class CampaignController extends Controller
 {
     private $callCenterCampaignInterface;
@@ -37,8 +38,10 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('callcenter::admin.campaigns.create',
-            $this->callCenterCampaignInterface->getDataCreate());
+        return view(
+            'callcenter::admin.campaigns.create',
+            $this->callCenterCampaignInterface->getDataCreate()
+        );
     }
 
     public function store(CreateCallCenterCampaign $request)
@@ -47,11 +50,11 @@ class CampaignController extends Controller
 
         if ($request->hasFile('src') && $request->file('src') instanceof UploadedFile) {
             $valid = array('csv', 'xls', 'xlsx');
-            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {          
+            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
                 $request->session()->flash('error', 'El archivo no es valido');
                 return redirect()->back();
             }
-            Excel::import(new CampaignImport, $request->file('src'));
+            dd(Excel::import(new CampaignImport, $request->file('src')));
             dd($data);
         }
 
