@@ -7,6 +7,7 @@ use Modules\CallCenter\Entities\Campaigns\Repositories\Interfaces\CallCenterCamp
 use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignRepository;
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
@@ -86,15 +87,9 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
         ];
     }
 
-    public function saveCampaign(array $data): bool
+    public function saveCampaign(array $data): Model
     {
-        $campaign = $this->campaignInterface->createCallCenterCampaign($data);
-        if (isset($data['src']) && ($data['src'] instanceof UploadedFile)) {
-            Excel::import(new CampaignImport, ['data' => $data['src'], 'campaign' => $campaign->id]);
-        }
-        dd($data['src']);
-
-        return true;
+        return $this->campaignInterface->createCallCenterCampaign($data);
     }
 
     public function getDataCreate(): array

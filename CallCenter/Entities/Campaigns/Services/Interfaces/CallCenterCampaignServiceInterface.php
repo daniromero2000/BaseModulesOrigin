@@ -2,11 +2,13 @@
 
 namespace Modules\CallCenter\Entities\Campaigns\Services\Interfaces;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface CallCenterCampaignServiceInterface
 {
     public function listCampaigns(array $data): array;
 
-    public function saveCampaign(array $data): bool;
+    public function saveCampaign(array $data): Model;
 
     public function saveFileCampaign($data);
 
