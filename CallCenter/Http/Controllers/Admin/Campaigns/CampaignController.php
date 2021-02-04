@@ -87,15 +87,13 @@ class CampaignController extends Controller
             return redirect()->back();
         }
 
+        set_time_limit(180);
         if($request->input('type') == 0){
-            set_time_limit(180);
+            Excel::import(new CampaignImport($id), $request->file('src'));
+        }else{
+            $this->callCenterCampaignInterface->destroyCampaignBase($id);
             Excel::import(new CampaignImport($id), $request->file('src'));
         }
-
-        $this->callCenterCampaignInterface->destroyCampaignBase($id);
-
-        set_time_limit(180);
-        Excel::import(new CampaignImport($id), $request->file('src'));
 
         return redirect()->route('admin.campaigns.index')->with('message', 'Cargue Exitoso');
     }
