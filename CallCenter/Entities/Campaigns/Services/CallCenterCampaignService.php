@@ -8,7 +8,7 @@ use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignReposit
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Modules\CallCenter\Entities\CampaignBases\Repositories\CallCenterCampaignBaseRepository;
+use Modules\CallCenter\Entities\CampaignBases\Repositories\Interfaces\CallCenterCampaignBaseRepositoryInterface;
 use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
@@ -20,7 +20,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
     public function __construct(
         CallCenterCampaignRepositoryInterface $campaignRepositoryInterface,
         CallCenterScriptRepositoryInterface $callCenterScriptRepositoryInterface,
-        CallCenterCampaignBaseRepository $callCenterCampaignBaseServiceInterface,
+        CallCenterCampaignBaseRepositoryInterface $callCenterCampaignBaseServiceInterface,
         DepartmentRepositoryInterface $departmentRepositoryInterface,
         CallCenterQuestionnaireRepositoryInterface $callCenterQuestionnaireRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
