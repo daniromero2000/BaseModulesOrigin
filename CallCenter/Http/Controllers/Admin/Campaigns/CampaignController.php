@@ -91,7 +91,7 @@ class CampaignController extends Controller
         if($request->input('type') == 0){
             Excel::import(new CampaignImport($id), $request->file('src'));
         }else{
-            dd($this->callCenterCampaignInterface->destroyCampaignBase($id));
+            $this->callCenterCampaignInterface->destroyCampaignBase($id);
             Excel::import(new CampaignImport($id), $request->file('src'));
         }
 
