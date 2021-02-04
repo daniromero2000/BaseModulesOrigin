@@ -15,21 +15,21 @@ class CallCenterQuestionnaireQuestionRepository implements CallCenterQuestionnai
 {
     protected $model;
     private $columns = [
-         'id',
+        'id',
         'id_call_center_questionnaire',
         'question',
         'typeAnswer'
     ];
 
     private $listColumns = [
-         'id',
+        'id',
         'id_call_center_questionnaire',
         'question',
         'typeAnswer'
     ];
 
     private $questionnaireRequestColumns = [
-         'id',
+        'id',
         'id_call_center_questionnaire',
         'question',
         'typeAnswer'
