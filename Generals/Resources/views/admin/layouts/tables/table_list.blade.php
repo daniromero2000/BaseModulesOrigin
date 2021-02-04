@@ -47,7 +47,8 @@
                               </td>
                           </tr>
                           @include('generals::layouts.admin.modals.modal_update')
-                      @endforeach
+                          @include('generals::layouts.admin.modals.modal_import')
+                     @endforeach
                   </tbody>
               </table>
           </div>

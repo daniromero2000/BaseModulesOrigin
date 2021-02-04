@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\CallCenter\Entities\CampaignBases\Services\Interfaces\CallCenterCampaignBaseServiceInterface;
 use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
@@ -22,6 +23,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
     public function __construct(
         CallCenterCampaignRepositoryInterface $campaignRepositoryInterface,
         CallCenterScriptRepositoryInterface $callCenterScriptRepositoryInterface,
+        CallCenterCampaignBaseServiceInterface $callCenterCampaignBaseServiceInterface,
         DepartmentRepositoryInterface $departmentRepositoryInterface,
         CallCenterQuestionnaireRepositoryInterface $callCenterQuestionnaireRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
@@ -31,6 +33,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
         $this->departmentInterface      = $departmentRepositoryInterface;
         $this->questionnaireInterface   = $callCenterQuestionnaireRepositoryInterface;
         $this->toolsInterface           = $toolRepositoryInterface;
+        $this->campaignBaseInterface    = $callCenterCampaignBaseServiceInterface;
     }
 
     public function listCampaigns(array $data): array
@@ -60,6 +63,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
             $item->department_id   = $item->department->name;
             $item->script_id       = $item->script->name;
             $item->questionnary_id = $item->questionnare ? $item->questionnare->name : 'Sin cuestionario';
+
             return $item;
         })->all();
 
@@ -127,6 +131,12 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
         $campaign  = $this->campaignInterface->findCallCenterCampaignById($data['id']);
         $repo      = new CallCenterCampaignRepository($campaign);
         $repo->updateCallCenterCampaign($data['data']);
+        return true;
+    }
+
+    public function destroyCampaignBase(int $id): bool
+    {
+        $this->campaignBaseInterface->destroyCallCenterCampaignBase($id);
         return true;
     }
 

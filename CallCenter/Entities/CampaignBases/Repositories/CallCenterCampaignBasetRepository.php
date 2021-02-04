@@ -162,6 +162,15 @@ class CallCenterCampaignBaseRepository implements CallCenterCampaignBaseReposito
         }
     }
 
+    public function destroyCallCenterCampaignBase($id): bool
+    {
+        try {
+            return $this->model->where('campaign_id', $id)->delete();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function recoverTrashedCallCenterCampaignBase(): bool
     {
         try {

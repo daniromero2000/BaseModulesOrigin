@@ -25,5 +25,7 @@ interface CallCenterCampaignBaseRepositoryInterface
 
     public function deleteCallCenterCampaignBase(): bool;
 
+    public function destroyCallCenterCampaignBase($id): bool;
+
     public function recoverTrashedCallCenterCampaignBase(): bool;
 }

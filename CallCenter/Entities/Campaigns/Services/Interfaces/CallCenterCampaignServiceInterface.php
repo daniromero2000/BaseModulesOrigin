@@ -18,5 +18,7 @@ interface CallCenterCampaignServiceInterface
 
     public function updateCampaign(array $data): bool;
 
+    public function destroyCampaignBase(int $id): bool;
+
     public function deleteCampaign(int $id): bool;
 }

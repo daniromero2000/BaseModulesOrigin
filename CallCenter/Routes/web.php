@@ -10,7 +10,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
         Route::namespace('Campaigns')->group(function () {
             Route::resource('campaigns', 'CampaignController');
-            Route::get('campaigns/import', 'CampaignController@index')->name('campaigns.import');
+            Route::put('campaigns/import/{campaign}', 'CampaignController@import')->name('campaigns.import');
         });
 
         Route::namespace('Scripts')->group(function () {

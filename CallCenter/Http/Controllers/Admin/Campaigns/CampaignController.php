@@ -79,6 +79,27 @@ class CampaignController extends Controller
         return redirect()->route('admin.campaigns.index')->with('message', 'Actualización Exitosa');
     }
 
+    public function import(Request $request, $id)
+    {
+        $valid = array('csv', 'xls', 'xlsx');
+        if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
+            $request->session()->flash('error', 'El archivo no es valido');
+            return redirect()->back();
+        }
+
+        if($request->input('type') == 0){
+            set_time_limit(180);
+            Excel::import(new CampaignImport($id), $request->file('src'));
+        }
+
+        $this->callCenterCampaignInterface->destroyCampaignBase($id);
+
+        set_time_limit(180);
+        Excel::import(new CampaignImport($id), $request->file('src'));
+
+        return redirect()->route('admin.campaigns.index')->with('message', 'Cargue Exitoso');
+    }
+
     public function destroy($id)
     {
         //
