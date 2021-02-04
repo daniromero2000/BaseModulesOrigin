@@ -47,19 +47,20 @@ class CampaignController extends Controller
     public function store(CreateCallCenterCampaign $request)
     {
         $data = $request->except('_token', '_method');
-        $this->callCenterCampaignInterface->saveCampaign($data);
-        return redirect()->route('admin.campaigns.index')->with('message', 'Creación Exitosa');
+    
+        $valid = array('csv', 'xls', 'xlsx');
+        if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
+            $request->session()->flash('error', 'El archivo no es valido');
+            return redirect()->back();
+        }
+
+        $campaign = $this->callCenterCampaignInterface->saveCampaign($data);
+        set_time_limit(180);
+
+        Excel::import(new CampaignImport($campaign->id), $request->file('src'));
+
         
-        // $valid = array('csv', 'xls', 'xlsx');
-        // if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
-        //     $request->session()->flash('error', 'El archivo no es valido');
-        //     return redirect()->back();
-        // }
-
-        // set_time_limit(180);
-
-        // Excel::import(new CampaignImport, $request->file('src'));
-
+        return redirect()->route('admin.campaigns.index')->with('message', 'Creación Exitosa');
     }
 
     public function show($id)
@@ -73,18 +74,7 @@ class CampaignController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token', '_method');
-        if ($request->hasFile('src') && $request->file('src') instanceof UploadedFile) {
-
-            $valid = array('csv', 'xls', 'xlsx');
-            if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
-                $request->session()->flash('error', 'El archivo no es valido');
-                return redirect()->back();
-            }
-            $data['src'] = $this->callCenterCampaignInterface->saveFileCampaign($request->file('src'));
-        }
-
-        $this->callCenterCampaignInterface->updateCampaign(['data' => $data, 'id' => $id]);
+        $this->callCenterCampaignInterface->updateCampaign(['data' => $request->except('_token', '_method'), 'id' => $id]);
 
         return redirect()->route('admin.campaigns.index')->with('message', 'Actualización Exitosa');
     }

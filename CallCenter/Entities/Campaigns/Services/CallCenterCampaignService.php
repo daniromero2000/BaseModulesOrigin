@@ -78,12 +78,11 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
                 ],
                 'inputs' => [
                     ['label' => 'Nombre', 'type' => 'text', 'name' => 'name'],
-                    ['label' => 'Apellido', 'type' => 'text', 'name' => 'last_name'],
-                    ['label' => 'Servicios', 'type' => 'select', 'options' => $this->scriptInterface->getAllCallCenterScript(), 'name' => 'script_id', 'option' => 'name'],
-                    ['label' => 'Email', 'type' => 'text', 'name' => 'email'],
-                    ['label' => 'Password', 'type' => 'password', 'name' => 'password'],
-                    ['label' => 'Tipo Sangre', 'type' => 'text', 'name' => 'rh'],
-                    ['label' => 'Fecha Nacimiento', 'type' => 'date', 'name' => 'birthday']
+                    ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
+                    ['label' => 'Questionario', 'type' => 'select', 'options' => $this->questionnaireInterface->getAllCallCenterQuestionnaires(), 'name' => 'questionnary_id', 'option' => 'name'],
+                    ['label' => 'Guion', 'type' => 'select', 'options' => $this->scriptInterface->getAllCallCenterScript(), 'name' => 'script_id', 'option' => 'name'],
+                    ['label' => 'Fecha de inicio', 'type' => 'date', 'name' => 'begindate'],
+                    ['label' => 'Fecha de finalización', 'type' => 'date', 'name' => 'endingdate']
                 ],
                 'skip'               => $skip,
                 'paginate'           => $getPaginate['paginate'],
@@ -127,7 +126,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
     public function updateCampaign(array $data): bool
     {
         $campaign  = $this->campaignInterface->findCallCenterCampaignById($data['id']);
-        $repo             = new CallCenterCampaignRepository($campaign);
+        $repo      = new CallCenterCampaignRepository($campaign);
         $repo->updateCallCenterCampaign($data['data']);
         return true;
     }

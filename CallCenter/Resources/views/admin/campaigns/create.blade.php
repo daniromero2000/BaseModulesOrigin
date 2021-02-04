@@ -21,7 +21,7 @@
     <section class="content">
         @include('generals::layouts.errors-and-messages')
         <div class="card">
-            <form action="{{ route('admin.campaigns.store') }}" method="post"  enctype="multipart/form-data" class="form">
+            <form action="{{ route('admin.campaigns.store') }}" method="post" enctype="multipart/form-data" class="form">
                 <div class="card-body">
                     @csrf
                     <h2>Crear Campaña</h2>
@@ -39,6 +39,18 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="name">Base<span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group  mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-check"></i></span>
+                                    </div>
+                                    <input type="file" name="src" id="src" placeholder="Nombre" class="form-control" value="{{ old('src') }}" required>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-control-label" for="script">Guion <span
@@ -51,7 +63,7 @@
                                 </select>
                             </div>
                         </div>
-                                 <div class="col-sm-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-control-label" for="script">Questionario<span
                                         class="text-danger">*</span></label>
@@ -84,11 +96,12 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-check"></i></span>
                                     </div>
-                                    <input type="date" name="begindate" id="begindate" class="form-control" value="{{ old('begindate') }}" required>
+                                    <input type="date" name="begindate" id="begindate" class="form-control"
+                                        value="{{ old('begindate') }}" required>
                                 </div>
                             </div>
                         </div>
-                          <div class="col-sm-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-control-label" for="name">Fecha de finalización<span
                                         class="text-danger">*</span></label>
@@ -96,7 +109,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-check"></i></span>
                                     </div>
-                                    <input type="date" name="endingdate" id="endingdate" class="form-control" value="{{ old('endingdate') }}" required>
+                                    <input type="date" name="endingdate" id="endingdate" class="form-control"
+                                        value="{{ old('endingdate') }}" required>
                                 </div>
                             </div>
                         </div>
