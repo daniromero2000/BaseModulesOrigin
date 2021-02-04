@@ -57,9 +57,9 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
         }
 
         $list = $list->map(function ($item) {
-            // $item->department_id   = $item->department->name;
-            // $item->script_id       = $item->script->name;
-            // $item->questionnary_id = $item->questionnare ? $item->questionnare->name : 'Sin cuestionario';
+            $item->department_id   = $item->department->name;
+            $item->script_id       = $item->script->name;
+            $item->questionnary_id = $item->questionnare ? $item->questionnare->name : 'Sin cuestionario';
             return $item;
         })->all();
 
