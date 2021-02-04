@@ -8,13 +8,10 @@ use Modules\CallCenter\Entities\Campaigns\Repositories\CallCenterCampaignReposit
 use Modules\CallCenter\Entities\Campaigns\Services\Interfaces\CallCenterCampaignServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
-use Maatwebsite\Excel\Facades\Excel;
-use Modules\CallCenter\Entities\CampaignBases\Services\Interfaces\CallCenterCampaignBaseServiceInterface;
+use Modules\CallCenter\Entities\CampaignBases\Repositories\CallCenterCampaignBaseRepository;
 use Modules\CallCenter\Entities\Questionnaires\Repositories\Interfaces\CallCenterQuestionnaireRepositoryInterface;
 use Modules\CallCenter\Entities\Scripts\Repositories\Interfaces\CallCenterScriptRepositoryInterface;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
-use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
 
 class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 {
@@ -23,7 +20,7 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
     public function __construct(
         CallCenterCampaignRepositoryInterface $campaignRepositoryInterface,
         CallCenterScriptRepositoryInterface $callCenterScriptRepositoryInterface,
-        CallCenterCampaignBaseServiceInterface $callCenterCampaignBaseServiceInterface,
+        CallCenterCampaignBaseRepository $callCenterCampaignBaseServiceInterface,
         DepartmentRepositoryInterface $departmentRepositoryInterface,
         CallCenterQuestionnaireRepositoryInterface $callCenterQuestionnaireRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
