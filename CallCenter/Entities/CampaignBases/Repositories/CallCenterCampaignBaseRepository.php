@@ -16,7 +16,7 @@ class CallCenterCampaignBaseRepository implements CallCenterCampaignBaseReposito
     protected $model;
     private $columns = [
         'employee_id',
-        'campaign',
+        'campaign_id',
         'script',
         'description',
         'src'
@@ -175,6 +175,18 @@ class CallCenterCampaignBaseRepository implements CallCenterCampaignBaseReposito
     {
         try {
             return $this->model->restore();
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
+    public function getCustomers($id, $totalView)
+    {
+        try {
+            return $this->model->where('campaign_id', $id)
+                ->where('call_center_status_id', $id)
+                ->skip($totalView)->take(1)
+                ->get();
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
         }

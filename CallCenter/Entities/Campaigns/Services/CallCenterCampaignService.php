@@ -144,4 +144,16 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
         $campaignRepo->deleteCallCenterCampaign();
         return true;
     }
+
+    public function getActiveCampaigns()
+    {
+        $date = Carbon::now();
+        return  $this->campaignInterface->getActiveCampaigns($date);;
+    }
+
+    public function getCustomersForCampaign($id)
+    {
+        $skip  =  1;
+        return  $this->campaignBaseInterface->getCustomers($id, $skip);;
+    }
 }

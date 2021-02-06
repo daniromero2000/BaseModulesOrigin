@@ -12,7 +12,8 @@ Vue.use(BootstrapVue)
 Vue.use(Vuex)
 
 Vue.component('app-create', require('./components/admin/questionnarie/create.vue').default);
-Vue.component('app-show', require('./components/admin/questionnarie/show.vue').default);
+Vue.component('app-show', require('./components/admin/questionnarie/show.vue').default); 
+Vue.component('app-management', require('./components/admin/managements/management.vue').default);
 
 // import Echo from 'laravel-echo';
 

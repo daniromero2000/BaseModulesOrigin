@@ -36,6 +36,10 @@ $actions = session('actionsModule');
                     data-original-title="{{ $action['name'] }}">
                     <i class="{{ $action['icon'] }}"></i></a>
             @else
+              <a href="{{ route($action['route'], $data->id) }}" class=" table-action table-action" data-toggle="tooltip"
+        data-original-title="{{ $action['name'] }}">
+        <i class="{{ $action['icon'] }}"></i>
+    </a>
             @endif
         @endforeach
     @endif

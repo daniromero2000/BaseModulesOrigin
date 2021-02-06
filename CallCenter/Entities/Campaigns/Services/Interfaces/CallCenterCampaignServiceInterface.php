@@ -21,4 +21,8 @@ interface CallCenterCampaignServiceInterface
     public function destroyCampaignBase(int $id): bool;
 
     public function deleteCampaign(int $id): bool;
+
+    public function getActiveCampaigns();
+
+    public function getCustomersForCampaign($id);
 }

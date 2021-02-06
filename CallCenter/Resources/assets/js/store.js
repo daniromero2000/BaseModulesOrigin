@@ -7,7 +7,10 @@ export default new Vuex.Store({
     state: {
         loader: false,
         showAlert: false,
-        questionnaire: {}
+        questionnaire: {},
+        isBusy: false,
+        campaigns: {},
+        customer: {}
     },
     mutations: {
         saved(state, value) {
@@ -19,8 +22,31 @@ export default new Vuex.Store({
         getQuestionnaire(state, object) {
             state.questionnaire = object;
         },
+        toggleBusy(state, isBusy) {
+            state.isBusy = isBusy;
+        },
+        getCampaigns(state, campaigns) {
+            state.campaigns = campaigns;
+        },
+        getCustomerCampaign(state, customer) {
+            state.customer = customer;
+        },
     },
     actions: {
+        getCampaigns(context) {
+            axios.get("/admin/api/getActiveCampaigns").then(response => {
+                if (response.data) {
+                    context.commit("getCampaigns", response.data);
+                }
+            });
+        },
+        getCustomerCampaign(context, id) {
+            axios.get("/admin/api/getCustomerCampaign/" + id).then(response => {
+                if (response.data) {
+                    context.commit("getCustomerCampaign", response.data);
+                }
+            });
+        },
         saveQuestionnaire(context, data) {
             axios.post("/admin/questionnaires", data).then(response => {
                 if (response.data) {

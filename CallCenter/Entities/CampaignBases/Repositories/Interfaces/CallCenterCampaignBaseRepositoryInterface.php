@@ -28,4 +28,7 @@ interface CallCenterCampaignBaseRepositoryInterface
     public function destroyCallCenterCampaignBase($id): bool;
 
     public function recoverTrashedCallCenterCampaignBase(): bool;
+
+    public function getCustomers($id, $totalView);
+
 }

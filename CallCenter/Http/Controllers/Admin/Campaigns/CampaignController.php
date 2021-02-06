@@ -47,7 +47,7 @@ class CampaignController extends Controller
     public function store(CreateCallCenterCampaign $request)
     {
         $data = $request->except('_token', '_method');
-    
+
         $valid = array('csv', 'xls', 'xlsx');
         if (!in_array($request->file('src')->getClientOriginalExtension(), $valid)) {
             $request->session()->flash('error', 'El archivo no es valido');
@@ -59,7 +59,7 @@ class CampaignController extends Controller
 
         Excel::import(new CampaignImport($campaign->id), $request->file('src'));
 
-        
+
         return redirect()->route('admin.campaigns.index')->with('message', 'Creación Exitosa');
     }
 
@@ -88,9 +88,9 @@ class CampaignController extends Controller
         }
 
         set_time_limit(180);
-        if($request->input('type') == 0){
+        if ($request->input('type') == 0) {
             Excel::import(new CampaignImport($id), $request->file('src'));
-        }else{
+        } else {
             $this->callCenterCampaignInterface->destroyCampaignBase($id);
             Excel::import(new CampaignImport($id), $request->file('src'));
         }
@@ -101,5 +101,15 @@ class CampaignController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getActiveCampaigns()
+    {
+        return $this->callCenterCampaignInterface->getActiveCampaigns();
+    }
+
+    public function getCustomerCampaign($id)
+    {
+        return $this->callCenterCampaignInterface->getCustomersForCampaign($id);
     }
 }

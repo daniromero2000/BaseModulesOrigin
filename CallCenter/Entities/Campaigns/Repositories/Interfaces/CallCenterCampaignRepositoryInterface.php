@@ -29,4 +29,7 @@ interface CallCenterCampaignRepositoryInterface
     public function deleteCallCenterCampaign(): bool;
 
     public function recoverTrashedCallCenterCampaign(): bool;
+
+    public function getActiveCampaigns($date);
+    
 }

@@ -185,4 +185,14 @@ class CallCenterCampaignRepository implements CallCenterCampaignRepositoryInterf
             abort(503, $e->getMessage());
         }
     }
+
+    public function getActiveCampaigns($date)
+    {
+        try {
+            return $this->model->where('endingdate', '>', $date)->get();
+        } catch (ModelNotFoundException $e) {
+            throw new CampaignNotFoundException($e);
+        }
+    }
+    
 }
