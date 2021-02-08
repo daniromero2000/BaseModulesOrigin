@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Modules\CallCenter\Entities\Campaigns\Requests\CreateCallCenterCampaign;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Courses\Entities\Campaigns\Imports\CampaignImport;
+use Modules\Customers\Entities\CustomersOportudata\CustomerOportudata;
 
 class CampaignController extends Controller
 {

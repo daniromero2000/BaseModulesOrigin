@@ -1,21 +1,71 @@
+
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        from: "",
+        to: "",
+        search: "",
+      },
+      show: false,
+    };
+  },
+  mounted() {
+    this.$store.commit("toggleBusy", true);
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      this.$store.commit("toggleBusy", true);
+    },
+  },
+  computed: {
+    customer() {
+      return this.$store.state.customer;
+    },
+    currentStatus() {
+      return this.$store.state.currentStatus;
+    },
+  },
+  watch: {
+    customer() {
+      this.show = false;
+    },
+  },
+};
+</script>
 <template>
   <b-card no-body class="card bg-white shadow border-0">
-    <div class="text-center" style=" position: absolute; top: 9px; right: 18px; ">
-      <span
-        class="badge"
-        :style="'color: #ffffff; background-color:#007bff'"
-      >Test</span>
+    <div class="text-center" style="position: absolute; top: 9px; right: 18px">
+      <span class="badge" :style="'color: #ffffff; background-color:#007bff'"
+        >Test</span
+      >
     </div>
     <div class="card-body mt-4">
       <div class="text-center">
-        <h5 class="h4">test</h5>
-        <div class="h5 mt-4" >
+        <h5 class="h4">
+          {{
+            customer[0]
+              ? `${customer[0].customer_oportudata.NOMBRES} ${customer[0].customer_oportudata.APELLIDOS} `
+              : ""
+          }}
+        </h5>
+        <div class="h5 mt-4">
           <i class="ni business_briefcase-24 mr-2"></i>
-          Ciudad de Nacimiento Test
+          Ciudad de Nacimiento:
+          {{
+            customer[0]
+              ? customer[0].customer_oportudata.CIUD_NAC != ""
+                ? customer[0].customer_oportudata.CIUD_NAC
+                : "NA"
+              : ""
+          }}
         </div>
-        <div style=" font-size: 14px; ">
+        <div style="font-size: 14px">
           <i class="ni education_hat mr-2"></i>
-          Fecha de Nacimiento 05/02/2000
+          Fecha de Nacimiento:
+          {{ customer[0] ? customer[0].customer_oportudata.FEC_NAC : "" }}
         </div>
       </div>
 
@@ -23,22 +73,26 @@
         <div class="col">
           <div class="card-profile-stats d-flex justify-content-center">
             <div>
-              <span class="heading" style="font-size: 15px;">21</span>
+              <span class="heading" style="font-size: 15px">{{
+                customer[0] ? customer[0].customer_oportudata.EDAD : ""
+              }}</span>
               <span class="description">Edad</span>
             </div>
             <div>
-              <span
-                class="heading"
-                style="font-size: 15px;"
-              >M</span>
+              <span class="heading" style="font-size: 15px">{{
+                customer[0] ? customer[0].customer_oportudata.SEXO : ""
+              }}</span>
               <span class="description">Genero</span>
             </div>
             <div>
-              <span
-                class="heading"
-                style="font-size: 15px;"
-              >Soltero</span>
+              <span class="heading" style="font-size: 15px">{{
+                customer[0] ? customer[0].customer_oportudata.ESTADOCIVIL : ""
+              }}</span>
               <span class="description">Estado Civil</span>
+            </div>
+            <div>
+              <span class="heading" style="font-size: 15px">{{  customer[0] ? (customer[0].customer_oportudata.PROFESION != '' ?  customer[0].customer_oportudata.PROFESION : 'NA') : '' }}</span>
+              <span class="description">Profesión</span>
             </div>
           </div>
         </div>
@@ -117,39 +171,4 @@
   </b-card>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        from: "",
-        to: "",
-        search: ""
-      },
-      show: false
-    };
-  },
-  mounted() {
-    this.$store.commit("toggleBusy", true);
-  },
-  methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      this.$store.commit("toggleBusy", true);
-    }
-  },
-  computed: {
-    customer() {
-      return this.$store.state.customer;
-    },
-    currentStatus() {
-      return this.$store.state.currentStatus;
-    }
-  },
-  watch: {
-    customer() {
-      this.show = false;
-    }
-  }
-};
-</script>
+

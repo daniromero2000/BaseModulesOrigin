@@ -184,7 +184,8 @@ class CallCenterCampaignBaseRepository implements CallCenterCampaignBaseReposito
     {
         try {
             return $this->model->where('campaign_id', $id)
-                ->where('call_center_status_id', $id)
+                ->where('call_center_status_id', 1)
+                ->with('customerOportudata', 'customerSoat')
                 ->skip($totalView)->take(1)
                 ->get();
         } catch (QueryException $e) {

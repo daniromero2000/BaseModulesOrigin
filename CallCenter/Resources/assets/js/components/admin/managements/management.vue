@@ -2,8 +2,6 @@
 require("../../../../../css/app.css");
 import generals from "./show/generals.vue";
 import customerIds from "./show/ids.vue";
-import vehicles from "./show/vehicles.vue";
-import professions from "./show/professions.vue";
 import economicActivities from "./show/economicActivities.vue";
 import addressCustomer from "./show/address.vue";
 import phonesCustomer from "./show/phones.vue";
@@ -17,8 +15,6 @@ export default {
   components: {
     generals,
     customerIds,
-    vehicles,
-    professions,
     economicActivities,
     addressCustomer,
     phonesCustomer,
@@ -46,9 +42,9 @@ export default {
   },
   mounted() {},
   methods: {
-    searchCampaign(){
-       this.$store.dispatch("getCustomerCampaign", this.data.campaign);    
-    }
+    searchCampaign() {
+      this.$store.dispatch("getCustomerCampaign", this.data.campaign);
+    },
   },
   computed: {
     show() {
@@ -63,6 +59,9 @@ export default {
     },
     campaigns() {
       return this.$store.state.campaigns;
+    },
+    customer() {
+      return this.$store.state.customer;
     },
   },
   watch: {
@@ -221,13 +220,11 @@ export default {
           <b-row>
             <b-col sm="5">
               <generals></generals>
-              <vehicles></vehicles>
-              <professions></professions>
               <epssCustomer></epssCustomer>
               <emailCustomer></emailCustomer>
             </b-col>
             <b-col sm="7">
-              <customer-ids></customer-ids>
+              <!-- <customer-ids></customer-ids> -->
               <economicActivities></economicActivities>
               <addressCustomer></addressCustomer>
               <phonesCustomer></phonesCustomer>

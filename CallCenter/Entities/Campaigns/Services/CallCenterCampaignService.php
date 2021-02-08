@@ -153,7 +153,9 @@ class CallCenterCampaignService implements CallCenterCampaignServiceInterface
 
     public function getCustomersForCampaign($id)
     {
-        $skip  =  1;
-        return  $this->campaignBaseInterface->getCustomers($id, $skip);;
+        $skip  =  0;
+        $data = $this->campaignBaseInterface->getCustomers($id, $skip);
+
+        return  $data;
     }
 }
