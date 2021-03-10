@@ -1,59 +1,9 @@
-<template>
-  <b-card no-body class="card bg-white shadow border-0">
-    <b-card-header class="bg-white">
-      <div class="row">
-        <div class="col">
-          <h3 class="mb-0 h4">Datos de Identificación</h3>
-        </div>
-        <div class="col text-right">
-          <b-button variant="primary" class="btn-sm" v-b-modal.addIdentification>Agregar</b-button>
-        </div>
-      </div>
-    </b-card-header>
-    <div>
-      <div class="table-responsive">
-        <table
-          class="table align-items-center table-flush table-hover"
-        >
-          <thead class="small">
-            <tr>
-              <th class="text-center" scope="col">Tipo de Documento</th>
-              <th class="text-center" scope="col">Número</th>
-              <th class="text-center" scope="col">Fecha de Expedición</th>
-              <th class="text-center" scope="col">Ciudad de Expedición</th>
-            </tr>
-          </thead>
-          <tbody class="small text-center">
-            <!-- <tr v-for="(customer_identity, key) in customer.customer_identities" :key="key"> -->
-              <tr>
-              <td
-                scope="row"
-              >123456789</td>
-              <td >test</td>
-              <td scope="row">test</td>
-              <td scope="row">test</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <b-overlay :show="show" no-wrap></b-overlay>
-    </div>
-  </b-card>
-</template>
-
 <script>
-
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
-      form: {
-        from: "",
-        to: "",
-        search: ""
-      },
-      show: false
+      show: false,
     };
   },
   mounted() {
@@ -63,17 +13,110 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       this.$store.commit("toggleBusy", true);
-    }
+    },
   },
   computed: {
     customer() {
       return this.$store.state.customer;
-    }
+    },
   },
   watch: {
     customer() {
       this.show = false;
-    }
-  }
+    },
+  },
 };
 </script>
+<style>
+.form-group {
+  margin-bottom: 1.1rem !important;
+}
+
+.form-control-label {
+  font-size: 0.8rem !important;
+}
+
+.form-control {
+  font-size: 0.8rem;
+  height: calc(1.3em + 1.25rem + 5px);
+  transition: all 0.15s ease-in-out;
+}
+
+.card-profile-stats > div .description {
+  font-size: 0.8rem;
+  color: #adb5bd;
+}
+</style>
+<template>
+  <div v-if="customer[0]">
+    <h6 class="heading-small text-muted mb-4">INFORMACIÓN DE IDENTIFICACIÓN</h6>
+    <div class="pl-lg-2">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-country"
+              >Tipo de Documento</label
+            >
+            <input
+              type="text"
+              id="input-country"
+              class="form-control"
+              placeholder="Country"
+              :value="
+                customer[0].customer_oportudata.TIPO_DOC != ''
+                  ? customer[0].customer_oportudata.TIPO_DOC == 1
+                    ? 'Cédula'
+                    : 'NA'
+                  : 'NA'
+              "
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-city"
+              >Numero de documento</label
+            >
+            <input
+              type="text"
+              id="input-city"
+              class="form-control"
+              :value="customer[0].customer_oportudata.CEDULA"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-country">Fecha de expedición</label>
+            <input
+              type="date"
+              id="input-postal-code"
+              class="form-control"
+              :value="
+                customer[0].customer_oportudata.FEC_EXP != ''
+                  ? customer[0].customer_oportudata.FEC_EXP
+                  : 'NA'
+              "
+            />
+          </div>
+        </div>
+         <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-country">Ciudad de expedición</label>
+            <input
+              type="text"
+              id="input-postal-code"
+              class="form-control"
+              :value="
+                customer[0].customer_oportudata.CIUD_EXP != ''
+                  ? customer[0].customer_oportudata.CIUD_EXP
+                  : 'NA'
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

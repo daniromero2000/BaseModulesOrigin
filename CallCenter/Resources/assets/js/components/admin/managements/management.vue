@@ -10,6 +10,8 @@ import emailCustomer from "./show/email.vue";
 import factoryRequest from "./show/factoryRequest.vue";
 import purchasesMade from "./show/purchasesMade.vue";
 import campaign from "./show/campaign.vue";
+import contact from "./show/contact.vue";
+import identification from "./show/ids.vue";
 
 export default {
   components: {
@@ -23,6 +25,8 @@ export default {
     factoryRequest,
     purchasesMade,
     campaign,
+    contact,
+    identification
   },
   data() {
     return {
@@ -101,7 +105,7 @@ export default {
                 </select>
               </div>
               <div class="form-group col-6">
-                <label class="form-control-label" for="">Cedula</label>
+                <label class="form-control-label" for="">Cédula</label>
                 <input
                   type="text"
                   class="form-control"
@@ -220,14 +224,22 @@ export default {
           <b-row>
             <b-col sm="5">
               <generals></generals>
-              <epssCustomer></epssCustomer>
-              <emailCustomer></emailCustomer>
+              <div class="card">
+                <div class="card-body">
+                  <identification></identification>
+                  <hr class="my-4" />
+                  <addressCustomer></addressCustomer>
+                </div>
+              </div>
             </b-col>
             <b-col sm="7">
-              <!-- <customer-ids></customer-ids> -->
-              <economicActivities></economicActivities>
-              <addressCustomer></addressCustomer>
-              <phonesCustomer></phonesCustomer>
+              <div class="card">
+                <div class="card-body">
+                  <contact></contact>
+                  <hr class="my-4" />
+                  <economicActivities></economicActivities>
+                </div>
+              </div>
             </b-col>
           </b-row>
         </div>

@@ -45,7 +45,7 @@ class DocumentController extends Controller
         // date('Y')
         return view('libranza.front.information.finances', [
             'categories' => $categories,
-            'active'     => '2020'
+            'active'     => '2021'
         ]);
     }
 

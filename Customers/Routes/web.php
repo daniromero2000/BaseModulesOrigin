@@ -46,9 +46,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('customer-identities', 'CustomerIdentityController');
         });
 
-        Route::namespace('CustomerPhones')->group(function () {
-            Route::resource('customer-phones', 'CustomerPhoneController');
-        });
+        // Route::namespace('CustomerPhones')->group(function () {
+        //     Route::resource('customer-phones', 'CustomerPhoneController');
+        // });
 
         Route::namespace('CustomerEpss')->group(function () {
             Route::resource('customer-epss', 'CustomerEpsController');

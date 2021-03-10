@@ -1,0 +1,13 @@
+{
+    "name": "SupplierInvoices",
+    "alias": "supplierinvoices",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\SupplierInvoices\\Providers\\SupplierInvoicesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

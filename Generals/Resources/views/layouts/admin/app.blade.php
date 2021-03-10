@@ -33,10 +33,10 @@
         </div>
     </nav>
     <div class="main-content" id="panel">
-        {{-- @include('generals::layouts.admin.nav') --}}
-        <div id="notification">
+        @include('generals::layouts.admin.nav')
+        {{-- <div id="notification">
             <app-header :user="{{ auth()->guard('employee')->user() }}"></app-header>
-        </div>
+        </div> --}}
         @yield('header')
         <div class="container-fluid" id="reset">
             @yield('content')

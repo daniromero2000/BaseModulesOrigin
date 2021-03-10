@@ -59,6 +59,7 @@ class Employee extends Authenticatable
         'employee_position_id',
         'company_id',
         'subsidiary_id',
+        'avatar'
     ];
 
     protected $hidden = [
