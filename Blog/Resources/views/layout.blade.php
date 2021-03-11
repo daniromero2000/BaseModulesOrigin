@@ -40,6 +40,12 @@
         <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/github.min.css">
     @endif
 
+    <style>
+        strong {
+            font-weight: bold;
+        }
+
+    </style>
 @endsection
 @section('content')
     <div id="wink" v-cloak style=" min-height: 80vh; ">
@@ -58,6 +64,7 @@
     <!-- Global Wink Object -->
     <script>
         window.Wink = @json($winkScriptVariables);
+
     </script>
     <script src="{{ mix('app.js', 'vendor/wink') }}"></script>
 

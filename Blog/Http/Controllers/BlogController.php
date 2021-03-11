@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $data = WinkPost::with('tags')->orderBy('publish_date', 'DESC')->get();
+        $data = WinkPost::with('tags')->where('published', 1)->orderBy('publish_date', 'DESC')->get();
         return view('blog.index', ['posts' => $data]);
     }
 
@@ -45,7 +45,8 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('blog.show');
+        $data = WinkPost::with('tags')->where('slug', $id)->first();
+        return view('blog.show', ['post' => $data]);
     }
 
     /**
