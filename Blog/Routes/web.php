@@ -34,7 +34,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
 
 Route::prefix('blog')->group(function () {
     Route::get('/', 'BlogController@index')->name('blog');
-    Route::get('/{slug}', 'BlogController@show')->name('blog.show');
+    Route::get('/post/{slug}', 'BlogController@show')->name('blog.show');
+    Route::get('/tag/{slug}', 'BlogController@tagShow')->name('blog.tag.show');
 });
 
 Route::prefix('wink')->group(function () {
