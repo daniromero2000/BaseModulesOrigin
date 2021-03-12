@@ -6,7 +6,7 @@ interface ToolRepositoryInterface
 {
     public function getSkip($RequestSkip);
 
-    public function getPaginate($paginate, $skip);
+    public function getPaginate($paginate, $skip, $take = 30);
 
     public function getClientServerData($paymentDataRequest);
 

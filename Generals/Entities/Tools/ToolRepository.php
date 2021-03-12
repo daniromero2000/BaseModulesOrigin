@@ -33,9 +33,9 @@ class ToolRepository implements ToolRepositoryInterface
     return $data;
   }
 
-  public function getPaginate($paginate, $skip)
+  public function getPaginate($paginate, $skip, $take = 30)
   {
-    $count = ceil($paginate  / 30);
+    $count = ceil($paginate  / $take);
     $pageList = ($skip + 1) / 5;
     if (is_int($pageList) || $pageList > 1) {
       $page = $skip - 5;

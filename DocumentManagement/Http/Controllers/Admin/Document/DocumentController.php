@@ -45,8 +45,12 @@ class DocumentController extends Controller
         }
 
         $getPaginate = $this->toolsInterface->getPaginate($paginate, $skip);
+        
+        $attached = [];
 
-      ;
+        foreach ($list as $key3 => $value3) {
+            $attached[$list[$key3]->id] = $value3->categoryLog->pluck('document_category_id')->all();
+        }
 
         return view('documentmanagement::admin.documents.index', [
             'documents'       => $list,
