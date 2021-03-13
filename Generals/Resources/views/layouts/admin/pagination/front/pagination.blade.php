@@ -29,8 +29,7 @@
         <li class="page-item "><a class="page-link " href="{{ route("$optionsRoutes", $searchReset)  }}">{{1}}</a>
         </li>...
         @endif
-        @for ($position; $position < ($limit); $position++) <div>
-            </div>
+        @for ($position; $position < ($limit); $position++)
 
             @php $search[$position]=request()->input();
             $search[$position]['skip'] = ($skipPaginate = $position);
