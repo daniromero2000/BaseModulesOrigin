@@ -58,5 +58,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Covenants')->group(function () {
             Route::resource('convenios', 'CovenantController');
         });
+        Route::namespace('BannerManagements')->group(function () {
+            Route::resource('bannerManagement', 'BannerManagementController');
+            Route::put('api/update-sort-order/{id}', 'BannerManagementController@updateSortOrder');
+        });
     });
 });
