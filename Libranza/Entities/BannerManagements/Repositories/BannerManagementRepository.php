@@ -63,6 +63,7 @@ class BannerManagementRepository implements BannerManagementRepositoryInterface
         try {
             return  $this->model
                 ->orderBy('sort_order', 'asc')
+                ->where('is_active', 1)
                 ->get($this->listColumns);
         } catch (QueryException $e) {
             abort(503, $e->getMessage());
