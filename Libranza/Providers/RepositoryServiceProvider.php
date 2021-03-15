@@ -8,6 +8,8 @@ use Modules\Libranza\Entities\BannerManagements\Repositories\BannerManagementRep
 use Modules\Libranza\Entities\BannerManagements\Repositories\Interfaces\BannerManagementRepositoryInterface;
 use Modules\Libranza\Entities\Covenants\Repositories\CovenantRepository;
 use Modules\Libranza\Entities\Covenants\Repositories\Interfaces\CovenantRepositoryInterface;
+use Modules\Libranza\Entities\Subscriptions\Repositories\Interfaces\SubscriptionRepositoryInterface;
+use Modules\Libranza\Entities\Subscriptions\Repositories\SubscriptionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             BannerManagementRepositoryInterface::class,
             BannerManagementRepository::class
+        );
+
+        $this->app->bind(
+            SubscriptionRepositoryInterface::class,
+            SubscriptionRepository::class
         );
     }
 }

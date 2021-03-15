@@ -20,6 +20,10 @@ Route::namespace('Front')->group(function () {
         Route::get('formulario-credito-libranza', 'LibranzaController@creditForm')->name('form-credit-libranza');
         Route::get('thank-you-page', 'LibranzaController@thankYou')->name('thank.you.page');
     });
+
+    Route::namespace('Subscriptions')->group(function () {
+        Route::resource('subscription', 'SubscriptionController');
+    });
     Route::namespace('benefitController')->group(function () {
         Route::get('benefits', 'BenefitController@index')->name('benefit');
     });
@@ -61,6 +65,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('BannerManagements')->group(function () {
             Route::resource('bannerManagement', 'BannerManagementController');
             Route::put('api/update-sort-order/{id}', 'BannerManagementController@updateSortOrder');
+        });
+        Route::namespace('Subscriptions')->group(function () {
+            Route::resource('subscription', 'SubscriptionController');
         });
     });
 });

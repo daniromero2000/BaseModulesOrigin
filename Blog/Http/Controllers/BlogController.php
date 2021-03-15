@@ -19,8 +19,7 @@ class BlogController extends Controller
     public function __construct(
         WinkPostRepositoryInterface $winkPostRepositoryInterface,
         ToolRepositoryInterface $toolRepositoryInterface
-    )
-    {
+    ) {
         $this->winkPostInterface = $winkPostRepositoryInterface;
         $this->toolsInterface    = $toolRepositoryInterface;
     }
@@ -92,7 +91,11 @@ class BlogController extends Controller
         $data = WinkPost::with('tags')->where('slug', $id)->first();
         $tags = WinkTag::all();
 
-        return view('blog.show', ['post' => $data, 'tags' => $tags]);
+        return view('blog.show', [
+            'post' => $data,
+            'tags' => $tags,
+            'metas' => $data->meta     
+        ]);
     }
 
     /**

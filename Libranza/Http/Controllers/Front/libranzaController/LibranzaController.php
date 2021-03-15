@@ -97,9 +97,9 @@ class LibranzaController extends Controller
         return redirect()->route('thank.you.page');
     }
 
-    public function show($id)
+    public function suscription(Request $request)
     {
-        return view('libranza::show');
+        dd($request);
     }
 
     public function edit($id)
