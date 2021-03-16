@@ -24,10 +24,12 @@ use Modules\Blog\Http\Controllers\TeamController;
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
         Route::get('blog', 'BlogController@index')->name('blog');
-        Route::get('blog/posts', 'BlogController@index');
+        Route::get('blog/posts', 'BlogController@index')->name('blog.post');
+        Route::get('blog/posts/new', 'BlogController@index')->name('blog.post.new');
         Route::get('blog/posts/{slug}', 'BlogController@index');
 
-        Route::get('blog/tags', 'BlogController@index');
+        Route::get('blog/tags', 'BlogController@index')->name('blog.tag');
+        Route::get('blog/tags/new', 'BlogController@index')->name('blog.tag.new');
         Route::get('blog/tags/{slug}', 'BlogController@index');
     });
 });
