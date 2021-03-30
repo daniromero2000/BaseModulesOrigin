@@ -13,6 +13,8 @@ interface EmployeeRepositoryInterface
 
     public function findEmployeeById(int $id): Employee;
 
+    public function findEmployeeBySubsidiary(int $id);
+
     public function findTrashedEmployeeById(int $id): Employee;
 
     public function updateEmployee(array $params): bool;
@@ -32,4 +34,5 @@ interface EmployeeRepositoryInterface
     public function deleteEmployee(): bool;
 
     public function recoverTrashedEmployee(): bool;
+    
 }

@@ -19,7 +19,8 @@ class Subsidiary extends Model
         'phone',
         'city_id',
         'parent_id',
-        'opening_hours'
+        'opening_hours',
+        'company_id'
     ];
 
     protected $hidden = [

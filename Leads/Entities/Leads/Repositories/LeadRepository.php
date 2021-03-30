@@ -28,7 +28,10 @@ class LeadRepository implements LeadRepositoryInterface
         'employee_id',
         'management_status_id',
         'terms_and_conditions',
-        'created_at'
+        'subsidiary_id',
+        'created_at',
+        'campaign_id',
+        'type_of_credit',
     ];
 
     private $columnsList = [
@@ -50,11 +53,16 @@ class LeadRepository implements LeadRepositoryInterface
         $this->model = $lead;
     }
 
-    public function listLeads(int $totalView, $deparment)
+    public function listLeads($employee, int $totalView, $deparment)
     {
         try {
             return $this->model->whereIn('department_id', $deparment)
                 ->orderBy('created_at', 'desc')
+                ->when($employee, function ($query, $employee) {
+                    return $query->where('subsidiary_id', $employee->subsidiary_id)
+                        ->where('employee_id', null)
+                        ->orWhere('employee_id', $employee->id);
+                })
                 ->skip($totalView)->take(30)
                 ->get($this->columns);
         } catch (QueryException $e) {
@@ -90,18 +98,23 @@ class LeadRepository implements LeadRepositoryInterface
         }
     }
 
-    public function searchLeads(string $text = null, int $totalView, $from = null, $to = null): Collection
+    public function searchLeads($employee, string $text = null, int $totalView, $from = null, $to = null): Collection
     {
         try {
             if (empty($text) && is_null($from) && is_null($to)) {
                 foreach (auth()->guard('employee')->user()->department as $key => $value) {
                     $userDepartmet[$key] = $value->id;
                 }
-                return $this->listLeads($totalView, $userDepartmet);
+                return $this->listLeads($employee, $totalView, $userDepartmet);
             }
 
             if (!empty($text) && (is_null($from) || is_null($to))) {
                 return $this->model->searchLead($text, null, true, true)
+                    ->when($employee, function ($query, $employee) {
+                        return $query->where('subsidiary_id', $employee->subsidiary_id)
+                            ->where('employee_id', null)
+                            ->orWhere('employee_id', $employee->id);
+                    })
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
@@ -109,6 +122,11 @@ class LeadRepository implements LeadRepositoryInterface
 
             if (empty($text) && (!is_null($from) || !is_null($to))) {
                 return $this->model->whereBetween('created_at', [$from, $to])
+                    ->when($employee, function ($query, $employee) {
+                        return $query->where('subsidiary_id', $employee->subsidiary_id)
+                            ->where('employee_id', null)
+                            ->orWhere('employee_id', $employee->id);
+                    })
                     ->skip($totalView)
                     ->take(30)
                     ->get($this->columns);
@@ -116,6 +134,11 @@ class LeadRepository implements LeadRepositoryInterface
 
             return $this->model->searchLead($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
+                ->when($employee, function ($query, $employee) {
+                    return $query->where('subsidiary_id', $employee->subsidiary_id)
+                        ->where('employee_id', null)
+                        ->orWhere('employee_id', $employee->id);
+                })
                 ->orderBy('created_at', 'desc')
                 ->skip($totalView)
                 ->take(30)
@@ -155,7 +178,7 @@ class LeadRepository implements LeadRepositoryInterface
         }
     }
 
-    public function countLeads(string $text = null,  $from = null, $to = null)
+    public function countLeads($employee, string $text = null,  $from = null, $to = null)
     {
         try {
             if (empty($text) && is_null($from) && is_null($to)) {
@@ -163,24 +186,44 @@ class LeadRepository implements LeadRepositoryInterface
                     $userDepartmet[$key] = $value->id;
                 }
                 $data =  $this->model->whereIn('department_id', $userDepartmet)
+                    ->when($employee, function ($query, $employee) {
+                        return $query->where('subsidiary_id', $employee->subsidiary_id)
+                            ->where('employee_id', null)
+                            ->orWhere('employee_id', $employee->id);
+                    })
                     ->get(['id']);
                 return count($data);
             }
 
             if (!empty($text) && (is_null($from) || is_null($to))) {
                 $data =  $this->model->searchLead($text, null, true, true)
+                    ->when($employee, function ($query, $employee) {
+                        return $query->where('subsidiary_id', $employee->subsidiary_id)
+                            ->where('employee_id', null)
+                            ->orWhere('employee_id', $employee->id);
+                    })
                     ->get(['id']);
                 return count($data);
             }
 
             if (empty($text) && (!is_null($from) || !is_null($to))) {
                 $data =  $this->model->whereBetween('created_at', [$from, $to])
+                    ->when($employee, function ($query, $employee) {
+                        return $query->where('subsidiary_id', $employee->subsidiary_id)
+                            ->where('employee_id', null)
+                            ->orWhere('employee_id', $employee->id);
+                    })
                     ->get(['id']);
                 return count($data);
             }
 
             $data =  $this->model->searchLead($text, null, true, true)
                 ->whereBetween('created_at', [$from, $to])
+                ->when($employee, function ($query, $employee) {
+                    return $query->where('subsidiary_id', $employee->subsidiary_id)
+                        ->where('employee_id', null)
+                        ->orWhere('employee_id', $employee->id);
+                })
                 ->get(['id']);
             return count($data);
         } catch (QueryException $e) {

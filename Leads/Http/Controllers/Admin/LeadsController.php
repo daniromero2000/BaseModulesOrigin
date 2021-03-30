@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Companies\Entities\Departments\Repositories\Interfaces\DepartmentRepositoryInterface;
+use Modules\Companies\Entities\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
+use Modules\Companies\Entities\Subsidiaries\Repositories\Interfaces\SubsidiaryRepositoryInterface;
 use Modules\Leads\Entities\LeadInformations\Repositories\Interfaces\LeadInformationRepositoryInterface;
 use Modules\Generals\Entities\Tools\ToolRepositoryInterface;
 use Modules\Generals\Entities\Cities\Repositories\Interfaces\CityRepositoryInterface;
@@ -35,7 +37,9 @@ class LeadsController extends Controller
         LeadChannelRepositoryInterface $leadChannelRepositoryInterface,
         LeadInformationRepositoryInterface $LeadInformationRepositoryInterface,
         LeadCommentRepositoryInterface $leadCommentRepositoryInterface,
-        ManagementStatusRepositoryInterface $managementStatusRepositoryInterface
+        ManagementStatusRepositoryInterface $managementStatusRepositoryInterface,
+        EmployeeRepositoryInterface $employeeRepositoryInterface,
+        SubsidiaryRepositoryInterface $subsidiaryRepositoryInterface
     ) {
         $this->toolsInterface            = $toolRepositoryInterface;
         $this->leadInterface             = $LeadRepositoryInterface;
@@ -48,6 +52,8 @@ class LeadsController extends Controller
         $this->leadCommentInterface      = $leadCommentRepositoryInterface;
         $this->leadInformationInterface  = $LeadInformationRepositoryInterface;
         $this->managementStatusInterface = $managementStatusRepositoryInterface;
+        $this->subsidiaryInterface       = $subsidiaryRepositoryInterface;
+        $this->employeeInterface       = $employeeRepositoryInterface;
         $this->middleware(['permission:leads, guard:employee']);
     }
 
@@ -123,17 +129,19 @@ class LeadsController extends Controller
             return Excel::download($export, 'leads.xlsx');
         }
 
+        $employee = null;
+
         if (request()->input('q') != '' && (request()->input('from') == '' || request()->input('to') == '')) {
-            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30);
-            $paginate = $this->leadInterface->countLeads(request()->input('q'), '');
+            $list     = $this->leadInterface->searchLeads($employee, request()->input('q'), $skip * 30);
+            $paginate = $this->leadInterface->countLeads($employee, request()->input('q'), '');
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
-            $list = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30, $from, $to);
-            $paginate = $this->leadInterface->countLeads(request()->input('q'), $from, $to);
+            $list     = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30, $from, $to);
+            $paginate = $this->leadInterface->countLeads($employee, request()->input('q'), $from, $to);
             $request->session()->flash('message', 'Resultado de la Busqueda');
         } else {
-            $paginate = $this->leadInterface->countLeads('');
-            $list = $this->leadInterface->listLeads($skip * 30, $userDepartmet);
+            $list     = $this->leadInterface->listLeads($employee, $skip * 30, $userDepartmet);
+            $paginate = $this->leadInterface->countLeads($employee, '');
         }
 
         $getPaginate = $this->toolsInterface->getPaginate($paginate, $skip);
@@ -146,12 +154,13 @@ class LeadsController extends Controller
             'position'      => $getPaginate['position'],
             'page'          => $getPaginate['page'],
             'limit'         => $getPaginate['limit'],
-            'headers'       => ['Cédula', 'Nombres', 'apellidos', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
+            'headers'       => ['', 'Cédula', 'Nombres', 'apellidos', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
             'inputsAssigne' => [
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
-                ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
-                ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
+                ['label' => 'Servicios', 'type' => 'select', 'options' => [], 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
+                ['label' => 'Productos', 'type' => 'select', 'options' => [], 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Sucursal', 'type' => 'select', 'options' => $this->subsidiaryInterface->findSubsidiaryForCompany(auth()->guard('employee')->user()->company_id), 'name' => 'subsidiary_id', 'option' => 'name'],
                 ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
             ],
             'inputs' => [
@@ -161,7 +170,67 @@ class LeadsController extends Controller
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
                 ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCitiesForLeads(['id', 'city']), 'name' => 'city_id', 'option' => 'city'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status'],
+                ['label' => 'Canal', 'type' => 'select', 'options' => $this->leadChannelInterface->getAllLeadChannelsNames(), 'name' => 'lead_channel_id', 'option' => 'channel']
+            ], 'routeEdit' => 'admin.leads.update'
+        ]);
+    }
+
+    public function listAssesor(Request $request)
+    {
+        $skip = request()->input('skip') ? request()->input('skip') : 0;
+        $from = request()->input('from') ? request()->input('from') . " 00:00:01" : Carbon::now()->subMonths(1);
+        $to   = request()->input('to') ? request()->input('to') . " 23:59:59" : Carbon::now();
+
+        foreach (auth()->guard('employee')->user()->department as $key => $deparmentUser) {
+            $userDepartmet[$key] = $deparmentUser->id;
+        }
+
+        $employee = auth()->guard('employee')->user();
+
+        if (request()->input('q'    ) != '' && (request()->input('from') == '' || request()->input('to') == '')) {
+            $list     = $this->leadInterface->searchLeads($employee, request()->input('q'), $skip * 30);
+            $paginate = $this->leadInterface->countLeads($employee, request()->input('q'), '');
+            $request->session()->flash('message', 'Resultado de la Busqueda');
+        } elseif ((request()->input('q') != '' || request()->input('from') != '' || request()->input('to') != '')) {
+            $list     = $this->leadInterface->searchLeads(request()->input('q'), $skip * 30, $from, $to);
+            $paginate = $this->leadInterface->countLeads($employee, request()->input('q'), $from, $to);
+            $request->session()->flash('message', 'Resultado de la Busqueda');
+        } else {
+            $list     = $this->leadInterface->listLeads($employee, $skip * 30, $userDepartmet);
+            $paginate = $this->leadInterface->countLeads($employee, '');
+        }
+
+        $getPaginate = $this->toolsInterface->getPaginate($paginate, $skip);
+
+        return view('leads::admin.leads.list', [
+            'leads'         => $list,
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
+            'skip'          => $skip,
+            'routeHome'     => 'admin.leads.assesors',
+            'paginate'      => $getPaginate['paginate'],
+            'position'      => $getPaginate['position'],
+            'page'          => $getPaginate['page'],
+            'limit'         => $getPaginate['limit'],
+            'headers'       => ['', 'Cédula', 'Nombres', 'apellidos', 'Teléfono', 'Area', 'Fecha', 'estado', 'Opciones'],
+            'inputsAssigne' => [
+                ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
+                ['label' => 'Servicios', 'type' => 'select', 'options' => [], 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
+                ['label' => 'Productos', 'type' => 'select', 'options' => [], 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Sucursal', 'type' => 'select', 'options' => $this->subsidiaryInterface->findSubsidiaryForCompany(auth()->guard('employee')->user()->company_id), 'name' => 'subsidiary_id', 'option' => 'name'],
                 ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status']
+            ],
+            'inputs' => [
+                ['label' => 'Nombres', 'type' => 'text', 'name' => 'name'],
+                ['label' => 'Apellidos', 'type' => 'text', 'name' => 'last_name'],
+                ['label' => 'Correo', 'type' => 'text', 'name' => 'email'],
+                ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
+                ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCitiesForLeads(['id', 'city']), 'name' => 'city_id', 'option' => 'city'],
+                ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
+                ['label' => 'Estado', 'type' => 'select', 'options' => $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']), 'name' => 'lead_status_id', 'option' => 'status'],
+                ['label' => 'Canal', 'type' => 'select', 'options' => $this->leadChannelInterface->getAllLeadChannelsNames(), 'name' => 'lead_channel_id', 'option' => 'channel'],
+                ['label' => 'Tipo de cliente', 'type' => 'select', 'options' => $this->leadChannelInterface->getAllLeadChannelsNames(), 'name' => 'kind_of_person', 'option' => 'channel', 'join' => 'leadInformation']
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -184,11 +253,11 @@ class LeadsController extends Controller
     public function show($id)
     {
         $status = $this->leadStatusInterface->getAllLeadStatusesNames(['id', 'status']);
-        $lead = $this->leadInterface->findLeadByIdFull($id);
+        $lead   = $this->leadInterface->findLeadByIdFull($id);
 
         return view('leads::admin.leads.show', [
             'lead' => $lead,
-         'inputsAssigne' => [
+            'inputsAssigne' => [
                 ['label' => 'Area', 'type' => 'select', 'options' => $this->departmentInterface->geDepartmentNamesForCompany(['id', 'name']), 'name' => 'department_id', 'option' => 'name'],
                 ['label' => 'Servicios', 'type' => 'select', 'options' => $this->leadServiceInterface->getAllLeadServiceNames(), 'name' => 'lead_service_id', 'option' => 'service', 'disabled' => 'true'],
                 ['label' => 'Productos', 'type' => 'select', 'options' => $this->leadProductInterface->getAllLeadProductNames(), 'name' => 'lead_product_id', 'option' => 'product', 'disabled' => 'true'],
@@ -202,7 +271,8 @@ class LeadsController extends Controller
                 ['label' => 'Teléfono', 'type' => 'text', 'name' => 'telephone'],
                 ['label' => 'Ciudad', 'type' => 'select', 'options' => $this->cityInterface->listCitiesForLeads(['id', 'city']), 'name' => 'city_id', 'option' => 'city'],
                 ['label' => 'Estado de gestión', 'type' => 'select', 'options' => $this->managementStatusInterface->getStatusesForType(0, ['id', 'status']), 'name' => 'management_status_id', 'option' => 'status'],
-                ['label' => 'Estado', 'type' => 'select', 'options' => $status, 'name' => 'lead_status_id', 'option' => 'status']
+                ['label' => 'Estado', 'type' => 'select', 'options' => $status, 'name' => 'lead_status_id', 'option' => 'status'],
+                ['label' => 'Canal', 'type' => 'select', 'options' => $this->leadChannelInterface->getAllLeadChannelsNames(), 'name' => 'lead_channel_id', 'option' => 'channel']
             ], 'routeEdit' => 'admin.leads.update'
         ]);
     }
@@ -255,5 +325,10 @@ class LeadsController extends Controller
     public function searchDepartment($id)
     {
         return $this->departmentInterface->findDepartmentById($id);
+    }
+
+    public function searchAsessors($id)
+    {
+        return  $this->employeeInterface->findEmployeeBySubsidiary($id);
     }
 }

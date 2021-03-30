@@ -6,7 +6,7 @@
         $searchPrev = request()->input();
         $searchPrev['skip'] = $skip - 10 ;
         @endphp
-        <li class="page-item "><a class="page-link " href="{{ route("$optionsRoutes.index", $searchPrev)  }}"><i
+        <li class="page-item "><a class="page-link " href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $searchPrev)  }}"><i
                     class="fas fa-angle-left"></i> <i class="fas fa-angle-left"></i></a>
         </li>
         @endif
@@ -15,7 +15,7 @@
             $previous = request()->input();
             $previous['skip'] = ($skip - 1);
             @endphp
-            <a class="page-link" href="{{ route("$optionsRoutes.index", $previous ) }}" @if ($skip < 1 ) hidden @endif
+            <a class="page-link" href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $previous ) }}" @if ($skip < 1 ) hidden @endif
                 tabindex="-1">
                 <i class="fas fa-angle-left"></i>
                 <span class="sr-only">Previous</span>
@@ -27,7 +27,7 @@
         @endphp
 
         @if ($limit > 11)
-        <li class="page-item "><a class="page-link " href="{{ route("$optionsRoutes.index", $searchReset)  }}">{{1}}</a>
+        <li class="page-item "><a class="page-link " href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $searchReset)  }}">{{1}}</a>
         </li>...
         @endif
         @for ($position; $position < ($limit); $position++) <div>
@@ -39,7 +39,7 @@
 
             @if ($position >= 0)
             <li class="page-item @if(request()->input('skip') == $position) active @endif">
-                <a class="page-link " href="{{ route("$optionsRoutes.index", $search[$position])  }}">{{$position + 1}}</a>
+                <a class="page-link " href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $search[$position])  }}">{{$position + 1}}</a>
             </li>
             @endif
             @endfor
@@ -47,7 +47,7 @@
             @if ($limit < $paginate) ... @php $searchLast=request()->input();
                 $searchLast['skip'] = $paginate - 1;
                 @endphp <li class="page-item "><a class="page-link "
-                        href="{{ route("$optionsRoutes.index", $searchLast)  }}">{{$paginate}}</a>
+                        href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $searchLast)  }}">{{$paginate}}</a>
                 </li>
                 @endif
 
@@ -57,7 +57,7 @@
                 @endphp
 
                 <li class="page-item">
-                    <a class="page-link" href="{{ route("$optionsRoutes.index", $next ) }}">
+                    <a class="page-link" href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $next ) }}">
                         <i class="fas fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
@@ -68,7 +68,7 @@
                     $searchNext['skip'] = $skip + 10 ;
                     @endphp
                     <li class="page-item "><a class="page-link "
-                            href="{{ route("$optionsRoutes.index", $searchNext)  }}">
+                            href="{{ route(isset($routeHome) ? $routeHome : "$optionsRoutes.index", $searchNext)  }}">
                             <i class="fas fa-angle-right"></i> <i class="fas fa-angle-right"></i></a>
                     </li>
                     @endif

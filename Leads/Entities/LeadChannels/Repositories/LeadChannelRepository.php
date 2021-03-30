@@ -15,6 +15,15 @@ class LeadChannelRepository implements LeadChannelRepositoryInterface
         $this->model = $LeadChannel;
     }
 
+    public function getAllLeadChannelsNames($select = ['*'])
+    {
+        try {
+            return $this->model->orderBy('channel', 'asc')->get($select);
+        } catch (QueryException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function createLeadChannel($data)
     {
         try {

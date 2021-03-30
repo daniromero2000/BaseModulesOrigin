@@ -64,6 +64,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function listEmployees(int $totalView, $company)
     {
+
         try {
             if (is_null($company)) {
                 return $this->model
@@ -179,6 +180,15 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             return $this->model->create($data);
         } catch (QueryException $e) {
             throw new CreateEmployeeErrorException($e);
+        }
+    }
+
+    public function findEmployeeBySubsidiary(int $id)
+    {
+        try {
+            return $this->model->where('subsidiary_id', $id)->get();
+        } catch (ModelNotFoundException $e) {
+            throw new EmployeeNotFoundException($e);
         }
     }
 

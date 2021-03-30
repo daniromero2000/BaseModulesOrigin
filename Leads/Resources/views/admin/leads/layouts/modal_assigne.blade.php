@@ -18,17 +18,18 @@
                         ==
                         'date' || $input['type'] == 'time' || $input['type'] == 'url')
                         <div class="col-sm-6 col-12 form-group">
-                            <label for="{{ $input['name'].$data->id }}">{{ $input['label'] }}</label>
+                            <label for="{{ $input['name'].$data->id }}" class="form-control-label">{{ $input['label'] }}</label>
                             <input type="{{ $input['type'] }}" id="{{ $input['name'].$data->id }}"
                                 value="{{ (array_key_exists($input['name'], $data->getOriginal())) ? $data->getOriginal()[$input['name']] : '' }}"
                                 name='{{ $input['name'] }}' step="any" class="form-control">
                         </div>
                         @elseif($input['type'] == 'select')
                         <div class="col-sm-6 col-12 form-group">
-                            <label for="{{ $input['name'].$data->id }}">{{ $input['label'] }}</label>
+                            <label for="{{ $input['name'].$data->id }}" class="form-control-label">{{ $input['label'] }}</label>
                             <select class="form-control" name="{{ $input['name'] }}"
                                 {{ array_key_exists('disabled', $input) ? 'disabled=""' : ''}}
                                 id="{{ $input['name'].$data->id }}" {{ $input['name'] == 'department_id' ? 'onchange='."ontypeServiceSelectedProductEditModal($data->id)"
+                                : '' }} {{ $input['name'] == 'subsidiary_id' ? 'onchange='."onGetAsessorsForSubsidiary($data->id)"
                                 : '' }}>
                                 @foreach ($input['options'] as $option)
                                 <option @if($data->getOriginal()[$input['name']] == $option['id'])
@@ -40,7 +41,7 @@
                         </div>
                         @elseif($input['type'] == 'textarea')
                         <div class="col-12 form-group">
-                            <label for="{{ $input['name'].$data->id }}">{{ $input['label'] }}</label>
+                            <label for="{{ $input['name'].$data->id }}" class="form-control-label">{{ $input['label'] }}</label>
                             <textarea class="form-control" name="{{ $input['name'] }}"
                                 id="{{ $input['name'].$data->id }}" cols="10"
                                 rows="5">{{ (array_key_exists($input['name'], $data->getOriginal())) ? $data->getOriginal()[$input['name']] : '' }}</textarea>
@@ -48,7 +49,7 @@
                         @endif
                         @endforeach
                         <div class="col-sm-6 col-12 form-group">
-                            <label for="employee_id{{$data->id}}">Asesor</label>
+                            <label for="employee_id{{$data->id}}" class="form-control-label">Asesor</label>
                             <select class="form-control" name="employee_id" disabled id="employee_id{{$data->id}}">
                                 <option selected='selected' value="{{ $data->employee_id }}">
                                     {{$data->employee ? $data->employee->name : 'Seleccione' }}

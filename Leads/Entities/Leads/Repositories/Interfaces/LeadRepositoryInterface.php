@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface LeadRepositoryInterface
 {
-    public function listLeads(int $totalView, $deparment);
+    public function listLeads($employee, int $totalView, $deparment);
 
     public function createLead(array $data): Lead;
 
@@ -16,9 +16,10 @@ interface LeadRepositoryInterface
 
     public function findLeadByIdFull(int $id): Lead;
 
-    public function searchLeads(string $text = null, int $totalView, $from = null, $to = null): Collection;
+    public function searchLeads($employee, string $text = null, int $totalView, $from = null, $to = null): Collection;
 
     public function exportLeads(string $text = null, $from = null, $to = null): Collection;
 
-    public function countLeads(string $text = null,  $from = null, $to = null);
+    public function countLeads($employee, string $text = null,  $from = null, $to = null);
+    
 }

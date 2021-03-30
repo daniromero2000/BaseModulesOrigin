@@ -1,3 +1,6 @@
+@php
+use Carbon\Carbon;
+@endphp
 @extends('generals::layouts.admin.app')
 @section('styles')
 
@@ -54,6 +57,15 @@
                         <tbody class="list">
                             @foreach ($leads as $data)
                                 <tr class="text-center">
+                                      <td>
+                                        @if ($data)<span class="text-center badge"
+                                        style="color: white ; background-color:
+                                                @if($data->created_at->diffInDays(Carbon::now()) <= 1) #0bb010 @endif
+                                                @if($data->created_at->diffInDays(Carbon::now()) <= 2 && $data->created_at->diffInDays(Carbon::now()) >1) #ff9900 @endif
+                                                @if($data->created_at->diffInDays(Carbon::now()) >= 3) #b0130b @endif
+                                                @if($data->state === 2 || $data->state === 5 || $data->state === 6 || $data->state === 9 || $data->state === 4 || $data->state === 7) gray @endif"
+                                        class=" btn btn-info btn-block"><i class="fas fa-bell"></i> </span> 
+                                        @endif</td>
                                     <td> {{ $data->identification_number }} </td>
                                     <td> {{ $data->name }} </td>
                                     <td> {{ $data->last_name }} </td>
@@ -91,6 +103,7 @@
     <script>
         function data(dataId) {
             ontypeServiceSelectedProductEditModal(dataId)
+            onGetAsessorsForSubsidiary(dataId)
         }
 
         function ontypeServiceSelectedProductEditModal(dataId) {
@@ -98,11 +111,11 @@
             $('#lead_product_id' + dataId).prop("disabled", true);
             $('#employee_id' + dataId).prop("disabled", true);
 
-            var typeServiceEditSelected_id = $("#department_id" + dataId).val();
+            let typeServiceEditSelected_id = $("#department_id" + dataId).val();
             $.get('/admin/getDeparment/' + typeServiceEditSelected_id + '', function(data) {
-                var html_service = '<option selected value> Selecciona </option>';
+                let html_service = '<option selected value> Selecciona </option>';
                 let services = data[0].lead_services;
-                for (var i = 0; i < services.length; i++) {
+                for (let i = 0; i < services.length; i++) {
                     if ($('#lead_service_id' + dataId).val() == services[i].id) {
                         html_service += '<option value="' + services[i].id + '"  selected="selected">' + services[i]
                             .service + '</option>';
@@ -113,9 +126,9 @@
                 $('#lead_service_id' + dataId).prop("disabled", false);
 
                 // Productos
-                var html_products = '<option selected value> Selecciona </option>';
+                let html_products = '<option selected value> Selecciona </option>';
                 let products = data[0].lead_products;
-                for (var i = 0; i < products.length; i++) {
+                for (let i = 0; i < products.length; i++) {
                     if ($('#lead_product_id' + dataId).val() == products[i].id) {
                         html_products += '<option value="' + products[i].id + '"  selected="selected">' + products[
                             i].product + '</option>';
@@ -125,15 +138,23 @@
                 }
                 $('#lead_product_id' + dataId).html(html_products);
                 $('#lead_product_id' + dataId).prop("disabled", false);
+            });
 
-                // Productos
-                var html_employees = '<option selected value> Selecciona </option>';
-                let employees = data[0].employees;
-                for (var i = 0; i < employees.length; i++) {
+        };
+
+        function onGetAsessorsForSubsidiary(dataId) {
+            $('#employee_id' + dataId).prop("disabled", true);
+
+            let subsidiaryId = $("#subsidiary_id" + dataId).val();
+
+            $.get('/admin/getAsessors/' + subsidiaryId + '', function(data) {
+                let html_employees = '<option selected value> Selecciona </option>';
+                let employees = data;
+                for (let i = 0; i < employees.length; i++) {
                     if ($('#employee_id' + dataId).val() == employees[i].id) {
                         html_employees += '<option value="' + employees[i].id + '"  selected="selected">' +
                             employees[i].name + '</option>';
-                    }
+                    }   
                     html_employees += '<option value="' + employees[i].id + '" ">' + employees[i].name +
                         '</option>';
                 }

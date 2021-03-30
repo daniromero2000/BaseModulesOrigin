@@ -43,7 +43,10 @@ class Lead extends Model
         'employee_id',
         'lead_channel_id',
         'management_status_id',
-        'terms_and_conditions'
+        'terms_and_conditions',
+        'subsidiary_id',
+        'campaign_id',
+        'type_of_credit'
     ];
 
     protected $guarded = [

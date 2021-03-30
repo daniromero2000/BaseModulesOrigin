@@ -16,18 +16,21 @@
                         @foreach ($inputs as $input)
                             @if ($input['type'] == 'text' || $input['type'] == 'number' || $input['type'] == 'date' || $input['type'] == 'time' || $input['type'] == 'url' || $input['type'] == 'file')
                                 <div class="col-sm-6 col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
+                                    <label for="{{ $input['name'] }}"
+                                        class="form-control-label">{{ $input['label'] }}</label>
                                     <input type="{{ $input['type'] }}" id="{{ $input['name'] }}"
                                         value="{{ array_key_exists($input['name'], $data->getOriginal()) ? $data->getOriginal()[$input['name']] : '' }}"
                                         name='{{ $input['name'] }}' step="any" class="form-control">
                                 </div>
                             @elseif($input['type'] == 'select')
                                 <div class="col-sm-6 col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
-                                    <select class="form-control" name="{{ $input['name'] }}" id="{{ $input['name'] }}">
+                                    <label for="{{ $input['name'] }}"
+                                        class="form-control-label">{{ $input['label'] }}</label>
+                                    <select class="form-control" name="{{ $input['name'] }}"
+                                        id="{{ $input['name'] }}">
                                         @foreach ($input['options'] as $option)
                                             <option
-                                                {{ $data->getOriginal()[$input['name']] == $option['id'] ? "selected='selected'" : '' }}
+                                                {{ !array_key_exists('join', $input) ? ($data->getOriginal()[$input['name']] == $option['id'] ? "selected='selected'" : '') : ($data[$input['join']]['kind_of_person'] == $option['name'] ? "selected='selected'" : '') }}
                                                 value="{{ $option['id'] }}">{{ $option[$input['option']] }}
                                             </option>
                                         @endforeach
@@ -35,16 +38,10 @@
                                 </div>
                             @elseif($input['type'] == 'textarea')
                                 <div class="col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
-                                    <textarea class="form-control" name="{{ $input['name'] }}" id="{{ $input['name'] }}"
-                                        cols="10"
-                                        rows="5">{{ array_key_exists($input['name'], $data->getOriginal()) ? $data->getOriginal()[$input['name']] : '' }}</textarea>
-                                </div>
-                            @elseif($input['type'] == 'textarea')
-                                <div class="col-12 form-group">
-                                    <label for="{{ $input['name'] }}">{{ $input['label'] }}</label>
-                                    <textarea class="form-control" name="{{ $input['name'] }}" id="{{ $input['name'] }}"
-                                        cols="10"
+                                    <label for="{{ $input['name'] }}"
+                                        class="form-control-label">{{ $input['label'] }}</label>
+                                    <textarea class="form-control" name="{{ $input['name'] }}"
+                                        id="{{ $input['name'] }}" cols="10"
                                         rows="5">{{ array_key_exists($input['name'], $data->getOriginal()) ? $data->getOriginal()[$input['name']] : '' }}</textarea>
                                 </div>
                             @endif

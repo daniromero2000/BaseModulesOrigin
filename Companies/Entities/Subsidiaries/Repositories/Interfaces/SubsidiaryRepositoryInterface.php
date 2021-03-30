@@ -19,6 +19,8 @@ interface SubsidiaryRepositoryInterface
 
     public function findSubsidiaryById(int $id): Subsidiary;
 
+    public function findSubsidiaryForCompany(int $id);
+
     public function findTrashedSubsidiaryById(int $id): Subsidiary;
 
     public function deleteSubsidiary(): bool;

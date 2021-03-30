@@ -79,6 +79,15 @@ class SubsidiaryRepository implements SubsidiaryRepositoryInterface
         }
     }
 
+    public function findSubsidiaryForCompany(int $id)
+    {
+        try {
+            return $this->model->where('company_id', $id)->get();
+        } catch (ModelNotFoundException $e) {
+            abort(503, $e->getMessage());
+        }
+    }
+
     public function findTrashedSubsidiaryById(int $id): Subsidiary
     {
         try {

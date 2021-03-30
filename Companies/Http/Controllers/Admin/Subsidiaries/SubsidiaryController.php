@@ -84,6 +84,8 @@ class SubsidiaryController extends Controller
 
     public function store(CreateSubsidiaryRequest $request)
     {
+        $request->merge(['company_id' => auth()->guard('employee')->user()->company_id]);
+
         $this->subsidiaryInterface->createSubsidiary($request->except('_token', '_method'));
 
         return redirect()->route('admin.subsidiaries.index')
